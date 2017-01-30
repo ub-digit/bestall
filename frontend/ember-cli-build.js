@@ -6,6 +6,8 @@ module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     // Add options here
   });
+  app.import(app.bowerDirectory + '/bootstrap/dist/js/bootstrap.js');
+
 
   // Use `app.import` to add additional libraries to the generated
   // output files.
