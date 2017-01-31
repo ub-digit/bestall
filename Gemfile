@@ -30,3 +30,4 @@ gem 'ember-cli-rails'
 
 
 gem 'pg'
+gem 'rspec'
