@@ -13,7 +13,7 @@ def deploy_config
 end
 
 # Copied into /{app}/shared/config from respective sample file
-set :linked_files, ['config/config_full.yml', 'config/database.yml']
+set :linked_files, ['config/database.yml']
 
 server deploy_config['host'], user: deploy_config['user'], roles: ['app', 'db', 'web'], port: deploy_config['port']
 
