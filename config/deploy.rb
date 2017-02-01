@@ -3,7 +3,7 @@
 set :application, 'bestall'
 set :repo_url, 'https://github.com/ub-digit/bestall.git'
 
-set :rvm_ruby_version, '2.3.0'      # Defaults to: 'default'
+set :rvm_ruby_version, '2.3.1'      # Defaults to: 'default'
 
 # Returns config for current stage assigned in config/deploy.yml
 def deploy_config
