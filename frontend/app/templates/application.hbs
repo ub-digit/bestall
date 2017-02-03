@@ -1,5 +1,45 @@
+<div id="spinner">
+	<i class="fa fa-circle-o-notch fa-spin"></i>
+</div>
+
+{{environment-indicator}}
+<div class="gu-header-container">
+  <div class="container">
+    <div class="row gu-header">
+      <div class="col-xs-12">
+        <div class="logo {{getLocale}}">
+          <a href="http://www.gu.se">
+            <img class="visible-print-block" src={{t 'home.headers.logoPrintUrl'}} />
+          </a>
+        </div>
+        <div class="headers">
+          <div class="level1">
+            <a href="http://www.ub.gu.se">{{t 'home.headers.level1'}}</a>
+          </div>
+					<div class="level2">
+						<a href="/">{{t 'home.headers.level2'}}</a>
+					</div>
+        </div>
+        <div class="gu-header-links pull-right hidden-print">
+			<ul>
+				<li>{{toggle-lang lang=lang}}</li>
+			</ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container">
+	{{outlet}}
+</div>
 
-{{outlet}}
-
+<div class="gu-footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<p>{{{t 'home.footer.content'}}}</p>
+			</div>
+		</div>
+	</div>
 </div>

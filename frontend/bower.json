@@ -1,8 +1,11 @@
 {
   "name": "frontend",
   "dependencies": {
-    "ember": "~2.8.0",
+    "ember": "v2.11.0",
     "ember-cli-shims": "0.1.1",
     "bootstrap": "^3.3.7"
+  },
+  "devDependencies": {
+    "bootstrap-select": "^1.12.2"
   }
 }

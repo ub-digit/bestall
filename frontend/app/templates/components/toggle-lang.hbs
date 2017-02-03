@@ -1,0 +1,8 @@
+<select class="selectpicker" {{action 'setLocale' on='change'}}>
+  {{#each locales as |loc|}}
+    <option value="{{loc.id}}" selected={{is-equal loc.id i18n.locale}}>
+      {{loc.text}}
+    </option>
+  {{/each}}
+</select>
+
