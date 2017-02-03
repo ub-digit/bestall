@@ -29,6 +29,10 @@ export default {
 				"en": "English",
 			}
 		}	
+	},
+
+	"status-errors" : {
+		"404": "Vi hittade tyvärr inte posten du sökte.", 
 	}
 
 

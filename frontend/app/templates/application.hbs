@@ -9,7 +9,7 @@
       <div class="col-xs-12">
         <div class="logo {{getLocale}}">
           <a href="http://www.gu.se">
-            <img class="visible-print-block" {{bind-attr src=(t 'home.headers.logoPrintUrl')}} />
+            <img class="visible-print-block" src={{t 'home.headers.logoPrintUrl'}} />
           </a>
         </div>
         <div class="headers">
@@ -22,7 +22,7 @@
         </div>
         <div class="gu-header-links pull-right hidden-print">
 			<ul>
-				<li>{{toggle-lang}}</li>
+				<li>{{toggle-lang lang=lang}}</li>
 			</ul>
         </div>
       </div>
