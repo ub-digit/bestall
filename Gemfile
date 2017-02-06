@@ -28,12 +28,20 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'ember-cli-rails'
-
-
 gem 'pg'
-gem 'rspec'
-
 gem 'jquery-rails'
+
+group :development, :test do
+  gem 'rspec-rails', '~> 3.5'
+  gem 'shoulda'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
+end
+
+group :test do
+  gem 'webmock'
+  gem 'shoulda'
+end
 
 group :development do
   gem 'capistrano',  '~> 3.4.0'
