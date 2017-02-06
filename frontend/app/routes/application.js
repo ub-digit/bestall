@@ -11,13 +11,24 @@ export default Ember.Route.extend({
   	
 	i18n: Ember.inject.service(),
 
+	model() {
+		var that = this; 
+		return Ember.RSVP.hash({
+			casUrl: that.store.find('config', 'cas_url');
+		})
+	}
+
 	beforeModel(params) {
 		if (params.queryParams.lang) {
 			this.set("i18n.locale", params.queryParams.lang)
 		}
 	},
 
-	setupController(controller) {
+	setupController(controller, models) {
+		if (models.casUrl.cas_url) {
+			let casLoginUrl = model.casUrl.cas_url;
+			controller.set("casLoginUrl", casLoginUrl);
+		}
 	},
 
 	actions: {
