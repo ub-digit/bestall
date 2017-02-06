@@ -1,21 +1,20 @@
-
 production:
   host: host1.example.com
   port: 22
   user: username
-  path: '/apps/dFlow'
-  nvm_path: "/home/apps/.nvm/versions/node/v6.3.1/bin/"
+  path: '/path/to/application/on/server'
+  nvm_path: '/path/to/nvm/bin/dir/on/server'
 
 staging:
   host: host2.example.com
   port: 22
   user: username
-  path: '/apps/dFlow'
-  nvm_path: "/home/apps/.nvm/versions/node/v6.3.1/bin/"
+  path: '/path/on/server'
+  nvm_path: '/path/to/nvm/bin/dir/on/server'
 
 lab:
-  host: host3.example.com 
+  host: host3.example.com
   port: 22
   user: username
-  path: '/apps/dFlow'
-  nvm_path: "/home/apps/.nvm/versions/node/v6.3.1/bin/"
+  path: '/path/on/server'
+  nvm_path: '/path/to/nvm/bin/dir/on/server'
