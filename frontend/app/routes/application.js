@@ -14,9 +14,9 @@ export default Ember.Route.extend({
 	model() {
 		var that = this; 
 		return Ember.RSVP.hash({
-			casUrl: that.store.find('config', 'cas_url');
+			config: that.store.find('config', 1)
 		})
-	}
+	},
 
 	beforeModel(params) {
 		if (params.queryParams.lang) {
@@ -25,9 +25,8 @@ export default Ember.Route.extend({
 	},
 
 	setupController(controller, models) {
-		if (models.casUrl.cas_url) {
-			let casLoginUrl = model.casUrl.cas_url;
-			controller.set("casLoginUrl", casLoginUrl);
+		if (models.config) {
+			controller.set("config", models.config);
 		}
 	},
 
