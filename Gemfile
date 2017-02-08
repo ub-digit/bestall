@@ -30,6 +30,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'ember-cli-rails'
 gem 'pg'
 gem 'jquery-rails'
+gem 'rest-client'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.5'

@@ -42,12 +42,6 @@ module ErrorCodes
     code: "OBJECT_ERROR"
   }
 
-  # Used when a flow process step cannot be completed due to its' current state
-  QUEUE_ERROR = {
-    http_status: 422,
-    code: "QUEUE_ERROR"
-  }
-
   # Used when requested data could not be returned
   REQUEST_ERROR = {
     http_status: 404,

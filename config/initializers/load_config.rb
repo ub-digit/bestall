@@ -3,5 +3,4 @@ if Rails.env == 'test'
 else
   secret_config = YAML.load_file("#{Rails.root}/config/config_secret.yml")
 end
-
 APP_CONFIG = secret_config
