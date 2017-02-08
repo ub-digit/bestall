@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
-  resources :posts
 
   namespace :api, :defaults => {:format => :json} do
     resources :session
+    resources :bib_items
 
     get 'locations', to: 'location#index'
-
     get 'loantypes', to: 'loantype#index'
 
     # Config API
