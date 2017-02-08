@@ -2,7 +2,6 @@
 	<i class="fa fa-circle-o-notch fa-spin"></i>
 </div>
 
-{{environment-indicator}}
 <div class="gu-header-container">
   <div class="container">
     <div class="row gu-header">
@@ -31,7 +30,16 @@
 </div>
 
 <div class="container">
-	{{outlet}}
+  <div class="row">
+    <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+      <h1>Beställ och köa på böcker, kursböcker, artiklar etc</h1>
+
+      {{partial "step-nav"}}
+      
+      {{outlet}}
+    </div>
+	
+  </div>
 </div>
 
 <div class="gu-footer">

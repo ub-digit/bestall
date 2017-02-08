@@ -1,8 +1,10 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 
 export default DS.RESTAdapter.extend({
-  //namespace: 'api/v1',
-  host: 'http://localhost:3000',
+
+  host: 'http://localhost:3000/api/',
+
 
   handleResponse(status) {
     if (404 === status) {
