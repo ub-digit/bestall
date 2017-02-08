@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   namespace :api, :defaults => {:format => :json} do
     resources :session
 
+    get 'locations', to: 'location#index'
+
+    get 'loantypes', to: 'loantype#index'
+
     # Config API
     get 'config/:id', to: 'config#cas_url'
   end

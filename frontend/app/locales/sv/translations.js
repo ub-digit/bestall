@@ -28,7 +28,12 @@ export default {
 				"sv": "Svenska",
 				"en": "English",
 			}
-		}	
+		}
+	},
+
+	"start": {
+		"labelForLoantypeDropdown": "Välj typ av lån",
+		"labelForLocationDropdown": "Välj upphämntningsställe",
 	},
 
 	"status-errors" : {
