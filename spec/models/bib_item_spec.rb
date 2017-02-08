@@ -38,7 +38,7 @@ RSpec.describe BibItem, :type => :model do
       it "should return can_be_ordered" do
         bib_item = BibItem.find_by_id 1
         expect(bib_item).to_not be_nil
-        expect(bib_item.can_be_ordered).to eq(true)
+        expect(bib_item.can_be_ordered).to eq(false)
       end
     end
   end

@@ -47,9 +47,9 @@ class BibItem
     end
 
     if xml.search('//record/datafield[@tag="952"]/subfield[@code="y"]').text.present? && xml.search('//record/datafield[@tag="952"]/subfield[@code="y"]').text == '7'
-      @can_be_ordered = true
-    else
       @can_be_ordered = false
+    else
+      @can_be_ordered = true
     end
   end
 
