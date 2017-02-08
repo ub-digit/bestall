@@ -1,5 +1,5 @@
 <div id="spinner">
-	<i class="fa fa-circle-o-notch fa-spin"></i>
+  <i class="fa fa-circle-o-notch fa-spin"></i>
 </div>
 
 <div class="gu-header-container">
@@ -15,14 +15,16 @@
           <div class="level1">
             <a href="http://www.ub.gu.se">{{t 'home.headers.level1'}}</a>
           </div>
-					<div class="level2">
-						<a href="/">{{t 'home.headers.level2'}}</a>
-					</div>
+          <div class="level2">
+            <a href="/">{{t 'home.headers.level2'}}</a>
+          </div>
         </div>
         <div class="gu-header-links pull-right hidden-print">
-			<ul>
-				<li>{{toggle-lang lang=lang}}</li>
-			</ul>
+          <ul>
+            <li>{{#if application.casLoginUrl}}<a href="{{application.casLoginUrl}}">Logga in nu{{t 'login.casLogin'}}</a>{{/if}}</li>
+            <li><a href="{{application.casLoginUrl}}">{{t 'login.casLogin'}}</a></li>
+            <li>{{toggle-lang lang=lang}}</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -43,11 +45,11 @@
 </div>
 
 <div class="gu-footer">
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12">
-				<p>{{{t 'home.footer.content'}}}</p>
-			</div>
-		</div>
-	</div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <p>{{{t 'home.footer.content'}}}</p>
+      </div>
+    </div>
+  </div>
 </div>

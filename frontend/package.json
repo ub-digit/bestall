@@ -45,5 +45,8 @@
     "ember-welcome-page": "^1.0.1",
     "emberx-select": "2.2.1",
     "loader.js": "^4.0.1"
+  },
+  "dependencies": {
+    "ember-simple-auth": "^1.2.0"
   }
 }
