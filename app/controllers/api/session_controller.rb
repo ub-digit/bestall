@@ -8,8 +8,11 @@ class Api::SessionController < ApplicationController
 
     if params[:cas_ticket] && params[:cas_service]
       username = cas_validate(params[:cas_ticket], params[:cas_service])
+      p ["username", username]
       user_force_authenticated = true
       service = :cas
+    else
+      error_msg(ErrorCodes::AUTH_ERROR, "CAS ticket is mandatory.")
     end
 
     user = User.find_by_username(username)
