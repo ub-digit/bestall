@@ -5,7 +5,8 @@ class Api::SessionController < ApplicationController
   # Create a session, with a newly generated access token
   def create
     user_force_authenticated = false # True if authentication is ticket based
-
+    password = "dummy-not-used-with-cas"
+    
     if params[:cas_ticket] && params[:cas_service]
       username = cas_validate(params[:cas_ticket], params[:cas_service])
       p ["username", username]
@@ -59,11 +60,11 @@ class Api::SessionController < ApplicationController
       ticket: ticket
     }.to_param
     casValidateUrl = "#{casBaseUrl}/serviceValidate?#{casParams}"
-    pp ["casValidateUrl", casValidateUrl]
+#    pp ["casValidateUrl", casValidateUrl]
     open(casValidateUrl) do |u|
       doc = Nokogiri::XML(u.read)
       doc.remove_namespaces!
-      pp ["reply", doc.to_xml]
+#      pp ["reply", doc.to_xml]
       username = doc.search('//serviceResponse/authenticationSuccess/user').text
       return username if username
     end

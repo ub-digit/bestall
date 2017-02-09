@@ -23,3 +23,7 @@
 config/database.yml
 config/config_secret.yml
 config/deploy.yml
+
+*~
+.#*
+\#*#
