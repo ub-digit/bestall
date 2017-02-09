@@ -3,20 +3,15 @@ import DS from 'ember-data';
 import ENV from 'frontend/config/environment';
 
 export default Ember.Route.extend({
+	i18n: Ember.inject.service(),
+	session: Ember.inject.service(),
 	queryParams: {
 	    lang: {
 	      refreshModel: true
-	    },
-	    selectedLocation: {
-	    	//refreshModel: true
-	    },
-	    selectedLocation: {
-	    	//refreshModel: true
 	    }
   	},
   	
-	i18n: Ember.inject.service(),
-  session: Ember.inject.service(),
+
   casService: function() {
 //    var baseUrl = window.location.origin + ENV.rootURL;
     var baseUrl = window.location.origin;
@@ -36,18 +31,15 @@ export default Ember.Route.extend({
 	},
 
 	beforeModel(params) {
-    var that = this;
-    var session = this.get('session');
-    var ticket = params.queryParams.ticket;
-    if(ticket) {
-      session.authenticate('authenticator:cas', {
-        cas_ticket: ticket,
-        cas_service: this.casService()
-      });
-    }
-		if (params.queryParams.lang) {
-			this.set("i18n.locale", params.queryParams.lang)
-		}
+	    var that = this;
+	    var session = this.get('session');
+	    var ticket = params.queryParams.ticket;
+	    if(ticket) {
+	      session.authenticate('authenticator:cas', {
+	        cas_ticket: ticket,
+	        cas_service: this.casService()
+	      });
+	    }
 	},
 
 	setupController(controller, models) {
@@ -65,9 +57,7 @@ export default Ember.Route.extend({
 
 		if (models.loantypes) {
 			controller.set("loantypes", models.loantypes);
-			Ember.run.later(function() {
-				controller.set('selectedLoantype', models.loantypes.get('firstObject').id);	
-			});	
+
 		}
 
     controller.set('ticket', null);

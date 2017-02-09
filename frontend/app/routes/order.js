@@ -2,18 +2,10 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 	i18n: Ember.inject.service(),
+  	
 
 	model(params) {
-		if (params.id) {
-			//this.controllerFor("start").set("bibId", params.id);
-			return this.store.find('bib_item', params.id);
-		}
-		//if !params.id {this.transitionTo()}
-		//return this.get('store').find('post', params.id);
-	},
-
-	beforeModel() {
-
+		return this.store.find('bib_item', params.id);
 	},
 
 	setupController(controller, model) {
@@ -24,12 +16,6 @@ export default Ember.Route.extend({
 		else {
 			controller.set("model", model);
 		}
-	},
-
-	actions: {
-		moveForward: function() {
-			alert("transitionTo NEXT");
-		}
-
 	}
+
 });
