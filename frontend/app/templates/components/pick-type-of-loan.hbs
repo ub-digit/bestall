@@ -3,6 +3,7 @@
 </label>
 
 {{#x-select class="form-control" value=selectedLoantype as |item|}}
+	{{#item.option}}{{label}}{{/item.option}}
 	{{#each loantypes as |type|}}
   		{{#item.option value=type.id}}{{type.name_sv}}{{/item.option}}
   	{{/each}}

@@ -3,6 +3,7 @@
 {{label}}
 </label>
 {{#x-select class="form-control" value=selectedLocation as |item|}}
+	{{#item.option}}{{label}}{{/item.option}}
 	{{#each locations as |location|}}
   		{{#item.option value=location.id}}{{location.name_sv}}{{/item.option}}
   	{{/each}}
