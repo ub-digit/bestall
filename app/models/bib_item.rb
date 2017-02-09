@@ -19,7 +19,7 @@ class BibItem
     user =  APP_CONFIG['koha']['user']
     password =  APP_CONFIG['koha']['password']
 
-    url = "#{base_url}/#{id}?userid=#{user}&password=#{password}&items=1"
+    url = "#{base_url}/bib/#{id}?userid=#{user}&password=#{password}&items=1"
     response = RestClient.get url
     item = self.new id, response
     return item
@@ -47,9 +47,9 @@ class BibItem
     end
 
     if xml.search('//record/datafield[@tag="952"]/subfield[@code="y"]').text.present? && xml.search('//record/datafield[@tag="952"]/subfield[@code="y"]').text == '7'
-      @can_be_ordered = true
-    else
       @can_be_ordered = false
+    else
+      @can_be_ordered = true
     end
   end
 
