@@ -5,7 +5,7 @@ RSpec.describe Api::BibItemsController, type: :controller do
   describe "get show" do
     context "when bib item not exists" do
       before :each do
-        WebMock.stub_request(:get, "http://koha.example.com/999?items=1&password=password&userid=username").
+        WebMock.stub_request(:get, "http://koha.example.com/bib/999?items=1&password=password&userid=username").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com', 'User-Agent'=>'rest-client/2.0.0 (linux-gnu x86_64) ruby/2.3.1p112'}).
           to_return(:status => 404, :body => File.new("#{Rails.root}/spec/support/bib_item/koha-empty.xml"), :headers => {})
       end
@@ -18,7 +18,7 @@ RSpec.describe Api::BibItemsController, type: :controller do
 
     context "when bib item exists" do
       before :each do
-        WebMock.stub_request(:get, "http://koha.example.com/1?items=1&password=password&userid=username").
+        WebMock.stub_request(:get, "http://koha.example.com/bib/1?items=1&password=password&userid=username").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com', 'User-Agent'=>'rest-client/2.0.0 (linux-gnu x86_64) ruby/2.3.1p112'}).
           to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/bib_item/koha-1.xml"), :headers => {})
       end
