@@ -7,9 +7,12 @@ export default Ember.Route.extend({
 	    lang: {
 	      refreshModel: true
 	    },
-	   /* selectedLocation: {
-	    	refreshModel: true
-	    }*/
+	    selectedLocation: {
+	    	//refreshModel: true
+	    },
+	    selectedLocation: {
+	    	//refreshModel: true
+	    }
   	},
   	
 	i18n: Ember.inject.service(),
@@ -55,12 +58,16 @@ export default Ember.Route.extend({
 			controller.set('locations', models.locations);
 			// set selectedLocation to first object in array
 			// this should maybe be more intelligent with localstorage och whatever
-			controller.set('selectedLocation', models.locations.get('lastObject'));
+			Ember.run.later(function() {
+				controller.set('selectedLocation', null);	
+			});	
 		}
 
 		if (models.loantypes) {
 			controller.set("loantypes", models.loantypes);
-			controller.set('selectedLoantype', models.loantypes.get('lastObject'));
+			Ember.run.later(function() {
+				controller.set('selectedLoantype', models.loantypes.get('firstObject').id);	
+			});	
 		}
 
     controller.set('ticket', null);
