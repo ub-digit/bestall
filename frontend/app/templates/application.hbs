@@ -32,8 +32,22 @@
 </div>
 
 <div class="container">
-      <a href="{{casLoginUrl}}">Login</a>
+  <div class="row hidden-md hidden-lg">
+    <div class="col-xs-12">
+      {{progress-steps}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>Din beställning</h1>
+    </div>
+    <div class="col-md-3 hidden-xs hidden-sm">
+      {{progress-steps}}
+    </div>
+    <div class="col-md-9">
       {{outlet}}
+    </div>
+  </div>
 </div>
 
 <div class="gu-footer">
