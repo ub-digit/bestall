@@ -2,13 +2,7 @@
   <li>
     <div>Exemplar</div>
   </li>
-  <li class="active">
-    <div>Din beställning</div>
-  </li>
-  <li>
-    <div>Summering</div>
-  </li>
-  <li>
-    <div>Bekräftelse</div>
-  </li>
+  {{#link-to 'order.start' disabled=true tagName='li'}}<div>Din beställning</div>{{/link-to}}
+  {{#link-to 'order.summary' disabled=true tagName='li'}}<div>Summering</div>{{/link-to}}
+  {{#link-to 'order.confirmation' disabled=true tagName='li'}}<div>Bekräftelse</div>{{/link-to}}
 </ol>

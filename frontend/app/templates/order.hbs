@@ -1,9 +1,16 @@
-  <div class="row">
-    <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
-      <h1>Beställ och köa på böcker, kursböcker, artiklar etc</h1>
-
-      {{partial "partials/step-nav"}}
-      
-      {{outlet}}
-    </div>
+<div class="row hidden-md hidden-lg">
+  <div class="col-xs-12">
+    {{progress-steps}}
   </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <h1>Din beställning</h1>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm">
+    {{progress-steps}}
+  </div>
+  <div class="col-md-9">
+    {{outlet}}
+  </div>
+</div>
