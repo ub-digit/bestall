@@ -1,8 +1,16 @@
 
+
+
 <div class="row">
 	<div class="col-xs-12">
 	<h3>{{model.title}}</h3>
 	{{model.author}}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+	{{order.selectedLocation}}
 	</div>
 </div>
 
@@ -11,11 +19,9 @@
 <div class="row">
 	<div class="col-xs-12">
 		<div class="pull-right">
-			<button class="btn btn-link">Tillbaka</button>
-			<button class="btn btn-default">Avbryt</button>
-			<button class="btn btn-primary">Bekräfta beställning</button>
+			<button class="btn btn-link" {{action 'goBack'}}>Tillbaka</button>
+			<button class="btn btn-primary" {{action 'moveForward'}}>Bekräfta beställning</button>
 		</div>
 	</div>
 </div>
 
-{{outlet}}

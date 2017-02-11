@@ -1,14 +1,11 @@
 <label>
 {{label}}
 </label>
-
-{{#x-select class="form-control" value=selectedLoantype as |item|}}
+{{#x-select class="form-control" on-change=(action 'setValue') value=selectedItem as |item|}}
 	{{#item.option}}{{label}}{{/item.option}}
 	{{#each loantypes as |type|}}
   		{{#item.option value=type.id}}{{type.name_sv}}{{/item.option}}
   	{{/each}}
 {{/x-select}}
-
-{{yield}}
 
 
