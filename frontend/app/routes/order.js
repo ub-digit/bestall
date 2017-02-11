@@ -6,21 +6,16 @@ export default Ember.Route.extend({
 		location: {
 			replace: true
 		},
-
 		type: {
 			replace: true
 		}
-		
 	},
-
 	model(params) {
 		return this.store.find('bib_item', params.id);
 	},
-
 	setupController(controller, model) {
 		Ember.run.later(function() {
-			controller.set("type", "1");	
-			//controller.set("location", "2");
+			controller.set("type", "1");	// defaults to the first one in payload
 		});
 		
 		if (model.get("can_be_ordered")) {

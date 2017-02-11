@@ -7,6 +7,4 @@ export default Ember.Controller.extend({
 	queryParams: ['location', 'type'],
 	location: null,
 	type: null,
-
-
 });
