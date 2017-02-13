@@ -11,14 +11,14 @@ export default Ember.Route.extend({
 		}
 	},
 	model(params) {
-		return this.store.find('bib_item', params.id);
+		return this.store.find('biblio', params.id);
 	},
 	setupController(controller, model) {
 		Ember.run.later(function() {
 			controller.set("type", "1");	// defaults to the first one in payload
 		});
 		
-		if (model.get("can_be_ordered")) {
+		if (model.get("canBeOrdered")) {
 			// if not authenticated redirect to CAS-login
 			controller.set("model", model);
 		}
