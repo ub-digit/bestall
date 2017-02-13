@@ -8,9 +8,10 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
     this.route('order', { path: ':id' }, function() {
-        this.route("details");
-        this.route('summary');
-        this.route('confirmation');
+      this.route("details");
+      this.route('summary');
+      this.route('confirmation');
+      this.route('user-error');
     });
     
 });
