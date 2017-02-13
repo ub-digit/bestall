@@ -12,5 +12,25 @@ RSpec.describe Item, type: :model do
         expect(item.can_be_ordered).to be_truthy
       end
     end
+
+    context "item data can be parsed" do
+      before :each do
+        @xml = File.open("#{Rails.root}/spec/support/biblio/biblio-1.xml") { |f|
+          Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]').to_xml
+        }
+      end
+      it "should return a barcode" do
+        item = Item.new(biblio_id: 1, xml: @xml)
+        expect(item.barcode).to eq('1001821737')
+      end
+      it "should return an item call numer" do
+        item = Item.new(biblio_id: 1, xml: @xml)
+        expect(item.item_call_number).to eq('Kursbok')
+      end
+      it "should return an copy number" do
+        item = Item.new(biblio_id: 1, xml: @xml)
+        expect(item.copy_number).to eq('1')
+      end
+    end
   end
 end

@@ -5,9 +5,9 @@ export default DS.Model.extend({
   biblio: DS.belongsTo('biblio'),
   // location: DS.belongsTo('location'), // <subfield code="c">400004</subfield>
   itemType: DS.attr('string'),
-  itemCallNumber: DS.attr('string'),  // <subfield code="o">Kursbok</subfield>
-  copyNumber: DS.attr('string'),      // <subfield code="t">1</subfield>
-  barcode: DS.attr('string'),         // <subfield code="p">1001821737</subfield>
+  itemCallNumber: DS.attr('string'),
+  copyNumber: DS.attr('string'),
+  barcode: DS.attr('string'),
   status: DS.attr('string')
 
 });

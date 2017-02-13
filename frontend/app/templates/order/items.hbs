@@ -4,14 +4,22 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>Item Type</th>
+          <th>Placering</th>
+          <th>Hylla</th>
+          <th>Volym</th>
+          <th>Streckkod</th>
+          <th>Status</th>
         </tr>
       </thead>
       <tbody>
         {{#each order.model.items as |item|}}
         <tr>
           <td>{{item.id}}</td>
-          <td>{{item.itemType}}</td>
+          <td>[TODO]</td>
+          <td>{{item.itemCallNumber}}</td>
+          <td>{{item.copyNumber}}</td>
+          <td>{{item.barcode}}</td>
+          <td>[TODO]</td>
         </tr>
         {{/each}}
       </tbody>
