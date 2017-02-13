@@ -2,11 +2,10 @@ Rails.application.routes.draw do
 
   namespace :api, :defaults => {:format => :json} do
     resources :session
-    resources :bib_items
-    resources :borrowers
+    resources :biblios
 
-    get 'locations', to: 'location#index'
-    get 'loantypes', to: 'loantype#index'
+    get 'locations', to: 'locations#index'
+    get 'loan_types', to: 'loan_types#index'
 
     # Config API
     get 'config/:id', to: 'config#cas_url'

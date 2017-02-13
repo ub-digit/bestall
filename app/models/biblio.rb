@@ -1,4 +1,4 @@
-class BibItem
+class Biblio
   attr_accessor :id, :title, :author, :can_be_ordered
 
   include ActiveModel::Serialization
