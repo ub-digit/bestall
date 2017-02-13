@@ -50,6 +50,7 @@ export default {
 	},
 
   "order": {
+    "header": "Min beställning",
     "details": {
       "header": "Din beställning",
       "labelForLoantypeDropdown": "Välj typ av lån",

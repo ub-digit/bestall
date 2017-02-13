@@ -26,7 +26,7 @@ export default Ember.Route.extend({
 		return Ember.RSVP.hash({
 			config: that.store.find('config', 1),
 			locations: that.store.findAll('location'),
-			loantypes: that.store.findAll('loantype'),
+			loantypes: that.store.findAll('loanType'),
 		})
 	},
 
