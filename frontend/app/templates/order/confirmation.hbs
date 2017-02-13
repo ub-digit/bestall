@@ -1,14 +1,15 @@
-This is the confirmation page... 
+<div class="media">
+  <div class="media-left">
+    <a href="#">
+      <img class="media-object" src="http://placeholder.pics/svg/200" alt="...">
 
-
-<div class="row">
-	<div class="col-xs-12">
-		<div class="pull-right">
-			<button class="btn btn-link">Tillbaka</button>
-			<button class="btn btn-default">Avbryt</button>
-			<button class="btn btn-primary">Beställ</button>
-		</div>
-	</div>
+    </a>
+  </div>
+  <div class="media-body">
+    <h3 class="media-heading">{{model.title}}</h3>
+		<div>{{model.author}}</div>
+		<br/>
+		<div><strong>Upphämtningsställe: </strong>{{pickupLocation}}</div>
+		<div><strong>Typ av lån:</strong> {{typeOfLoan}}</div>
+  </div>
 </div>
-
-{{outlet}}

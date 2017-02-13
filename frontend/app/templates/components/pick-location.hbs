@@ -2,12 +2,14 @@
 <label>
 {{label}}
 </label>
-{{#x-select class="form-control" value=selectedLocation as |item|}}
+{{#x-select class="form-control" on-change=(action 'setValue') value=selectedItem  as |item|}}
 	{{#item.option}}{{label}}{{/item.option}}
-	{{#each locations as |location|}}
-  		{{#item.option value=location.id}}{{location.name_sv}}{{/item.option}}
+	{{#each locations as |loc|}}
+  		{{#item.option value=loc.id}}{{loc.name}}{{/item.option}}
   	{{/each}}
 {{/x-select}}
+
+
 
 
 

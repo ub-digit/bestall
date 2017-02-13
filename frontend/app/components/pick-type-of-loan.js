@@ -2,8 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 	actions: {
-		pickType(type) {
-			this.set("selectedLoantype", type);
+		setValue: function(value, event) {
+			this.set("selectedItem", value);
 		}
 	}
 });

@@ -12,12 +12,12 @@ export default Ember.Component.extend({
   }),
 
   didInsertElement: function() {
-	$('.selectpicker').selectpicker({
-		width: 'fit',
-		style: 'btn-primary',
-		// some settings availible here see
-		// https://silviomoreto.github.io/bootstrap-select/
-	});
+  	$('.selectpicker').selectpicker({
+  		width: 'fit',
+  		style: 'btn-primary',
+  		// some settings availible here see
+  		// https://silviomoreto.github.io/bootstrap-select/
+  	});
 
   },
 

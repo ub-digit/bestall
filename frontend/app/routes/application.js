@@ -7,7 +7,7 @@ export default Ember.Route.extend({
 	session: Ember.inject.service(),
 	queryParams: {
 	    lang: {
-	      refreshModel: true
+	     // refreshModel: true
 	    }
   	},
   	
@@ -34,11 +34,18 @@ export default Ember.Route.extend({
 	    var that = this;
 	    var session = this.get('session');
 	    var ticket = params.queryParams.ticket;
+	    var lang = params.queryParams.lang;
+
+
 	    if(ticket) {
 	      session.authenticate('authenticator:cas', {
 	        cas_ticket: ticket,
 	        cas_service: this.casService()
 	      });
+	    }
+
+	    if(lang) {
+	    	this.set('i18n.locale', lang);
 	    }
 	},
 
@@ -48,26 +55,20 @@ export default Ember.Route.extend({
 		}
 		if (models.locations) {
 			controller.set('locations', models.locations);
-			// set selectedLocation to first object in array
-			// this should maybe be more intelligent with localstorage och whatever
-			Ember.run.later(function() {
-				controller.set('selectedLocation', null);	
-			});	
 		}
 
 		if (models.loantypes) {
 			controller.set("loantypes", models.loantypes);
-
 		}
 
-    controller.set('ticket', null);
-    // Set CAS login URL
-    // if (model && model.casUrl.cas_url) {
-    //   var casLoginUrl = model.casUrl.cas_url + '/login?'+Ember.$.param({service: this.casService()});
-    //   controller.set('casLoginUrl', casLoginUrl);
-    // }
-    var casLoginUrl = 'https://idp3.it.gu.se/idp/profile/cas' + '/login?'+Ember.$.param({service: this.casService()});
-    controller.set('casLoginUrl', casLoginUrl);
+	    controller.set('ticket', null);
+	    // Set CAS login URL
+	    // if (model && model.casUrl.cas_url) {
+	    //   var casLoginUrl = model.casUrl.cas_url + '/login?'+Ember.$.param({service: this.casService()});
+	    //   controller.set('casLoginUrl', casLoginUrl);
+	    // }
+	    var casLoginUrl = 'https://idp3.it.gu.se/idp/profile/cas' + '/login?'+Ember.$.param({service: this.casService()});
+	    controller.set('casLoginUrl', casLoginUrl);
 	},
 
   actions: {
