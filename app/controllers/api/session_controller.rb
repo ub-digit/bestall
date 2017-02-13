@@ -6,7 +6,7 @@ class Api::SessionController < ApplicationController
   def create
     user_force_authenticated = false # True if authentication is ticket based
     password = "dummy-not-used-with-cas"
-    
+
     if params[:cas_ticket] && params[:cas_service]
       username = cas_validate(params[:cas_ticket], params[:cas_service])
       p ["username", username]
@@ -29,10 +29,11 @@ class Api::SessionController < ApplicationController
         error_msg(ErrorCodes::AUTH_ERROR, "Invalid credentials")
       end
     else
-      error_msg(ErrorCodes::AUTH_ERROR, "Invalid credentials")
+      error_msg(ErrorCodes::OBJECT_ERROR, "User not found in Koha: #{params[:username]}")
     end
     render_json
   end
+
 
   def show
     @response = {}
@@ -62,6 +63,7 @@ class Api::SessionController < ApplicationController
     casValidateUrl = "#{casBaseUrl}/serviceValidate?#{casParams}"
 #    pp ["casValidateUrl", casValidateUrl]
     open(casValidateUrl) do |u|
+      pp doc
       doc = Nokogiri::XML(u.read)
       doc.remove_namespaces!
 #      pp ["reply", doc.to_xml]
