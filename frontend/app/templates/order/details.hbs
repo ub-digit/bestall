@@ -8,19 +8,19 @@
 
 <div class="row">
 	<div class="col-xs-12 col-sm-8">
-	{{pick-location locations=application.locations selectedItem=order.location label=(t 'start.labelForLocationDropdown')}}
+	{{pick-location locations=application.locations selectedItem=order.location label=(t 'order.details.labelForLocationDropdown')}}
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-xs-12 col-sm-8">
-	{{pick-type-of-loan loantypes=application.loantypes selectedItem=order.type label=(t 'start.labelForLoantypeDropdown')}}
+	{{pick-type-of-loan loantypes=application.loantypes selectedItem=order.type label=(t 'order.details.labelForLoantypeDropdown')}}
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-xs-12">
-		<button class="btn btn-primary pull-right" disabled={{btnNextDisabled}} {{action 'moveForward'}}>Nästa <i class="fa fa-chevron-right"></i></button>
+		<button class="btn btn-primary pull-right" disabled={{btnNextDisabled}} {{action 'moveForward'}}>{{t 'order.details.btnNext'}} <i class="fa fa-chevron-right"></i></button>
 	</div>
 </div>
 
