@@ -21,19 +21,55 @@ export default {
     },
   },
 
+
+
+
+
 	"components": {
-		"toggle-lang": {
-			"language": {
-				"sv": "Svenska",
-				"en": "English",
-			}
-		}
+    "toggle-lang": {
+    	"language": {
+    		"sv": "Svenska",
+    		"en": "English",
+    	}
+    },
+
+
+    "pick-location": {
+
+    },
+    "pick-type-of-loan": {
+
+    },
+
+    "progress-steps": {
+      "step-details-label": "Din beställning",
+      "step-summary-label": "Sammanfattning",
+      "step-confirmation-label": "Bekräftelse",
+      "step-item-label": "Exemplar",
+    }
 	},
 
-	"start": {
-		"labelForLoantypeDropdown": "Välj typ av lån",
-		"labelForLocationDropdown": "Välj upphämntningsställe",
-	},
+  "order": {
+    "header": "Min beställning",
+    "details": {
+      "header": "Din beställning",
+      "labelForLoantypeDropdown": "Välj typ av lån",
+      "labelForLocationDropdown": "Välj upphämntningsställe",
+      "btnNext": "Nästa"
+    },
+    "confirmation": {
+
+    },
+    "summary": {
+
+    },
+    "user-error": {
+
+    },
+  },
+
+
+
 
   "status-errors" : {
     "404": "Vi hittade tyvärr inte posten du sökte.",

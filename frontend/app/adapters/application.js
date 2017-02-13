@@ -1,7 +1,8 @@
 import DS from 'ember-data';
+import ActiveModelAdapter from 'active-model-adapter';
 import Ember from 'ember';
 
-export default DS.RESTAdapter.extend({
+export default ActiveModelAdapter.extend({
   host: '/api',
   handleResponse(status) {
     if (404 === status) {
