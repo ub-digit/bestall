@@ -6,14 +6,14 @@
 </div>
 
 
-<div class="row vertical-space-bottom-20">
-	<div class="col-xs-12">
+<div class="row">
+	<div class="col-xs-12 col-sm-8">
 	{{pick-location locations=application.locations selectedItem=order.location label=(t 'start.labelForLocationDropdown')}}
 	</div>
 </div>
 
 <div class="row">
-	<div class="col-xs-12">
+	<div class="col-xs-12 col-sm-8">
 	{{pick-type-of-loan loantypes=application.loantypes selectedItem=order.type label=(t 'start.labelForLoantypeDropdown')}}
 	</div>
 </div>
