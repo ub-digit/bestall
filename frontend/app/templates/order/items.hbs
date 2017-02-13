@@ -1,0 +1,25 @@
+<div class="row">
+	<div class="col-xs-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Item Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each order.model.items as |item|}}
+        <tr>
+          <td>{{item.id}}</td>
+          <td>{{item.itemType}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<button class="btn btn-primary pull-right" disabled={{btnNextDisabled}} {{action 'moveForward'}}>{{t 'order.items.btnNext'}} <i class="fa fa-chevron-right"></i></button>
+	</div>
+</div>
