@@ -1,11 +1,21 @@
 class Biblio
-  attr_accessor :id, :title, :author, :can_be_ordered
+  attr_accessor :id, :title, :author, :items
 
   include ActiveModel::Serialization
   include ActiveModel::Validations
 
+
+  def can_be_ordered
+
+    @items.each do |item|
+      return true if item.can_be_ordered
+    end
+
+    return false
+  end
+
   def as_json options = {}
-    super(except: ['xml'])
+    super(except: ['xml'], include: ['can_be_ordered'])
   end
 
   def initialize id, xml
@@ -34,6 +44,8 @@ class Biblio
   def parse_xml
     xml = Nokogiri::XML(@xml).remove_namespaces!
 
+    @items = []
+
     @author = xml.search('//record/datafield[@tag="100"]/subfield[@code="a"]').text
 
     if xml.search('//record/datafield[@tag="245"]/subfield[@code="a"]').text.present?
@@ -45,6 +57,12 @@ class Biblio
     if xml.search('//record/datafield[@tag="245"]/subfield[@code="p"]').text.present?
       @title = @title + ' ' + xml.search('//record/datafield[@tag="245"]/subfield[@code="p"]').text
     end
+
+
+    xml.search('//record/datafield[@tag="952"]').each do |item_data|
+      @items << Item.new(biblio_id: self.id, xml: item_data.to_xml)
+    end
+
 
     if xml.search('//record/datafield[@tag="952"]/subfield[@code="y"]').text.present? && xml.search('//record/datafield[@tag="952"]/subfield[@code="y"]').text == '7'
       @can_be_ordered = false
