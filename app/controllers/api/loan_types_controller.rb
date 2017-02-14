@@ -1,6 +1,7 @@
 class Api::LoanTypesController < ApplicationController
 	def index
-		@response[:loan_types] = [{id: "1", name_sv: 'Hemlån', name_en: 'Homeloan'}, {id: "2", name_sv: 'Bortlån', name_en: 'Goneloan'}]
-		render_json
+    loan_types = LoanType.all
+    @response[:loan_types] = loan_types.as_json
+    render_json
 	end
 end
