@@ -1,5 +1,5 @@
 class Item
-  attr_accessor :id, :biblio_id, :item_type, :barcode, :item_call_number, :copy_number
+  attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number, :copy_number
 
   include ActiveModel::Serialization
   include ActiveModel::Validations
@@ -18,6 +18,8 @@ class Item
     parsed_xml = Nokogiri::XML(xml).remove_namespaces!
 
     @id = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="9"]').text
+
+    @sublocation_id = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="c"]').text
 
     @item_type = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="y"]').text
 

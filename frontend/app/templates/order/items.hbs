@@ -3,7 +3,6 @@
     <table class="table">
       <thead>
         <tr>
-          <th>#</th>
           <th>Placering</th>
           <th>Hylla</th>
           <th>Volym</th>
@@ -13,9 +12,8 @@
       </thead>
       <tbody>
         {{#each order.model.items as |item|}}
-        <tr>
-          <td>{{item.id}}</td>
-          <td>[TODO]</td>
+        <tr>          
+          <td>{{item.sublocation.name}}</td>
           <td>{{item.itemCallNumber}}</td>
           <td>{{item.copyNumber}}</td>
           <td>{{item.barcode}}</td>

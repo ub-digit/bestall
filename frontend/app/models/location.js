@@ -2,6 +2,8 @@ import DS from 'ember-data';
 
 export default DS.Model.extend({
 	i18n: Ember.inject.service(),
+
+	sublocations: DS.hasMany('sublocation'),
 	nameSv: DS.attr(),
 	nameEn: DS.attr(),
 

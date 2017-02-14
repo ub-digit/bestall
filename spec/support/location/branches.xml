@@ -1,16 +1,16 @@
 <?xml version='1.0' standalone='yes'?>
 <response>
   <branches>
-    <branchaddress1>Address1</branchaddress1>
+    <branchaddress1>Address2</branchaddress1>
     <branchaddress2></branchaddress2>
     <branchaddress3></branchaddress3>
-    <branchcity>City1</branchcity>
-    <branchcode>10</branchcode>
+    <branchcity>City2</branchcity>
+    <branchcode>11</branchcode>
     <branchcountry>SWE</branchcountry>
     <branchemail></branchemail>
     <branchfax></branchfax>
     <branchip></branchip>
-    <branchname>Brach1</branchname>
+    <branchname>Brach2</branchname>
     <branchnotes></branchnotes>
     <branchphone></branchphone>
     <branchprinter></branchprinter>
@@ -23,16 +23,16 @@
     <opac_info></opac_info>
   </branches>
   <branches>
-    <branchaddress1>Address2</branchaddress1>
+    <branchaddress1>Address1</branchaddress1>
     <branchaddress2></branchaddress2>
     <branchaddress3></branchaddress3>
-    <branchcity>City2</branchcity>
-    <branchcode>11</branchcode>
+    <branchcity>City1</branchcity>
+    <branchcode>10</branchcode>
     <branchcountry>SWE</branchcountry>
     <branchemail></branchemail>
     <branchfax></branchfax>
     <branchip></branchip>
-    <branchname>Brach2</branchname>
+    <branchname>Brach1</branchname>
     <branchnotes></branchnotes>
     <branchphone></branchphone>
     <branchprinter></branchprinter>

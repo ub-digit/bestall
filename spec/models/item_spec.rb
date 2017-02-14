@@ -31,6 +31,10 @@ RSpec.describe Item, type: :model do
         item = Item.new(biblio_id: 1, xml: @xml)
         expect(item.copy_number).to eq('1')
       end
+      it "should return an sublocation id" do
+        item = Item.new(biblio_id: 1, xml: @xml)
+        expect(item.sublocation_id).to eq('400004')
+      end
     end
   end
 end

@@ -3,7 +3,7 @@ import DS from 'ember-data';
 export default DS.Model.extend({
 
   biblio: DS.belongsTo('biblio'),
-  // location: DS.belongsTo('location'), // <subfield code="c">400004</subfield>
+  sublocation: DS.belongsTo('sublocation'),
   itemType: DS.attr('string'),
   itemCallNumber: DS.attr('string'),
   copyNumber: DS.attr('string'),
