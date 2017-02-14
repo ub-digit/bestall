@@ -1,0 +1,33 @@
+<div class="row">
+	<div class="col-xs-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Placering</th>
+          <th>Hylla</th>
+          <th>Volym</th>
+          <th>Streckkod</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each order.model.items as |item|}}
+        <tr>
+          <td>{{item.id}}</td>
+          <td>[TODO]</td>
+          <td>{{item.itemCallNumber}}</td>
+          <td>{{item.copyNumber}}</td>
+          <td>{{item.barcode}}</td>
+          <td>[TODO]</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<button class="btn btn-primary pull-right" disabled={{btnNextDisabled}} {{action 'moveForward'}}>{{t 'order.items.btnNext'}} <i class="fa fa-chevron-right"></i></button>
+	</div>
+</div>

@@ -12,6 +12,7 @@ Router.map(function() {
       this.route('summary');
       this.route('confirmation');
       this.route('user-error');
+      this.route('items');
     });
     
 });

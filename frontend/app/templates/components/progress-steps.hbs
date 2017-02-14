@@ -1,7 +1,5 @@
 <ol class="steps-list">
-  <li>
-    <div>{{t 'components.progress-steps.step-item-label'}}</div>
-  </li>
+  {{#link-to 'order.items' disabled=true tagName='li'}}<div>{{t 'components.progress-steps.step-items-label'}}</div>{{/link-to}}
   {{#link-to 'order.details' disabled=true tagName='li'}}<div>{{t 'components.progress-steps.step-details-label'}}</div>{{/link-to}}
   {{#link-to 'order.summary' disabled=true tagName='li'}}<div>{{t 'components.progress-steps.step-summary-label'}}</div>{{/link-to}}
   {{#link-to 'order.confirmation' disabled=true tagName='li'}}<div>{{t 'components.progress-steps.step-confirmation-label'}}</div>{{/link-to}}

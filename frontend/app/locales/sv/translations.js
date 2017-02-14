@@ -42,15 +42,18 @@ export default {
     },
 
     "progress-steps": {
+      "step-items-label": "Exemplar",
       "step-details-label": "Din beställning",
       "step-summary-label": "Sammanfattning",
-      "step-confirmation-label": "Bekräftelse",
-      "step-item-label": "Exemplar",
+      "step-confirmation-label": "Bekräftelse"
     }
 	},
 
   "order": {
     "header": "Min beställning",
+    "items": {
+      "btnNext": "Nästa"
+    },
     "details": {
       "header": "Din beställning",
       "labelForLoantypeDropdown": "Välj typ av lån",
