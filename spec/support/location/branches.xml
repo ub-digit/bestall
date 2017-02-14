@@ -1,0 +1,91 @@
+<?xml version='1.0' standalone='yes'?>
+<response>
+  <branches>
+    <branchaddress1>Goteborgs universitet</branchaddress1>
+    <branchaddress2>Univ-bibl 8030BJJENF</branchaddress2>
+    <branchaddress3>Box 1023</branchaddress3>
+    <branchcity>Ostersund</branchcity>
+    <branchcode>3058308</branchcode>
+    <branchcountry>SWE</branchcountry>
+    <branchemail></branchemail>
+    <branchfax></branchfax>
+    <branchip></branchip>
+    <branchname>Samhvet bibl Adlib KS BILL</branchname>
+    <branchnotes></branchnotes>
+    <branchphone></branchphone>
+    <branchprinter></branchprinter>
+    <branchreplyto></branchreplyto>
+    <branchreturnpath></branchreturnpath>
+    <branchstate></branchstate>
+    <branchurl></branchurl>
+    <branchzip>831 29</branchzip>
+    <issuing></issuing>
+    <opac_info></opac_info>
+  </branches>
+  <branches>
+    <branchaddress1>Goteborgs universitet</branchaddress1>
+    <branchaddress2>Univ-bibl 8030BJJENF</branchaddress2>
+    <branchaddress3>Box 1023</branchaddress3>
+    <branchcity>Ostersund</branchcity>
+    <branchcode>5108746</branchcode>
+    <branchcountry>SWE</branchcountry>
+    <branchemail></branchemail>
+    <branchfax></branchfax>
+    <branchip></branchip>
+    <branchname>Samhvet bibl Adlib xbest BILL</branchname>
+    <branchnotes></branchnotes>
+    <branchphone></branchphone>
+    <branchprinter></branchprinter>
+    <branchreplyto></branchreplyto>
+    <branchreturnpath></branchreturnpath>
+    <branchstate></branchstate>
+    <branchurl></branchurl>
+    <branchzip>83129</branchzip>
+    <issuing></issuing>
+    <opac_info></opac_info>
+  </branches>
+  <branches>
+    <branchaddress1>Hum bib</branchaddress1>
+    <branchaddress2>Lundgrensgatan 1</branchaddress2>
+    <branchaddress3></branchaddress3>
+    <branchcity>Goteborg</branchcity>
+    <branchcode>422</branchcode>
+    <branchcountry></branchcountry>
+    <branchemail></branchemail>
+    <branchfax></branchfax>
+    <branchip></branchip>
+    <branchname>Samhvet bibl c/o HUM bibl</branchname>
+    <branchnotes></branchnotes>
+    <branchphone></branchphone>
+    <branchprinter></branchprinter>
+    <branchreplyto></branchreplyto>
+    <branchreturnpath></branchreturnpath>
+    <branchstate></branchstate>
+    <branchurl></branchurl>
+    <branchzip>SE 412 56</branchzip>
+    <issuing></issuing>
+    <opac_info></opac_info>
+  </branches>
+  <branches>
+    <branchaddress1></branchaddress1>
+    <branchaddress2></branchaddress2>
+    <branchaddress3></branchaddress3>
+    <branchcity></branchcity>
+    <branchcode>66</branchcode>
+    <branchcountry></branchcountry>
+    <branchemail></branchemail>
+    <branchfax></branchfax>
+    <branchip></branchip>
+    <branchname>Studietorget Hälsovetarbacken</branchname>
+    <branchnotes></branchnotes>
+    <branchphone></branchphone>
+    <branchprinter></branchprinter>
+    <branchreplyto></branchreplyto>
+    <branchreturnpath></branchreturnpath>
+    <branchstate></branchstate>
+    <branchurl></branchurl>
+    <branchzip></branchzip>
+    <issuing></issuing>
+    <opac_info></opac_info>
+  </branches>
+</response>
