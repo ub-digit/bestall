@@ -1,13 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::SessionController, :type => :controller do
-  before :each do
-    WebMock.disable_net_connect!
-  end
-  after :each do
-    WebMock.allow_net_connect!
-  end
-
   describe "create" do
     context "when patron not exists in Koha" do
       before :each do
