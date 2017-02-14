@@ -9,11 +9,11 @@ class Api::SessionController < ApplicationController
 
     if params[:cas_ticket] && params[:cas_service]
       username = cas_validate(params[:cas_ticket], params[:cas_service])
-      p ["username", username]
       user_force_authenticated = true
       service = :cas
     else
       error_msg(ErrorCodes::AUTH_ERROR, "CAS ticket is mandatory.")
+      render_json
     end
 
     user = User.find_by_username(username)
@@ -61,12 +61,9 @@ class Api::SessionController < ApplicationController
       ticket: ticket
     }.to_param
     casValidateUrl = "#{casBaseUrl}/serviceValidate?#{casParams}"
-#    pp ["casValidateUrl", casValidateUrl]
     open(casValidateUrl) do |u|
-      pp doc
       doc = Nokogiri::XML(u.read)
       doc.remove_namespaces!
-#      pp ["reply", doc.to_xml]
       username = doc.search('//serviceResponse/authenticationSuccess/user').text
       return username if username
     end
