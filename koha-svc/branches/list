@@ -1,0 +1,27 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use CGI qw ( -utf8 );
+use C4::Auth qw/check_api_auth/;
+use Koha::Template::Plugin::Branches;
+use XML::Simple;
+
+my $query = new CGI;
+binmode STDOUT, ':encoding(UTF-8)';
+
+my ($status, $cookie, $sessionID) = check_api_auth($query, { editcatalogue => 'edit_catalogue'} );
+unless ($status eq "ok") {
+  print $query->header(-type => 'text/xml', -status => '403 Forbidden');
+  print XMLout({ auth_status => $status }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+  exit 0;
+}
+
+my $branches = Koha::Template::Plugin::Branches::all();
+
+print $query->header(-type => 'text/xml',-charset => 'utf-8');
+
+print XMLout({ branches => $branches }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+
+exit 0;
