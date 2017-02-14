@@ -12,6 +12,13 @@ class Location
 
   end
 
+  def as_json options={}
+
+    super.merge({
+      sublocations: Sublocation.find_all_by_location_id(id)
+    })
+  end
+
   def self.all
     base_url = APP_CONFIG['koha']['base_url']
     user =  APP_CONFIG['koha']['user']
@@ -19,7 +26,9 @@ class Location
 
     url = "#{base_url}/branches/list?userid=#{user}&password=#{password}"
     response = RestClient.get url
-    parse_xml(response)
+    parse_xml(response).sort_by do |location|
+      location.id.to_i
+    end
   end
 
   def self.parse_xml xml
