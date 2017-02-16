@@ -36,5 +36,8 @@ export default {
 
   "login": {
     "casLogin": "Log in"
+  },
+  "request-errors": {
+    "NO_ID":"This is a NO ID Error"
   }
 };
