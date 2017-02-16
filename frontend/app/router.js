@@ -14,6 +14,7 @@ Router.map(function() {
       this.route('summary');
       this.route('confirmation');
     });
+    this.route('request-error');
   });
 });
 
