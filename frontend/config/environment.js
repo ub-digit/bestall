@@ -48,5 +48,9 @@ module.exports = function(environment) {
   ENV.i18n = {
     defaultLocale: 'sv'
   }
+  ENV.error_codes = {
+    NO_ID: "NO_ID"
+  }
+
   return ENV;
 };

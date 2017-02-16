@@ -55,5 +55,8 @@ export default {
 
   "login": {
     "casLogin": "Logga in"
+  },
+  "request-errors": {
+    "NO_ID":"Det saknas ett ID"
   }
 };
