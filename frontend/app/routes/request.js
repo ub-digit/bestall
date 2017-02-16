@@ -12,9 +12,6 @@ export default Ember.Route.extend({
         cas_ticket: ticket,
         cas_service: this.returnUrl(biblioId)
       });
-    } else {
-      let url = this.casUrl() + '?' + Ember.$.param({service: this.returnUrl(biblioId)});
-      window.location.replace(url);
     }
   },
 
@@ -25,6 +22,14 @@ export default Ember.Route.extend({
 	},
 
   afterModel(model, transition) {
+    let ticket = transition.queryParams.ticket;
+    let biblioId = transition.params.request.id;
+
+    if (!ticket) {
+      let url = this.casLoginUrl() + '?' + Ember.$.param({service: this.returnUrl(biblioId)});
+      window.location.replace(url);
+      return;
+    }
 
     // TODO: inspect model to assess if Biblio can be ordered
     this.replaceWith('request.order.items');
@@ -33,7 +38,7 @@ export default Ember.Route.extend({
 
   setupController(controller, model) {
     controller.set('ticket', null);
-    controller.set('model', model);    
+    controller.set('model', model);
   },
 
   returnUrl(id) {
@@ -43,7 +48,7 @@ export default Ember.Route.extend({
     return baseUrl + routeUrl;
   },
 
-  casUrl() {
+  casLoginUrl() {
     return this.get('store').peekRecord('config', 1).get('casurl') + '/login';
   }
 });
