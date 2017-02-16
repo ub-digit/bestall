@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :api, :defaults => {:format => :json} do
     resources :session
     resources :biblios
+    resources :reserves
 
     get 'locations', to: 'locations#index'
     get 'loan_types', to: 'loan_types#index'
