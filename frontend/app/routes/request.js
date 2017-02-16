@@ -2,7 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
-	model() {
-		return this.modelFor("order");
+  model(params) {
+		return this.store.find('biblio', params.id);
 	}
+
 });

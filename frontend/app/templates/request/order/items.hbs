@@ -8,16 +8,18 @@
           <th>Volym</th>
           <th>Streckkod</th>
           <th>Status</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
-        {{#each order.model.items as |item|}}
-        <tr>          
+        {{#each request.model.items as |item|}}
+        <tr>
           <td>{{item.sublocation.name}}</td>
           <td>{{item.itemCallNumber}}</td>
           <td>{{item.copyNumber}}</td>
           <td>{{item.barcode}}</td>
           <td>[TODO]</td>
+          <td><button class="btn btn-xs btn-default">Beställ</button></td>
         </tr>
         {{/each}}
       </tbody>
@@ -25,7 +27,7 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-xs-12">
-		<button class="btn btn-primary pull-right" disabled={{btnNextDisabled}} {{action 'moveForward'}}>{{t 'order.items.btnNext'}} <i class="fa fa-chevron-right"></i></button>
+	<div class="col-sm-6 pull-right">
+		<button class="btn btn-block btn-primary pull-right" disabled={{btnNextDisabled}} {{action 'moveForward'}}>{{t 'request.order.items.btnNext'}}</button>
 	</div>
 </div>

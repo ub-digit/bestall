@@ -6,11 +6,11 @@ export default Ember.Route.extend({
 	i18n: Ember.inject.service(),
 	session: Ember.inject.service(),
 	queryParams: {
-	    lang: {
-	     // refreshModel: true
-	    }
-  	},
-  	
+    lang: {
+     // refreshModel: true
+    }
+	},
+
 
   casService: function() {
 //    var baseUrl = window.location.origin + ENV.rootURL;
@@ -22,11 +22,9 @@ export default Ember.Route.extend({
 
 
 	model() {
-		var that = this; 
+		var that = this;
 		return Ember.RSVP.hash({
-			config: that.store.find('config', 1),
-			locations: that.store.findAll('location'),
-			loantypes: that.store.findAll('loanType'),
+			config: that.store.find('config', 1)
 		})
 	},
 

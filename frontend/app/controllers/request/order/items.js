@@ -2,6 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
-  order: Ember.inject.controller()
-  
+  request: Ember.inject.controller()
+
 });

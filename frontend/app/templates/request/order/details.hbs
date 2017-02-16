@@ -1,0 +1,27 @@
+<div class="row">
+	<div class="col-xs-12">
+		<h3>{{request.model.title}}</h3>
+		<div class="author">{{request.model.author}}</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12 col-sm-8">
+	{{pick-location locations=order.model.locations selectedItem=order.location label=(t 'request.order.details.labelForLocationDropdown')}}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12 col-sm-8">
+	{{pick-type-of-loan loantypes=order.model.loantypes selectedItem=order.type label=(t 'request.order.details.labelForLoantypeDropdown')}}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-6">
+		<button class="btn btn-block btn-default" {{action 'goBack'}}>Tillbaka</button>
+	</div>
+	<div class="col-sm-6">
+		<button class="btn btn-block btn-primary pull-right" disabled={{btnNextDisabled}} {{action 'moveForward'}}>{{t 'request.order.details.btnNext'}}</button>
+	</div>
+</div>
