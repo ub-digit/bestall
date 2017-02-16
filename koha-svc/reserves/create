@@ -1,0 +1,92 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use CGI qw ( -utf8 );
+use XML::Simple;
+use C4::Auth qw/check_api_auth/;
+
+use C4::Biblio;
+use C4::Reserves;
+use Koha::Patrons;
+use Koha::Holds;
+
+
+my $query = new CGI;
+binmode STDOUT, ':encoding(UTF-8)';
+
+my ($status, $cookie, $sessionID) = check_api_auth($query, { editcatalogue => 'edit_catalogue'} );
+unless ($status eq "ok") {
+  print $query->header(-type => 'text/xml', -status => '403 Forbidden');
+  print XMLout({ auth_status => $status }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+  exit 0;
+}
+
+my $borrowernumber = $query->param('borrowernumber');
+my $biblionumber = $query->param('biblionumber');
+my $itemnumber = $query->param('itemnumber');
+my $branchcode = $query->param('branchcode');
+
+my $borrower = Koha::Patrons->find($borrowernumber);
+
+unless ($borrower) {
+  print $query->header(-type => 'text/xml', -status => '404');
+  print XMLout({ auth_status => "Borrower not found" }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+  exit 0;
+}
+
+unless ($biblionumber or $itemnumber) {
+  print $query->header(-type => 'text/xml', -status => '400');
+  print XMLout({ auth_status => "At least one of biblionumber, itemnumber should be given" }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+  exit 0;
+}
+
+unless ($branchcode) {
+  print $query->header(-type => 'text/xml', -status => '400');
+  print XMLout({ auth_status => "Branchcode is required" }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+  exit 0;
+}
+
+if ($itemnumber) {
+  my $item_biblionumber = C4::Biblio::GetBiblionumberFromItemnumber($itemnumber);
+  if ($biblionumber and $biblionumber != $item_biblionumber) {
+    print $query->header(-type => 'text/xml', -status => '400');
+    print XMLout({ auth_status => "Item $itemnumber doesn't belong to biblio $biblionumber" }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+    exit 0;
+  }
+  $biblionumber ||= $item_biblionumber;
+}
+
+my $biblio = C4::Biblio::GetBiblio($biblionumber);
+
+my $can_reserve =
+  $itemnumber
+  ? CanItemBeReserved( $borrowernumber, $itemnumber )
+  : CanBookBeReserved( $borrowernumber, $biblionumber );
+
+
+unless ($can_reserve eq 'OK') {
+  print $query->header(-type => 'text/xml', -status => '403');
+  print XMLout({ auth_status => "Reserve cannot be placed. Reason: $can_reserve" }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+  exit 0;
+}
+
+my $priority = C4::Reserves::CalculatePriority($biblionumber);
+$itemnumber ||= undef;
+
+
+my $reserve_id = C4::Reserves::AddReserve($branchcode, $borrowernumber, $biblionumber, undef, $priority, undef, undef, undef, $biblio->{title}, $itemnumber);
+
+unless ($reserve_id) {
+  print $query->header(-type => 'text/xml', -status => '500');
+  print XMLout({ auth_status => "Unknown error while placing reserve" }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+  exit 0;
+}
+
+my $reserve = C4::Reserves::GetReserve($reserve_id);
+
+print $query->header(-type => 'text/xml',-charset => 'utf-8', -status => '201');
+print XMLout({ reserve => $reserve }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+exit 0;
+
