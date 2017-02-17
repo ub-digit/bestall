@@ -40,7 +40,7 @@ RSpec.describe Api::SessionController, :type => :controller do
 
         expect(json['access_token']).to be_truthy
         expect(json['token_type']).to eq("bearer")
-        expect(json['access_token']).to eq(AccessToken.find_by_username('xtest').token)
+        expect(json['access_token']['token']).to eq(AccessToken.find_by_username('xtest').token)
       end
 
       it "should return a user object" do

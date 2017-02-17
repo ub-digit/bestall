@@ -23,7 +23,7 @@ RSpec.describe AccessToken, :type => :model do
   end
 
   describe "generate_token" do
-    it "should return token when user with username is provided" do
+    it "should return token when user with user is provided" do
       user = User.new(username: "testuser", first_name: "Test", last_name: "User")
       at = AccessToken.generate_token(user)
       expect(at.token).to_not be_nil

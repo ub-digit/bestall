@@ -39,16 +39,6 @@ class User
     return nil
   end
 
-
-  # Password not used with CAS, left in place for later. Force auth will be true for CAS
-  def authenticate(provided_password, force_authenticate=false)
-    if force_authenticate
-      token_object = AccessToken.generate_token(self)
-      return token_object.token
-    end
-    return nil
-  end
-
   def parse_xml
     xml = Nokogiri::XML(@xml).remove_namespaces!
 
