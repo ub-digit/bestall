@@ -39,6 +39,30 @@ RSpec.describe Item, type: :model do
         item = Item.new(biblio_id: 1, xml: @xml)
         expect(item.due_date).to eq('2017-03-02')
       end
+      it "should return can_be_ordered" do
+        item = Item.new(biblio_id: 1, xml: @xml)
+        expect(item.can_be_ordered).to_not be_nil
+      end
+    end
+
+    context "item can not be ordered" do
+      before :each do
+        @xml = File.open("#{Rails.root}/spec/support/biblio/biblio-cannot-order.xml") { |f|
+          Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
+        }
+      end
+      it "should return can_be_ordered false when item type is 7" do
+        item = Item.new(biblio_id: 1, xml: @xml[0].to_xml)
+        expect(item.can_be_ordered).to be_falsey
+      end
+      it "should return can_be_ordered false when item type is 2" do
+        item = Item.new(biblio_id: 1, xml: @xml[1].to_xml)
+        expect(item.can_be_ordered).to be_falsey
+      end
+      it "should return can_be_ordered false when a due date is present" do
+        item = Item.new(biblio_id: 1, xml: @xml[2].to_xml)
+        expect(item.can_be_ordered).to be_falsey
+      end
     end
   end
 end

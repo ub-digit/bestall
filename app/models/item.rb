@@ -9,6 +9,11 @@ class Item
     parse_xml(xml)
   end
 
+  def as_json options = {}
+    super.merge({can_be_ordered: can_be_ordered}).compact
+
+  end
+
   def can_be_borrowed
     # TODO Extend with more rules
     @item_type != '7'
@@ -16,24 +21,43 @@ class Item
 
   def can_be_ordered
     # TODO Extend with more rules
+    return false unless @item_type
+    return false if @item_type == '7'
+    return false if @item_type == '2'
+    return false if @due_date.present?
+    return true
   end
 
   def parse_xml xml
     parsed_xml = Nokogiri::XML(xml).remove_namespaces!
 
-    @id = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="9"]').text
+    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="9"]').text.present?
+      @id = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="9"]').text
+    end
 
-    @sublocation_id = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="c"]').text
+    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="c"]').text.present?
+      @sublocation_id = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="c"]').text
+    end
 
-    @item_type = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="y"]').text
+    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="y"]').text.present?
+      @item_type = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="y"]').text
+    end
 
-    @barcode = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="p"]').text
+    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="p"]').text.present?
+      @barcode = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="p"]').text
+    end
 
-    @item_call_number = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="o"]').text
+    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="o"]').text.present?
+      @item_call_number = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="o"]').text
+    end
 
-    @copy_number = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="t"]').text
+    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="t"]').text.present?
+      @copy_number = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="t"]').text
+    end
 
-    @due_date = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="q"]').text
+    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="q"]').text.present?
+      @due_date = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="q"]').text
+    end
   end
 
 
