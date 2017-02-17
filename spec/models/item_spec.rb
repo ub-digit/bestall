@@ -5,11 +5,11 @@ RSpec.describe Item, type: :model do
     context "item can be ordered" do
       it "should return false when rules prevent item from being ordered" do
         item = Item.new(biblio_id: 1, xml: '<datafield tag="952" ind1=" " ind2=" "><subfield code="y">7</subfield></datafield>')
-        expect(item.can_be_ordered).to be_falsey
+        expect(item.can_be_borrowed).to be_falsey
       end
       it "should return true when rules allow item to be ordered" do
         item = Item.new(biblio_id: 1, xml: '<datafield tag="952" ind1=" " ind2=" "><subfield code="y">1</subfield></datafield>')
-        expect(item.can_be_ordered).to be_truthy
+        expect(item.can_be_borrowed).to be_truthy
       end
     end
 
@@ -34,6 +34,10 @@ RSpec.describe Item, type: :model do
       it "should return an sublocation id" do
         item = Item.new(biblio_id: 1, xml: @xml)
         expect(item.sublocation_id).to eq('400004')
+      end
+      it "should return a due date" do
+        item = Item.new(biblio_id: 1, xml: @xml)
+        expect(item.due_date).to eq('2017-03-02')
       end
     end
   end

@@ -1,5 +1,5 @@
 class Item
-  attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number, :copy_number
+  attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number, :copy_number, :due_date
 
   include ActiveModel::Serialization
   include ActiveModel::Validations
@@ -9,9 +9,13 @@ class Item
     parse_xml(xml)
   end
 
-  def can_be_ordered
+  def can_be_borrowed
     # TODO Extend with more rules
     @item_type != '7'
+  end
+
+  def can_be_ordered
+    # TODO Extend with more rules
   end
 
   def parse_xml xml
@@ -28,6 +32,8 @@ class Item
     @item_call_number = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="o"]').text
 
     @copy_number = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="t"]').text
+
+    @due_date = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="q"]').text
   end
 
 

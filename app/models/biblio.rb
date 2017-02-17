@@ -5,17 +5,17 @@ class Biblio
   include ActiveModel::Validations
 
 
-  def can_be_ordered
+  def can_be_borrowed
 
     @items.each do |item|
-      return true if item.can_be_ordered
+      return true if item.can_be_borrowed
     end
 
     return false
   end
 
   def as_json options = {}
-    super(except: ['xml'], include: ['can_be_ordered'])
+    super(except: ['xml'])
   end
 
   def initialize id, xml
@@ -64,11 +64,11 @@ class Biblio
     end
 
 
-    if xml.search('//record/datafield[@tag="952"]/subfield[@code="y"]').text.present? && xml.search('//record/datafield[@tag="952"]/subfield[@code="y"]').text == '7'
-      @can_be_ordered = false
-    else
-      @can_be_ordered = true
-    end
+    # if xml.search('//record/datafield[@tag="952"]/subfield[@code="y"]').text.present? && xml.search('//record/datafield[@tag="952"]/subfield[@code="y"]').text == '7'
+    #   @can_be_ordered = false
+    # else
+    #   @can_be_ordered = true
+    # end
   end
 
 end
