@@ -14,7 +14,7 @@ RSpec.describe User, :type => :model do
       end
     end
 
-    context "when user exists  in Koha" do
+    context "when user exists in Koha" do
       before :each do
         WebMock.stub_request(:get, "http://koha.example.com/members/get?borrower=xtest&password=password&userid=username").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).

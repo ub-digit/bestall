@@ -52,6 +52,10 @@ class User
   def parse_xml
     xml = Nokogiri::XML(@xml).remove_namespaces!
 
+    if xml.search('//response/borrower/borrowernumber').text.present?
+      @id = xml.search('//response/borrower/borrowernumber').text.to_i
+    end
+
     if xml.search('//response/borrower/surname').text.present?
       @last_name = xml.search('//response/borrower/surname').text
     end
