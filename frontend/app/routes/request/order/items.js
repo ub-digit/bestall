@@ -6,5 +6,6 @@ export default Ember.Route.extend({
 		moveForward() {
 			this.transitionTo('request.order.details');
 		}
+
 	}
 });
