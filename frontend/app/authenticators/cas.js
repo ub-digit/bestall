@@ -36,10 +36,11 @@ export default Base.extend({
         contentType: 'application/json'
       }).then(function(response) {
         var token = response.access_token;
+        console.log("response", response);
         Ember.run(function() {
           resolve({
             authenticated: true,
-            token: token,
+            token: token
           });
         });
       }, function(xhr) {
