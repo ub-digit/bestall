@@ -19,7 +19,11 @@
           <td>{{item.copyNumber}}</td>
           <td>{{item.barcode}}</td>
           <td>[TODO]</td>
-          <td><button class="btn btn-xs btn-default">Beställ</button></td>
+          <td>
+						{{#if item.canBeOrdered}}
+							<button class="btn btn-xs btn-default">Beställ</button>
+						{{/if}}
+					</td>
         </tr>
         {{/each}}
       </tbody>

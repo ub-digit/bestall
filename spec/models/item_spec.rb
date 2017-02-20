@@ -5,11 +5,11 @@ RSpec.describe Item, type: :model do
     context "item can be ordered" do
       it "should return false when rules prevent item from being ordered" do
         item = Item.new(biblio_id: 1, xml: '<datafield tag="952" ind1=" " ind2=" "><subfield code="y">7</subfield></datafield>')
-        expect(item.can_be_ordered).to be_falsey
+        expect(item.can_be_borrowed).to be_falsey
       end
       it "should return true when rules allow item to be ordered" do
         item = Item.new(biblio_id: 1, xml: '<datafield tag="952" ind1=" " ind2=" "><subfield code="y">1</subfield></datafield>')
-        expect(item.can_be_ordered).to be_truthy
+        expect(item.can_be_borrowed).to be_truthy
       end
     end
 
@@ -34,6 +34,34 @@ RSpec.describe Item, type: :model do
       it "should return an sublocation id" do
         item = Item.new(biblio_id: 1, xml: @xml)
         expect(item.sublocation_id).to eq('400004')
+      end
+      it "should return a due date" do
+        item = Item.new(biblio_id: 1, xml: @xml)
+        expect(item.due_date).to eq('2017-03-02')
+      end
+      it "should return can_be_ordered" do
+        item = Item.new(biblio_id: 1, xml: @xml)
+        expect(item.can_be_ordered).to_not be_nil
+      end
+    end
+
+    context "item can not be ordered" do
+      before :each do
+        @xml = File.open("#{Rails.root}/spec/support/biblio/biblio-cannot-order.xml") { |f|
+          Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
+        }
+      end
+      it "should return can_be_ordered false when item type is 7" do
+        item = Item.new(biblio_id: 1, xml: @xml[0].to_xml)
+        expect(item.can_be_ordered).to be_falsey
+      end
+      it "should return can_be_ordered false when item type is 2" do
+        item = Item.new(biblio_id: 1, xml: @xml[1].to_xml)
+        expect(item.can_be_ordered).to be_falsey
+      end
+      it "should return can_be_ordered false when a due date is present" do
+        item = Item.new(biblio_id: 1, xml: @xml[2].to_xml)
+        expect(item.can_be_ordered).to be_falsey
       end
     end
   end

@@ -35,10 +35,10 @@ RSpec.describe Biblio, :type => :model do
         expect(biblio).to_not be_nil
         expect(biblio.author).to eq("Test, Author")
       end
-      it "should return can_be_ordered" do
+      it "should return can_be_borrowed" do
         biblio = Biblio.find_by_id 1
         expect(biblio).to_not be_nil
-        expect(biblio.can_be_ordered).to eq(false)
+        expect(biblio.can_be_borrowed).to eq(false)
       end
     end
   end

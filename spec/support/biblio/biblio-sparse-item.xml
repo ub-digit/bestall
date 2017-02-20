@@ -12,11 +12,6 @@
     <subfield code="b">Test Title b</subfield>
   </datafield>
   <datafield tag="952" ind1=" " ind2=" ">
-    <subfield code="y">7</subfield>
-    <subfield code="o">Kursbok</subfield>
-    <subfield code="t">1</subfield>
-    <subfield code="p">1001821737</subfield>
-    <subfield code="c">400004</subfield>
-    <subfield code="q">2017-03-02</subfield>
+    <subfield code="9">1854812</subfield>
   </datafield>
 </record>
