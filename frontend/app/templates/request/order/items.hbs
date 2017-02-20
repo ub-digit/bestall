@@ -21,7 +21,7 @@
           <td>[TODO]</td>
           <td>
 						{{#if item.canBeOrdered}}
-							<button class="btn btn-xs btn-default">Beställ</button>
+							<button {{action 'setItem' item}} class="btn btn-xs btn-default">Beställ</button>
 						{{/if}}
 					</td>
         </tr>

@@ -10,12 +10,17 @@
 	{{order.location}}
 	</div>
 </div>
+<div class="row">
+	<div class="col-xs-12">
+	{{order.model.reserve.item.id}}
+	</div>
+</div>
 
 <div class="row">
 	<div class="col-sm-6">
 		<button class="btn btn-block btn-default" {{action 'goBack'}}>Tillbaka</button>
 	</div>
 	<div class="col-sm-6">
-		<button class="btn btn-block btn-success" {{action 'moveForward'}}>Skicka beställning</button>	
+		<button class="btn btn-block btn-success" {{action 'moveForward'}}>Skicka beställning</button>
 	</div>
 </div>
