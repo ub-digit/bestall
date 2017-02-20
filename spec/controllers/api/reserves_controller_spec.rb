@@ -10,7 +10,7 @@ RSpec.describe Api::ReservesController, type: :controller do
           to_return(:status => 403, :body => File.new("#{Rails.root}/spec/support/reserve/reserve-cannot-be-placed.xml"), :headers => {})
       end
       it "should return an error object" do
-        post :create, params: {borrowernumber: 999, branchcode: 10, biblionumber: 50}
+        post :create, params: {borrower_number: 999, location_id: 10, biblio_id: 50}
         expect(json['error']).to_not be nil
       end
     end
@@ -22,7 +22,7 @@ RSpec.describe Api::ReservesController, type: :controller do
           to_return(:status => 201, :body => File.new("#{Rails.root}/spec/support/reserve/reserve-success.xml"), :headers => {})
       end
       it "should return a reserve object" do
-        post :create, params: {borrowernumber: 1, branchcode: 10, biblionumber: 50}
+        post :create, params: {borrower_number: 1, location_id: 10, biblio_id: 50}
         expect(json['reserve']).to_not be nil
       end
     end

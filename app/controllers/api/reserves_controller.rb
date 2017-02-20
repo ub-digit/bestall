@@ -1,9 +1,9 @@
 class Api::ReservesController < ApplicationController
   def create
-    borrowernumber = params[:borrowernumber]
-    branchcode = params[:branchcode]
-    biblionumber = params[:biblionumber]
-    itemnumber = params[:itemnumber]
+    borrowernumber = params[:borrower_number]
+    branchcode = params[:location_id]
+    biblionumber = params[:biblio_id]
+    itemnumber = params[:item_id]
     #TODO: Error handling
 
     reserve = Reserve.add(borrowernumber: borrowernumber, branchcode: branchcode, biblionumber: biblionumber, itemnumber: itemnumber)
