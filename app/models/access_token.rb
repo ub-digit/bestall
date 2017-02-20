@@ -36,7 +36,8 @@ class AccessToken < ApplicationRecord
     token_data = {
       token: token_hash,
       token_expire: Time.now + DEFAULT_TOKEN_EXPIRE,
-      username: user.username
+      username: user.username,
+      user_id: user.id
     }
     AccessToken.create(token_data)
   end
