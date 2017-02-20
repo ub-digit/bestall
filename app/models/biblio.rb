@@ -58,17 +58,9 @@ class Biblio
       @title = @title + ' ' + xml.search('//record/datafield[@tag="245"]/subfield[@code="p"]').text
     end
 
-
     xml.search('//record/datafield[@tag="952"]').each do |item_data|
       @items << Item.new(biblio_id: self.id, xml: item_data.to_xml)
     end
-
-
-    # if xml.search('//record/datafield[@tag="952"]/subfield[@code="y"]').text.present? && xml.search('//record/datafield[@tag="952"]/subfield[@code="y"]').text == '7'
-    #   @can_be_ordered = false
-    # else
-    #   @can_be_ordered = true
-    # end
   end
 
 end
