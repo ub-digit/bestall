@@ -7,7 +7,7 @@ export default Ember.Controller.extend({
 
   actions: {
     setItem(item) {
-      this.get('order.model.reserve').set('item', item);      
+      this.get('order.model.reserve').set('item', item);
     }
   }
 

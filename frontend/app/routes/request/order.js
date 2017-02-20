@@ -13,10 +13,14 @@ export default Ember.Route.extend({
   },
 
   model() {
+    let biblio = this.modelFor('request');
+
     return Ember.RSVP.hash({
       locations: this.get('store').findAll('location'),
       loantypes: this.get('store').findAll('loanType'),
-      reserve: this.get('store').createRecord('reserve')
+      reserve: this.get('store').createRecord('reserve', {
+        biblio: biblio
+      })
     });
   },
 
@@ -28,9 +32,27 @@ export default Ember.Route.extend({
   },
 
   actions: {
-		goBack: function() {
+
+		goBack() {
 			window.history.back();
-		}
-	}
+		},
+
+    submitOrder() {
+      this.controller.get('model.reserve').save().then(() => {
+        console.log('success');
+      }, (error) => {
+        console.log('error', error)
+      });
+    }
+	},
+
+  resetController(controller, isExiting) {
+    if (isExiting) {
+      let reserve = controller.get('model.reserve');
+      if (reserve.get('isNew')) {
+        reserce.destroyRecord();
+      }
+    }
+  }
 
 });
