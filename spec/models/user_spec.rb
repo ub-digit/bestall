@@ -25,6 +25,11 @@ RSpec.describe User, :type => :model do
         expect(user).to_not be_nil
         expect(user).to be_kind_of(User)
       end
+      it "should return id" do
+        user = User.find_by_username 'xtest'
+        expect(user).to_not be_nil
+        expect(user.id).to eq(2)
+      end
       it "should return last name" do
         user = User.find_by_username 'xtest'
         expect(user).to_not be_nil
