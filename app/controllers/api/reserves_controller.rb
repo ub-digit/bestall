@@ -4,11 +4,15 @@ class Api::ReservesController < ApplicationController
     branchcode = params[:location_id]
     biblionumber = params[:biblio_id]
     itemnumber = params[:item_id]
-    # add parameter loan_type
     loantype = params[:loan_type]
 
     # TODO use loantype, but with correct name as it appears in Koha.
     # TODO: Error handling
+    #error_msg(ErrorCodes::VALIDATION_ERROR, "user_id is required") if borrowernumber.blank?
+    #error_msg(ErrorCodes::VALIDATION_ERROR, "location_id is required") if branchcode.blank?
+    #error_msg(ErrorCodes::VALIDATION_ERROR, "biblio_id is required") if biblionumber.blank?
+    #error_msg(ErrorCodes::VALIDATION_ERROR, "item_id is required") if itemnumber.blank?
+    #error_msg(ErrorCodes::VALIDATION_ERROR, "loan_type is required") if loantype.blank?
     # Check the parameters and return error if params are not correct
 
     reserve = Reserve.add(borrowernumber: borrowernumber, branchcode: branchcode, biblionumber: biblionumber, itemnumber: itemnumber)
