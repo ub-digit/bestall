@@ -33,7 +33,7 @@ RSpec.describe Api::ReservesController, type: :controller do
         WebMock.stub_request(
           :get, "http://koha.example.com/reserves/create?biblionumber=50&borrowernumber=&branchcode=10&itemnumber=&password=password&userid=username").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
-          to_return(:status => 403, :body => "", :headers => {})
+          to_return(:status => 403, :body => File.new("#{Rails.root}/spec/support/reserve/reserve-borrower-not-found.xml"), :headers => {})
       end
       it "should return an error object" do
         post :create, params: {user_id: 9, location_id: 10, biblio_id: 50}
@@ -45,7 +45,7 @@ RSpec.describe Api::ReservesController, type: :controller do
       before :each do
         WebMock.stub_request(:get, "http://koha.example.com/reserves/create?biblionumber=50&borrowernumber=1&branchcode=10&itemnumber=&password=password&userid=username").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com', 'User-Agent'=>'rest-client/2.0.0 (darwin16.1.0 x86_64) ruby/2.3.1p112'}).
-          to_return(:status => 201, :body => "", :headers => {})
+          to_return(:status => 201, :body => File.new("#{Rails.root}/spec/support/reserve/reserve-success.xml"), :headers => {})
       end
       it "should return a reserve object" do
         post :create, params: {user_id: 1, location_id: 10, biblio_id: 50, loan_type: 1}
