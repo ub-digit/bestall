@@ -4,9 +4,12 @@ Rails.application.routes.draw do
     resources :session
     resources :biblios
     resources :reserves
+    # resources :users
 
     get 'locations', to: 'locations#index'
     get 'loan_types', to: 'loan_types#index'
+
+    get 'users/current', to: 'users#current_user'
 
     # Config API
     get 'config/:id', to: 'config#cas_url'

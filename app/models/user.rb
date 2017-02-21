@@ -1,5 +1,5 @@
 class User
-  attr_accessor :username, :first_name, :last_name, :denied, :fines_amount
+  attr_accessor :id, :username, :first_name, :last_name, :denied, :fines_amount
 
   include ActiveModel::Model
   include ActiveModel::Serialization
@@ -58,7 +58,9 @@ class User
     if xml.search('//response/borrower/firstname').text.present?
       @first_name = xml.search('//response/borrower/firstname').text
     end
-
+    if xml.search('//response/borrower/borrowernumber').text.present?
+      @id = xml.search('//response/borrower/borrowernumber').text.to_i
+    end
 
     @denied = false # spärrad
 

@@ -8,17 +8,31 @@ export default Ember.Route.extend({
     let biblioId = transition.params.request.id;
 
     if (ticket) {
-      this.get('session').authenticate('authenticator:cas', {
-        cas_ticket: ticket,
-        cas_service: this.returnUrl(biblioId)
+      return new Ember.RSVP.Promise((resolve) => {
+        this.get('session').authenticate('authenticator:cas', {
+          cas_ticket: ticket,
+          cas_service: this.returnUrl(biblioId)
+        }).then(() => {
+          resolve();
+        });
       });
     }
   },
 
   model(params) {
-		return this.store.find('biblio', params.id);
 
-    // TODO: get user object, either here or in authenticator
+    if (this.get('session.isAuthenticated')) {
+      let username = this.get('session.data.authenticated.username');
+      return Ember.RSVP.hash({
+        biblio: this.store.find('biblio', params.id),
+        user: this.store.queryRecord('user', {})
+      });
+    } else {
+      return Ember.RSVP.hash({
+        biblio: this.store.find('biblio', params.id)
+      });
+    }
+
 	},
 
   afterModel(model, transition) {

@@ -58,6 +58,11 @@ RSpec.describe Api::SessionController, :type => :controller do
 
         expect(json['user']['first_name']).to_not be nil
       end
+      it "should return first_name" do
+        get :create, params: {cas_ticket: "VALID-KOHA-USER", cas_service: "myapp.example.com"}
+
+        expect(json['user']['id']).to_not be nil
+      end
       it "should return denied" do
         get :create, params: {cas_ticket: "VALID-KOHA-USER", cas_service: "myapp.example.com"}
 

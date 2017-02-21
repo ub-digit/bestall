@@ -40,8 +40,7 @@ export default Base.extend({
           resolve({
             authenticated: true,
             token: token,
-            username: response.user.username,
-            name: response.user.name
+            username: response.user.username
           });
         });
       }, function(xhr) {
