@@ -13,13 +13,15 @@ export default Ember.Route.extend({
   },
 
   model() {
-    let biblio = this.modelFor('request');
+    let biblio = this.modelFor('request').biblio;
+    let user = this.modelFor('request').user;
 
     return Ember.RSVP.hash({
       locations: this.get('store').findAll('location'),
       loantypes: this.get('store').findAll('loanType'),
       reserve: this.get('store').createRecord('reserve', {
-        biblio: biblio
+        biblio: biblio,
+        user: user
       })
     });
   },

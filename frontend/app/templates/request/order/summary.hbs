@@ -1,25 +1,30 @@
 <div class="row">
 	<div class="col-xs-12">
-	<h3>{{request.model.title}}</h3>
-	{{request.model.author}}
+	<h3>{{request.model.biblio.title}}</h3>
+	{{request.model.biblio.author}}
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-xs-12">
-	{{order.model.reserve.location.name}}
+		{{order.model.reserve.location.name}}
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-xs-12">
-	{{order.model.reserve.loanType.name}}
+		{{order.model.reserve.loanType.name}}
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-xs-12">
 		Exemplar: {{order.model.reserve.item.id}}
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		Användare: {{order.model.reserve.user.fullName}}
 	</div>
 </div>
 
