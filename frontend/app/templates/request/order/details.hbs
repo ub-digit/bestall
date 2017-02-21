@@ -27,6 +27,16 @@
 </div>
 
 <div class="row">
+	<div class="col-xs-12 col-sm-8">
+		{{order-comment-input
+			value=order.model.reserve.comment
+			label="Kommentarer om din order"
+			maxlength=30
+		}}
+	</div>
+</div>
+
+<div class="row">
 	<div class="col-sm-6">
 		<button class="btn btn-block btn-default" {{action 'goBack'}}>Tillbaka</button>
 	</div>
