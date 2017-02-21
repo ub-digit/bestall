@@ -5,12 +5,13 @@ export default Ember.Controller.extend({
   request: Ember.inject.controller(),
   order: Ember.inject.controller('request.order'),
 
-  btnNextDisabled: Ember.computed('order.{location,type}', function() {
-    return false
-		if (this.get("order.location") && this.get("order.type")){
-			return false
-		}
-		return true;
+  btnNextDisabled: Ember.computed('order.model.reserve.{location,loanType}', function() {
+		// if (this.get('order.model.reserve.location') && this.get('order.model.reserve.loanType')){
+		// 	return false
+		// }
+		// return true;
+
+    return false;
 	}),
 
   actions: {

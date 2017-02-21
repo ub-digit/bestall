@@ -22,10 +22,13 @@ export default Ember.Route.extend({
   model(params) {
 
     if (this.get('session.isAuthenticated')) {
-      let username = this.get('session.data.authenticated.username');
+      let username = this.get('session.data.authenticated.username');      
       return Ember.RSVP.hash({
         biblio: this.store.find('biblio', params.id),
-        user: this.store.queryRecord('user', {})
+        user: this.store.queryRecord('user', {
+          username: username,
+          biblio: params.id
+        })
       });
     } else {
       return Ember.RSVP.hash({
@@ -44,15 +47,13 @@ export default Ember.Route.extend({
       window.location.replace(url);
       return;
     }
-
-    // TODO: inspect model to assess if Biblio can be ordered
-    this.replaceWith('request.order.items');
-
   },
 
   setupController(controller, model) {
     controller.set('ticket', null);
     controller.set('model', model);
+
+    this.replaceWith('request.order.items');
   },
 
   returnUrl(id) {

@@ -35,7 +35,7 @@ export default Base.extend({
         data: JSON.stringify(authCredentials),
         contentType: 'application/json'
       }).then(function(response) {
-        var token = response.access_token;
+        var token = response.access_token;        
         Ember.run(function() {
           resolve({
             authenticated: true,
