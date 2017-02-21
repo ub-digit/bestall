@@ -22,7 +22,7 @@ export default Ember.Route.extend({
   model(params) {
 
     if (this.get('session.isAuthenticated')) {
-      let username = this.get('session.data.authenticated.username');      
+      let username = this.get('session.data.authenticated.username');
       return Ember.RSVP.hash({
         biblio: this.store.find('biblio', params.id),
         user: this.store.queryRecord('user', {
