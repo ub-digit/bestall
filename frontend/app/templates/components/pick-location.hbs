@@ -1,16 +1,9 @@
-
 <label>
-{{label}}
+	{{label}}
 </label>
-{{#x-select class="form-control" on-change=(action 'setValue') value=selectedItem  as |item|}}
+{{#x-select class="form-control" on-change=(action onSelect) value=selectedItem as |item|}}
 	{{#item.option}}{{label}}{{/item.option}}
 	{{#each locations as |loc|}}
-  		{{#item.option value=loc.id}}{{loc.name}}{{/item.option}}
-  	{{/each}}
+		{{#item.option value=loc.id}}{{loc.name}}{{/item.option}}
+	{{/each}}
 {{/x-select}}
-
-
-
-
-
-{{yield}}
