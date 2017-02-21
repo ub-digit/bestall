@@ -1,10 +1,15 @@
 class Api::ReservesController < ApplicationController
   def create
-    borrowernumber = params[:borrower_number]
+    borrowernumber = params[:user_id]
     branchcode = params[:location_id]
     biblionumber = params[:biblio_id]
     itemnumber = params[:item_id]
-    #TODO: Error handling
+    # add parameter loan_type
+    loantype = params[:loan_type]
+
+    # TODO use loantype, but with correct name as it appears in Koha.
+    # TODO: Error handling
+    # Check the parameters and return error if params are not correct
 
     reserve = Reserve.add(borrowernumber: borrowernumber, branchcode: branchcode, biblionumber: biblionumber, itemnumber: itemnumber)
     if reserve
