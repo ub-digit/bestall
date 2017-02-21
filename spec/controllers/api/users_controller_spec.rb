@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Api::UsersController, type: :controller do
 
   describe "get current_user" do
-    context "user exists is denied" do
+    context "user exists but is denied" do
       before :each do
         WebMock.stub_request(:get, "http://koha.example.com/members/get?borrower=xtest&password=password&userid=username").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
