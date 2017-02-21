@@ -50,7 +50,7 @@ export default Ember.Route.extend({
     if (isExiting) {
       let reserve = controller.get('model.reserve');
       if (reserve.get('isNew')) {
-        reserce.destroyRecord();
+        reserve.destroyRecord();
       }
     }
   }
