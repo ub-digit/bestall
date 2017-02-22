@@ -4,52 +4,31 @@ class Api::SessionController < ApplicationController
 
   # Create a session, with a newly generated access token
   def create
-    user_force_authenticated = false # True if authentication is ticket based
-    password = "dummy-not-used-with-cas"
-
     if params[:cas_ticket] && params[:cas_service]
       username = cas_validate(params[:cas_ticket], params[:cas_service])
-      user_force_authenticated = true
-      service = :cas
     else
       error_msg(ErrorCodes::AUTH_ERROR, "CAS ticket is mandatory.")
       render_json
+      return
     end
 
-    user = User.find_by_username(username)
-    if user
-      token = user.authenticate(password, user_force_authenticated)
-      if token
-        @response[:user] = user.as_json
-        @response[:access_token] = token
-        @response[:token_type] = "bearer"
-        render_json
-        return
+    if username
+      user = User.find_by_username(username)
+      if user
+        access_token = AccessToken.generate_token(user)
+        if access_token
+          @response[:access_token] = access_token.token
+          @response[:token_type] = "bearer"
+          @response[:user] = user.as_json
+        else
+          error_msg(ErrorCodes::OBJECT_ERROR, "Error creating token.")
+        end
       else
-        error_msg(ErrorCodes::AUTH_ERROR, "Invalid credentials")
+        error_msg(ErrorCodes::OBJECT_ERROR, "User not found in Koha: #{username}")
       end
     else
-      error_msg(ErrorCodes::OBJECT_ERROR, "User not found in Koha: #{params[:username]}")
-    end
-    render_json
+      error_msg(ErrorCodes::AUTH_ERROR, "Invalid credentials")
   end
-
-
-  def show
-    @response = {}
-    token = params[:id]
-    extend_expire = true
-    if params[:no_extend].present?
-      extend_expire = false
-    end
-    token_object = AccessToken.find_by_token(token)
-    if token_object && token_object.user.validate_token(token, extend_expire)
-      @response[:user] = token_object.user.as_json
-      @response[:access_token] = token
-      @response[:token_type] = "bearer"
-    else
-      error_msg(ErrorCodes::SESSION_ERROR, "Invalid session")
-    end
     render_json
   end
 

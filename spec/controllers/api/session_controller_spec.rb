@@ -35,12 +35,11 @@ RSpec.describe Api::SessionController, :type => :controller do
           to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/patron/patron-1.xml"), :headers => {})
       end
 
-      it "should return username on valid credentials" do
+      it "should return access_token" do
         post :create, params: {cas_ticket: "VALID-KOHA-USER", cas_service: "myapp.example.com"}
-
         expect(json['access_token']).to be_truthy
-        expect(json['token_type']).to eq("bearer")
         expect(json['access_token']).to eq(AccessToken.find_by_username('xtest').token)
+        expect(json['token_type']).to eq("bearer")
       end
 
       it "should return a user object" do
@@ -48,30 +47,36 @@ RSpec.describe Api::SessionController, :type => :controller do
 
         expect(json['user']).to_not be nil
       end
+      it "should return user id" do
+        post :create, params: {cas_ticket: "VALID-KOHA-USER", cas_service: "myapp.example.com"}
+
+        expect(json['user']['id']).to eq(2)
+      end
+      it "should return username" do
+        post :create, params: {cas_ticket: "VALID-KOHA-USER", cas_service: "myapp.example.com"}
+
+        expect(json['user']['username']).to eq('xtest')
+      end
       it "should return last_name" do
         get :create, params: {cas_ticket: "VALID-KOHA-USER", cas_service: "myapp.example.com"}
 
-        expect(json['user']['last_name']).to_not be nil
+        expect(json['user']['last_name']).to be_truthy
       end
       it "should return first_name" do
         get :create, params: {cas_ticket: "VALID-KOHA-USER", cas_service: "myapp.example.com"}
 
-        expect(json['user']['first_name']).to_not be nil
+        expect(json['user']['first_name']).to be_truthy
       end
-      it "should return first_name" do
-        get :create, params: {cas_ticket: "VALID-KOHA-USER", cas_service: "myapp.example.com"}
 
-        expect(json['user']['id']).to_not be nil
-      end
       it "should return denied" do
         get :create, params: {cas_ticket: "VALID-KOHA-USER", cas_service: "myapp.example.com"}
 
-        expect(json['user']['denied']).to_not be nil
+        expect(json['user']['denied']).to be_truthy
       end
       it "should return locked_reasons" do
         get :create, params: {cas_ticket: "VALID-KOHA-USER", cas_service: "myapp.example.com"}
 
-        expect(json['user']['denied_reasons']).to_not be nil
+        expect(json['user']['denied_reasons']).to be_truthy
         expect(json['user']['denied_reasons']).to be_kind_of(Hash)
       end
     end

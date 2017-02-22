@@ -4,7 +4,6 @@ Rails.application.routes.draw do
     resources :session
     resources :biblios
     resources :reserves
-    # resources :users
 
     get 'locations', to: 'locations#index'
     get 'loan_types', to: 'loan_types#index'

@@ -17,6 +17,7 @@ class AccessToken < ApplicationRecord
     AccessToken.where("token_expire < ?", Time.now).destroy_all
   end
 
+
   # First clear all invalid tokens. Then look for our provided token.
   # If we find one, we know it is valid, and therefor update its validity
   # further into the future

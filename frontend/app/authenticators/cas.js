@@ -39,8 +39,7 @@ export default Base.extend({
         Ember.run(function() {
           resolve({
             authenticated: true,
-            token: token,
-            username: response.user.username
+            token: token
           });
         });
       }, function(xhr) {

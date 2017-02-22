@@ -22,4 +22,38 @@ class ApplicationController < ActionController::Base
   def error_msg(code=ErrorCodes::ERROR, msg="", error_list = nil)
     @response[:error] = {code: code[:code], msg: msg, errors: error_list}
   end
+
+private
+  # Sets user according to token or api_key, or authenication error if fail
+  def validate_access
+    if !validate_token
+      error_msg(ErrorCodes::AUTH_ERROR, "User not valid")
+      render_json
+    end
+  end
+
+  # Validates token and sets user if token if valid
+  def validate_token
+    return false if @current_username
+    token = get_token
+    token.force_encoding('utf-8') if token
+    token_object = AccessToken.find_by_token(token)
+    if token_object && token_object.validated?
+      @current_username = token_object.username
+      return true
+    else
+      return false
+    end
+  end
+
+  # Returns mtoken from request headers or params[:token] if set
+  def get_token
+    if params.has_key?(:token) && params[:token] != ''
+      return params[:token]
+    end
+    return nil if !request || !request.headers
+    token_response = request.headers['Authorization']
+    return nil if !token_response
+    token_response[/^Token (.*)/,1]
+  end
 end
