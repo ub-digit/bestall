@@ -46,15 +46,8 @@ export default {
     }
   },
 
-
-
-
   "status-errors" : {
     "404": "Vi hittade tyvärr inte posten du sökte.",
-  },
-
-  "login": {
-    "casLogin": "Logga in"
   },
   "request-errors": {
     "NO_ID":"Det saknas ett ID"
