@@ -35,18 +35,11 @@ RSpec.describe Api::SessionController, :type => :controller do
           to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/patron/patron-1.xml"), :headers => {})
       end
 
-      it "should return access_token object" do
+      it "should return access_token" do
         post :create, params: {cas_ticket: "VALID-KOHA-USER", cas_service: "myapp.example.com"}
-
         expect(json['access_token']).to be_truthy
+        expect(json['access_token']).to eq(AccessToken.find_by_username('xtest').token)
         expect(json['token_type']).to eq("bearer")
-        expect(json['access_token']['token']).to eq(AccessToken.find_by_username('xtest').token)
-      end
-
-      it "should return token" do
-        post :create, params: {cas_ticket: "VALID-KOHA-USER", cas_service: "myapp.example.com"}
-
-        expect(json['access_token']['token']).to eq(AccessToken.find_by_username('xtest').token)
       end
 
       it "should return a user object" do
