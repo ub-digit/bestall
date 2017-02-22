@@ -30,16 +30,9 @@ RSpec.describe Api::ReservesController, type: :controller do
     context "for a missing loan_type_id" do
       it "should return an error object" do
         post :create, params: {user_id: 1, location_id: 10, biblio_id: 50}
-        pp json
         expect(json['error']).to_not be nil
         expect(json['error']['code']).to eq('VALIDATION_ERROR')
         expect(json['error']['msg']).to eq('loan_type_id is required')
-
-        # error_msg(ErrorCodes::VALIDATION_ERROR, "user_id is required") if borrowernumber.blank?
-        # error_msg(ErrorCodes::VALIDATION_ERROR, "location_id is required") if branchcode.blank?
-        # error_msg(ErrorCodes::VALIDATION_ERROR, "biblio_id is required") if biblionumber.blank?
-        # #error_msg(ErrorCodes::VALIDATION_ERROR, "item_id is required") if itemnumber.blank?
-        # error_msg(ErrorCodes::VALIDATION_ERROR, "loan_type is required") if loantype.blank?
       end
     end
 
