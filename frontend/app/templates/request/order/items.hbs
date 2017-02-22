@@ -1,5 +1,18 @@
 <div class="row">
 	<div class="col-xs-12">
+		<h3>{{request.model.biblio.title}}</h3>
+		<div class="author">{{request.model.biblio.author}}</div>
+	</div>
+</div>
+<hr>
+<div class="row">
+	<div class="col-xs-12">
+		<button class="btn btn-primary" {{action 'moveForward'}}>Köa på utlånade</button>
+	</div>
+</div>
+<hr>
+<div class="row">
+	<div class="col-xs-12">
     <table class="table">
       <thead>
         <tr>
@@ -21,17 +34,12 @@
           <td>[TODO]</td>
           <td>
 						{{#if item.canBeOrdered}}
-							<button {{action 'setItem' item}} class="btn btn-xs btn-default">Beställ</button>
+							<button {{action 'setItem' item}} class="btn btn-xs btn-primary">Beställ</button>
 						{{/if}}
 					</td>
         </tr>
         {{/each}}
       </tbody>
     </table>
-	</div>
-</div>
-<div class="row">
-	<div class="col-sm-6 pull-right">
-		<button class="btn btn-block btn-primary pull-right" disabled={{btnNextDisabled}} {{action 'moveForward'}}>{{t 'request.order.items.btnNext'}}</button>
 	</div>
 </div>
