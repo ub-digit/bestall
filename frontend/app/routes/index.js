@@ -3,8 +3,9 @@ import ENV from 'frontend/config/environment';
 
 export default Ember.Route.extend({
     beforeModel(transition){
-        if(!transition.params.request.id){
-            this.intermediateTransitionTo('error', true);
+        if(!transition.params.request){
+            console.log('no request in params');
+            this.replaceWith('error', {error:'error_msg'});
         }
-    }
+    },
 });

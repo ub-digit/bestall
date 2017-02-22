@@ -16,7 +16,7 @@ class Api::ReservesController < ApplicationController
       reservenotes = 'loantype: ' + loantype + '%0A' + (reservenotes.present? ? reservenotes : '')
     end
 
-    if @response[:error].nil?
+    if @response[:errors].nil?
       result = Reserve.add(borrowernumber: borrowernumber, branchcode: branchcode, biblionumber: biblionumber, itemnumber: itemnumber, reservenotes: reservenotes)
       if result.class == Reserve
         @response[:reserve] = result.as_json
@@ -30,6 +30,7 @@ class Api::ReservesController < ApplicationController
         if result[:code][:http_status] == 404
           error_msg(ErrorCodes::REQUEST_ERROR, result[:msg], result[:errors])
         end
+
       else
         error_msg(ErrorCodes::OBJECT_ERROR, "Error when creating a reserve")
       end
