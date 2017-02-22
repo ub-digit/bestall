@@ -27,6 +27,7 @@ my $borrowernumber = $query->param('borrowernumber');
 my $biblionumber = $query->param('biblionumber');
 my $itemnumber = $query->param('itemnumber');
 my $branchcode = $query->param('branchcode');
+my $reservenotes = $query->param('reservenotes');
 
 my $borrower = Koha::Patrons->find($borrowernumber);
 
@@ -76,7 +77,7 @@ my $priority = C4::Reserves::CalculatePriority($biblionumber);
 $itemnumber ||= undef;
 
 
-my $reserve_id = C4::Reserves::AddReserve($branchcode, $borrowernumber, $biblionumber, undef, $priority, undef, undef, undef, $biblio->{title}, $itemnumber);
+my $reserve_id = C4::Reserves::AddReserve($branchcode, $borrowernumber, $biblionumber, undef, $priority, undef, undef, $reservenotes, $biblio->{title}, $itemnumber);
 
 unless ($reserve_id) {
   print $query->header(-type => 'text/xml', -status => '500');
@@ -89,4 +90,3 @@ my $reserve = C4::Reserves::GetReserve($reserve_id);
 print $query->header(-type => 'text/xml',-charset => 'utf-8', -status => '201');
 print XMLout({ reserve => $reserve }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
 exit 0;
-
