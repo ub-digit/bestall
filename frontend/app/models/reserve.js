@@ -7,6 +7,6 @@ export default DS.Model.extend({
   loanType: DS.belongsTo('loan-type', {async: false, inverse: null}),
   biblio: DS.belongsTo('biblio', {async: false, inverse: null}),
   item: DS.belongsTo('item', {async: false, inverse: null}),
-  note: DS.attr('string')
+  reserve_notes: DS.attr('string')
 
 });
