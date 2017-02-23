@@ -10,7 +10,18 @@ class Reserve
     user =  APP_CONFIG['koha']['user']
     password =  APP_CONFIG['koha']['password']
 
-    url = "#{base_url}/reserves/create?userid=#{user}&password=#{password}&borrowernumber=#{borrowernumber}&biblionumber=#{biblionumber}&itemnumber=#{itemnumber}&branchcode=#{branchcode}&reservenotes=#{reservenotes}"
+    params = {
+      userid: user,
+      password: password,
+      borrowernumber: borrowernumber,
+      biblionumber: biblionumber,
+      itemnumber: itemnumber,
+      branchcode: branchcode,
+      reservenotes: reservenotes
+    }.to_query
+
+    url = "#{base_url}/reserves/create?#{params}"
+    #url = "#{base_url}/reserves/create?userid=#{user}&password=#{password}&borrowernumber=#{borrowernumber}&biblionumber=#{biblionumber}&itemnumber=#{itemnumber}&branchcode=#{branchcode}&reservenotes=#{reservenotes}"
     response = RestClient.get url
     if response
       if response.code == 201
@@ -25,8 +36,8 @@ class Reserve
       return nil
     end
   rescue => error
-    auth_status = self.parse_error(error.response.body)
-    return {code: error.response.code, msg: auth_status, errors: nil}
+    auth_status = self.parse_error(error.response.try(:body))
+    return {code: error.response.try(:code), msg: auth_status, errors: nil}
   end
 
   def self.parse_error(xml_response)
@@ -39,6 +50,7 @@ class Reserve
   end
 
   def parse_xml(xml_response)
+    return if !xml_response
     xml = Nokogiri::XML(xml_response).remove_namespaces!
 
     if xml.search('//response/reserve/reserve_id').text.present?
