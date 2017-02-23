@@ -17,7 +17,7 @@ class Api::ReservesController < ApplicationController
     else
       reservenotes = 'loantype: ' + loantype + '%0A' + (reservenotes.present? ? reservenotes : '')
     end
-    if @response[:error].present?
+    if @response[:errors].present?
       render_json
       return
     end

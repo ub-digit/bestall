@@ -16,7 +16,7 @@ RSpec.describe Api::SessionController, :type => :controller do
       it "should return error on invalid credentials" do
         post :create, params: {cas_ticket: "VALID-NO-KOHA-USER", cas_service: "myapp.example.com"}
 
-        expect(json['error']).to be_truthy
+        expect(json['errors']).to be_truthy
 
         expect(json['user']).to be_falsey
         expect(json['access_token']).to be_falsey
