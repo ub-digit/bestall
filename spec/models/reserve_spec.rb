@@ -9,8 +9,11 @@ RSpec.describe Reserve, type: :model do
           to_return(:status => 403, :body => File.new("#{Rails.root}/spec/support/reserve/reserve-cannot-be-placed.xml"), :headers => {})
       end
       it "should not return a Reserve object" do
-        reserve = Reserve.add(borrowernumber: 999, branchcode: 10, biblionumber: 50, reservenotes: "loan_type: 1%0Aother reservenotes go here")
-        expect(reserve).to be_falsey
+        result = Reserve.add(borrowernumber: 999, branchcode: 10, biblionumber: 50, reservenotes: "loan_type: 1%0Aother reservenotes go here")
+        expect(result).to be_truthy
+        expect(result.class).to be(Hash)
+        expect(result[:code]).to be_truthy
+        expect(result[:msg]).to be_truthy
       end
     end
 
@@ -23,24 +26,28 @@ RSpec.describe Reserve, type: :model do
       it "should return a Reserve object" do
         reserve = Reserve.add(borrowernumber: 1, branchcode: 10, biblionumber: 50, reservenotes: "loan_type: 1%0Aother reservenotes go here")
         expect(reserve).to be_truthy
+        expect(reserve.class).to be(Reserve)
       end
       it "should return id" do
         reserve = Reserve.add(borrowernumber: 1, branchcode: 10, biblionumber: 50, reservenotes: "loan_type: 1%0Aother reservenotes go here")
         expect(reserve.id).to be_truthy
+        expect(reserve.class).to be(Reserve)
         expect(reserve.id).to eq 100
-
       end
       it "should return borrowernumber" do
         reserve = Reserve.add(borrowernumber: 1, branchcode: 10, biblionumber: 50, reservenotes: "loan_type: 1%0Aother reservenotes go here")
         expect(reserve.borrowernumber).to be_truthy
+        expect(reserve.borrowernumber).to eq("1")
       end
       it "should return branchcode" do
         reserve = Reserve.add(borrowernumber: 1, branchcode: 10, biblionumber: 50, reservenotes: "loan_type: 1%0Aother reservenotes go here")
         expect(reserve.branchcode).to be_truthy
+        expect(reserve.branchcode).to eq("10")
       end
       it "should return biblionumber" do
         reserve = Reserve.add(borrowernumber: 1, branchcode: 10, biblionumber: 50, reservenotes: "loan_type: 1%0Aother reservenotes go here")
         expect(reserve.biblionumber).to be_truthy
+        expect(reserve.biblionumber).to eq("50")
       end
       it "should return reservedate" do
         reserve = Reserve.add(borrowernumber: 1, branchcode: 10, biblionumber: 50, reservenotes: "loan_type: 1%0Aother reservenotes go here")

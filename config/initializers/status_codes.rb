@@ -53,4 +53,10 @@ module ErrorCodes
     http_status: 422,
     code: "VALIDATION_ERROR"
   }
+
+  # Used when we get a server error
+  SERVER_ERROR = {
+    http_status: 500,
+    code: "SERVER_ERROR"
+  }
 end
