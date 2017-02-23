@@ -5,10 +5,10 @@
     </a>
   </div>
   <div class="media-body">
-    <h3 class="media-heading">{{request.model.title}}</h3>
-    <div>{{request.model.author}}</div>
+    <h3 class="media-heading">{{request.model.biblio.title}}</h3>
+    <div>{{request.model.biblio.author}}</div>
     <br/>
-    <div><strong>Upphämtningsställe: </strong>{{order.location}}</div>
-    <div><strong>Typ av lån:</strong> {{order.type}}</div>
+    <div><strong>Upphämtningsställe: </strong>{{order.model.reserve.location.name}}</div>
+    <div><strong>Typ av lån: </strong>{{order.model.reserve.loanType.name}}</div>
   </div>
 </div>
