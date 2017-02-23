@@ -23,7 +23,7 @@ RSpec.describe Api::LocationsController, type: :controller do
       end
       expect(location_ids).to eq(['10', '11', '12'])
       expect(json['locations'][0]['sublocations']).to be_kind_of(Array)
-      expect(json['locations'][0]['sublocations'].length).to eq(1)
+      expect(json['locations'][0]['sublocations'].length).to eq(2)
 
     end
   end

@@ -25,9 +25,9 @@ class Sublocation
   end
 
   def self.find_all_by_location_id location_id
-    all.select do |loc|      
+    all.select do |loc|
       location_id.to_s == loc.location_id.to_s
-    end
+    end + [{id: "CART", location_id: location_id, name_sv: "Nyligen återlämnad", name_en: "Recently returned"}]
   end
 
   def self.parse_xml xml
