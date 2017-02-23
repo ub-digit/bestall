@@ -1,5 +1,6 @@
 class User
   attr_accessor :id, :username, :first_name, :last_name, :denied, :fines_amount
+  attr_reader :banned, :card_lost, :fines, :debarred, :no_address, :expired
 
   include ActiveModel::Model
   include ActiveModel::Serialization
