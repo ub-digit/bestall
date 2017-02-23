@@ -6,7 +6,7 @@ RSpec.describe Api::UsersController, type: :controller do
       it "should return an error object" do
         get :current_user, params: {id: 'xtest', token: ''}
 
-        expect(json['error']).to be_truthy
+        expect(json['errors']).to be_truthy
         expect(json['user']).to be_falsey
       end
     end
@@ -57,7 +57,7 @@ RSpec.describe Api::UsersController, type: :controller do
       it "should return an error object" do
         get :current_user, params: {token: @xdenied_token.token}
 
-        expect(json['error']).to_not be nil
+        expect(json['errors']).to_not be nil
       end
     end
   end

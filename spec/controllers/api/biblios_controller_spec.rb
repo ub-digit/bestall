@@ -12,7 +12,7 @@ RSpec.describe Api::BibliosController, type: :controller do
       it "should return an error object" do
         get :show, params: {id: 999}
 
-        expect(json['error']).to_not be nil
+        expect(json['errors']).to_not be nil
       end
     end
 
@@ -24,7 +24,7 @@ RSpec.describe Api::BibliosController, type: :controller do
       end
       it "should return an error object" do
         get :show, params: {id: 1}
-        expect(json['error']).to_not be nil
+        expect(json['errors']).to_not be nil
       end
     end
 

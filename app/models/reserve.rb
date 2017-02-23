@@ -5,11 +5,6 @@ class Reserve
   include ActiveModel::Serialization
   include ActiveModel::Validations
 
-  # def initialize xml=nil
-  #   @xml = xml
-  #   parse_xml if @xml
-  # end
-
   def self.add(borrowernumber:, branchcode:, biblionumber:, itemnumber: nil, reservenotes:)
     base_url = APP_CONFIG['koha']['base_url']
     user =  APP_CONFIG['koha']['user']
@@ -69,7 +64,6 @@ class Reserve
     if xml.search('//response/reserve/reservenotes').text.present?
       @reservenotes = xml.search('//response/reserve/reservenotes').text
     end
-    @xml = xml
   end
 
 end
