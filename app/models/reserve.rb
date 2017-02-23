@@ -21,7 +21,6 @@ class Reserve
     }.to_query
 
     url = "#{base_url}/reserves/create?#{params}"
-    #url = "#{base_url}/reserves/create?userid=#{user}&password=#{password}&borrowernumber=#{borrowernumber}&biblionumber=#{biblionumber}&itemnumber=#{itemnumber}&branchcode=#{branchcode}&reservenotes=#{reservenotes}"
     response = RestClient.get url
     if response
       if response.code == 201
