@@ -1,36 +1,49 @@
 class Reserve
-  attr_accessor :id, :borrowernumber, :biblionumber, :itemnumber, :branchcode, :reservedate, :timestamp
+  attr_accessor :id, :borrowernumber, :biblionumber, :itemnumber, :branchcode, :reservedate, :timestamp, :reservenotes
 
   include ActiveModel::Model
   include ActiveModel::Serialization
   include ActiveModel::Validations
 
-  def initialize xml=nil
-    @xml = xml
-    parse_xml if @xml
-  end
+  # def initialize xml=nil
+  #   @xml = xml
+  #   parse_xml if @xml
+  # end
 
-  def self.add borrowernumber:, branchcode:, biblionumber:, itemnumber: nil
+  def self.add(borrowernumber:, branchcode:, biblionumber:, itemnumber: nil, reservenotes:)
     base_url = APP_CONFIG['koha']['base_url']
     user =  APP_CONFIG['koha']['user']
     password =  APP_CONFIG['koha']['password']
 
-    url = "#{base_url}/reserves/create?userid=#{user}&password=#{password}&borrowernumber=#{borrowernumber}&biblionumber=#{biblionumber}&itemnumber=#{itemnumber}&branchcode=#{branchcode}"
+    url = "#{base_url}/reserves/create?userid=#{user}&password=#{password}&borrowernumber=#{borrowernumber}&biblionumber=#{biblionumber}&itemnumber=#{itemnumber}&branchcode=#{branchcode}&reservenotes=#{reservenotes}"
     response = RestClient.get url
-    if response && response.code == 201
-      item = self.new response.body
-      return item
+    if response
+      if response.code == 201
+        obj = Reserve.new
+        obj.parse_xml(response.body)
+        return obj
+      else
+        auth_status = self.parse_error(response.body)
+        return {code: response.code, msg: auth_status, errors: nil}
+      end
     else
       return nil
     end
-
-    #TODO: Add error handling
   rescue => error
     return nil
   end
 
-  def parse_xml
-    xml = Nokogiri::XML(@xml).remove_namespaces!
+  def self.parse_error(xml_response)
+    xml = Nokogiri::XML(xml_response).remove_namespaces!
+
+    if xml.search('//response/auth_status').text.present?
+      auth_status = xml.search('//response/auth_status').text
+    end
+    return auth_status
+  end
+
+  def parse_xml(xml_response)
+    xml = Nokogiri::XML(xml_response).remove_namespaces!
 
     if xml.search('//response/reserve/reserve_id').text.present?
       @id = xml.search('//response/reserve/reserve_id').text.to_i
@@ -53,6 +66,10 @@ class Reserve
     if xml.search('//response/reserve/timestamp').text.present?
       @timestamp = xml.search('//response/reserve/timestamp').text
     end
+    if xml.search('//response/reserve/reservenotes').text.present?
+      @reservenotes = xml.search('//response/reserve/reservenotes').text
+    end
+    @xml = xml
   end
 
 end
