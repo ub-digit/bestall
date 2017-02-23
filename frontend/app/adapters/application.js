@@ -15,13 +15,13 @@ export default ActiveModelAdapter.extend({
   handleResponse(status, header, payload) {
     if (404 === status) {
       return {status: "404",
-              errors:payload.error};
+              errors:payload.errors};
     }
 
      if (403 === status) {
        console.log('payload in adapter', payload);
       return {status: "403",
-               errors:payload.error};
+               errors:payload.errors};
     }
     return this._super(...arguments);
   }
