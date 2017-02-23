@@ -35,6 +35,8 @@ class Api::ReservesController < ApplicationController
       result = Reserve.add(borrowernumber: borrowernumber, branchcode: branchcode, biblionumber: biblionumber, itemnumber: itemnumber, reservenotes: reservenotes)
       if result.class == Reserve
         @response[:reserve] = result.as_json
+        render_json(201)
+        return
       elsif result.class == Hash
         if result[:code][:http_status] == 400
           error_msg(ErrorCodes::ERROR, result[:msg], result[:errors])
@@ -50,7 +52,6 @@ class Api::ReservesController < ApplicationController
         error_msg(ErrorCodes::OBJECT_ERROR, "Error when creating a reserve")
       end
     end
-
     render_json
   end
 end

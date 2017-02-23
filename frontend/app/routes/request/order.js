@@ -42,6 +42,8 @@ export default Ember.Route.extend({
     submitOrder() {
       this.controller.get('model.reserve').save().then(() => {
         console.log('success');
+        this.transitionTo('request.order.confirmation');
+
       }, (error) => {
         console.log('error', error)
       });
