@@ -38,16 +38,18 @@ class Api::ReservesController < ApplicationController
         render_json(201)
         return
       elsif result.class == Hash
-        if result[:code][:http_status] == 400
+        if result[:code] == 400
           error_msg(ErrorCodes::ERROR, result[:msg], result[:errors])
         end
-        if result[:code][:http_status] == 403
+        if result[:code] == 403
           error_msg(ErrorCodes::PERMISSION_ERROR, result[:msg], result[:errors])
         end
-        if result[:code][:http_status] == 404
+        if result[:code] == 404
           error_msg(ErrorCodes::REQUEST_ERROR, result[:msg], result[:errors])
         end
-
+        if result[:code] == 500
+          error_msg(ErrorCodes::SERVER_ERROR, result[:msg], result[:errors])
+        end
       else
         error_msg(ErrorCodes::OBJECT_ERROR, "Error when creating a reserve")
       end

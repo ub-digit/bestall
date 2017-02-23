@@ -25,12 +25,13 @@ class Reserve
       return nil
     end
   rescue => error
-    return nil
+    auth_status = self.parse_error(error.response.body)
+    return {code: error.response.code, msg: auth_status, errors: nil}
   end
 
   def self.parse_error(xml_response)
     xml = Nokogiri::XML(xml_response).remove_namespaces!
-
+    auth_status = 'Something is wrong but we did not find the reason'
     if xml.search('//response/auth_status').text.present?
       auth_status = xml.search('//response/auth_status').text
     end
