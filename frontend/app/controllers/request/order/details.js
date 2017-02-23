@@ -6,12 +6,10 @@ export default Ember.Controller.extend({
   order: Ember.inject.controller('request.order'),
 
   btnNextDisabled: Ember.computed('order.model.reserve.{location,loanType}', function() {
-		// if (this.get('order.model.reserve.location') && this.get('order.model.reserve.loanType')){
-		// 	return false
-		// }
-		// return true;
-
-    return false;
+		if (this.get('order.model.reserve.location') && this.get('order.model.reserve.loanType')){
+			return false
+		}
+		return true;
 	}),
 
   actions: {
