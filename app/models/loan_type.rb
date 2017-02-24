@@ -24,4 +24,13 @@ class LoanType
     loan_types
   end
 
+  def self.find_by_id(id)
+    loan_type_hash = LOAN_TYPES.select {|lt| lt[:id] == id}.first
+    if loan_type_hash
+      self.new(id: loan_type_hash[:id], name_sv: loan_type_hash[:name_sv], name_en: loan_type_hash[:name_en])
+    else
+      nil
+    end
+  end
+
 end

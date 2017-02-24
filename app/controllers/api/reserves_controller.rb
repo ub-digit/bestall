@@ -22,7 +22,6 @@ class Api::ReservesController < ApplicationController
         loan_type_name = ''
       end
       reservenotes = "Lånetyp: #{loan_type_name} \n#{(reservenotes.present? ? reservenotes : '')}"
-      pp reservenotes
     end
     if @response[:errors].present?
       render_json

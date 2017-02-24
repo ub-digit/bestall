@@ -20,9 +20,6 @@ RSpec.describe Api::ReservesController, type: :controller do
 
     context "for a valid reservation with an invalid token" do
       before :each do
-        #WebMock.stub_request(:get, "http://koha.example.com/members/get?borrower=xdenied&password=password&userid=username").
-        #  with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com', 'User-Agent'=>'rest-client/2.0.0 (darwin16.1.0 x86_64) ruby/2.3.1p112'}).
-        #  to_return(:status => 200, :body => "", :headers => {})
         WebMock.stub_request(:get, "http://koha.example.com/members/get?borrower=xdenied&password=password&userid=username").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
           to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/patron/patron-denied.xml"), :headers => {})
@@ -70,7 +67,7 @@ RSpec.describe Api::ReservesController, type: :controller do
 
     context "for a valid reservation with a valid token" do
       before :each do
-        WebMock.stub_request(:get, "http://koha.example.com/reserves/create?biblionumber=50&borrowernumber=1&branchcode=10&itemnumber=&password=password&reservenotes=loantype:%201,%20&userid=username").
+        WebMock.stub_request(:get, "http://koha.example.com/reserves/create?biblionumber=50&borrowernumber=1&branchcode=10&itemnumber=&password=password&reservenotes=L%C3%A5netyp:%20Heml%C3%A5n%20%0A&userid=username").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
           to_return(:status => 201, :body => File.new("#{Rails.root}/spec/support/reserve/reserve-success.xml"), :headers => {})
       end
