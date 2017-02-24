@@ -1,3 +1,4 @@
+
 import DS from 'ember-data';
 import ActiveModelAdapter from 'active-model-adapter';
 import Ember from 'ember';
@@ -19,7 +20,6 @@ export default ActiveModelAdapter.extend({
     }
 
      if (403 === status) {
-       console.log('payload in adapter', payload);
       return {status: "403",
                errors:payload.errors};
     }
