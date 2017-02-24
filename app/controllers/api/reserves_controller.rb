@@ -15,7 +15,14 @@ class Api::ReservesController < ApplicationController
     if loantype.blank?
       error_msg(ErrorCodes::VALIDATION_ERROR, "loan_type_id is required")
     else
-      reservenotes = 'loantype: ' + loantype + ', ' + (reservenotes.present? ? reservenotes : '')
+      loan_type_obj = LoanType.find_by_id(loantype.to_i)
+      if loan_type_obj
+        loan_type_name = loan_type_obj.name_sv
+      else
+        loan_type_name = ''
+      end
+      reservenotes = "Lånetyp: #{loan_type_name} \n#{(reservenotes.present? ? reservenotes : '')}"
+      pp reservenotes
     end
     if @response[:errors].present?
       render_json
