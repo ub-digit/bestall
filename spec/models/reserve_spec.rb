@@ -4,7 +4,7 @@ RSpec.describe Reserve, type: :model do
   describe "add" do
     context "for an invalid reservation" do
       before :each do
-        WebMock.stub_request(:get, "http://koha.example.com/reserves/create?biblionumber=50&borrowernumber=999&branchcode=10&itemnumber=&password=password&reservenotes=loan_type:%201%0Aother%20reservenotes%20go%20here&userid=username").
+        WebMock.stub_request(:get, "http://koha.example.com/reserves/create?biblionumber=50&borrowernumber=999&branchcode=10&itemnumber=&password=password&reservenotes=loan_type:%201%250Aother%20reservenotes%20go%20here&userid=username").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
           to_return(:status => 403, :body => File.new("#{Rails.root}/spec/support/reserve/reserve-cannot-be-placed.xml"), :headers => {})
       end
@@ -19,7 +19,7 @@ RSpec.describe Reserve, type: :model do
 
     context "for a valid reservation" do
       before :each do
-        WebMock.stub_request(:get, "http://koha.example.com/reserves/create?biblionumber=50&borrowernumber=1&branchcode=10&itemnumber=&password=password&reservenotes=loan_type:%201%0Aother%20reservenotes%20go%20here&userid=username").
+        WebMock.stub_request(:get, "http://koha.example.com/reserves/create?biblionumber=50&borrowernumber=1&branchcode=10&itemnumber=&password=password&reservenotes=loan_type:%201%250Aother%20reservenotes%20go%20here&userid=username").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
           to_return(:status => 201, :body => File.new("#{Rails.root}/spec/support/reserve/reserve-success.xml"), :headers => {})
       end
