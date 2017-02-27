@@ -1,5 +1,5 @@
 class Item
-  attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number, :copy_number, :due_date
+  attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number, :copy_number, :due_date, :lost, :restricted
 
   include ActiveModel::Serialization
   include ActiveModel::Validations
@@ -25,6 +25,8 @@ class Item
     return false if @item_type == '7'
     return false if @item_type == '2'
     return false if @due_date.present?
+    return false if @lost != '0'
+    return false if @restricted != '0'
     return true
   end
 
@@ -57,6 +59,12 @@ class Item
 
     if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="q"]').text.present?
       @due_date = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="q"]').text
+    end
+    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="1"]').text.present?
+      @lost = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="1"]').text
+    end
+    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="5"]').text.present?
+      @restricted = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="5"]').text
     end
   end
 

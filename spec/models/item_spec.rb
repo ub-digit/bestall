@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Item, type: :model do
   describe "methods" do
-    context "item can be ordered" do
+    context "item can be borrowed" do
       it "should return false when rules prevent item from being ordered" do
         item = Item.new(biblio_id: 1, xml: '<datafield tag="952" ind1=" " ind2=" "><subfield code="y">7</subfield></datafield>')
         expect(item.can_be_borrowed).to be_falsey
@@ -61,6 +61,14 @@ RSpec.describe Item, type: :model do
       end
       it "should return can_be_ordered false when a due date is present" do
         item = Item.new(biblio_id: 1, xml: @xml[2].to_xml)
+        expect(item.can_be_ordered).to be_falsey
+      end
+      it "should return can_be_ordered false when item is lost" do
+        item = Item.new(biblio_id: 1, xml: @xml[3].to_xml)
+        expect(item.can_be_ordered).to be_falsey
+      end
+      it "should return can_be_ordered false when item is restricted" do
+        item = Item.new(biblio_id: 1, xml: @xml[4].to_xml)
         expect(item.can_be_ordered).to be_falsey
       end
     end
