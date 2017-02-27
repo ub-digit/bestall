@@ -2,7 +2,6 @@
 	{{label}}
 </label>
 {{#x-select class="form-control" on-change=(action onSelect) value=selectedItem as |item|}}
-	{{#item.option}}{{label}}{{/item.option}}
 	{{#each loanTypes as |type|}}
 		{{#item.option value=type.id}}{{type.name}}{{/item.option}}
 	{{/each}}
