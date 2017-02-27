@@ -64,12 +64,6 @@ RSpec.describe Api::BibliosController, type: :controller do
         expect(item).to have_key('id')
         expect(item).to have_key('biblio_id')
         expect(item).to have_key('can_be_ordered')
-        expect(item).to_not have_key('sublocation_id')
-        expect(item).to_not have_key('item_type')
-        expect(item).to_not have_key('barcode')
-        expect(item).to_not have_key('item_call_number')
-        expect(item).to_not have_key('copy_number')
-        expect(item).to_not have_key('due_date')
       end
     end
   end
