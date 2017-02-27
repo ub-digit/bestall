@@ -21,7 +21,7 @@ export default Ember.Route.extend({
 
   model(params) {
 
-    if (this.get('session.isAuthenticated')) {      
+    if (this.get('session.isAuthenticated')) {
       return Ember.RSVP.hash({
         biblio: this.store.find('biblio', params.id),
         user: this.store.queryRecord('user', {
@@ -42,8 +42,8 @@ export default Ember.Route.extend({
 
     if (!ticket) {
       let url = this.casLoginUrl() + '?' + Ember.$.param({service: this.returnUrl(biblioId)});
+      transition.abort();
       window.location.replace(url);
-      return;
     }
   },
 
