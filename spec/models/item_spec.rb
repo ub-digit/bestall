@@ -43,6 +43,10 @@ RSpec.describe Item, type: :model do
         item = Item.new(biblio_id: 1, xml: @xml)
         expect(item.can_be_ordered).to_not be_nil
       end
+      it "should return not_for_loan" do
+        item = Item.new(biblio_id: 1, xml: @xml)
+        expect(item.not_for_loan).to_not be_nil
+      end
     end
 
     context "item is unrestricted" do
