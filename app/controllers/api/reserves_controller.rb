@@ -9,11 +9,6 @@ class Api::ReservesController < ApplicationController
     loantype = params[:reserve][:loan_type_id]
     reservenotes = params[:reserve][:reserve_notes]
 
-    # felen ska in i errors-listan:
-    # "errors": [
-    #   {"code": "MISSING_USER_ID", "detail": "user_id is missing"}
-    #   {"code": "ITEM_ID_MISSING", "detail": "item_id is missing"}
-    # ],
     error_list = Array.new
     error_list.push({code: "MISSING_USER", detail: "Required user_id is missing."}) if borrowernumber.blank?
     error_list.push({code: "MISSING_LOCATION", detail: "Required location_id is missing."}) if branchcode.blank?
