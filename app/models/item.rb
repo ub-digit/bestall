@@ -21,16 +21,20 @@ class Item
 
   def can_be_ordered
     # TODO Extend with more rules
+
     return false unless @item_type
     return false if @item_type == '7'
     return false if @item_type == '2'
     return false if @due_date.present?
     return false if @lost != '0'
-    return false if @restricted != '0'
+    return false unless @restricted == '0' || @restricted.nil?
     return true
   end
 
   def parse_xml xml
+
+    # puts xml
+
     parsed_xml = Nokogiri::XML(xml).remove_namespaces!
 
     if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="9"]').text.present?
