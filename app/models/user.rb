@@ -1,6 +1,6 @@
 class User
   attr_accessor :id, :username, :first_name, :last_name, :denied, :fines_amount
-  attr_reader :banned, :card_lost, :fines, :debarred, :no_address, :expired
+  attr_reader :banned, :card_lost, :fines, :debarred, :no_address, :expired, :categorycode
 
   include ActiveModel::Model
   include ActiveModel::Serialization
@@ -41,7 +41,14 @@ class User
   end
 
   def parse_xml
+    
     xml = Nokogiri::XML(@xml).remove_namespaces!
+
+    if xml.search('//response/borrower/categorycode').text.present?
+      
+      @categorycode = xml.search('//response/borrower/categorycode').text
+      
+    end
 
     if xml.search('//response/borrower/borrowernumber').text.present?
       @id = xml.search('//response/borrower/borrowernumber').text.to_i

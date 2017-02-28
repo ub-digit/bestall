@@ -16,9 +16,9 @@ export default Ember.Controller.extend({
 
          let res = '';
          errors.map((obj) => {
+         if(obj.code){
             const header = dictionary.t('request-errors.' + obj.code + '.header');
             let msg = dictionary.t('request-errors.' + obj.code + '.message');
-            console.log('msg', msg.string);
             // todo: override 'Missing translation' in i18n, wherever that is?
             if(msg.string.indexOf('Missing translation:') > -1){
                 msg = obj.detail;
@@ -26,8 +26,11 @@ export default Ember.Controller.extend({
             res += `<h2>${header}</h2>
                     <p>${msg.string}</p>
             `;
+         }else{
+             // if obj doesent contain key 'code', obj equals koha user type => {categorycode: PE}
+             console.log(obj);
+         }
          });
-         console.log(res);
          return res;
         //return dictionary.t('request-errors.');
     })
