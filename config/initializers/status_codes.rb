@@ -4,59 +4,40 @@ module ResponseCodes
   FAIL = -1
 end
 
-# Contains error codes and their http response codes
+# Contains http statuses and their codes
 module ErrorCodes
-  # Generic error code
-  ERROR = {
-    http_status: 400,
-    code: "ERROR"
+  
+  # Used when something is wrong with the request
+  BAD_REQUEST = {
+    status: 400,
+    code: "BAD_REQUEST"
   }
 
-  # Used for authentication errors (i.e. needs to be logged in)
-  AUTH_ERROR = {
-    http_status: 401,
-    code: "AUTH_ERROR"
+  UNAUTHORIZED = {
+    status: 401,
+    code: "UNAUTHORIZED"
   }
 
   # Used for authentication errors (i.e. needs specific rights)
-  PERMISSION_ERROR = {
-    http_status: 403,
-    code: "PERMISSION_ERROR"
+  FORBIDDEN = {
+    status: 403,
+    code: "FORBIDDEN"
   }
 
-  # Used for session validation errors
-  SESSION_ERROR = {
-    http_status: 401,
-    code: "SESSION_ERROR"
-  }
-
-  # Used when data cannot be retrieved (i.e. error in request or database)
-  DATA_ACCESS_ERROR = {
-    http_status: 404,
-    code: "DATA_ACCESS_ERROR"
-  }
-
-  # Generic object error
-  OBJECT_ERROR = {
-    http_status: 404,
-    code: "OBJECT_ERROR"
-  }
-
-  # Used when requested data could not be returned
-  REQUEST_ERROR = {
-    http_status: 404,
-    code: "REQUEST_ERROR"
+  NOT_FOUND = {
+    status: 404,
+    code: "NOT_FOUND"
   }
 
   # Used when object validation fails
-  VALIDATION_ERROR = {
-    http_status: 422,
-    code: "VALIDATION_ERROR"
+  UNPROCESSABLE_ENTITY = {
+    status: 422,
+    code: "UNPROCESSABLE_ENTITY"
   }
 
   # Used when we get a server error
-  SERVER_ERROR = {
-    http_status: 500,
-    code: "SERVER_ERROR"
+  INTERNAL_SERVER_ERROR = {
+    status: 500,
+    code: "INTERNAL_SERVER_ERROR"
   }
 end

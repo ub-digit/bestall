@@ -14,7 +14,7 @@ RSpec.describe Api::ReservesController, type: :controller do
       it "should return an authentication error" do
         post :create, params: {reserve: {user_id: 1, location_id: 10, biblio_id: 50, loan_type_id: 1}}
         expect(json['errors']).to_not be nil
-        expect(json['errors']['code']).to eq('AUTH_ERROR')
+        expect(json['errors']['code']).to eq('UNAUTHORIZED')
       end
     end
 
@@ -28,7 +28,7 @@ RSpec.describe Api::ReservesController, type: :controller do
       it "should return an permission error" do
         post :create, params: {reserve: {user_id: 1, location_id: 10, biblio_id: 50, loan_type_id: 1}, token: @xdenied_token.token}
         expect(json['errors']).to_not be nil
-        expect(json['errors']['code']).to eq('PERMISSION_ERROR')
+        expect(json['errors']['code']).to eq('UNAUTHORIZED')
       end
     end
 
@@ -36,32 +36,32 @@ RSpec.describe Api::ReservesController, type: :controller do
       it "should return an error object" do
         post :create, params: {reserve: {location_id: 10, biblio_id: 50, loan_type_id: 1}, token: @xallowed_token.token}
         expect(json['errors']).to_not be nil
-        expect(json['errors']['code']).to eq('VALIDATION_ERROR')
-        expect(json['errors']['msg']).to eq('user_id is required')
+        expect(json['errors']['code']).to eq('UNPROCESSABLE_ENTITY')
+        expect(json['errors']['errors'][0]['detail']).to eq('Required user_id is missing.')
       end
     end
     context "for a missing location_id" do
       it "should return an error object" do
         post :create, params: {reserve: {user_id: 1, biblio_id: 50, loan_type_id: 1}, token: @xallowed_token.token}
         expect(json['errors']).to_not be nil
-        expect(json['errors']['code']).to eq('VALIDATION_ERROR')
-        expect(json['errors']['msg']).to eq('location_id is required')
+        expect(json['errors']['code']).to eq('UNPROCESSABLE_ENTITY')
+        expect(json['errors']['errors'][0]['detail']).to eq('Required location_id is missing.')
       end
     end
     context "for a missing biblio_id" do
       it "should return an error object" do
         post :create, params: {reserve: {user_id: 1, location_id: 10, loan_type_id: 1}, token: @xallowed_token.token}
         expect(json['errors']).to_not be nil
-        expect(json['errors']['code']).to eq('VALIDATION_ERROR')
-        expect(json['errors']['msg']).to eq('biblio_id is required')
+        expect(json['errors']['code']).to eq('UNPROCESSABLE_ENTITY')
+        expect(json['errors']['errors'][0]['detail']).to eq('Required biblio_id is missing.')
       end
     end
     context "for a missing loan_type_id" do
       it "should return an error object" do
         post :create, params: {reserve: {user_id: 1, location_id: 10, biblio_id: 50}, token: @xallowed_token.token}
         expect(json['errors']).to_not be nil
-        expect(json['errors']['code']).to eq('VALIDATION_ERROR')
-        expect(json['errors']['msg']).to eq('loan_type_id is required')
+        expect(json['errors']['code']).to eq('UNPROCESSABLE_ENTITY')
+        expect(json['errors']['errors'][0]['detail']).to eq('Required loan_type_id is missing.')
       end
     end
 

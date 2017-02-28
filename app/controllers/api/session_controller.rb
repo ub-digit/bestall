@@ -7,7 +7,7 @@ class Api::SessionController < ApplicationController
     if params[:cas_ticket] && params[:cas_service]
       username = cas_validate(params[:cas_ticket], params[:cas_service])
     else
-      error_msg(ErrorCodes::AUTH_ERROR, "CAS ticket is mandatory.")
+      error_msg(ErrorCodes::UNAUTHORIZED, "CAS ticket is mandatory.")
       render_json
       return
     end
@@ -21,13 +21,13 @@ class Api::SessionController < ApplicationController
           @response[:token_type] = "bearer"
           @response[:user] = user.as_json
         else
-          error_msg(ErrorCodes::OBJECT_ERROR, "Error creating token.")
+          error_msg(ErrorCodes::NOT_FOUND, "Error creating token.")
         end
       else
-        error_msg(ErrorCodes::OBJECT_ERROR, "User not found in Koha: #{username}")
+        error_msg(ErrorCodes::NOT_FOUND, "User not found in Koha: #{username}")
       end
     else
-      error_msg(ErrorCodes::AUTH_ERROR, "Invalid credentials")
+      error_msg(ErrorCodes::UNAUTHORIZED, "Invalid credentials")
   end
     render_json
   end
