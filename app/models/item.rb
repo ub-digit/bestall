@@ -32,9 +32,6 @@ class Item
   end
 
   def parse_xml xml
-
-    # puts xml
-
     parsed_xml = Nokogiri::XML(xml).remove_namespaces!
 
     if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="9"]').text.present?
