@@ -45,6 +45,22 @@ RSpec.describe Item, type: :model do
       end
     end
 
+    context "item is unrestricted" do
+      before :each do
+        @xml = File.open("#{Rails.root}/spec/support/biblio/item-can-order.xml") { |f|
+          Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
+        }
+      end
+      it "should return can_be_ordered true when restricted is not present in xml" do
+        item = Item.new(biblio_id: 1, xml: @xml[0].to_xml)
+        expect(item.can_be_ordered).to be_truthy
+      end
+      it "should return can_be_ordered true when restricted is 0" do
+        item = Item.new(biblio_id: 1, xml: @xml[1].to_xml)
+        expect(item.can_be_ordered).to be_truthy
+      end
+    end
+
     context "item can not be ordered" do
       before :each do
         @xml = File.open("#{Rails.root}/spec/support/biblio/biblio-cannot-order.xml") { |f|
