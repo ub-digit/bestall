@@ -12,14 +12,14 @@ class Api::UsersController < ApplicationController
         error_list.push({"code" => "FINES", "detail" => "Fines exceed maximum allowed amount."}) if user.fines
         error_list.push({"code" => "DEBARRED", "detail" => "User is debarred."}) if user.debarred
         error_list.push({"code" => "NO_ADDRESS", "detail" => "User has no address record."}) if user.no_address
-        error_list.push({"code" => "EXPIRED", "detail" => "Card has exxpired."}) if user.expired
-        
-        error_msg(ErrorCodes::PERMISSION_ERROR, "Access denied", error_list) 
+        error_list.push({"code" => "EXPIRED", "detail" => "Card has expired."}) if user.expired
+
+        error_msg(ErrorCodes::FORBIDDEN, "Access denied", error_list)
       else
         @response[:user] = user.as_json
       end
     else
-      error_msg(ErrorCodes::OBJECT_ERROR, "Could not find user")
+      error_msg(ErrorCodes::NOT_FOUND, "Could not find user")
     end
     render_json
   end

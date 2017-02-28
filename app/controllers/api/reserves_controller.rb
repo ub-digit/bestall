@@ -9,11 +9,17 @@ class Api::ReservesController < ApplicationController
     loantype = params[:reserve][:loan_type_id]
     reservenotes = params[:reserve][:reserve_notes]
 
-    error_msg(ErrorCodes::VALIDATION_ERROR, "user_id is required") if borrowernumber.blank?
-    error_msg(ErrorCodes::VALIDATION_ERROR, "location_id is required") if branchcode.blank?
-    error_msg(ErrorCodes::VALIDATION_ERROR, "biblio_id is required") if biblionumber.blank?
+    # felen ska in i errors-listan:
+    # "errors": [
+    #   {"code": "MISSING_USER_ID", "detail": "user_id is missing"}
+    #   {"code": "ITEM_ID_MISSING", "detail": "item_id is missing"}
+    # ],
+    error_list = Array.new
+    error_list.push({code: "MISSING_USER", detail: "Required user_id is missing."}) if borrowernumber.blank?
+    error_list.push({code: "MISSING_LOCATION", detail: "Required location_id is missing."}) if branchcode.blank?
+    error_list.push({code: "MISSING_BIBLIO", detail: "Required biblio_id is missing."}) if biblionumber.blank?
     if loantype.blank?
-      error_msg(ErrorCodes::VALIDATION_ERROR, "loan_type_id is required")
+      error_list.push({code: "MISSING_LOAN_TYPE", detail: "Required loan_type_id is missing."})
     else
       loan_type_obj = LoanType.find_by_id(loantype.to_i)
       if loan_type_obj
@@ -23,7 +29,8 @@ class Api::ReservesController < ApplicationController
       end
       reservenotes = "Lånetyp: #{loan_type_name} \n#{(reservenotes.present? ? reservenotes : '')}"
     end
-    if @response[:errors].present?
+    if error_list.present?
+      error_msg(ErrorCodes::UNPROCESSABLE_ENTITY, "At least one parameter was not valid.", error_list)
       render_json
       return
     end
@@ -32,7 +39,7 @@ class Api::ReservesController < ApplicationController
     user_id = borrowernumber.to_i
     currentuser_id = AccessToken.find_by_username(@current_username).user_id
     if user_id != currentuser_id
-      error_msg(ErrorCodes::PERMISSION_ERROR, "Requested user must be same same as logged in user")
+      error_msg(ErrorCodes::UNAUTHORIZED, "Requested user must be same same as logged in user")
       render_json
       return
     end
@@ -45,19 +52,19 @@ class Api::ReservesController < ApplicationController
         return
       elsif result.class == Hash
         if result[:code] == 400
-          error_msg(ErrorCodes::ERROR, result[:msg], result[:errors])
+          error_msg(ErrorCodes::BAD_REQUEST, result[:msg], result[:errors])
         end
         if result[:code] == 403
-          error_msg(ErrorCodes::PERMISSION_ERROR, result[:msg], result[:errors])
+          error_msg(ErrorCodes::UNAUTHORIZED, result[:msg], result[:errors])
         end
         if result[:code] == 404
-          error_msg(ErrorCodes::REQUEST_ERROR, result[:msg], result[:errors])
+          error_msg(ErrorCodes::NOT_FOUND, result[:msg], result[:errors])
         end
         if result[:code] == 500
-          error_msg(ErrorCodes::SERVER_ERROR, result[:msg], result[:errors])
+          error_msg(ErrorCodes::INTERNAL_SERVER_ERROR, result[:msg], result[:errors])
         end
       else
-        error_msg(ErrorCodes::OBJECT_ERROR, "Error when creating a reserve")
+        error_msg(ErrorCodes::INTERNAL_SERVER_ERROR, "Error when creating a reserve")
       end
     end
     render_json

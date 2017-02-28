@@ -19,15 +19,20 @@ class ApplicationController < ActionController::Base
   end
 
   # Generates an error object from code, message and error list
-  def error_msg(code=ErrorCodes::ERROR, msg="", error_list = nil)
-    @response[:errors] = {code: code[:code], msg: msg, errors: error_list}
+  def error_msg(code=ErrorCodes::INTERNAL_SERVER_ERROR, detail="Unspecified error", errors = nil, data = nil)
+    @response[:errors] = {
+      code: code[:code],
+      detail: detail,
+      errors: errors,
+      data: data
+    }
   end
 
 private
   # Sets user according to token or api_key, or authenication error if fail
   def validate_access
     if !validate_token
-      error_msg(ErrorCodes::AUTH_ERROR, "User not valid")
+      error_msg(ErrorCodes::UNAUTHORIZED, "User not valid")
       render_json
     end
   end
