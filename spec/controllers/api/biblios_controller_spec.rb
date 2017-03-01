@@ -55,6 +55,14 @@ RSpec.describe Api::BibliosController, type: :controller do
         get :show, params: {id: 1}
         expect(json['biblio']['record_type']).to_not be nil
       end
+      it "should return a flag for can_be_queued" do
+        get :show, params: {id: 1}
+        expect(json['biblio']['can_be_queued']).to_not be nil
+      end
+      it "should return a flag for can_be_queued_on_item" do
+        get :show, params: {id: 1}
+        expect(json['biblio']['can_be_queued_on_item']).to_not be nil
+      end
     end
     context "item contains only id" do
       before :each do

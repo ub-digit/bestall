@@ -45,6 +45,61 @@ RSpec.describe Biblio, :type => :model do
         expect(biblio).to_not be_nil
         expect(biblio.record_type).to eq("monograph")
       end
+      it "should return can_be_queued" do
+        biblio = Biblio.find_by_id 1
+        expect(biblio.can_be_queued).to_not be_nil
+      end
+    end
+  end
+
+  describe "can_be_queued" do
+    context "item can be queued" do
+      before :each do
+        WebMock.stub_request(:get, "http://koha.example.com/bib/1?items=1&password=password&userid=username").
+          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+          to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/item/item-can-queue.xml"), :headers => {})
+      end
+      it "should return can_be_queued true" do
+        biblio = Biblio.find_by_id 1
+        expect(biblio.can_be_queued).to be_truthy
+      end
+    end
+
+    context "item can not be queued" do
+      before :each do
+        WebMock.stub_request(:get, "http://koha.example.com/bib/1?items=1&password=password&userid=username").
+          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+          to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/item/item-cannot-queue.xml"), :headers => {})
+      end
+      it "should return can_be_queued false" do
+        biblio = Biblio.find_by_id 1
+        expect(biblio.can_be_queued).to be_falsey
+      end
+    end
+  end
+
+  describe "can_be_queued_on_item" do
+    context "biblio is a monograph" do
+      before :each do
+        WebMock.stub_request(:get, "http://koha.example.com/bib/1?items=1&password=password&userid=username").
+          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+          to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/biblio/biblio-monograph.xml"), :headers => {})
+      end
+      it "should return can_be_queued_on_item false" do
+        biblio = Biblio.find_by_id 1
+        expect(biblio.can_be_queued_on_item).to be_falsey
+      end
+    end
+    context "biblio is a serial" do
+      before :each do
+        WebMock.stub_request(:get, "http://koha.example.com/bib/1?items=1&password=password&userid=username").
+          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+          to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/biblio/biblio-serial.xml"), :headers => {})
+      end
+      it "should return can_be_queued_on_item true" do
+        biblio = Biblio.find_by_id 1
+        expect(biblio.can_be_queued_on_item).to be_truthy
+      end
     end
   end
 
@@ -84,5 +139,4 @@ RSpec.describe Biblio, :type => :model do
       end
     end
   end
-
 end
