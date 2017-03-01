@@ -66,6 +66,9 @@ class Biblio
 
   def self.find_by_id id
     self.find id
+    # TODO: Do something much better
+  rescue RestClient::NotFound => error
+    return nil
   rescue => error
     return nil
   end
@@ -78,7 +81,7 @@ class Biblio
 
     @author = bib_xml.search('//record/datafield[@tag="100"]/subfield[@code="a"]').text
 
-    @record_type = Biblio.parse_record_type(xml.search('//record/leader').text)
+    @record_type = Biblio.parse_record_type(bib_xml.search('//record/leader').text)
 
     if bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="a"]').text.present?
       @title = bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="a"]').text
