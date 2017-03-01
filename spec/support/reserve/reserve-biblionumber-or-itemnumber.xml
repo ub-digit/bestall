@@ -1,0 +1,4 @@
+<?xml version='1.0' standalone='yes'?>
+<response>
+  <auth_status>At least one of biblionumber, itemnumber should be given</auth_status>
+</response>

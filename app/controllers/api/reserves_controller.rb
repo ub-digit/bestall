@@ -39,6 +39,7 @@ class Api::ReservesController < ApplicationController
       return
     end
 
+    # If no validation errors were stored in response connect to Koha
     if @response[:errors].nil?
       result = Reserve.add(borrowernumber: borrowernumber, branchcode: branchcode, biblionumber: biblionumber, itemnumber: itemnumber, reservenotes: reservenotes)
       if result.class == Reserve
@@ -50,7 +51,7 @@ class Api::ReservesController < ApplicationController
           error_msg(ErrorCodes::BAD_REQUEST, result[:msg], result[:errors])
         end
         if result[:code] == 403
-          error_msg(ErrorCodes::UNAUTHORIZED, result[:msg], result[:errors])
+          error_msg(ErrorCodes::FORBIDDEN, result[:msg], result[:errors])
         end
         if result[:code] == 404
           error_msg(ErrorCodes::NOT_FOUND, result[:msg], result[:errors])

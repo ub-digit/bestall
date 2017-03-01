@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
       render json: @response, status: status
     else
       # If not successful, render with status from ErrorCodes module
-      render json: @response, status: ErrorCodes.const_get(@response[:errors][:code])[:http_status]
+      render json: @response, status: ErrorCodes.const_get(@response[:errors][:code])[:status]
     end
   end
 
