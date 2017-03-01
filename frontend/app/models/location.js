@@ -15,7 +15,7 @@ export default DS.Model.extend({
 		return this.get('nameEn');
 	}),
 
-	isPickup: Ember.computed('categories', function() {
+	isPickupLocation: Ember.computed('categories', function() {
 		return this.get('categories').includes('PICKUP');
 	})
 });

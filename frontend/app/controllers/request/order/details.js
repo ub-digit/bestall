@@ -5,6 +5,7 @@ export default Ember.Controller.extend({
   request: Ember.inject.controller(),
   order: Ember.inject.controller('request.order'),
 
+  pickupLocations: Ember.computed.filterBy('order.model.locations', 'isPickupLocation', true),
 
   btnNextDisabled: Ember.computed('order.model.reserve.{location,loanType}', function() {
 		if (this.get('order.model.reserve.location') && this.get('order.model.reserve.loanType')){
