@@ -27,5 +27,9 @@ RSpec.describe Location, type: :model do
       location = Location.all.first
       expect(location.name_en).to be_truthy
     end
+    it "first location should categories" do
+      location = Location.all.first
+      expect(location.categories).to be_truthy
+    end
   end
 end

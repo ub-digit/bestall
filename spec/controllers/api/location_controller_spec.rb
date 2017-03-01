@@ -22,6 +22,11 @@ RSpec.describe Api::LocationsController, type: :controller do
         location['id']
       end
       expect(location_ids).to eq(['10', '11', '12'])
+
+      expect(json['locations'][0]['name_sv']).to eq('Bibl för musik och dramatik (MoD)')
+      expect(json['locations'][0]['categories']).to be_kind_of(Array)
+      expect(json['locations'][0]['categories'].length).to eq(1)
+
       expect(json['locations'][0]['sublocations']).to be_kind_of(Array)
       expect(json['locations'][0]['sublocations'].length).to eq(2)
 

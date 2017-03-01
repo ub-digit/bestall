@@ -3,12 +3,13 @@ class Location
   include ActiveModel::Serialization
   include ActiveModel::Validations
 
-  attr_accessor :id, :name_sv, :name_en
+  attr_accessor :id, :name_sv, :name_en, :categories
 
-  def initialize id:, name_sv:, name_en:
+  def initialize id:, name_sv:, name_en:, categories:
     @id = id
     @name_sv = name_sv
     @name_en = name_en
+    @categories = categories
 
   end
 
@@ -41,8 +42,9 @@ class Location
       next if id.blank?
       name_sv = branch.xpath('branchname').text
       name_en = branch.xpath('branchname').text
+      categories = branch.xpath('categories').map(&:text)
 
-      branches << self.new(id: id, name_sv: name_sv, name_en: name_en)
+      branches << self.new(id: id, name_sv: name_sv, name_en: name_en, categories: categories)
 
     end
 

@@ -1,91 +1,16 @@
 <?xml version='1.0' standalone='yes'?>
 <response>
   <branches>
-    <branchaddress1>Address2</branchaddress1>
-    <branchaddress2></branchaddress2>
-    <branchaddress3></branchaddress3>
-    <branchcity>City2</branchcity>
-    <branchcode>11</branchcode>
-    <branchcountry>SWE</branchcountry>
-    <branchemail></branchemail>
-    <branchfax></branchfax>
-    <branchip></branchip>
-    <branchname>Brach2</branchname>
-    <branchnotes></branchnotes>
-    <branchphone></branchphone>
-    <branchprinter></branchprinter>
-    <branchreplyto></branchreplyto>
-    <branchreturnpath></branchreturnpath>
-    <branchstate></branchstate>
-    <branchurl></branchurl>
-    <branchzip></branchzip>
-    <issuing></issuing>
-    <opac_info></opac_info>
-  </branches>
-  <branches>
-    <branchaddress1>Address1</branchaddress1>
-    <branchaddress2></branchaddress2>
-    <branchaddress3></branchaddress3>
-    <branchcity>City1</branchcity>
     <branchcode>10</branchcode>
-    <branchcountry>SWE</branchcountry>
-    <branchemail></branchemail>
-    <branchfax></branchfax>
-    <branchip></branchip>
-    <branchname>Brach1</branchname>
-    <branchnotes></branchnotes>
-    <branchphone></branchphone>
-    <branchprinter></branchprinter>
-    <branchreplyto></branchreplyto>
-    <branchreturnpath></branchreturnpath>
-    <branchstate></branchstate>
-    <branchurl></branchurl>
-    <branchzip></branchzip>
-    <issuing></issuing>
-    <opac_info></opac_info>
+    <branchname>Bibl för musik och dramatik (MoD)</branchname>
+    <categories>PICKUP</categories>
   </branches>
   <branches>
-    <branchaddress1>Address3</branchaddress1>
-    <branchaddress2></branchaddress2>
-    <branchaddress3></branchaddress3>
-    <branchcity>City3</branchcity>
+    <branchcode>11</branchcode>
+    <branchname>Biomedicinska biblioteket</branchname>
+  </branches>
+  <branches>
     <branchcode>12</branchcode>
-    <branchcountry>SWE</branchcountry>
-    <branchemail></branchemail>
-    <branchfax></branchfax>
-    <branchip></branchip>
-    <branchname>Brach3</branchname>
-    <branchnotes></branchnotes>
-    <branchphone></branchphone>
-    <branchprinter></branchprinter>
-    <branchreplyto></branchreplyto>
-    <branchreturnpath></branchreturnpath>
-    <branchstate></branchstate>
-    <branchurl></branchurl>
-    <branchzip></branchzip>
-    <issuing></issuing>
-    <opac_info></opac_info>
-  </branches>
-  <branches>
-    <branchaddress1>Address4</branchaddress1>
-    <branchaddress2></branchaddress2>
-    <branchaddress3></branchaddress3>
-    <branchcity>City4</branchcity>
-    <branchcode></branchcode>
-    <branchcountry>SWE</branchcountry>
-    <branchemail></branchemail>
-    <branchfax></branchfax>
-    <branchip></branchip>
-    <branchname>Brach3</branchname>
-    <branchnotes></branchnotes>
-    <branchphone></branchphone>
-    <branchprinter></branchprinter>
-    <branchreplyto></branchreplyto>
-    <branchreturnpath></branchreturnpath>
-    <branchstate></branchstate>
-    <branchurl></branchurl>
-    <branchzip></branchzip>
-    <issuing></issuing>
-    <opac_info></opac_info>
+    <branchname>Botanik- och miljöbiblioteket</branchname>
   </branches>
 </response>
