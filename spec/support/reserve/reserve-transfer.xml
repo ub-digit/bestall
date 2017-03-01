@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response>
+  <reserve>
+    <biblionumber>50</biblionumber>
+    <borrowernumber>1</borrowernumber>
+    <branchcode>10</branchcode>
+    <cancellationdate></cancellationdate>
+    <expirationdate></expirationdate>
+    <found>T</found>
+    <itemnumber></itemnumber>
+    <itemtype></itemtype>
+    <lowestPriority>0</lowestPriority>
+    <notificationdate></notificationdate>
+    <priority>0</priority>
+    <reminderdate></reminderdate>
+    <reserve_id>100</reserve_id>
+    <reservedate>2017-02-16</reservedate>
+    <reservenotes></reservenotes>
+    <suspend>0</suspend>
+    <suspend_until></suspend_until>
+    <timestamp>2017-02-16 12:42:09</timestamp>
+    <waitingdate></waitingdate>
+  </reserve>
+</response>

@@ -52,6 +52,10 @@ RSpec.describe Biblio, :type => :model do
         biblio = Biblio.find_by_id 1
         expect(biblio.can_be_queued).to_not be_nil
       end
+      it "should return no_in_queue" do
+        biblio = Biblio.find_by_id 1
+        expect(biblio.no_in_queue).to_not be_nil
+      end
     end
   end
 
