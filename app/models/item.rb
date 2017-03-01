@@ -1,5 +1,6 @@
 class Item
-  attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number, :copy_number, :due_date, :lost, :restricted, :not_for_loan
+  attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number,
+                :copy_number, :due_date, :lost, :restricted, :not_for_loan, :found
 
   include ActiveModel::Serialization
   include ActiveModel::Validations

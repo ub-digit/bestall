@@ -19,6 +19,9 @@ RSpec.describe Biblio, :type => :model do
         WebMock.stub_request(:get, "http://koha.example.com/bib/1?items=1&password=password&userid=username").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
           to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/biblio/biblio-1.xml"), :headers => {})
+        WebMock.stub_request(:get, "http://koha.example.com/reserves/list?biblionumber=1&password=password&userid=username").
+          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+          to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/reserve/reserve-empty.xml"), :headers => {})
       end
       it "should return an object" do
         biblio = Biblio.find_by_id 1
@@ -49,6 +52,10 @@ RSpec.describe Biblio, :type => :model do
         biblio = Biblio.find_by_id 1
         expect(biblio.can_be_queued).to_not be_nil
       end
+      it "should return no_in_queue" do
+        biblio = Biblio.find_by_id 1
+        expect(biblio.no_in_queue).to_not be_nil
+      end
     end
   end
 
@@ -58,6 +65,9 @@ RSpec.describe Biblio, :type => :model do
         WebMock.stub_request(:get, "http://koha.example.com/bib/1?items=1&password=password&userid=username").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
           to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/item/item-can-queue.xml"), :headers => {})
+        WebMock.stub_request(:get, "http://koha.example.com/reserves/list?biblionumber=1&password=password&userid=username").
+          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+          to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/reserve/reserve-empty.xml"), :headers => {})
       end
       it "should return can_be_queued true" do
         biblio = Biblio.find_by_id 1
@@ -70,6 +80,9 @@ RSpec.describe Biblio, :type => :model do
         WebMock.stub_request(:get, "http://koha.example.com/bib/1?items=1&password=password&userid=username").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
           to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/item/item-cannot-queue.xml"), :headers => {})
+        WebMock.stub_request(:get, "http://koha.example.com/reserves/list?biblionumber=1&password=password&userid=username").
+          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+          to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/reserve/reserve-empty.xml"), :headers => {})
       end
       it "should return can_be_queued false" do
         biblio = Biblio.find_by_id 1
@@ -84,6 +97,9 @@ RSpec.describe Biblio, :type => :model do
         WebMock.stub_request(:get, "http://koha.example.com/bib/1?items=1&password=password&userid=username").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
           to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/biblio/biblio-monograph.xml"), :headers => {})
+        WebMock.stub_request(:get, "http://koha.example.com/reserves/list?biblionumber=1&password=password&userid=username").
+          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+          to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/reserve/reserve-empty.xml"), :headers => {})
       end
       it "should return can_be_queued_on_item false" do
         biblio = Biblio.find_by_id 1
@@ -95,6 +111,9 @@ RSpec.describe Biblio, :type => :model do
         WebMock.stub_request(:get, "http://koha.example.com/bib/1?items=1&password=password&userid=username").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
           to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/biblio/biblio-serial.xml"), :headers => {})
+        WebMock.stub_request(:get, "http://koha.example.com/reserves/list?biblionumber=1&password=password&userid=username").
+          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+          to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/reserve/reserve-empty.xml"), :headers => {})
       end
       it "should return can_be_queued_on_item true" do
         biblio = Biblio.find_by_id 1
