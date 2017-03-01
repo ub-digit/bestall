@@ -1,0 +1,5 @@
+{{#if isQueueable}}
+  <button {{action 'onOrderClick'}} class="btn btn-block btn-xs btn-primary">Köa</button>
+{{else if canBeOrdered}}
+  <button {{action 'onOrderClick'}} class="btn btn-block btn-xs btn-primary">Beställ</button>
+{{/if}}
