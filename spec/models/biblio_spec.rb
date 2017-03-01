@@ -40,6 +40,48 @@ RSpec.describe Biblio, :type => :model do
         expect(biblio).to_not be_nil
         expect(biblio.can_be_borrowed).to eq(false)
       end
+      it "should return record_type" do
+        biblio = Biblio.find_by_id 1
+        expect(biblio).to_not be_nil
+        expect(biblio.record_type).to eq("monograph")
+      end
+    end
+  end
+
+  describe "methods" do
+    context "parse_record_type" do
+      it "should return monographic_component for a" do
+        record_type = Biblio.parse_record_type("     caa a22 ar4500")
+        expect(record_type).to eq("monographic_component")
+      end
+      it "should return serial_component for b" do
+        record_type = Biblio.parse_record_type("     cab a22 ar4500")
+        expect(record_type).to eq("serial_component")
+      end
+      it "should return collection for c" do
+        record_type = Biblio.parse_record_type("     cac a22 ar4500")
+        expect(record_type).to eq("collection")
+      end
+      it "should return subunit for d" do
+        record_type = Biblio.parse_record_type("     cad a22 ar4500")
+        expect(record_type).to eq("subunit")
+      end
+      it "should return integrating_resource for i" do
+        record_type = Biblio.parse_record_type("     cai a22 ar4500")
+        expect(record_type).to eq("integrating_resource")
+      end
+      it "should return monograph for m" do
+        record_type = Biblio.parse_record_type("     cam a22 ar4500")
+        expect(record_type).to eq("monograph")
+      end
+      it "should return serial for s" do
+        record_type = Biblio.parse_record_type("     cas a22 ar4500")
+        expect(record_type).to eq("serial")
+      end
+      it "should return other for q" do
+        record_type = Biblio.parse_record_type("     caq a22 ar4500")
+        expect(record_type).to eq("other")
+      end
     end
   end
 

@@ -55,7 +55,7 @@ RSpec.describe Item, type: :model do
 
     context "item is unrestricted" do
       before :each do
-        @xml = File.open("#{Rails.root}/spec/support/biblio/item-can-order.xml") { |f|
+        @xml = File.open("#{Rails.root}/spec/support/item/item-can-order.xml") { |f|
           Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
         }
       end
@@ -99,7 +99,7 @@ RSpec.describe Item, type: :model do
 
     context "item can not be queued" do
       before :each do
-        @xml = File.open("#{Rails.root}/spec/support/item/item-cannot-queu.xml") { |f|
+        @xml = File.open("#{Rails.root}/spec/support/item/item-cannot-queue.xml") { |f|
           Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
         }
       end
@@ -131,7 +131,7 @@ RSpec.describe Item, type: :model do
 
     context "item can be queued" do
       before :each do
-        @xml = File.open("#{Rails.root}/spec/support/item/item-can-queu.xml") { |f|
+        @xml = File.open("#{Rails.root}/spec/support/item/item-can-queue.xml") { |f|
           Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
         }
       end
