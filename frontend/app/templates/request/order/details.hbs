@@ -8,7 +8,7 @@
 <div class="row">
 	<div class="col-xs-12 col-sm-8">
 	{{pick-location
-		locations=order.model.locations
+		locations=pickupLocations
 		selectedItem=order.model.reserve.location.id
 		onSelect=(action 'setLocation')
 		label=(t 'request.order.details.labelForLocationDropdown')
