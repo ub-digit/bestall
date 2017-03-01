@@ -4,30 +4,12 @@ import ENV from 'frontend/config/environment';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
 export default Base.extend({
-  restore: function(properties) {
-    return new Ember.RSVP.Promise(function(resolve, reject) {
-      Ember.$.ajax({
-        type: 'GET',
-        url: ENV.APP.authenticationBaseURL+'/'+properties.token
-      }).then(function() {
-        resolve(properties);
-      }, function() {
-        reject();
-      });
-    });
-  },
-  authenticate: function(credentials) {
 
+  authenticate: function(credentials) {
     var authCredentials = {};
     if(credentials.cas_ticket && credentials.cas_service) {
       authCredentials = credentials;
     }
-    // else {
-    //   authCredentials = {
-    //     username: credentials.identification,
-    //     password: credentials.password
-    //   };
-    // }
     return new Ember.RSVP.Promise(function(resolve, reject) {
       Ember.$.ajax({
         type: 'POST',
@@ -55,7 +37,6 @@ export default Base.extend({
     });
   }
 });
-
 
 AuthenticatedRouteMixin.reopen({
   beforeModel: function(transition) {
