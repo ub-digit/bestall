@@ -7,6 +7,9 @@ RSpec.describe Biblio, :type => :model do
         WebMock.stub_request(:get, "http://koha.example.com/bib/999?items=1&password=password&userid=username").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
           to_return(:status => 404, :body => File.new("#{Rails.root}/spec/support/biblio/biblio-empty.xml"), :headers => {})
+        WebMock.stub_request(:get, "http://koha.example.com/reserves/list?biblionumber=999&password=password&userid=username").
+          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+          to_return(:status => 200, :body => "", :headers => {})
       end
       it "should return nil" do
         biblio = Biblio.find_by_id 999
@@ -19,6 +22,9 @@ RSpec.describe Biblio, :type => :model do
         WebMock.stub_request(:get, "http://koha.example.com/bib/1?items=1&password=password&userid=username").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
           to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/biblio/biblio-1.xml"), :headers => {})
+        WebMock.stub_request(:get, "http://koha.example.com/reserves/list?biblionumber=1&password=password&userid=username").
+          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+          to_return(:status => 200, :body => "", :headers => {})
       end
       it "should return an object" do
         biblio = Biblio.find_by_id 1

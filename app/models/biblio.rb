@@ -1,5 +1,5 @@
 class Biblio
-  attr_accessor :id, :title, :author, :items, :record_type
+  attr_accessor :id, :title, :author, :items, :record_type, :no_in_queue
 
   include ActiveModel::Serialization
   include ActiveModel::Validations
@@ -18,7 +18,6 @@ class Biblio
     @items.each do |item|
       return true if item.can_be_borrowed
     end
-
     return false
   end
 
@@ -43,13 +42,13 @@ class Biblio
   end
 
   def as_json options = {}
-    super(except: ['xml']).merge(can_be_queued: can_be_queued, can_be_queued_on_item: can_be_queued_on_item)
+    super.merge(can_be_queued: can_be_queued, can_be_queued_on_item: can_be_queued_on_item)
   end
 
-  def initialize id, xml
+
+  def initialize id, bib_xml, reserves_xml
     @id = id
-    @xml = xml
-    parse_xml
+    parse_xml bib_xml, reserves_xml
   end
 
   def self.find id
@@ -57,9 +56,11 @@ class Biblio
     user =  APP_CONFIG['koha']['user']
     password =  APP_CONFIG['koha']['password']
 
-    url = "#{base_url}/bib/#{id}?userid=#{user}&password=#{password}&items=1"
-    response = RestClient.get url
-    item = self.new id, response
+    bib_url = "#{base_url}/bib/#{id}?userid=#{user}&password=#{password}&items=1"
+    reserves_url = "#{base_url}/reserves/list?biblionumber=#{id}&userid=#{user}&password=#{password}"
+    bib_response = RestClient.get bib_url
+    reserves_response = RestClient.get reserves_url
+    item = self.new id, bib_response, reserves_response
     return item
   end
 
@@ -69,27 +70,51 @@ class Biblio
     return nil
   end
 
-  def parse_xml
-    xml = Nokogiri::XML(@xml).remove_namespaces!
+  def parse_xml bib_xml, reserves_xml
+    bib_xml = Nokogiri::XML(bib_xml).remove_namespaces!
+    reserves_xml = Nokogiri::XML(reserves_xml).remove_namespaces!
 
     @items = []
 
-    @author = xml.search('//record/datafield[@tag="100"]/subfield[@code="a"]').text
+    @author = bib_xml.search('//record/datafield[@tag="100"]/subfield[@code="a"]').text
 
     @record_type = Biblio.parse_record_type(xml.search('//record/leader').text)
 
-    if xml.search('//record/datafield[@tag="245"]/subfield[@code="a"]').text.present?
-      @title = xml.search('//record/datafield[@tag="245"]/subfield[@code="a"]').text
+    if bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="a"]').text.present?
+      @title = bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="a"]').text
     end
-    if xml.search('//record/datafield[@tag="245"]/subfield[@code="b"]').text.present?
-      @title = @title + ' ' + xml.search('//record/datafield[@tag="245"]/subfield[@code="b"]').text
+    if bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="b"]').text.present?
+      @title = @title + ' ' + bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="b"]').text
     end
-    if xml.search('//record/datafield[@tag="245"]/subfield[@code="p"]').text.present?
-      @title = @title + ' ' + xml.search('//record/datafield[@tag="245"]/subfield[@code="p"]').text
+    if bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="p"]').text.present?
+      @title = @title + ' ' + bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="p"]').text
     end
 
-    xml.search('//record/datafield[@tag="952"]').each do |item_data|
-      @items << Item.new(biblio_id: self.id, xml: item_data.to_xml)
+    @no_in_queue = 0
+
+    bib_xml.search('//record/datafield[@tag="952"]').each do |item_data|
+      item = Item.new(biblio_id: self.id, xml: item_data.to_xml)
+      reserves_xml.search('//response/reserve').each do |reserve|
+        if reserve.xpath('itemnumber').text.present?
+          if reserve.xpath('itemnumber').text == item.id
+            if reserve.xpath('found').text.present?
+              if reserve.xpath('found').text == "T"
+                item.found = "TRANSIT"
+              elsif reserve.xpath('found').text == "W"
+                item.found = "WAITING"
+              elsif reserve.xpath('found').text == "F"
+                item.found = "FINISHED"
+              else
+                item.found = nil
+              end
+            end
+          end
+        else
+          # increase only when itemnumber is not included
+          @no_in_queue += 1
+        end
+      end
+      @items << item
     end
   end
 
