@@ -29,7 +29,7 @@ class Reserve
         return obj
       else
         auth_status = self.parse_error(response.body)
-        error_list = [{code: "KOHA_CGI_ERROR", msg: auth_status}]
+        error_list = [{code: "KOHA_CGI_ERROR", detail: auth_status}]
         return {code: response.code, msg: "Koha CGI says: #{auth_status}", errors: error_list}
       end
     else

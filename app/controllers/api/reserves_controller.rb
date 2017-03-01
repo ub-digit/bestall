@@ -39,6 +39,7 @@ class Api::ReservesController < ApplicationController
       return
     end
 
+    # If no validation errors were stored in response connect to Koha
     if @response[:errors].nil?
       result = Reserve.add(borrowernumber: borrowernumber, branchcode: branchcode, biblionumber: biblionumber, itemnumber: itemnumber, reservenotes: reservenotes)
       if result.class == Reserve
