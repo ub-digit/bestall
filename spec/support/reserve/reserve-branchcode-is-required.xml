@@ -1,4 +1,5 @@
 <?xml version='1.0' standalone='yes'?>
 <response>
   <auth_status>Branchcode is required</auth_status>
+  <error_code></error_code>
 </response>
