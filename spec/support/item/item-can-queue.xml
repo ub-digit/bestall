@@ -4,6 +4,7 @@
     xsi:schemaLocation="http://www.loc.gov/MARC21/slim http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd"
     xmlns="http://www.loc.gov/MARC21/slim">
 
+  <leader>     cam a22 ar4500</leader>
   <datafield tag="100" ind1="1" ind2=" ">
     <subfield code="a">Test, Author</subfield>
   </datafield>
@@ -11,25 +12,14 @@
     <subfield code="a">Test Title a</subfield>
     <subfield code="b">Test Title b</subfield>
   </datafield>
-  <!-- item that is implicitly unrestricted-->
+  <!-- item that is item type 7 -->
   <datafield tag="952" ind1=" " ind2=" ">
     <subfield code="y">1</subfield>
     <subfield code="o">Kursbok</subfield>
     <subfield code="t">1</subfield>
     <subfield code="p">1001821739</subfield>
     <subfield code="c">400004</subfield>
-    <subfield code="q"></subfield>
-    <subfield code="1">0</subfield>
-  </datafield>
-  <!-- item that is explicitly unrestricted-->
-  <datafield tag="952" ind1=" " ind2=" ">
-    <subfield code="y">1</subfield>
-    <subfield code="o">Kursbok</subfield>
-    <subfield code="t">1</subfield>
-    <subfield code="p">1001821739</subfield>
-    <subfield code="c">400004</subfield>
-    <subfield code="q"></subfield>
-    <subfield code="5">0</subfield>
+    <subfield code="q">2017-03-02</subfield>
     <subfield code="1">0</subfield>
   </datafield>
 </record>

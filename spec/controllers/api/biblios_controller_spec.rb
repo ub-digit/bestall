@@ -51,6 +51,10 @@ RSpec.describe Api::BibliosController, type: :controller do
         expect(json['biblio']['items']).to be_kind_of(Array)
         expect(json['biblio']['items'].length).to eq(1)
       end
+      it "should return a record type" do
+        get :show, params: {id: 1}
+        expect(json['biblio']['record_type']).to_not be nil
+      end
     end
     context "item contains only id" do
       before :each do

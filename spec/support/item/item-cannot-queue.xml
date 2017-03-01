@@ -12,29 +12,9 @@
     <subfield code="a">Test Title a</subfield>
     <subfield code="b">Test Title b</subfield>
   </datafield>
-  <!-- item with item type 2 -->
-  <datafield tag="952" ind1=" " ind2=" ">
-    <subfield code="y">2</subfield>
-    <subfield code="o">Kursbok</subfield>
-    <subfield code="t">1</subfield>
-    <subfield code="p">1001821737</subfield>
-    <subfield code="c">400004</subfield>
-    <subfield code="q"></subfield>
-    <subfield code="1">0</subfield>
-  </datafield>
-  <!-- item with item type 7 -->
+  <!-- item that is item type 7 -->
   <datafield tag="952" ind1=" " ind2=" ">
     <subfield code="y">7</subfield>
-    <subfield code="o">Kursbok</subfield>
-    <subfield code="t">1</subfield>
-    <subfield code="p">1001821738</subfield>
-    <subfield code="c">400004</subfield>
-    <subfield code="q"></subfield>
-    <subfield code="1">0</subfield>
-  </datafield>
-  <!-- item with a due date -->
-  <datafield tag="952" ind1=" " ind2=" ">
-    <subfield code="y">1</subfield>
     <subfield code="o">Kursbok</subfield>
     <subfield code="t">1</subfield>
     <subfield code="p">1001821739</subfield>
@@ -42,25 +22,58 @@
     <subfield code="q">2017-03-02</subfield>
     <subfield code="1">0</subfield>
   </datafield>
-  <!-- item that is lost -->
+  <!-- item that is restricted with 1 -->
   <datafield tag="952" ind1=" " ind2=" ">
     <subfield code="y">1</subfield>
     <subfield code="o">Kursbok</subfield>
     <subfield code="t">1</subfield>
     <subfield code="p">1001821739</subfield>
     <subfield code="c">400004</subfield>
-    <subfield code="q"></subfield>
-    <subfield code="1">1</subfield>
-  </datafield>
-  <!-- item that is restricted -->
-  <datafield tag="952" ind1=" " ind2=" ">
-    <subfield code="y">1</subfield>
-    <subfield code="o">Kursbok</subfield>
-    <subfield code="t">1</subfield>
-    <subfield code="p">1001821739</subfield>
-    <subfield code="c">400004</subfield>
-    <subfield code="q"></subfield>
+    <subfield code="q">2017-03-02</subfield>
     <subfield code="5">1</subfield>
+    <subfield code="1">0</subfield>
+  </datafield>
+  <!-- item that is restricted with 2 -->
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="y">1</subfield>
+    <subfield code="o">Kursbok</subfield>
+    <subfield code="t">1</subfield>
+    <subfield code="p">1001821739</subfield>
+    <subfield code="c">400004</subfield>
+    <subfield code="q">2017-03-02</subfield>
+    <subfield code="5">2</subfield>
+    <subfield code="1">0</subfield>
+  </datafield>
+  <!-- item that is restricted with 5 -->
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="y">1</subfield>
+    <subfield code="o">Kursbok</subfield>
+    <subfield code="t">1</subfield>
+    <subfield code="p">1001821739</subfield>
+    <subfield code="c">400004</subfield>
+    <subfield code="q">2017-03-02</subfield>
+    <subfield code="5">5</subfield>
+    <subfield code="1">0</subfield>
+  </datafield>
+  <!-- item that is restricted with 6 -->
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="y">1</subfield>
+    <subfield code="o">Kursbok</subfield>
+    <subfield code="t">1</subfield>
+    <subfield code="p">1001821739</subfield>
+    <subfield code="c">400004</subfield>
+    <subfield code="q">2017-03-02</subfield>
+    <subfield code="5">6</subfield>
+    <subfield code="1">0</subfield>
+  </datafield>
+  <!-- item without due date -->
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="y">1</subfield>
+    <subfield code="o">Kursbok</subfield>
+    <subfield code="t">1</subfield>
+    <subfield code="p">1001821739</subfield>
+    <subfield code="c">400004</subfield>
+    <subfield code="q"></subfield>
     <subfield code="1">0</subfield>
   </datafield>
 </record>

@@ -47,11 +47,15 @@ RSpec.describe Item, type: :model do
         item = Item.new(biblio_id: 1, xml: @xml)
         expect(item.not_for_loan).to_not be_nil
       end
+      it "should return can_be_queued" do
+        item = Item.new(biblio_id: 1, xml: @xml)
+        expect(item.can_be_queued).to_not be_nil
+      end
     end
 
     context "item is unrestricted" do
       before :each do
-        @xml = File.open("#{Rails.root}/spec/support/biblio/item-can-order.xml") { |f|
+        @xml = File.open("#{Rails.root}/spec/support/item/item-can-order.xml") { |f|
           Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
         }
       end
@@ -90,6 +94,50 @@ RSpec.describe Item, type: :model do
       it "should return can_be_ordered false when item is restricted" do
         item = Item.new(biblio_id: 1, xml: @xml[4].to_xml)
         expect(item.can_be_ordered).to be_falsey
+      end
+    end
+
+    context "item can not be queued" do
+      before :each do
+        @xml = File.open("#{Rails.root}/spec/support/item/item-cannot-queue.xml") { |f|
+          Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
+        }
+      end
+      it "should return can_be_queued false when item type is 7" do
+        item = Item.new(biblio_id: 1, xml: @xml[0].to_xml)
+        expect(item.can_be_queued).to be_falsey
+      end
+      it "should return can_be_queued false when restricted is 1" do
+        item = Item.new(biblio_id: 1, xml: @xml[1].to_xml)
+        expect(item.can_be_queued).to be_falsey
+      end
+      it "should return can_be_queued false when restricted is 2" do
+        item = Item.new(biblio_id: 1, xml: @xml[2].to_xml)
+        expect(item.can_be_queued).to be_falsey
+      end
+      it "should return can_be_queued false when restricted is 5" do
+        item = Item.new(biblio_id: 1, xml: @xml[3].to_xml)
+        expect(item.can_be_queued).to be_falsey
+      end
+      it "should return can_be_queued false when restricted is 6" do
+        item = Item.new(biblio_id: 1, xml: @xml[4].to_xml)
+        expect(item.can_be_queued).to be_falsey
+      end
+      it "should return can_be_queued false when there is no due date" do
+        item = Item.new(biblio_id: 1, xml: @xml[5].to_xml)
+        expect(item.can_be_queued).to be_falsey
+      end
+    end
+
+    context "item can be queued" do
+      before :each do
+        @xml = File.open("#{Rails.root}/spec/support/item/item-can-queue.xml") { |f|
+          Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
+        }
+      end
+      it "should return can_be_queued true when there is a due date present" do
+        item = Item.new(biblio_id: 1, xml: @xml[0].to_xml)
+        expect(item.can_be_queued).to be_truthy
       end
     end
   end

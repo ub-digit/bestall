@@ -10,8 +10,7 @@ class Item
   end
 
   def as_json options = {}
-    super.merge({can_be_ordered: can_be_ordered}).compact
-
+    super.merge({can_be_ordered: can_be_ordered, can_be_queued: can_be_queued}).compact
   end
 
   def can_be_borrowed
@@ -28,6 +27,13 @@ class Item
     return false if @due_date.present?
     return false if @lost != '0'
     return false unless @restricted == '0' || @restricted.nil?
+    return true
+  end
+
+  def can_be_queued
+    return false if @item_type == '7'
+    return false if ['1', '2', '5', '6'].include?(@restricted)
+    return false if @due_date.blank?
     return true
   end
 

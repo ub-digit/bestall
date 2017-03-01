@@ -1,12 +1,20 @@
 class Biblio
-  attr_accessor :id, :title, :author, :items
+  attr_accessor :id, :title, :author, :items, :record_type
 
   include ActiveModel::Serialization
   include ActiveModel::Validations
 
+  RECORD_TYPES = [
+    {code: 'a', label: 'monographic_component'},
+    {code: 'b', label: 'serial_component'},
+    {code: 'c', label: 'collection'},
+    {code: 'd', label: 'subunit'},
+    {code: 'i', label: 'integrating_resource'},
+    {code: 'm', label: 'monograph'},
+    {code: 's', label: 'serial'}
+  ]
 
   def can_be_borrowed
-
     @items.each do |item|
       return true if item.can_be_borrowed
     end
@@ -48,6 +56,8 @@ class Biblio
 
     @author = xml.search('//record/datafield[@tag="100"]/subfield[@code="a"]').text
 
+    @record_type = Biblio.parse_record_type(xml.search('//record/leader').text)
+
     if xml.search('//record/datafield[@tag="245"]/subfield[@code="a"]').text.present?
       @title = xml.search('//record/datafield[@tag="245"]/subfield[@code="a"]').text
     end
@@ -61,6 +71,18 @@ class Biblio
     xml.search('//record/datafield[@tag="952"]').each do |item_data|
       @items << Item.new(biblio_id: self.id, xml: item_data.to_xml)
     end
+  end
+
+  def self.parse_record_type leader
+    code = leader[7]
+
+    type_obj = RECORD_TYPES.find() do |type|
+      type[:code] == code
+    end
+
+    return "other" if type_obj.nil?
+
+    type_obj[:label]
   end
 
 end
