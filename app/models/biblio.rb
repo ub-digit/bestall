@@ -5,13 +5,13 @@ class Biblio
   include ActiveModel::Validations
 
   RECORD_TYPES = [
-    {code: 'a', label: 'monographic_component'},
-    {code: 'b', label: 'serial_component'},
-    {code: 'c', label: 'collection'},
-    {code: 'd', label: 'subunit'},
-    {code: 'i', label: 'integrating_resource'},
-    {code: 'm', label: 'monograph'},
-    {code: 's', label: 'serial'}
+    {code: 'a', label: 'monographic_component', queue_level: 'bib'},
+    {code: 'b', label: 'serial_component', queue_level: 'bib'},
+    {code: 'c', label: 'collection', queue_level: 'item'},
+    {code: 'd', label: 'subunit', queue_level: 'bib'},
+    {code: 'i', label: 'integrating_resource', queue_level: 'bib'},
+    {code: 'm', label: 'monograph', queue_level: 'bib'},
+    {code: 's', label: 'serial', queue_level: 'item'}
   ]
 
   def can_be_borrowed
@@ -22,8 +22,28 @@ class Biblio
     return false
   end
 
+  def can_be_queued
+    @items.each do |item|
+      return true if item.can_be_queued
+    end
+
+    return false
+  end
+
+  def can_be_queued_on_item
+    Biblio.queue_level(@record_type) == 'item'
+  end
+
+  def self.queue_level record_type
+    type_obj = RECORD_TYPES.find do |type|
+      type[:label] == record_type
+    end
+
+    return type_obj[:queue_level]
+  end
+
   def as_json options = {}
-    super(except: ['xml'])
+    super(except: ['xml']).merge(can_be_queued: can_be_queued, can_be_queued_on_item: can_be_queued_on_item)
   end
 
   def initialize id, xml
@@ -76,7 +96,7 @@ class Biblio
   def self.parse_record_type leader
     code = leader[7]
 
-    type_obj = RECORD_TYPES.find() do |type|
+    type_obj = RECORD_TYPES.find do |type|
       type[:code] == code
     end
 
