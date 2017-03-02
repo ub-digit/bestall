@@ -24,7 +24,7 @@ my $reserve = C4::Reserves::GetReserve($reserve_id);
 
 unless ($reserve) {
   print $query->header(-type => 'text/xml', -status => '404');
-  print XMLout({ auth_status => "Reserve not found" }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+  print XMLout({ auth_status => "Reserve not found", error_code => "reserveNotFound"  }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
   exit 0;
 }
 
@@ -32,4 +32,3 @@ C4::Reserves::CancelReserve({ reserve_id => $reserve_id });
 
 print $query->header(-type => 'text/xml',-charset => 'utf-8', -status => '200');
 exit 0;
-

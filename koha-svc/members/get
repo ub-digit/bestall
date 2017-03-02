@@ -21,6 +21,7 @@ my $user = $query->url_param('borrower');
 my $borrower = GetMember(userid => $user);
 unless ($borrower) {
   print $query->header(-type => 'text/xml', -status => '404 Not found');
+  print XMLout({ auth_status => 'Borrower not found', error_code => 'borrowerNotFound' }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
   exit 0;
 }
 
@@ -31,4 +32,3 @@ print $query->header(-type => 'text/xml',-charset => 'utf-8');
 print XMLout({ flags => $flags, borrower => $borrower }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
 
 exit 0;
-
