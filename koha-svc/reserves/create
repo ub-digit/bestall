@@ -33,7 +33,7 @@ my $borrower = Koha::Patrons->find($borrowernumber);
 
 unless ($borrower) {
   print $query->header(-type => 'text/xml', -status => '404');
-  print XMLout({ auth_status => "Borrower not found" }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+  print XMLout({ auth_status => "Borrower not found", error_code => "borrowerNotFound"  }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
   exit 0;
 }
 
