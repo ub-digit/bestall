@@ -97,9 +97,11 @@ class Biblio
 
     bib_xml.search('//record/datafield[@tag="952"]').each do |item_data|
       item = Item.new(biblio_id: self.id, xml: item_data.to_xml)
+      item.is_reserved = false
       reserves_xml.search('//response/reserve').each do |reserve|
         if reserve.xpath('itemnumber').text.present?
           if reserve.xpath('itemnumber').text == item.id
+            item.is_reserved = true
             if reserve.xpath('found').text.present?
               if reserve.xpath('found').text == "T"
                 item.found = "TRANSIT"

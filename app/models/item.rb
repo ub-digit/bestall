@@ -1,12 +1,13 @@
 class Item
   attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number,
-                :copy_number, :due_date, :lost, :restricted, :not_for_loan, :found
+                :copy_number, :due_date, :lost, :restricted, :not_for_loan, :found, :is_reserved
 
   include ActiveModel::Serialization
   include ActiveModel::Validations
 
   def initialize biblio_id:, xml:
     @biblio_id = biblio_id
+    @is_reserved = false
     parse_xml(xml)
   end
 
@@ -26,6 +27,7 @@ class Item
     return false if @item_type == '7'
     return false if @item_type == '2'
     return false if @due_date.present?
+    return false if @is_reserved
     return false if @lost != '0'
     return false unless @restricted == '0' || @restricted.nil?
     return true
@@ -34,7 +36,7 @@ class Item
   def can_be_queued
     return false if @item_type == '7'
     return false if ['1', '2', '5', '6'].include?(@restricted)
-    return false if @due_date.blank?
+    return false if @due_date.blank? && !@is_reserved
     return true
   end
 

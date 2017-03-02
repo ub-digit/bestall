@@ -95,6 +95,14 @@ RSpec.describe Item, type: :model do
         item = Item.new(biblio_id: 1, xml: @xml[4].to_xml)
         expect(item.can_be_ordered).to be_falsey
       end
+      it "should return can_be_ordered false when item is reserved" do
+        can_be_ordered_xml = File.open("#{Rails.root}/spec/support/item/item-can-order.xml") { |f|
+          Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
+        }
+        item = Item.new(biblio_id: 1, xml: can_be_ordered_xml[0].to_xml)
+        item.is_reserved = true
+        expect(item.can_be_ordered).to be_falsey
+      end
     end
 
     context "item can not be queued" do
@@ -123,9 +131,36 @@ RSpec.describe Item, type: :model do
         item = Item.new(biblio_id: 1, xml: @xml[4].to_xml)
         expect(item.can_be_queued).to be_falsey
       end
-      it "should return can_be_queued false when there is no due date" do
-        item = Item.new(biblio_id: 1, xml: @xml[5].to_xml)
-        expect(item.can_be_queued).to be_falsey
+
+      context "when the is no due date" do
+        it "should return can_be_queued false item is not reserved" do
+          item = Item.new(biblio_id: 1, xml: @xml[5].to_xml)
+          item.is_reserved = false
+          expect(item.can_be_queued).to be_falsey
+        end
+        it "should return can_be_queued true item is reserved" do
+          item = Item.new(biblio_id: 1, xml: @xml[5].to_xml)
+          item.is_reserved = true
+          expect(item.can_be_queued).to be_truthy
+        end
+      end
+      context "when the is a due date" do
+        it "should return can_be_queued true item is not reserved" do
+          can_be_queued_xml = File.open("#{Rails.root}/spec/support/item/item-can-queue.xml") { |f|
+            Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
+          }
+          item = Item.new(biblio_id: 1, xml: can_be_queued_xml[0].to_xml)
+          item.is_reserved = false
+          expect(item.can_be_queued).to be_truthy
+        end
+        it "should return can_be_queued true item is reserved" do
+          can_be_queued_xml = File.open("#{Rails.root}/spec/support/item/item-can-queue.xml") { |f|
+            Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
+          }
+          item = Item.new(biblio_id: 1, xml: can_be_queued_xml[0].to_xml)
+          item.is_reserved = true
+          expect(item.can_be_queued).to be_truthy
+        end
       end
     end
 
