@@ -132,7 +132,7 @@ RSpec.describe Item, type: :model do
         expect(item.can_be_queued).to be_falsey
       end
 
-      context "when the is no due date" do
+      context "when there is no due date" do
         it "should return can_be_queued false item is not reserved" do
           item = Item.new(biblio_id: 1, xml: @xml[5].to_xml)
           item.is_reserved = false
@@ -144,7 +144,7 @@ RSpec.describe Item, type: :model do
           expect(item.can_be_queued).to be_truthy
         end
       end
-      context "when the is a due date" do
+      context "when there is a due date" do
         it "should return can_be_queued true item is not reserved" do
           can_be_queued_xml = File.open("#{Rails.root}/spec/support/item/item-can-queue.xml") { |f|
             Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
