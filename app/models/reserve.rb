@@ -19,6 +19,7 @@ class Reserve
   # 'borrowerNotFound',
   # 'branchCodeMissing'
   # 'itemnumberOrBiblionumberIsMissing'
+  # 'biblionumberIsMissing'
   # 'itemDoesNotBelongToBiblio'
   # 'unrecognizedError'
   def self.error_code(koha_code)
@@ -32,6 +33,7 @@ class Reserve
       'borrowerNotFound',
       'branchCodeMissing',
       'itemnumberOrBiblionumberIsMissing',
+      'biblionumberIsMissing',
       'itemDoesNotBelongToBiblio',
       'unrecognizedError'
     ]
@@ -76,14 +78,14 @@ class Reserve
 
   def self.parse_error(xml_response)
     xml = Nokogiri::XML(xml_response).remove_namespaces!
-    auth_status = 'Something is wrong but we did not find the reason'
-    if xml.search('//response/auth_status').text.present?
-      auth_status = xml.search('//response/auth_status').text
+    status = 'Something is wrong but we did not find the reason'
+    if xml.search('//response/status').text.present?
+      status = xml.search('//response/status').text
     end
     if xml.search('//response/error_code').text.present?
       error_code = xml.search('//response/error_code').text
     end
-    [{code: Reserve.error_code(error_code), detail: auth_status}]
+    [{code: Reserve.error_code(error_code), detail: status}]
   end
 
   def parse_xml(xml_response)
