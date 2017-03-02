@@ -7,6 +7,12 @@ export default Ember.Route.extend({
     let ticket = transition.queryParams.ticket;
     let biblioId = transition.params.request.id;
 
+    if (biblioId === "error") {
+       return new Ember.RSVP.Promise((resolve, reject) => {
+          reject({errors: {errors: [{"code": 'NO_ID', "detail": "loreum"}]}});
+       });
+    }
+
     if (ticket) {
       return new Ember.RSVP.Promise((resolve) => {
         this.get('session').authenticate('authenticator:cas', {
