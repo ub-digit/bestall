@@ -5,7 +5,7 @@ class Reserve
   include ActiveModel::Serialization
   include ActiveModel::Validations
 
-  # Converts a Koha and CGI Error Code into an error code for use in the bestall app.
+  # Converts a Koha and CGI Error Code into an error code for use in a client app.
   # If the code is not found among known error codes
   # a default error code is returned.
   ## Koha error_codes:
@@ -21,6 +21,7 @@ class Reserve
   # 'itemnumberOrBiblionumberIsMissing'
   # 'biblionumberIsMissing'
   # 'itemDoesNotBelongToBiblio'
+  # 'noReservesFound'
   # 'unrecognizedError'
   def self.error_code(koha_code)
     known_error_codes = [
@@ -35,6 +36,7 @@ class Reserve
       'itemnumberOrBiblionumberIsMissing',
       'biblionumberIsMissing',
       'itemDoesNotBelongToBiblio',
+      'noReservesFound',
       'unrecognizedError'
     ]
     return (known_error_codes.include?(koha_code) ?
