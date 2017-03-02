@@ -16,7 +16,7 @@ class Api::UsersController < ApplicationController
 
 
         error_list.push({"categorycode" => user.categorycode})
-        error_msg(ErrorCodes::UNAUTHORIZED, "Access denied", error_list)
+        error_msg(ErrorCodes::FORBIDDEN, "Access denied", error_list)
       else
         @response[:user] = user.as_json
       end
