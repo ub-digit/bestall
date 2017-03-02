@@ -10,7 +10,7 @@ export default Ember.Controller.extend({
   }),
 
   actions: {
-    orderItem(item) {
+    setItemToOrder(item) {
       this.get('order.model.reserve').set('item', item);
       this.transitionToRoute('request.order.details');
     }

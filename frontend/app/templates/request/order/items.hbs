@@ -8,7 +8,7 @@
 {{#if showQueueOnBiblio}}
 	<div class="row">
 		<div class="col-xs-12">
-			<button class="btn btn-primary" {{action 'orderItem' null}}>Köa på utlånade</button>
+			<button class="btn btn-primary" {{action 'setItemToOrder' null}}>Köa på utlånade</button>
 		</div>
 	</div>
 	<hr>
@@ -39,7 +39,7 @@
 							canBeOrdered=item.canBeOrdered
 							canBeQueued=item.canBeQueued
 							canBeQueuedOnItem=item.biblio.canBeQueuedOnItem
-							onClick=(action 'orderItem' item)
+							onClick=(action 'setItemToOrder' item)
 						}}
 					</td>
         </tr>
