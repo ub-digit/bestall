@@ -5,6 +5,7 @@ export default DS.Model.extend({
   biblio: DS.belongsTo('biblio'),
   sublocation: DS.belongsTo('sublocation'),
   canBeOrdered: DS.attr('boolean'),
+  canBeQueued: DS.attr('boolean'),
   itemType: DS.attr('string'),
   itemCallNumber: DS.attr('string'),
   copyNumber: DS.attr('string'),

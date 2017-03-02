@@ -5,12 +5,14 @@
 	</div>
 </div>
 <hr>
-<div class="row">
-	<div class="col-xs-12">
-		<button class="btn btn-primary" {{action 'moveForward'}}>Köa på utlånade</button>
+{{#if showQueueOnBiblio}}
+	<div class="row">
+		<div class="col-xs-12">
+			<button class="btn btn-primary" {{action 'setItemToOrder' null}}>Köa på utlånade</button>
+		</div>
 	</div>
-</div>
-<hr>
+	<hr>
+{{/if}}
 <div class="row">
 	<div class="col-xs-12">
     <table class="table">
@@ -33,9 +35,12 @@
           <td>{{item.barcode}}</td>
           <td>[TODO]</td>
           <td>
-						{{#if item.canBeOrdered}}
-							<button {{action 'setItem' item}} class="btn btn-xs btn-primary">Beställ</button>
-						{{/if}}
+						{{item-order-button
+							canBeOrdered=item.canBeOrdered
+							canBeQueued=item.canBeQueued
+							canBeQueuedOnItem=item.biblio.canBeQueuedOnItem
+							onClick=(action 'setItemToOrder' item)
+						}}
 					</td>
         </tr>
         {{/each}}
