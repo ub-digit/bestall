@@ -15,8 +15,8 @@ class Reserve
   # 'tooManyReserves',
   # 'notReservable',
   # 'cannotReserveFromOtherBranches',
-  # 'cannotReserveFromOtherBranches'
   ## Extra CGI error_codes:
+  # 'borrowerNotFound',
   # 'branchCodeMissing'
   # 'itemnumberOrBiblionumberIsMissing'
   # 'itemDoesNotBelongToBiblio'
@@ -29,15 +29,15 @@ class Reserve
       'tooManyReserves',
       'notReservable',
       'cannotReserveFromOtherBranches',
-      'cannotReserveFromOtherBranches',
+      'borrowerNotFound',
       'branchCodeMissing',
       'itemnumberOrBiblionumberIsMissing',
       'itemDoesNotBelongToBiblio',
       'unrecognizedError'
     ]
     return (known_error_codes.include?(koha_code) ?
-      "RESERVE_CREATE_#{koha_code.underscore.upcase}" :
-      'RESERVE_CREATE_UNRECOGNIZED_ERROR')
+      koha_code.underscore.upcase :
+      'UNRECOGNIZED_ERROR')
   end
 
   def self.add(borrowernumber:, branchcode:, biblionumber:, itemnumber: nil, reservenotes:)
