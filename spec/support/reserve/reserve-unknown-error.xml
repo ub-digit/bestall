@@ -1,5 +1,5 @@
 <?xml version='1.0' standalone='yes'?>
 <response>
-  <auth_status>Unknown error while placing reserve</auth_status>
-  <error_code></error_code>
+  <status>Unknown error while placing reserve</status>
+  <error_code>unrecognizedError</error_code>
 </response>
