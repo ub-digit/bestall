@@ -9,7 +9,7 @@ export default Ember.Route.extend({
 
     if (biblioId === "error") {
        return new Ember.RSVP.Promise((resolve, reject) => {
-          reject({errors: {msg:'no id supplied'}});
+          reject({errors: {errors: [{"code": 'NO_ID', "detail": "loreum"}]}});
        });
     }
 
@@ -49,7 +49,7 @@ export default Ember.Route.extend({
     if (!ticket) {
       let url = this.casLoginUrl() + '?' + Ember.$.param({service: this.returnUrl(biblioId)});
       transition.abort();
-      //window.location.replace(url);
+      window.location.replace(url);
     }
   },
 

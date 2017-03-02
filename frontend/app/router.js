@@ -20,6 +20,8 @@ Router.map(function() {
     
   });
 
+  this.route('request-error');
+
 
 });
 
