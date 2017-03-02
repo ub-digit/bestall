@@ -14,7 +14,7 @@ binmode STDOUT, ':encoding(UTF-8)';
 my ($status, $cookie, $sessionID) = check_api_auth($query, { editcatalogue => 'edit_catalogue'} );
 unless ($status eq "ok") {
   print $query->header(-type => 'text/xml', -status => '403 Forbidden');
-  print XMLout({ auth_status => $status }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+  print XMLout({ status => $status }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
   exit 0;
 }
 
@@ -22,14 +22,15 @@ my $biblionumber = $query->param('biblionumber');
 
 unless ($biblionumber) {
   print $query->header(-type => 'text/xml', -status => '400');
-  print XMLout({ status => "Biblionumber is required" }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+  print XMLout({ status => "Biblionumber is required", error_code => 'biblionumberIsMissing' }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
   exit 0;
 }
 
 my $reserves = C4::Reserves::GetReservesFromBiblionumber({biblionumber => $biblionumber});
 
 unless ($reserves) {
-  print $query->header(-type => 'text/xml', -status => '404 Not found');
+  print $query->header(-type => 'text/xml', -status => '500');
+  print XMLout({ status => "Unrecognized error", error_code => 'unrecognizedError' }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
   exit 0;
 }
 
@@ -37,4 +38,3 @@ print $query->header(-type => 'text/xml',-charset => 'utf-8');
 print XMLout({reserve => $reserves}, NoAttr => 1, RootName => 'response', XMLDecl => 1);
 
 exit 0;
-

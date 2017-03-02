@@ -5,6 +5,43 @@ class Reserve
   include ActiveModel::Serialization
   include ActiveModel::Validations
 
+  # Converts a Koha and CGI Error Code into an error code for use in a client app.
+  # If the code is not found among known error codes
+  # a default error code is returned.
+  ## Koha error_codes:
+  # 'damaged',
+  # 'ageRestricted',
+  # 'itemAlreadyOnHold',
+  # 'tooManyReserves',
+  # 'notReservable',
+  # 'cannotReserveFromOtherBranches',
+  ## Extra CGI error_codes:
+  # 'borrowerNotFound',
+  # 'branchCodeMissing'
+  # 'itemnumberOrBiblionumberIsMissing'
+  # 'biblionumberIsMissing'
+  # 'itemDoesNotBelongToBiblio'
+  # 'unrecognizedError'
+  def self.error_code(koha_code)
+    known_error_codes = [
+      'damaged',
+      'ageRestricted',
+      'itemAlreadyOnHold',
+      'tooManyReserves',
+      'notReservable',
+      'cannotReserveFromOtherBranches',
+      'borrowerNotFound',
+      'branchCodeMissing',
+      'itemnumberOrBiblionumberIsMissing',
+      'biblionumberIsMissing',
+      'itemDoesNotBelongToBiblio',
+      'unrecognizedError'
+    ]
+    return (known_error_codes.include?(koha_code) ?
+      koha_code.underscore.upcase :
+      'UNRECOGNIZED_ERROR')
+  end
+
   def self.add(borrowernumber:, branchcode:, biblionumber:, itemnumber: nil, reservenotes:)
     base_url = APP_CONFIG['koha']['base_url']
     user =  APP_CONFIG['koha']['user']
@@ -28,26 +65,27 @@ class Reserve
         obj.parse_xml(response.body)
         return obj
       else
-        auth_status = self.parse_error(response.body)
-        error_list = [{code: "KOHA_CGI_ERROR", detail: auth_status}]
-        return {code: response.code, msg: "Koha CGI says: #{auth_status}", errors: error_list}
+        error_list = self.parse_error(response.body)
+        return {code: response.code, msg: error_list[0][:detail], errors: error_list}
       end
     else
       return nil
     end
   rescue => error
-    auth_status = self.parse_error(error.response.try(:body))
-    error_list = [{code: "KOHA_CGI_ERROR", detail: auth_status}]
-    return {code: error.response.try(:code), msg: "Koha CGI says: #{auth_status}", errors: error_list}
+    error_list = self.parse_error(error.response.try(:body))
+    return {code: error.response.try(:code), msg: error_list[0][:detail], errors: error_list}
   end
 
   def self.parse_error(xml_response)
     xml = Nokogiri::XML(xml_response).remove_namespaces!
-    auth_status = 'Something is wrong but we did not find the reason'
-    if xml.search('//response/auth_status').text.present?
-      auth_status = xml.search('//response/auth_status').text
+    status = 'Something is wrong but we did not find the reason'
+    if xml.search('//response/status').text.present?
+      status = xml.search('//response/status').text
     end
-    return auth_status
+    if xml.search('//response/error_code').text.present?
+      error_code = xml.search('//response/error_code').text
+    end
+    [{code: Reserve.error_code(error_code), detail: status}]
   end
 
   def parse_xml(xml_response)

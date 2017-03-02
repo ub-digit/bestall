@@ -1,4 +1,5 @@
 <?xml version='1.0' standalone='yes'?>
 <response>
-  <auth_status>Borrower not found</auth_status>
+  <status>Borrower not found</status>
+  <error_code>borrowerNotFound</error_code>
 </response>

@@ -14,7 +14,7 @@ binmode STDOUT, ':encoding(UTF-8)';
 my ($status, $cookie, $sessionID) = check_api_auth($query, { editcatalogue => 'edit_catalogue'} );
 unless ($status eq "ok") {
   print $query->header(-type => 'text/xml', -status => '403 Forbidden');
-  print XMLout({ auth_status => $status }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+  print XMLout({ status => $status }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
   exit 0;
 }
 my $category = $query->param('category');
@@ -29,5 +29,3 @@ print $query->header(-type => 'text/xml',-charset => 'utf-8');
 print XMLout({ locs => $locs }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
 
 exit 0;
-
-

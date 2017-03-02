@@ -6,7 +6,7 @@ RSpec.describe Api::ReservesController, type: :controller do
     before :each do
       WebMock.stub_request(:get, "http://koha.example.com/members/get?borrower=xallowed&password=password&userid=username").
         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
-        to_return(:status => 201, :body => File.new("#{Rails.root}/spec/support/patron/patron-allowed.xml"), :headers => {})
+        to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/patron/patron-allowed.xml"), :headers => {})
       @xallowed_token = AccessToken.generate_token(User.find_by_username('xallowed'))
     end
 

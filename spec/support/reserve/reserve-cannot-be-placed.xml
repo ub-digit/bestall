@@ -1,4 +1,5 @@
 <?xml version='1.0' standalone='yes'?>
 <response>
-  <auth_status>Reserve cannot be placed</auth_status>
+  <status>Reserve cannot be placed. Reason: tooManyHoldsForThisRecord</status>
+  <error_code>tooManyHoldsForThisRecord</error_code>
 </response>
