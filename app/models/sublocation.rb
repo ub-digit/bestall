@@ -35,7 +35,7 @@ class Sublocation
 
     locs = []
 
-    parsed_xml.search('//response/locs').each do |loc|
+    parsed_xml.search('//response/value').each do |loc|
       id = loc.xpath('authorised_value').text
       next if id.blank?
       name_sv = loc.xpath('lib').text

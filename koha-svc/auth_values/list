@@ -18,14 +18,14 @@ unless ($status eq "ok") {
   exit 0;
 }
 my $category = $query->param('category');
-my $authorized_value = GetAuthorisedValues($category);
-unless ($authorized_value) {
+my $value = GetAuthorisedValues($category);
+unless ($value) {
   print $query->header(-type => 'text/xml', -status => '404 Not found');
   exit 0;
 }
 
 print $query->header(-type => 'text/xml',-charset => 'utf-8');
 
-print XMLout({ authorized_value => $authorized_value }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+print XMLout({ value => $value }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
 
 exit 0;
