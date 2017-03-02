@@ -10,7 +10,7 @@ Router.map(function() {
   
 
 
-  this.route('request', { path: 'request/:id' }, function() {
+  this.route('request', { path: ':id' }, function() {
     this.route('order', function() {
       this.route('items');
       this.route('details');
