@@ -21,7 +21,6 @@ class Reserve
   # 'itemnumberOrBiblionumberIsMissing'
   # 'biblionumberIsMissing'
   # 'itemDoesNotBelongToBiblio'
-  # 'noReservesFound'
   # 'unrecognizedError'
   def self.error_code(koha_code)
     known_error_codes = [
@@ -36,7 +35,6 @@ class Reserve
       'itemnumberOrBiblionumberIsMissing',
       'biblionumberIsMissing',
       'itemDoesNotBelongToBiblio',
-      'noReservesFound',
       'unrecognizedError'
     ]
     return (known_error_codes.include?(koha_code) ?
