@@ -7,6 +7,8 @@
     <imageurl></imageurl>
     <lib>Bibl musik och dramatik (MoD)</lib>
     <lib_opac>Bibl musik och dramatik (MoD)</lib_opac>
+    <open_loc>1</open_loc>
+    <paging_loc>0</paging_loc>
   </value>
   <value>
     <id>8</id>
@@ -15,5 +17,7 @@
     <imageurl></imageurl>
     <lib>Biomed bibl BOTANTIDSKRIFTER</lib>
     <lib_opac>Biomed bibl BOTANTIDSKRIFTER</lib_opac>
+    <open_loc>0</open_loc>
+    <paging_loc>1</paging_loc>
   </value>
 </response>

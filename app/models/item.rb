@@ -80,6 +80,4 @@ class Item
       @not_for_loan = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="7"]').text
     end
   end
-
-
 end

@@ -31,5 +31,13 @@ RSpec.describe Sublocation, type: :model do
       sublocation = Sublocation.all.first
       expect(sublocation.location_id).to be_truthy
     end
+    it "first sublocation should include is_open_loc" do
+      sublocation = Sublocation.all.first
+      expect(sublocation.is_open_loc).to be_truthy
+    end
+    it "first sublocation should include is_paging_loc" do
+      sublocation = Sublocation.all.first
+      expect(sublocation.is_open_loc).to be_truthy
+    end
   end
 end
