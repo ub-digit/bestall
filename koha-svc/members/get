@@ -14,14 +14,14 @@ binmode STDOUT, ':encoding(UTF-8)';
 my ($status, $cookie, $sessionID) = check_api_auth($query, { editcatalogue => 'edit_catalogue'} );
 unless ($status eq "ok") {
   print $query->header(-type => 'text/xml', -status => '403 Forbidden');
-  print XMLout({ auth_status => $status }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+  print XMLout({ status => $status }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
   exit 0;
 }
 my $user = $query->url_param('borrower');
 my $borrower = GetMember(userid => $user);
 unless ($borrower) {
   print $query->header(-type => 'text/xml', -status => '404 Not found');
-  print XMLout({ auth_status => 'Borrower not found', error_code => 'borrowerNotFound' }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+  print XMLout({ status => 'Borrower not found', error_code => 'borrowerNotFound' }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
   exit 0;
 }
 

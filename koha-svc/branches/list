@@ -15,7 +15,7 @@ binmode STDOUT, ':encoding(UTF-8)';
 my ($status, $cookie, $sessionID) = check_api_auth($query, { editcatalogue => 'edit_catalogue'} );
 unless ($status eq "ok") {
   print $query->header(-type => 'text/xml', -status => '403 Forbidden');
-  print XMLout({ auth_status => $status }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+  print XMLout({ status => $status }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
   exit 0;
 }
 
@@ -30,7 +30,7 @@ foreach my $branch (@branches) {
     my $br = $branch->unblessed;
     my @categories = $branch->get_categories();
     my @cats = map { $_->categorycode } @categories;
-    push(@list, { 
+    push(@list, {
 	"branchname" => $br->{'branchname'},
 	"branchcode" => $br->{'branchcode'},
 	"categories" => \@cats
@@ -42,5 +42,3 @@ print $query->header(-type => 'text/xml',-charset => 'utf-8');
 print XMLout({ branches => \@list }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
 
 exit 0;
-
-
