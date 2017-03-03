@@ -30,6 +30,7 @@ class Item
     return false if @is_reserved
     return false if @lost != '0'
     return false unless @restricted == '0' || @restricted.nil?
+    # return false unless Sublocation.find_by_id(@sublocation_id).is_paging_loc == '1'
     return true
   end
 
@@ -80,6 +81,4 @@ class Item
       @not_for_loan = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="7"]').text
     end
   end
-
-
 end

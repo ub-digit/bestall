@@ -3,13 +3,15 @@ class Sublocation
   include ActiveModel::Serialization
   include ActiveModel::Validations
 
-  attr_accessor :id, :location_id, :name_sv, :name_en
+  attr_accessor :id, :location_id, :name_sv, :name_en, :is_open_loc, :is_paging_loc
 
-  def initialize id:, name_sv:, name_en:
+  def initialize id:, name_sv:, name_en:, is_open_loc:, is_paging_loc:
     @id = id
     @location_id = id[0..1]
     @name_sv = name_sv
     @name_en = name_en
+    @is_open_loc = is_open_loc
+    @is_paging_loc = is_paging_loc
   end
 
   def self.all
@@ -24,10 +26,16 @@ class Sublocation
     end
   end
 
+  def self.find_by_id id
+    all.find do |loc|
+      id.to_s == loc.id.to_s
+    end
+  end
+
   def self.find_all_by_location_id location_id
     all.select do |loc|
       location_id.to_s == loc.location_id.to_s
-    end + [{id: "CART", location_id: location_id, name_sv: "Nyligen återlämnad", name_en: "Recently returned"}]
+    end + [{id: "CART", location_id: location_id, name_sv: "Nyligen återlämnad", name_en: "Recently returned", is_open_loc: "0", is_paging_loc: "0"}]
   end
 
   def self.parse_xml xml
@@ -41,8 +49,10 @@ class Sublocation
       name_sv = loc.xpath('lib').text
       name_en = loc.xpath('lib').text
 
-      locs << self.new(id: id, name_sv: name_sv, name_en: name_en)
+      is_open_loc = loc.xpath('open_loc').text
+      is_paging_loc = loc.xpath('paging_loc').text
 
+      locs << self.new(id: id, name_sv: name_sv, name_en: name_en, is_open_loc: is_open_loc, is_paging_loc: is_paging_loc)
     end
 
     return locs
