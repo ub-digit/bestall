@@ -14,7 +14,6 @@ export default Ember.Controller.extend({
         // the node 'request-errors' in the locale files contains nodes corresponding to the error code.
         const errors = this.get('errors').errors;
         const data = this.get('errors').data;
-        console.log('data',data);
 
         let res = '';
         errors.map((obj) => {
