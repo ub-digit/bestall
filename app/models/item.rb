@@ -29,8 +29,8 @@ class Item
     return false if @due_date.present?
     return false if @is_reserved
     return false if @lost != '0'
-    return false unless @restricted == '0' || @restricted.nil?    
-    return false unless Sublocation.find_by_id(@sublocation_id).is_paging_loc == '1'
+    return false unless @restricted == '0' || @restricted.nil?
+    # return false unless Sublocation.find_by_id(@sublocation_id).is_paging_loc == '1'
     return true
   end
 
