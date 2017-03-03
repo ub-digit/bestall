@@ -58,6 +58,9 @@ RSpec.describe Item, type: :model do
         @xml = File.open("#{Rails.root}/spec/support/item/item-can-order.xml") { |f|
           Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
         }
+        WebMock.stub_request(:get, "http://koha.example.com/auth_values/list?category=LOC&password=password&userid=username").
+          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+          to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/sublocation/sublocations.xml"), :headers => {})
       end
       it "should return can_be_ordered true when restricted is not present in xml" do
         item = Item.new(biblio_id: 1, xml: @xml[0].to_xml)
@@ -74,6 +77,9 @@ RSpec.describe Item, type: :model do
         @xml = File.open("#{Rails.root}/spec/support/biblio/biblio-cannot-order.xml") { |f|
           Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
         }
+        WebMock.stub_request(:get, "http://koha.example.com/auth_values/list?category=LOC&password=password&userid=username").
+          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+          to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/sublocation/sublocations.xml"), :headers => {})
       end
       it "should return can_be_ordered false when item type is 7" do
         item = Item.new(biblio_id: 1, xml: @xml[0].to_xml)
@@ -93,6 +99,10 @@ RSpec.describe Item, type: :model do
       end
       it "should return can_be_ordered false when item is restricted" do
         item = Item.new(biblio_id: 1, xml: @xml[4].to_xml)
+        expect(item.can_be_ordered).to be_falsey
+      end
+      it "should return can_be_ordered false when item is on a non-paging location" do
+        item = Item.new(biblio_id: 1, xml: @xml[5].to_xml)        
         expect(item.can_be_ordered).to be_falsey
       end
       it "should return can_be_ordered false when item is reserved" do

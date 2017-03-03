@@ -26,6 +26,12 @@ class Sublocation
     end
   end
 
+  def self.find_by_id id
+    all.find do |loc|
+      id.to_s == loc.id.to_s
+    end
+  end
+
   def self.find_all_by_location_id location_id
     all.select do |loc|
       location_id.to_s == loc.location_id.to_s

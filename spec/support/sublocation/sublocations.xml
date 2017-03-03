@@ -20,4 +20,14 @@
     <open_loc>0</open_loc>
     <paging_loc>1</paging_loc>
   </value>
+  <value>
+    <id>186</id>
+    <authorised_value>100001</authorised_value>
+    <category>LOC</category>
+    <imageurl></imageurl>
+    <lib>Bibl musik och dramatik (MoD)</lib>
+    <lib_opac>Bibl musik och dramatik (MoD)</lib_opac>
+    <open_loc>0</open_loc>
+    <paging_loc>1</paging_loc>
+  </value>
 </response>
