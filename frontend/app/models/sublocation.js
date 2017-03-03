@@ -6,8 +6,8 @@ export default DS.Model.extend({
   location: DS.belongsTo('location'),
   nameSv: DS.attr('string'),
   nameEn: DS.attr('string'),
-  is_open_loc: DS.attr('boolean')
-  is_paging_loc: DS.attr('boolean'),
+  isOpenLoc: DS.attr('boolean')
+  isPagingLoc: DS.attr('boolean'),
 
   name: Ember.computed('i18n.locale', function() {
     switch(this.get('i18n.locale')) {
