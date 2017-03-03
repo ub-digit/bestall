@@ -15,6 +15,7 @@ class Reserve
   # 'tooManyReserves',
   # 'notReservable',
   # 'cannotReserveFromOtherBranches',
+  # 'tooManyHoldsForThisRecord'
   ## Extra CGI error_codes:
   # 'borrowerNotFound',
   # 'branchCodeMissing'
@@ -30,6 +31,7 @@ class Reserve
       'tooManyReserves',
       'notReservable',
       'cannotReserveFromOtherBranches',
+      'tooManyHoldsForThisRecord',
       'borrowerNotFound',
       'branchCodeMissing',
       'itemnumberOrBiblionumberIsMissing',
