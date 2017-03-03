@@ -19,5 +19,6 @@ export default DS.Model.extend({
   noAddress: DS.attr('boolean'), // @no_address
   cardLost: DS.attr('boolean'), // @card_lost
   expired: DS.attr('boolean'), //@expired
+  userCategory: DS.attr('string') //@user_category
 
 });

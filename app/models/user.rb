@@ -1,6 +1,6 @@
 class User
   attr_accessor :id, :username, :first_name, :last_name, :denied, :fines_amount
-  attr_reader :banned, :card_lost, :fines, :debarred, :no_address, :expired, :categorycode
+  attr_reader :banned, :card_lost, :fines, :debarred, :no_address, :expired, :user_category
 
   include ActiveModel::Model
   include ActiveModel::Serialization
@@ -46,7 +46,7 @@ class User
 
     if xml.search('//response/borrower/categorycode').text.present?
       
-      @categorycode = xml.search('//response/borrower/categorycode').text
+      @user_category = xml.search('//response/borrower/categorycode').text
       
     end
 
