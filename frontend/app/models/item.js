@@ -11,6 +11,6 @@ export default DS.Model.extend({
   copyNumber: DS.attr('string'),
   barcode: DS.attr('string'),
   status: DS.attr('string'),
-  dueDate: DS.attr('date')
-
+  dueDate: DS.attr('date'),
+  found: DS.attr('string')
 });

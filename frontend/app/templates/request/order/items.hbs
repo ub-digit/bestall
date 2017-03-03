@@ -2,6 +2,7 @@
 	<div class="col-xs-12">
 		<h3>{{request.model.biblio.title}}</h3>
 		<div class="author">{{request.model.biblio.author}}</div>
+    <div>{{request.model.biblio.noInQueue}} i kö</div>
 	</div>
 </div>
 <hr>
@@ -33,7 +34,7 @@
           <td>{{item.itemCallNumber}}</td>
           <td>{{item.copyNumber}}</td>
           <td>{{item.barcode}}</td>
-          <td>[TODO]</td>
+          <td>{{item.found}}</td>
           <td>
 						{{item-order-button
 							canBeOrdered=item.canBeOrdered
