@@ -13,6 +13,7 @@ export default Ember.Controller.extend({
         const locale = this.get('i18n.locale');
         // the node 'request-errors' in the locale files contains nodes corresponding to the error code.
         const errors = this.get('errors').errors;
+        const data = this.get('errors').data;
 
         let res = '';
         errors.map((obj) => {
@@ -23,8 +24,7 @@ export default Ember.Controller.extend({
                     <p>${msg}</p>`;
          }
          else {
-             // if obj doesent contain key 'code', obj equals koha user type => {categorycode: PE}
-             console.log(obj);
+             res = 'No error code supplied...'
          }
         });
         return res;

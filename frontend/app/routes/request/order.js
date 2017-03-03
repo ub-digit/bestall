@@ -46,6 +46,7 @@ export default Ember.Route.extend({
 
       }, (error) => {
         console.log('error', error)
+        this.get('controller').set('errors', error.errors.errors);
       });
     }
 	},
