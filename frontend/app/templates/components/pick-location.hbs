@@ -3,7 +3,7 @@
 </label>
 {{#x-select class="form-control" on-change=(action onSelect) value=selectedItem as |item|}}
 	{{#item.option}}{{label}}{{/item.option}}
-	{{#each locations as |loc|}}
+	{{#each filteredLocations as |loc|}}
 		{{#item.option value=loc.id}}{{loc.name}}{{/item.option}}
 	{{/each}}
 {{/x-select}}

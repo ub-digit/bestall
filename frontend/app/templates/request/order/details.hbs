@@ -10,6 +10,8 @@
 	{{pick-location
 		locations=pickupLocations
 		selectedItem=order.model.reserve.location.id
+		userCategory=request.model.user.userCategory
+		item=order.model.reserve.item
 		onSelect=(action 'setLocation')
 		label=(t 'request.order.details.labelForLocationDropdown')
 	}}
