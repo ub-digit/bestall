@@ -23,6 +23,7 @@
 	{{pick-type-of-loan
 		loanTypes=order.model.loantypes
 		selectedItem=order.model.reserve.loanType.id
+		item=order.model.reserve.item
 		onSelect=(action 'setLoanType')
 		label=(t 'request.order.details.labelForLoantypeDropdown')
 	}}

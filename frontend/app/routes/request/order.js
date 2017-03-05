@@ -26,10 +26,7 @@ export default Ember.Route.extend({
     });
   },
 
-  setupController(controller, model) {
-    let defaultLoanType = model.loantypes.get('firstObject');
-
-    model.reserve.set('loanType', defaultLoanType);
+  setupController(controller, model) {    
     controller.set('model', model);
   },
 
