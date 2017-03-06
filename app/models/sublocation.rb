@@ -20,7 +20,7 @@ class Sublocation
       user = APP_CONFIG['koha']['user']
       password = APP_CONFIG['koha']['password']
 
-      url = "#{base_url}/auth_values/list?category=LOC&userid=#{user}&password=#{password}"
+      url = "#{base_url}/sublocations/list?userid=#{user}&password=#{password}"
       response = RestClient.get url
       parse_xml(response)
     end

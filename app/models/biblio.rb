@@ -22,14 +22,13 @@ class Biblio
   end
 
   def can_be_queued
-    @items.each do |item|
-      return true if item.can_be_queued
-    end
+    has_items_available_for_queue = false
+    has_items_available_for_queue = @items.any? {|item| item.is_available_for_queue }
 
-    return false
+    return has_items_available_for_queue && !has_item_level_queue
   end
 
-  def can_be_queued_on_item
+  def has_item_level_queue
     Biblio.queue_level(@record_type) == 'item'
   end
 
@@ -42,7 +41,7 @@ class Biblio
   end
 
   def as_json options = {}
-    super.merge(can_be_queued: can_be_queued, can_be_queued_on_item: can_be_queued_on_item)
+    super.merge(can_be_queued: can_be_queued, has_item_level_queue: has_item_level_queue)
   end
 
 
@@ -67,10 +66,10 @@ class Biblio
   def self.find_by_id id
     self.find id
     # TODO: Do something much better
-  rescue RestClient::NotFound => error
-    return nil
-  rescue => error
-    return nil
+    rescue RestClient::NotFound => error
+      return nil
+    rescue => error
+      return nil
   end
 
   def parse_xml bib_xml, reserves_xml
@@ -96,7 +95,8 @@ class Biblio
     @no_in_queue = 0
 
     bib_xml.search('//record/datafield[@tag="952"]').each do |item_data|
-      item = Item.new(biblio_id: self.id, xml: item_data.to_xml)
+      item = Item.new(biblio_id: self.id, xml: item_data.to_xml, has_item_level_queue: self.has_item_level_queue)
+
       item.is_reserved = false
       reserves_xml.search('//response/reserve').each do |reserve|
         if reserve.xpath('itemnumber').text.present?

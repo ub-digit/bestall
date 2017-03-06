@@ -65,9 +65,9 @@ RSpec.describe Api::BibliosController, type: :controller do
         get :show, params: {id: 1}
         expect(json['biblio']['can_be_queued']).to_not be nil
       end
-      it "should return a flag for can_be_queued_on_item" do
+      it "should return a flag for has_item_level_queue" do
         get :show, params: {id: 1}
-        expect(json['biblio']['can_be_queued_on_item']).to_not be nil
+        expect(json['biblio']['has_item_level_queue']).to_not be nil
       end
     end
     context "item contains only id" do
@@ -85,6 +85,7 @@ RSpec.describe Api::BibliosController, type: :controller do
         expect(item).to have_key('id')
         expect(item).to have_key('biblio_id')
         expect(item).to have_key('can_be_ordered')
+        expect(item).to have_key('can_be_queued')
       end
     end
   end
