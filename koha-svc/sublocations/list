@@ -14,37 +14,36 @@ binmode STDOUT, ':encoding(UTF-8)';
 my ($status, $cookie, $sessionID) = check_api_auth($query, { editcatalogue => 'edit_catalogue'} );
 unless ($status eq "ok") {
   print $query->header(-type => 'text/xml', -status => '403 Forbidden');
-  print XMLout({ status => $status }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+  print XMLout({ status => $status, status => 'Forbidden' }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
   exit 0;
 }
-
-#my $category = $query->param('category');
 
 #Get LOC, OPEN_LOC, PAGING_LOC
-my $loc = GetAuthorisedValues('LOC');
-unless ($loc) {
+my $loc_list_ref = GetAuthorisedValues('LOC');
+my $open_loc_list_ref = GetAuthorisedValues('OPEN_LOC');
+my $paging_loc_list_ref = GetAuthorisedValues('PAGING_LOC');
+
+# If we have no LOC it will all be pointless:
+unless ($loc_list_ref) {
   print $query->header(-type => 'text/xml', -status => '404 Not found');
-  print XMLout({ error_code => 'NO_LOC_FOUND' }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+  print XMLout({ error_code => 'NO_LOC_FOUND', status => 'No sublocations found.' }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
   exit 0;
 }
-my $value = GetAuthorisedValues('LOC');
-# print the array
-print $value
-# loop over the array and compose a new one.
-# wont work with push, we have to interlace the data
-my $open_loc = GetAuthorisedValues('OPEN_LOC');
-my $paging_loc = GetAuthorisedValues('PAGING_LOC');
 
-push($value, $paging_loc);
-push($value, $open_loc);
+# Now put the paging_loc and the open_loc into the loc:
+foreach(@$loc_list_ref) {
+  my $locs = $_;
+  foreach(@$paging_loc_list_ref) {
+    $locs -> {paging_loc} = 1 if $locs -> {authorised_value} eq $_ -> {authorised_value};
+  }
+  if ($open_loc_list_ref) {
+    foreach(@$open_loc_list_ref) {
+      $locs -> {open_loc} = 1 if $locs -> {authorised_value} eq $_ -> {authorised_value};
+    }
+  }
+}
 
 print $query->header(-type => 'text/xml',-charset => 'utf-8');
-print XMLout({ value => $value }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
-
-# response
-#   value
-#     authorised_value
-#     open_loc {1,0} #true, false
-#     paging_loc {1,0}
+print XMLout({ value => $loc_list_ref }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
 
 exit 0;
