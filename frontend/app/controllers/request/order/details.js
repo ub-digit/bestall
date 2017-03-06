@@ -20,7 +20,7 @@ export default Ember.Controller.extend({
       this.get('order.model.reserve').set('location', location);
     },
 
-    setLoanType(id) {
+    setLoanType(id) {      
       let loanType = this.get('store').peekRecord('loanType', id);
       this.get('order.model.reserve').set('loanType', loanType);
     }

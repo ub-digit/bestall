@@ -2,7 +2,7 @@
 	{{label}}
 </label>
 {{#x-select class="form-control" on-change=(action onSelect) value=selectedItem as |item|}}
-	{{#each loanTypes as |type|}}
+	{{#each filteredLoanTypes as |type|}}
 		{{#item.option value=type.id}}{{type.name}}{{/item.option}}
 	{{/each}}
 {{/x-select}}
