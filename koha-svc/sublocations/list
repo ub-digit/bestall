@@ -36,10 +36,8 @@ foreach(@$loc_list_ref) {
   foreach(@$paging_loc_list_ref) {
     $locs -> {paging_loc} = 1 if $locs -> {authorised_value} eq $_ -> {authorised_value};
   }
-  if ($open_loc_list_ref) {
-    foreach(@$open_loc_list_ref) {
-      $locs -> {open_loc} = 1 if $locs -> {authorised_value} eq $_ -> {authorised_value};
-    }
+  foreach(@$open_loc_list_ref) {
+    $locs -> {open_loc} = 1 if $locs -> {authorised_value} eq $_ -> {authorised_value};
   }
 }
 
