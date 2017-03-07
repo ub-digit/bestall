@@ -1,0 +1,47 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use CGI qw ( -utf8 );
+use C4::Auth qw/check_api_auth/;
+use C4::Koha qw( GetAuthorisedValues );
+use XML::Simple;
+
+my $query = new CGI;
+binmode STDOUT, ':encoding(UTF-8)';
+
+my ($status, $cookie, $sessionID) = check_api_auth($query, { editcatalogue => 'edit_catalogue'} );
+unless ($status eq "ok") {
+  print $query->header(-type => 'text/xml', -status => '403 Forbidden');
+  print XMLout({ status => $status, status => 'Forbidden' }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+  exit 0;
+}
+
+#Get LOC, OPEN_LOC, PAGING_LOC
+my $loc_list_ref = GetAuthorisedValues('LOC');
+my $open_loc_list_ref = GetAuthorisedValues('OPEN_LOC');
+my $paging_loc_list_ref = GetAuthorisedValues('PAGING_LOC');
+
+# If we have no LOC it will all be pointless:
+unless ($loc_list_ref) {
+  print $query->header(-type => 'text/xml', -status => '404 Not found');
+  print XMLout({ error_code => 'NO_LOC_FOUND', status => 'No sublocations found.' }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+  exit 0;
+}
+
+# Now put the paging_loc and the open_loc into the loc:
+foreach(@$loc_list_ref) {
+  my $locs = $_;
+  foreach(@$paging_loc_list_ref) {
+    $locs -> {paging_loc} = 1 if $locs -> {authorised_value} eq $_ -> {authorised_value};
+  }
+  foreach(@$open_loc_list_ref) {
+    $locs -> {open_loc} = 1 if $locs -> {authorised_value} eq $_ -> {authorised_value};
+  }
+}
+
+print $query->header(-type => 'text/xml',-charset => 'utf-8');
+print XMLout({ value => $loc_list_ref }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+
+exit 0;
