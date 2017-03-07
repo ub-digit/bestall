@@ -1,7 +1,7 @@
 class Item
   attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number,
-                :copy_number, :due_date, :lost, :restricted, :not_for_loan, :found, :is_reserved
-
+                :copy_number, :due_date, :lost, :restricted, :not_for_loan, :found, :is_reserved,
+                :recently_returned
 
   include ActiveModel::Serialization
   include ActiveModel::Validations
@@ -50,7 +50,7 @@ class Item
   end
 
   def parse_xml xml
-    parsed_xml = Nokogiri::XML(xml).remove_namespaces!
+    parsed_xml = Item.process_xml xml
 
     if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="9"]').text.present?
       @id = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="9"]').text
@@ -88,5 +88,17 @@ class Item
     if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="7"]').text.present?
       @not_for_loan = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="7"]').text
     end
+
+    @recently_returned = Item.parse_recently_returned parsed_xml
+
+  end
+
+  def self.process_xml xml
+    return xml if xml.kind_of?(Nokogiri::XML::Document)
+    Nokogiri::XML(xml).remove_namespaces!
+  end
+
+  def self.parse_recently_returned xml
+    process_xml(xml).search('//datafield[@tag="952"]/subfield[@code="c"]').text == "CART"
   end
 end
