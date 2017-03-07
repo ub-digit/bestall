@@ -56,8 +56,8 @@ class Item
       @id = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="9"]').text
     end
 
-    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="c"]').text.present?
-      @sublocation_id = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="c"]').text
+    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="v"]').text.present?
+      @sublocation_id = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="v"]').text
     end
 
     if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="y"]').text.present?
