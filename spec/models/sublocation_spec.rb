@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Sublocation, type: :model do
   describe "all" do
     before :each do
-      WebMock.stub_request(:get, "http://koha.example.com/auth_values/list?category=LOC&password=password&userid=username").
+      WebMock.stub_request(:get, "http://koha.example.com/sublocations/list?password=password&userid=username").
         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
         to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/sublocation/sublocations.xml"), :headers => {})
     end

@@ -7,7 +7,7 @@ RSpec.describe Api::LocationsController, type: :controller do
       WebMock.stub_request(:get, "http://koha.example.com/branches/list?password=password&userid=username").
         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
         to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/location/branches.xml"), :headers => {})
-      WebMock.stub_request(:get, "http://koha.example.com/auth_values/list?category=LOC&password=password&userid=username").
+      WebMock.stub_request(:get, "http://koha.example.com/sublocations/list?password=password&userid=username").
         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
         to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/sublocation/sublocations.xml"), :headers => {})
     end

@@ -25,6 +25,7 @@ RSpec.describe Biblio, :type => :model do
       end
       it "should return an object" do
         biblio = Biblio.find_by_id 1
+
         expect(biblio).to_not be_nil
         expect(biblio).to be_kind_of(Biblio)
       end
@@ -60,6 +61,8 @@ RSpec.describe Biblio, :type => :model do
   end
 
   describe "can_be_queued" do
+    skip "should return false if has_item_level_queue is true"
+    skip "should return true if has_item_level_queue is false"
     context "item can be queued" do
       before :each do
         WebMock.stub_request(:get, "http://koha.example.com/bib/1?items=1&password=password&userid=username").
@@ -91,7 +94,7 @@ RSpec.describe Biblio, :type => :model do
     end
   end
 
-  describe "can_be_queued_on_item" do
+  describe "has_item_level_queue" do
     context "biblio is a monograph" do
       before :each do
         WebMock.stub_request(:get, "http://koha.example.com/bib/1?items=1&password=password&userid=username").
@@ -101,9 +104,9 @@ RSpec.describe Biblio, :type => :model do
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
           to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/reserve/reserve-empty.xml"), :headers => {})
       end
-      it "should return can_be_queued_on_item false" do
+      it "should return has_item_level_queue false" do
         biblio = Biblio.find_by_id 1
-        expect(biblio.can_be_queued_on_item).to be_falsey
+        expect(biblio.has_item_level_queue).to be_falsey
       end
     end
     context "biblio is a serial" do
@@ -115,9 +118,9 @@ RSpec.describe Biblio, :type => :model do
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
           to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/reserve/reserve-empty.xml"), :headers => {})
       end
-      it "should return can_be_queued_on_item true" do
+      it "should return has_item_level_queue true" do
         biblio = Biblio.find_by_id 1
-        expect(biblio.can_be_queued_on_item).to be_truthy
+        expect(biblio.has_item_level_queue).to be_truthy
       end
     end
   end

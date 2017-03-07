@@ -6,7 +6,7 @@
 	</div>
 </div>
 <hr>
-{{#if showQueueOnBiblio}}
+{{#if request.model.biblio.canBeQueued}}
 	<div class="row">
 		<div class="col-xs-12">
 			<button class="btn btn-primary" {{action 'setItemToOrder' null}}>Köa på utlånade</button>
@@ -39,7 +39,6 @@
 						{{item-order-button
 							canBeOrdered=item.canBeOrdered
 							canBeQueued=item.canBeQueued
-							canBeQueuedOnItem=item.biblio.canBeQueuedOnItem							
 							onClick=(action 'setItemToOrder' item)
 						}}
 					</td>

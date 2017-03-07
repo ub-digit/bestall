@@ -47,9 +47,13 @@ RSpec.describe Item, type: :model do
         item = Item.new(biblio_id: 1, xml: @xml)
         expect(item.not_for_loan).to_not be_nil
       end
-      it "should return can_be_queued" do
+      it "should return is_available_for_queue" do
         item = Item.new(biblio_id: 1, xml: @xml)
-        expect(item.can_be_queued).to_not be_nil
+        expect(item.is_available_for_queue).to_not be_nil
+      end
+      it "should return recently_returned" do
+        item = Item.new(biblio_id: 1, xml: @xml)
+        expect(item.recently_returned).to be false
       end
     end
 
@@ -59,6 +63,9 @@ RSpec.describe Item, type: :model do
           Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
         }
         WebMock.stub_request(:get, "http://koha.example.com/auth_values/list?category=LOC&password=password&userid=username").
+          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+          to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/sublocation/sublocations.xml"), :headers => {})
+        WebMock.stub_request(:get, "http://koha.example.com/sublocations/list?password=password&userid=username").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
           to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/sublocation/sublocations.xml"), :headers => {})
       end
@@ -78,6 +85,9 @@ RSpec.describe Item, type: :model do
           Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
         }
         WebMock.stub_request(:get, "http://koha.example.com/auth_values/list?category=LOC&password=password&userid=username").
+          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+          to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/sublocation/sublocations.xml"), :headers => {})
+        WebMock.stub_request(:get, "http://koha.example.com/sublocations/list?password=password&userid=username").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
           to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/sublocation/sublocations.xml"), :headers => {})
       end
@@ -102,7 +112,7 @@ RSpec.describe Item, type: :model do
         expect(item.can_be_ordered).to be_falsey
       end
       it "should return can_be_ordered false when item is on a non-paging location" do
-        item = Item.new(biblio_id: 1, xml: @xml[5].to_xml)        
+        item = Item.new(biblio_id: 1, xml: @xml[5].to_xml)
         expect(item.can_be_ordered).to be_falsey
       end
       it "should return can_be_ordered false when item is reserved" do
@@ -115,75 +125,107 @@ RSpec.describe Item, type: :model do
       end
     end
 
-    context "item can not be queued" do
+    context "item is unavailable for queue" do
       before :each do
         @xml = File.open("#{Rails.root}/spec/support/item/item-cannot-queue.xml") { |f|
           Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
         }
       end
-      it "should return can_be_queued false when item type is 7" do
+      it "should return is_available_for_queue false when item type is 7" do
         item = Item.new(biblio_id: 1, xml: @xml[0].to_xml)
-        expect(item.can_be_queued).to be_falsey
+        expect(item.is_available_for_queue).to be_falsey
       end
-      it "should return can_be_queued false when restricted is 1" do
+      it "should return is_available_for_queue false when restricted is 1" do
         item = Item.new(biblio_id: 1, xml: @xml[1].to_xml)
-        expect(item.can_be_queued).to be_falsey
+        expect(item.is_available_for_queue).to be_falsey
       end
-      it "should return can_be_queued false when restricted is 2" do
+      it "should return is_available_for_queue false when restricted is 2" do
         item = Item.new(biblio_id: 1, xml: @xml[2].to_xml)
-        expect(item.can_be_queued).to be_falsey
+        expect(item.is_available_for_queue).to be_falsey
       end
-      it "should return can_be_queued false when restricted is 5" do
+      it "should return is_available_for_queue false when restricted is 5" do
         item = Item.new(biblio_id: 1, xml: @xml[3].to_xml)
-        expect(item.can_be_queued).to be_falsey
+        expect(item.is_available_for_queue).to be_falsey
       end
-      it "should return can_be_queued false when restricted is 6" do
+      it "should return is_available_for_queue false when restricted is 6" do
         item = Item.new(biblio_id: 1, xml: @xml[4].to_xml)
-        expect(item.can_be_queued).to be_falsey
+        expect(item.is_available_for_queue).to be_falsey
       end
 
       context "when there is no due date" do
-        it "should return can_be_queued false item is not reserved" do
+        it "should return is_available_for_queue false item is not reserved" do
           item = Item.new(biblio_id: 1, xml: @xml[5].to_xml)
           item.is_reserved = false
-          expect(item.can_be_queued).to be_falsey
+          expect(item.is_available_for_queue).to be_falsey
         end
-        it "should return can_be_queued true item is reserved" do
+        it "should return is_available_for_queue true item is reserved" do
           item = Item.new(biblio_id: 1, xml: @xml[5].to_xml)
           item.is_reserved = true
-          expect(item.can_be_queued).to be_truthy
+          expect(item.is_available_for_queue).to be_truthy
         end
       end
       context "when there is a due date" do
-        it "should return can_be_queued true item is not reserved" do
-          can_be_queued_xml = File.open("#{Rails.root}/spec/support/item/item-can-queue.xml") { |f|
+        it "should return is_available_for_queue true when item is not reserved" do
+          is_available_for_queue_xml = File.open("#{Rails.root}/spec/support/item/item-can-queue.xml") { |f|
             Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
           }
-          item = Item.new(biblio_id: 1, xml: can_be_queued_xml[0].to_xml)
+          item = Item.new(biblio_id: 1, xml: is_available_for_queue_xml[0].to_xml)
           item.is_reserved = false
-          expect(item.can_be_queued).to be_truthy
+          expect(item.is_available_for_queue).to be_truthy
         end
-        it "should return can_be_queued true item is reserved" do
-          can_be_queued_xml = File.open("#{Rails.root}/spec/support/item/item-can-queue.xml") { |f|
+        it "should return is_available_for_queue true when item is reserved" do
+          is_available_for_queue_xml = File.open("#{Rails.root}/spec/support/item/item-can-queue.xml") { |f|
             Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
           }
-          item = Item.new(biblio_id: 1, xml: can_be_queued_xml[0].to_xml)
+          item = Item.new(biblio_id: 1, xml: is_available_for_queue_xml[0].to_xml)
           item.is_reserved = true
-          expect(item.can_be_queued).to be_truthy
+          expect(item.is_available_for_queue).to be_truthy
         end
       end
     end
 
-    context "item can be queued" do
-      before :each do
-        @xml = File.open("#{Rails.root}/spec/support/item/item-can-queue.xml") { |f|
-          Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
-        }
+    describe "can_be_queued" do
+      context "item is available for queue and has item level queue" do
+        before :each do
+          @xml = File.open("#{Rails.root}/spec/support/item/item-can-queue.xml") { |f|
+            Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
+          }
+        end
+        it "should return can_be_queued true" do
+          item = Item.new(biblio_id: 1, xml: @xml[0].to_xml, has_item_level_queue: true)
+          expect(item.can_be_queued).to be_truthy
+        end
       end
-      it "should return can_be_queued true when there is a due date present" do
-        item = Item.new(biblio_id: 1, xml: @xml[0].to_xml)
-        expect(item.can_be_queued).to be_truthy
+      context "item is unavailable for queue" do
+        before :each do
+          @xml = File.open("#{Rails.root}/spec/support/item/item-cannot-queue.xml") { |f|
+            Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
+          }
+        end
+        it "should return can_be_queued false when item is unavailable for queue" do
+          item = Item.new(biblio_id: 1, xml: @xml[0].to_xml, has_item_level_queue: true)
+          expect(item.can_be_queued).to be_falsey
+        end
+        it "should return can_be_queued false when item doesn't have item level queue" do
+          item = Item.new(biblio_id: 1, xml: @xml[0].to_xml, has_item_level_queue: false)
+          expect(item.can_be_queued).to be_falsey
+        end
       end
     end
+
+    describe "status" do
+      context "item is recently returned" do
+        it "should return true when current location is CART" do
+          recently_returned = Item.parse_recently_returned('<datafield tag="952" ind1=" " ind2=" "><subfield code="c">CART</subfield></datafield>')
+          expect(recently_returned).to be true
+        end
+        it "should return false when current location is not CART" do
+          recently_returned = Item.parse_recently_returned('<datafield tag="952" ind1=" " ind2=" "><subfield code="c">400005</subfield></datafield>')
+          expect(recently_returned).to be false
+        end
+      end
+    end
+
+
   end
 end
