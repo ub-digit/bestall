@@ -1,12 +1,12 @@
 class Item
+  include ActiveModel::Serialization
+  include ActiveModel::Validations
+
   attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number,
                 :copy_number, :due_date, :lost, :restricted, :not_for_loan, :is_reserved,
                 :recently_returned
 
   attr_writer :found
-
-  include ActiveModel::Serialization
-  include ActiveModel::Validations
 
   def initialize biblio_id:, xml:, has_item_level_queue: false
     @biblio_id = biblio_id
@@ -53,13 +53,13 @@ class Item
   end
 
   def status
-    return "RECENTLY_RETURNED" if @recently_returned
     return "IN_TRANSIT" if @found == "T"
     return "FINISHED" if @found == "F"
     return "WAITING" if @found == "W"
     return "CAN_BE_ORDERED" if can_be_ordered
     return "LOANED" if @due_date.present?
     return "RESERVED" if @is_reserved
+    return "RECENTLY_RETURNED" if @recently_returned
   end
 
   def parse_xml xml
