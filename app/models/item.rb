@@ -1,10 +1,12 @@
 class Item
-  attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number,
-                :copy_number, :due_date, :lost, :restricted, :not_for_loan, :found, :is_reserved,
-                :recently_returned
-
   include ActiveModel::Serialization
   include ActiveModel::Validations
+
+  attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number,
+                :copy_number, :due_date, :lost, :restricted, :not_for_loan, :is_reserved,
+                :recently_returned
+
+  attr_writer :found
 
   def initialize biblio_id:, xml:, has_item_level_queue: false
     @biblio_id = biblio_id
@@ -14,8 +16,9 @@ class Item
   end
 
   def as_json options = {}
-    super.merge({can_be_ordered: can_be_ordered,
-      can_be_queued: can_be_queued
+    super(except: ["found"]).merge({can_be_ordered: can_be_ordered,
+      can_be_queued: can_be_queued,
+      status: status
       }).compact
   end
 
@@ -47,6 +50,16 @@ class Item
     return false if ['1', '2', '5', '6'].include?(@restricted)
     return false if @due_date.blank? && !@is_reserved
     return true
+  end
+
+  def status
+    return "IN_TRANSIT" if @found == "T"
+    return "FINISHED" if @found == "F"
+    return "WAITING" if @found == "W"
+    return "CAN_BE_ORDERED" if can_be_ordered
+    return "LOANED" if @due_date.present?
+    return "RESERVED" if @is_reserved
+    return "RECENTLY_RETURNED" if @recently_returned
   end
 
   def parse_xml xml

@@ -12,6 +12,6 @@ export default DS.Model.extend({
   barcode: DS.attr('string'),
   status: DS.attr('string'),
   dueDate: DS.attr('date'),
-  found: DS.attr('string'),
+  status: DS.attr('string'),
   notForLoan: DS.attr('string')
 });
