@@ -55,6 +55,10 @@ RSpec.describe Item, type: :model do
         item = Item.new(biblio_id: 1, xml: @xml)
         expect(item.recently_returned).to be false
       end
+      it "should return a status" do
+        item = Item.new(biblio_id: 1, xml: @xml)
+        expect(item.recently_returned).to_not be_nil
+      end
     end
 
     context "item is unrestricted" do
@@ -225,7 +229,5 @@ RSpec.describe Item, type: :model do
         end
       end
     end
-
-
   end
 end

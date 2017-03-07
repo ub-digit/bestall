@@ -103,15 +103,7 @@ class Biblio
           if reserve.xpath('itemnumber').text == item.id
             item.is_reserved = true
             if reserve.xpath('found').text.present?
-              if reserve.xpath('found').text == "T"
-                item.found = "TRANSIT"
-              elsif reserve.xpath('found').text == "W"
-                item.found = "WAITING"
-              elsif reserve.xpath('found').text == "F"
-                item.found = "FINISHED"
-              else
-                item.found = nil
-              end
+              item.found = reserve.xpath('found').text              
             end
           end
         else

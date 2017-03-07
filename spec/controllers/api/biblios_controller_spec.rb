@@ -81,7 +81,7 @@ RSpec.describe Api::BibliosController, type: :controller do
       end
       it "should return an item with the correct attributes" do
         get :show, params: {id: 1}
-        item = json['biblio']['items'][0]
+        item = json['biblio']['items'][0]        
         expect(item).to have_key('id')
         expect(item).to have_key('biblio_id')
         expect(item).to have_key('can_be_ordered')
