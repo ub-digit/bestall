@@ -14,6 +14,7 @@ class Api::UsersController < ApplicationController
         error_list.push({"code" => "NO_ADDRESS", "detail" => "User has no address record."}) if user.no_address
         error_list.push({"code" => "EXPIRED", "detail" => "Card has expired."}) if user.expired
         user_data = {"user_category" => user.user_category}
+        user_data["fines_amount"] = user.fines_amount if user.fines
         error_msg(ErrorCodes::FORBIDDEN, "Access denied", error_list, user_data)
       else
         @response[:user] = user.as_json
