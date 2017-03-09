@@ -125,7 +125,6 @@ RSpec.describe Item, type: :model do
         }
         item = Item.new(biblio_id: 1, xml: can_be_ordered_xml[0].to_xml)
         item.is_reserved = true
-        pp item
         expect(item.can_be_ordered).to be_falsey
       end
     end
