@@ -52,7 +52,6 @@ Användaren ska ha möjlighet att välja typ av lån.
 Acceptanskriterier:
 
 1. Användaren ska ha möjlighet att välja ett av följande värden: Hemlån, Läsesal, Forskarskåp eller Institutionslån,
-
 2. ~~Hemlån ska vara default-val.~~ (se KOHA-226)
 
 
@@ -65,12 +64,14 @@ Acceptanskriterier:
 2. Alternativet hemlån ska döljas om exemplarstatus är NOT_LOAN = -3.
 3. Defaultval ska vara första valbara alternativ i listan
 
+
 #### KOHA-19 Välja avhämtningsställe
 Användaren ska kunna välja vilket bibliotek som hen vill hämta sin beställda bok på, dvs. avhämtningsställe.
 
 Acceptanskriterier:
 
 1. Kunna välja bibliotek från en lista på alla bibliotek.
+
 
 #### KOHA-227 Regelverk för "Val av avhämtningsställe"
 Med avhämtningsställe avses de bibliotek som beställningar kan hämtas på. Lista bifogas.
@@ -82,12 +83,14 @@ Acceptanskriterier:
 3. Om ägande bibliotek är Gm så får Gm väljas av alla låntagare.
 4. Alla låntagare får välja exemplarets ägande bibliotek när exemplaren står i slutna magasin (bifogad fil: slutna_magasin).
 
+
 #### KOHA-233 Skapa kö i Koha
 När bekräftelse skickas säg till Koha att skapa en kö.
 
 Acceptanskriterium:
 
 1. Det skapas en rad i reservestabellen med de uppgifter som angivits.
+
 
 #### KOHA-223 Välja exemplar
 Om det finns tillgängliga exemplar så ska användaren ska kunna välja vilket exemplar hen vill låna.
@@ -110,7 +113,9 @@ Köbara exemplar:
 - ~~ej item type: ref,~~ (se KOHA-365)
 - ~~ej materialkategori Läslust Gm och exemplarstatus Läslust Gp~~ (se KOHA-365)
 
+
 #### KOHA-364 Utöka regelverk för beställningsbara exemplar
+
 Acceptanskriterier:
 
 1. ej exemplarstatus LOST (LOST != 0)
@@ -118,20 +123,107 @@ Acceptanskriterier:
 3. ej reservation på exemplar
 4. står på en hylla (loc code) som får beställas från (is_paging_loc)
 
+
 #### KOHA-365 Lägg till regelverk för köbara exemplar
+
 Acceptanskriterier:
+
 1. Ej materialkategori REF (7)
 2. Ej exemplarstatus RESTRICTED (1, 2, 5, 6)
 3. Leader pos 7 är s eller c
 4. Exemplaret har due date eller reservation
 
-Leader pos 7 "s eller c" betyder att eventuell kö sker på exemplar. Annat i leader innebär att kö sker på bib-post.
+Leader pos 7 "s eller c" betyder att eventuell kö sker på exemplar.
+Annat i leader innebär att kö sker på bib-post.
+
 
 #### KOHA-230 Möjlighet att redigera beställningen via bekräftelsesidan ytterligare
+
+Acceptanskriterier:
 
 1. Det ska vara möjligt att ändra exemplar innan bekräftelsen är godkänd.
 
 
+#### KOHA-280 Göm alla formulärfält i rutan i Manage staged file
+
+Acceptanskriterier:
+
+1. Alla dropdowns och knappen i rutan är gömda.
+2. Allt t o m status ska vara kvar.
+
+
+#### KOHA-285 Default att visa alla rader i Managed staged file
+
+Default idag är att 20 rader visas.
+
+Acceptanskriterier:
+
+1. Default är Alla.
+
+
+#### KOHA-284 Göm fält i Stage file
+
+Göm ruta "Use MARC Modification Template" samt
+"Look for existing records in catalog?" samt ev plugin. samt dropdown "How to process items:"
+
+
+#### KOHA-203 Välja typ av lån
+Användaren ska ha möjlighet att välja typ av lån.
+
+Acceptanskriterier:
+
+1. Användaren ska ha möjlighet att välja ett av följande värden: Hemlån, Läsesal, Forskarskåp eller Institutionslån,
+2. Hemlån ska vara default-val.
+
+
+#### KOHA-363 Visa felmeddelande när beställning/kö i Koha misslyckas.
+
+Felmeddelande innan inloggning, enbart baserat på bibid (materialkategori=ref).
+
+Acceptanskriterier:
+
+1. Det ska informeras att fel inträffat.
+2. Felmeddelande från Koha ska visas.
+
+
+#### KOHA-227 Regelverk för "Val av avhämtningsställe"
+Med avhämtningsställe avses de bibliotek som beställningar kan hämtas på. Lista bifogas.
+
+Acceptanskriterier:
+
+1. Låntagare av typen FI, SY och FY kan välja alla bibliotek (se bifogad fil: lista_bibliotek) som avhämtningsställe.
+2. Övriga låntagare kan inte välja exemplarets ägande bibliotek (home branch) för böcker på öppna hyllor (bifogad fil: öppna_hyllor).
+3. Om ägande bibliotek är Gm så får Gm väljas av alla låntagare.
+4. Alla låntagare får välja exemplarets ägande bibliotek när exemplaren står i slutna magasin (bifogad fil: slutna_magasin).
+
+
+#### KOHA-226 Regelverk för "Typ av lån"-val
+Typ av lån avgör hur materialet får hanteras efter att det har hämtats. Alla materialtyper stödjer inte alla lånetyper, så det finns ett regelverk som måste följas.
+
+Acceptanskriterier:
+
+1. Alternativet hemlån ska döljas om materialkategorin är 8, 17.
+2. Alternativet hemlån ska döljas om exemplarstatus är NOT_LOAN = -3.
+3. Defaultval ska vara första valbara alternativ i listan
+
+
+#### KOHA-356 Visa felmeddelande vid fel rörande bibliografisk post
+
+Felmeddelande innan inloggning, enbart baserat på bibid (materialkategori=ref).
+
+Acceptanskriterier:
+
+1. Felmeddelande ska tala om att det inte går att beställa eller köa på någon del av bibposten
+
+
+#### KOHA-357 Visning av bibliografisk post, se till att kö på bib och exemplar kommer med
+
+Acceptanskriterier:
+
+1. Exemplarlistan ska visa information om existerande kö, beställning och transport.
+2. Sammanlagd siffra för antal i kö visas på bibnivå.
+
+---
 
 ## Acceptanstester
 Testerna bygger på acceptanskriterier som redan de lämpligen är formulerade som påståenden som antingen kan bekräftas eller förkastas. Tillsammans beskriver de det tillstånd som systemet befinner sig i när acceptans uppnåts. För att det ska vara någon mening med det måste man ha en möjlighet att kontrollera utfallet, dvs, ett kriterium måste vara *testbart*.
