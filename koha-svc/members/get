@@ -6,6 +6,7 @@ use warnings;
 use CGI qw ( -utf8 );
 use C4::Auth qw/check_api_auth/;
 use C4::Members;
+use C4::Reserves;
 use XML::Simple;
 
 my $query = new CGI;
@@ -17,8 +18,8 @@ unless ($status eq "ok") {
   print XMLout({ status => $status }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
   exit 0;
 }
-my $user = $query->url_param('borrower');
-my $borrower = GetMember(userid => $user);
+my $userid= $query->url_param('borrower');
+my $borrower = GetMember(userid => $userid);
 unless ($borrower) {
   print $query->header(-type => 'text/xml', -status => '404 Not found');
   print XMLout({ status => 'Borrower not found', error_code => 'borrowerNotFound' }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
@@ -27,8 +28,14 @@ unless ($borrower) {
 
 my $flags = C4::Members::patronflags($borrower);
 
+my $borrowernumber = $borrower -> {'borrowernumber'};
+
+my $issues = GetAllIssues($borrowernumber);
+
+my @reserves = GetReservesFromBorrowernumber($borrowernumber);
+
 print $query->header(-type => 'text/xml',-charset => 'utf-8');
 
-print XMLout({ flags => $flags, borrower => $borrower }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+print XMLout({ flags => $flags, borrower => $borrower, issues => $issues, reserves => \@reserves }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
 
 exit 0;
