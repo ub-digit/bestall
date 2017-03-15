@@ -11,13 +11,13 @@ Router.map(function() {
 
 
   this.route('request', { path: ':id' }, function() {
+    this.route('login', { path: 'login'});
     this.route('order', function() {
       this.route('items');
       this.route('details');
       this.route('summary');
       this.route('confirmation');
     });
-    
   });
 
   this.route('request-error');

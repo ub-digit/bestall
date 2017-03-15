@@ -6,11 +6,12 @@ export default Ember.Route.extend({
   beforeModel(transition) {
     let ticket = transition.queryParams.ticket;
     let biblioId = transition.params.request.id;
+    let SSOscanner = transition.queryParams.SSOscanner;
 
     if (biblioId === "error") {
-       return new Ember.RSVP.Promise((resolve, reject) => {
-          reject({errors: {errors: [{"code": 'NO_ID', "detail": "loreum"}]}});
-       });
+      return new Ember.RSVP.Promise((resolve, reject) => {
+        reject({errors: {errors: [{"code": 'NO_ID', "detail": "loreum"}]}});
+      });
     }
 
     if (ticket) {
@@ -19,14 +20,20 @@ export default Ember.Route.extend({
           cas_ticket: ticket,
           cas_service: this.returnUrl(biblioId)
         }).then(() => {
-          resolve();
+          // If this session is only used in the iframe to scan for successful SSO,
+          // do not resolve the promise
+          if(SSOscanner) {
+            localStorage.setItem('login-check', 'inner-login-ok');
+            localStorage.setItem('logged-in-ok', 'nope');
+          } else {
+            resolve();
+          }
         });
       });
     }
   },
 
   model(params) {
-
     if (this.get('session.isAuthenticated')) {
       return Ember.RSVP.hash({
         biblio: this.store.find('biblio', params.id),
@@ -48,8 +55,11 @@ export default Ember.Route.extend({
 
     if (!ticket) {
       let url = this.casLoginUrl() + '?' + Ember.$.param({service: this.returnUrl(biblioId)});
-      transition.abort();
-      window.location.replace(url);
+      this.controllerFor('request').set('goToLogin', true);
+    } else {
+      // There is a ticket, login was successful.
+      localStorage.setItem('login-check', 'inner-login-ok');
+      localStorage.setItem('logged-in-ok', 'nope');
     }
   },
 
@@ -57,7 +67,16 @@ export default Ember.Route.extend({
     controller.set('ticket', null);
     controller.set('model', model);
 
-    this.replaceWith('request.order.items');
+    if(controller.get('goToLogin')) {
+      Ember.run.later(() => {
+        controller.set('goToLogin', false);
+      });
+      this.transitionTo('request.login');
+    } else {
+      this.replaceWith('request.order.items');
+    }
+    controller.set('forceSSO', null);
+    controller.set('SSOscanner', null);
   },
 
   returnUrl(id) {

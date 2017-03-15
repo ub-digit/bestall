@@ -1,0 +1,22 @@
+<h1>Login</h1>
+
+{{#if showForm}}
+<div class="col-xs-12">
+  <label>Username:
+    {{input value=username class="form-control"}}
+  </label>
+</div>
+<div class="col-xs-12">
+  <label>Password:
+    {{input type='password' value=password class="form-control"}}
+  </label>
+</div>
+<div class="col-xs-12">
+  <button class="btn btn-primary" {{action 'login' username password}}>Login</button>
+</div>
+<div class="col-xs-12">
+  <a href="{{casUrl}}">Login using CAS</a>
+</div>
+{{else}}
+  <div><h2>Waiting...</h2></div>
+{{/if}}

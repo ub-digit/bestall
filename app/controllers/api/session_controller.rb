@@ -28,7 +28,7 @@ class Api::SessionController < ApplicationController
       end
     else
       error_msg(ErrorCodes::UNAUTHORIZED, "Invalid credentials")
-  end
+    end
     render_json
   end
 
