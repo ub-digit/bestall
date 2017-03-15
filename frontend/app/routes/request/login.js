@@ -7,7 +7,8 @@ export default Ember.Route.extend({
       if(localStorage.getItem('login-check') === 'inner-login-ok') {
         localStorage.removeItem('login-check');
         localStorage.setItem('logged-in-ok', 'success');
-        this.transitionTo('request.order.items', biblioId);
+        window.location.href = this.casLoginUrl() + '?' + Ember.$.param({service: this.returnUrl(biblioId)});
+        //this.transitionTo('request.order.items', biblioId);
         return;
       } else {
         localStorage.setItem('logged-in-ok', 'no');
@@ -32,5 +33,15 @@ export default Ember.Route.extend({
   setupController: function(controller, model) {
     controller.set('showForm', true);
     Ember.run.cancel(this.loginCheckLoop);
+  },
+
+  returnUrl: function(id) {
+    let baseUrl = window.location.origin;
+    let routeUrl = this.router.generate('request', {id: id}, {queryParams: {SSOscanner: null}});
+    return baseUrl + routeUrl;
+  },
+  casLoginUrl() {
+    return this.get('store').peekRecord('config', 1).get('casurl') + '/login';
   }
+
 });
