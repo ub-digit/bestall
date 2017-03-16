@@ -1,5 +1,5 @@
 class User
-  attr_accessor :id, :username, :first_name, :last_name, :denied, :fines_amount
+  attr_accessor :id, :username, :first_name, :last_name, :denied, :fines_amount, :reserves, :loans
   attr_reader :banned, :card_lost, :fines, :debarred, :no_address, :expired, :user_category
 
   include ActiveModel::Model
@@ -40,20 +40,23 @@ class User
     return nil
   end
 
+  def has_borrowed_item? biblio_id
+    return !@loans.select{|loan| loan[:biblionumber].eql? biblio_id}.empty?
+  end
+
+  def has_reserved_item? biblio_id
+    return !@reserves.select{|reserve| reserve[:biblionumber].eql? biblio_id}.empty?
+  end
+
   def parse_xml
-    
     xml = Nokogiri::XML(@xml).remove_namespaces!
 
     if xml.search('//response/borrower/categorycode').text.present?
-      
       @user_category = xml.search('//response/borrower/categorycode').text
-      
     end
-
     if xml.search('//response/borrower/borrowernumber').text.present?
       @id = xml.search('//response/borrower/borrowernumber').text.to_i
     end
-
     if xml.search('//response/borrower/surname').text.present?
       @last_name = xml.search('//response/borrower/surname').text
     end
@@ -108,6 +111,23 @@ class User
         @denied = true
       end
     end
+
+    @loans = []
+    xml.xpath('//response/issues').each do |issue|
+      if issue.xpath('returndate').text.blank?
+        biblionumber = issue.xpath('biblionumber').text
+        itemnumber = issue.xpath('itemnumber').text
+        @loans << {biblionumber: biblionumber, itemnumber: itemnumber}
+      end
+    end
+
+    @reserves = []
+    xml.xpath('//response/reserves').each do |reserve|
+        biblionumber = reserve.xpath('biblionumber').text
+        itemnumber = reserve.xpath('itemnumber').text
+        @reserves << {biblionumber: biblionumber, itemnumber: itemnumber}
+    end
+
   end
 
 end

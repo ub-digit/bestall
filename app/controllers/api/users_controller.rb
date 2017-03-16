@@ -2,6 +2,13 @@ class Api::UsersController < ApplicationController
   before_action :validate_access
 
   def current_user
+    biblio_id = params[:biblio]
+    if biblio_id.present?
+      biblio = Biblio.find_by_id biblio_id
+    else
+      biblio = nil
+    end
+
     user = User.find_by_username(@current_username)
     if user
       if user.denied
@@ -15,6 +22,16 @@ class Api::UsersController < ApplicationController
         error_list.push({"code" => "EXPIRED", "detail" => "Card has expired."}) if user.expired
         user_data = {"user_category" => user.user_category}
         user_data["fines_amount"] = user.fines_amount if user.fines
+        error_msg(ErrorCodes::FORBIDDEN, "Access denied", error_list, user_data)
+      elsif biblio && biblio.has_biblio_level_queue && user.has_borrowed_item?(biblio_id)
+        error_list = Array.new
+        error_list.push({"code" => "ALREADY_BORROWED", "detail" => "User has already borrowed an item of this biblio."})
+        user_data = {"user_category" => user.user_category}
+        error_msg(ErrorCodes::FORBIDDEN, "Access denied", error_list, user_data)
+      elsif biblio && biblio.has_biblio_level_queue && user.has_reserved_item?(biblio_id)
+        error_list = Array.new
+        error_list.push({"code" => "ALREADY_RESERVED", "detail" => "User has already ordered or is queued for this title."})
+        user_data = {"user_category" => user.user_category}
         error_msg(ErrorCodes::FORBIDDEN, "Access denied", error_list, user_data)
       else
         @response[:user] = user.as_json

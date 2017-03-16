@@ -80,4 +80,40 @@ RSpec.describe User, :type => :model do
     end
   end
 
+  describe "has_borrowed_item?" do
+    before :each do
+      WebMock.stub_request(:get, "http://koha.example.com/members/get?borrower=xtest&password=password&userid=username").
+        with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+        to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/patron/patron-has-issues.xml"), :headers => {})
+    end
+    it "should return true when patron has borrowed the item" do
+        user = User.find_by_username 'xtest'
+        expect(user).to_not be_nil
+        expect(user.has_borrowed_item?("1385442")).to eq true
+    end
+    it "should return false when patron has not borrowed the item" do
+        user = User.find_by_username 'xtest'
+        expect(user).to_not be_nil
+        expect(user.has_borrowed_item?("1032561")).to eq false
+    end
+  end
+
+
+  describe "has_reserved_item?" do
+    before :each do
+      WebMock.stub_request(:get, "http://koha.example.com/members/get?borrower=xtest&password=password&userid=username").
+        with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+        to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/patron/patron-has-reserves.xml"), :headers => {})
+    end
+    it "should return true when patron has reserved the item" do
+        user = User.find_by_username 'xtest'
+        expect(user).to_not be_nil
+        expect(user.has_reserved_item?("191130")).to eq true
+    end
+    it "should return false when patron has not reserved the item" do
+        user = User.find_by_username 'xtest'
+        expect(user).to_not be_nil
+        expect(user.has_reserved_item?("1032561")).to eq false
+    end
+  end
 end
