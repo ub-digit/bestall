@@ -51,10 +51,7 @@ export default Ember.Route.extend({
 
   afterModel(model, transition) {
     let ticket = transition.queryParams.ticket;
-    let biblioId = transition.params.request.id;
-
     if (!ticket) {
-      let url = this.casLoginUrl() + '?' + Ember.$.param({service: this.returnUrl(biblioId)});
       this.controllerFor('request').set('goToLogin', true);
     } else {
       // There is a ticket, login was successful.

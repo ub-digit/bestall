@@ -12,7 +12,7 @@ export default Ember.Component.extend({
   }),
 
   didInsertElement: function() {
-  	$('.selectpicker').selectpicker({
+  	Ember.$('.selectpicker').selectpicker({
   		width: 'fit',
   		style: 'btn-primary',
   		// some settings availible here see

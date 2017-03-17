@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import RSVP from 'rsvp';
 
 export default Ember.Route.extend({
 
@@ -26,7 +25,7 @@ export default Ember.Route.extend({
     });
   },
 
-  setupController(controller, model) {    
+  setupController(controller, model) {
     controller.set('model', model);
   },
 
@@ -38,11 +37,8 @@ export default Ember.Route.extend({
 
     submitOrder() {
       this.controller.get('model.reserve').save().then(() => {
-        console.log('success');
         this.transitionTo('request.order.confirmation');
-
       }, (error) => {
-        console.log('error', error)
         this.get('controller').set('errors', error.errors.errors);
       });
     }

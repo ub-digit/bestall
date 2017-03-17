@@ -9,7 +9,7 @@ export default Ember.Controller.extend({
 
   btnNextDisabled: Ember.computed('order.model.reserve.{location,loanType}', function() {
 		if (this.get('order.model.reserve.location') && this.get('order.model.reserve.loanType')){
-			return false
+			return false;
 		}
 		return true;
 	}),
@@ -20,7 +20,7 @@ export default Ember.Controller.extend({
       this.get('order.model.reserve').set('location', location);
     },
 
-    setLoanType(id) {      
+    setLoanType(id) {
       let loanType = this.get('store').peekRecord('loanType', id);
       this.get('order.model.reserve').set('loanType', loanType);
     }

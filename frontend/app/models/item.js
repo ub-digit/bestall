@@ -1,7 +1,6 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-
   biblio: DS.belongsTo('biblio'),
   sublocation: DS.belongsTo('sublocation'),
   canBeOrdered: DS.attr('boolean'),
@@ -12,6 +11,5 @@ export default DS.Model.extend({
   barcode: DS.attr('string'),
   status: DS.attr('string'),
   dueDate: DS.attr('date'),
-  status: DS.attr('string'),
   notForLoan: DS.attr('string')
 });

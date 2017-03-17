@@ -1,5 +1,3 @@
-
-import DS from 'ember-data';
 import ActiveModelAdapter from 'active-model-adapter';
 import Ember from 'ember';
 
@@ -10,7 +8,7 @@ export default ActiveModelAdapter.extend({
   headers: Ember.computed('session.data.authenticated.token', function() {
     return {
       'Authorization': 'Token ' + this.get('session.data.authenticated.token')
-    }
+    };
   }),
 
   handleResponse(status, header, payload) {

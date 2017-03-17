@@ -9,7 +9,7 @@ export default Ember.Component.extend({
 		const loanTypes = this.get('loanTypes');
 
 		let filteredLoanTypes = loanTypes.filter(function(type) {
-			if (type.id == 1) {
+			if (type.id === 1) {
 				return (itemType !== '8' && itemType !== '17' && notForLoan !== '-3');
 			} else {
 				return true;
@@ -24,7 +24,7 @@ export default Ember.Component.extend({
 		// First get the filtered list
 		const filteredLoanTypes = this.get('filteredLoanTypes');
 		const selectedItem = this.get('selectedItem');
-		let defaultValue = filteredLoanTypes.get('firstObject').id;		
+		let defaultValue = filteredLoanTypes.get('firstObject').id;
 
 		// Check if anything is selected
 		if (selectedItem) {
