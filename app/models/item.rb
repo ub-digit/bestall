@@ -24,20 +24,20 @@ class Item
 
   def can_be_borrowed
     # TODO Extend with more rules
-    @item_type != '7'
+    !item_type_ref?
   end
 
   def can_be_ordered
     # TODO Extend with more rules
 
     return false unless @item_type
-    return false if @item_type == '7'
-    return false if @item_type == '2'
-    return false if @due_date.present?
-    return false if @is_reserved
-    return false if @lost != '0'
-    return false unless @restricted == '0' || @restricted.nil?
-    return false unless Sublocation.find_by_id(@sublocation_id).is_paging_loc == '1'
+    return false if item_type_ref?
+    return false if item_type_kursbok?
+    return false if checked_out?
+    return false if reserved?
+    return false if lost?
+    return false if restricted?
+    return false unless sublocation_paging_loc?
     return true
   end
 
@@ -46,10 +46,39 @@ class Item
   end
 
   def is_available_for_queue
-    return false if @item_type == '7'
-    return false if ['1', '2', '5', '6'].include?(@restricted)
-    return false if @due_date.blank? && !@is_reserved
+    return false if item_type_ref?
+    return false if restricted?
+    return false unless checked_out? || reserved?
     return true
+  end
+
+  def sublocation_paging_loc?
+    Sublocation.find_by_id(@sublocation_id).is_paging_loc == '1'
+  end
+
+  def lost?
+    @lost != '0'
+  end
+
+  def checked_out?
+    @due_date.present?
+  end
+
+  def reserved?
+    @is_reserved
+  end
+
+  def restricted?
+    # ['1', '2', '5', '6'].include?(@restricted)
+    !(@restricted == '0' || @restricted.nil?)
+  end
+
+  def item_type_ref?
+    @item_type == '7'
+  end
+
+  def item_type_kursbok?
+    @item_type == '2'
   end
 
   def status
