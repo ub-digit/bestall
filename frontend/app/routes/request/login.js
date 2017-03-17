@@ -19,7 +19,7 @@ export default Ember.Route.extend({
   model: function(params, transition) {
     var biblioId = transition.params.request.id;
 
-    return new Ember.RSVP.Promise((resolve, reject) => {
+    return new Ember.RSVP.Promise((resolve) => {
       localStorage.removeItem('login-check');
       this.checkLoginOk(resolve, biblioId);
       Ember.run.later(() => {
@@ -30,7 +30,7 @@ export default Ember.Route.extend({
       }, 4000);
     });
   },
-  setupController: function(controller, model) {
+  setupController: function(controller) {
     controller.set('showForm', true);
     Ember.run.cancel(this.loginCheckLoop);
   },

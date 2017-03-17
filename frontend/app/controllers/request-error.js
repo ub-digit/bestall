@@ -10,7 +10,6 @@ export default Ember.Controller.extend({
 
     reason: computed('errors', function() {
         const dictionary = this.get('i18n');
-        const locale = this.get('i18n.locale');
         // the node 'request-errors' in the locale files contains nodes corresponding to the error code.
         const errors = this.get('errors').errors;
         const data = this.get('errors').data;
@@ -20,16 +19,13 @@ export default Ember.Controller.extend({
             if (obj.code) {
                 const header = dictionary.t('request-errors.' + obj.code + '.header');
                 let msg = dictionary.t('request-errors.' + obj.code + '.message');
-                if (obj.code == 'FINES' && data.fines_amount) {
+                if (obj.code === 'FINES' && data.fines_amount) {
                     msg += data.fines_amount;
                 }
-
                 res += `<h2>${header}</h2>
                     <p>${msg}</p>`;
-
-
             } else {
-                res = 'No error code supplied...'
+                res = 'No error code supplied...';
             }
         });
         return res;
