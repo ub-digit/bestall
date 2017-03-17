@@ -1,0 +1,266 @@
+<response>
+  <borrower>
+    <B_address></B_address>
+    <B_address2></B_address2>
+    <B_city></B_city>
+    <B_country></B_country>
+    <B_email></B_email>
+    <B_phone></B_phone>
+    <B_state></B_state>
+    <B_streetnumber></B_streetnumber>
+    <B_streettype></B_streettype>
+    <B_zipcode></B_zipcode>
+    <address></address>
+    <address2></address2>
+    <altcontactaddress1></altcontactaddress1>
+    <altcontactaddress2></altcontactaddress2>
+    <altcontactaddress3></altcontactaddress3>
+    <altcontactcountry></altcontactcountry>
+    <altcontactfirstname></altcontactfirstname>
+    <altcontactphone></altcontactphone>
+    <altcontactstate></altcontactstate>
+    <altcontactsurname></altcontactsurname>
+    <altcontactzipcode></altcontactzipcode>
+    <borrowernotes></borrowernotes>
+    <borrowernumber>2</borrowernumber>
+    <branchcode>62</branchcode>
+    <cardnumber>1234</cardnumber>
+    <category_type>A</category_type>
+    <categorycode>PE</categorycode>
+    <checkprevcheckout>inherit</checkprevcheckout>
+    <city></city>
+    <contactfirstname></contactfirstname>
+    <contactname></contactname>
+    <contactnote></contactnote>
+    <contacttitle></contacttitle>
+    <country></country>
+    <dateenrolled>2017-02-08</dateenrolled>
+    <dateexpiry>2019-02-08</dateexpiry>
+    <dateofbirth></dateofbirth>
+    <debarred>9999-12-31</debarred>
+    <debarredcomment>FL</debarredcomment>
+    <description>Personal - GUB (PE)</description>
+    <email></email>
+    <emailpro></emailpro>
+    <fax></fax>
+    <firstname>Test</firstname>
+    <flags>1</flags>
+    <gonenoaddress>1</gonenoaddress>
+    <guarantorid></guarantorid>
+    <initials></initials>
+    <lastseen></lastseen>
+    <lost>0</lost>
+    <mobile></mobile>
+    <opacnote></opacnote>
+    <othernames></othernames>
+    <password>qwerty</password>
+    <phone></phone>
+    <phonepro></phonepro>
+    <privacy>1</privacy>
+    <privacy_guarantor_checkouts>0</privacy_guarantor_checkouts>
+    <relationship></relationship>
+    <sex></sex>
+    <sms_provider_id></sms_provider_id>
+    <smsalertnumber></smsalertnumber>
+    <sort1>SA</sort1>
+    <sort2></sort2>
+    <state></state>
+    <streetnumber></streetnumber>
+    <streettype></streettype>
+    <surname>Person</surname>
+    <title></title>
+    <updated_on>2017-02-08 13:21:00</updated_on>
+    <userid>xtest</userid>
+    <zipcode></zipcode>
+  </borrower>
+  <issues>
+    <abstract></abstract>
+    <agerestriction></agerestriction>
+    <author></author>
+    <auto_renew>0</auto_renew>
+    <barcode>1001731273</barcode>
+    <biblioitemnumber>1385442</biblioitemnumber>
+    <biblionumber>1385442</biblionumber>
+    <booksellerid></booksellerid>
+    <borrowernumber>2</borrowernumber>
+    <branchcode>10</branchcode>
+    <ccode></ccode>
+    <cn_class></cn_class>
+    <cn_item></cn_item>
+    <cn_sort></cn_sort>
+    <cn_source></cn_source>
+    <cn_suffix></cn_suffix>
+    <coded_location_qualifier></coded_location_qualifier>
+    <collectionissn></collectionissn>
+    <collectiontitle></collectiontitle>
+    <collectionvolume></collectionvolume>
+    <copynumber>2</copynumber>
+    <copyrightdate>2008</copyrightdate>
+    <damaged>0</damaged>
+    <date_due>2017-09-11 23:09:00</date_due>
+    <dateaccessioned>2009-06-04</dateaccessioned>
+    <datecreated>2009-03-06</datecreated>
+    <datelastborrowed>2016-09-10</datelastborrowed>
+    <datelastseen></datelastseen>
+    <ean></ean>
+    <editionresponsibility></editionresponsibility>
+    <editionstatement>1. Uppl.</editionstatement>
+    <enumchron></enumchron>
+    <frameworkcode></frameworkcode>
+    <holdingbranch>48</holdingbranch>
+    <homebranch>48</homebranch>
+    <illus>ill. ;</illus>
+    <isbn>9789147088850 (inb.)</isbn>
+    <issn></issn>
+    <issue_id>126699</issue_id>
+    <issuedate>2016-08-09 12:08:31</issuedate>
+    <issues>46</issues>
+    <issuestimestamp>2016-09-16 08:34:04</issuestimestamp>
+    <itemcallnumber>Qbac 09-3</itemcallnumber>
+    <itemlost>0</itemlost>
+    <itemlost_on></itemlost_on>
+    <itemnotes></itemnotes>
+    <itemnotes_nonpublic></itemnotes_nonpublic>
+    <itemnumber>1706800</itemnumber>
+    <itemstimestamp>2017-01-13 16:40:42</itemstimestamp>
+    <itemtype></itemtype>
+    <itype>1</itype>
+    <lastreneweddate>2016-09-10 08:09:01</lastreneweddate>
+    <lccn></lccn>
+    <location>480091</location>
+    <materials></materials>
+    <more_subfields_xml></more_subfields_xml>
+    <new_status></new_status>
+    <notes></notes>
+    <notforloan>0</notforloan>
+    <number></number>
+    <onloan>2016-08-09</onloan>
+    <onsite_checkout>0</onsite_checkout>
+    <pages>237 s. :</pages>
+    <paidfor></paidfor>
+    <permanent_location>480091</permanent_location>
+    <place>Malmö :</place>
+    <price></price>
+    <publicationyear></publicationyear>
+    <publishercode>Liber,</publishercode>
+    <renewals>1</renewals>
+    <replacementprice></replacementprice>
+    <replacementpricedate></replacementpricedate>
+    <reserves></reserves>
+    <restricted></restricted>
+    <return></return>
+    <returndate></returndate>
+    <serial></serial>
+    <seriestitle></seriestitle>
+    <size>22 cm</size>
+    <stack></stack>
+    <stocknumber></stocknumber>
+    <timestamp>2015-10-17 04:05:00</timestamp>
+    <title>Kommunikation i förändringsprocesser /</title>
+    <totalissues></totalissues>
+    <totalrenewals></totalrenewals>
+    <unititle></unititle>
+    <uri></uri>
+    <url>http://www.liber.se/productimage/large/4708885o.jpg</url>
+    <volume></volume>
+    <volumedate></volumedate>
+    <volumedesc></volumedesc>
+    <withdrawn>0</withdrawn>
+    <withdrawn_on></withdrawn_on>
+  </issues>
+  <issues>
+    <abstract></abstract>
+    <agerestriction></agerestriction>
+    <author>Itten, Johannes</author>
+    <auto_renew>1</auto_renew>
+    <barcode>1001180426</barcode>
+    <biblioitemnumber>1032560</biblioitemnumber>
+    <biblionumber>1032560</biblionumber>
+    <booksellerid></booksellerid>
+    <borrowernumber>2</borrowernumber>
+    <branchcode>44</branchcode>
+    <ccode></ccode>
+    <cn_class></cn_class>
+    <cn_item></cn_item>
+    <cn_sort></cn_sort>
+    <cn_source></cn_source>
+    <cn_suffix></cn_suffix>
+    <coded_location_qualifier></coded_location_qualifier>
+    <collectionissn></collectionissn>
+    <collectiontitle></collectiontitle>
+    <collectionvolume></collectionvolume>
+    <copynumber>1</copynumber>
+    <copyrightdate>1988</copyrightdate>
+    <damaged>0</damaged>
+    <date_due>2017-04-14 23:59:00</date_due>
+    <dateaccessioned>2002-11-14</dateaccessioned>
+    <datecreated>2002-10-24</datecreated>
+    <datelastborrowed>2017-03-15</datelastborrowed>
+    <datelastseen>2017-03-15</datelastseen>
+    <ean></ean>
+    <editionresponsibility></editionresponsibility>
+    <editionstatement>Originalausg.</editionstatement>
+    <enumchron></enumchron>
+    <frameworkcode></frameworkcode>
+    <holdingbranch>44</holdingbranch>
+    <homebranch>44</homebranch>
+    <illus>ill. (vissa i färg)</illus>
+    <isbn>3473483435</isbn>
+    <issn></issn>
+    <issue_id>154290</issue_id>
+    <issuedate>2017-03-15 14:34:31</issuedate>
+    <issues>9</issues>
+    <issuestimestamp>2017-03-15 15:00:23</issuestimestamp>
+    <itemcallnumber>ÖM Ib 02/545</itemcallnumber>
+    <itemlost>0</itemlost>
+    <itemlost_on></itemlost_on>
+    <itemnotes></itemnotes>
+    <itemnotes_nonpublic></itemnotes_nonpublic>
+    <itemnumber>1318021</itemnumber>
+    <itemstimestamp>2017-03-15 15:00:23</itemstimestamp>
+    <itemtype></itemtype>
+    <itype>1</itype>
+    <lastreneweddate></lastreneweddate>
+    <lccn></lccn>
+    <location>CART</location>
+    <materials></materials>
+    <more_subfields_xml></more_subfields_xml>
+    <new_status></new_status>
+    <notes></notes>
+    <notforloan>0</notforloan>
+    <number></number>
+    <onloan></onloan>
+    <onsite_checkout>0</onsite_checkout>
+    <pages>235 s. :</pages>
+    <paidfor></paidfor>
+    <permanent_location>440066</permanent_location>
+    <place>Ravensburg :</place>
+    <price></price>
+    <publicationyear></publicationyear>
+    <publishercode>Maier,</publishercode>
+    <renewals></renewals>
+    <replacementprice></replacementprice>
+    <replacementpricedate></replacementpricedate>
+    <reserves></reserves>
+    <restricted></restricted>
+    <return></return>
+    <returndate>2017-03-15 15:00:23</returndate>
+    <serial></serial>
+    <seriestitle></seriestitle>
+    <size></size>
+    <stack></stack>
+    <stocknumber></stocknumber>
+    <timestamp>2013-09-21 14:19:00</timestamp>
+    <title>Bildanalysen /</title>
+    <totalissues></totalissues>
+    <totalrenewals></totalrenewals>
+    <unititle></unititle>
+    <uri></uri>
+    <url></url>
+    <volume></volume>
+    <volumedate></volumedate>
+    <volumedesc></volumedesc>
+    <withdrawn>0</withdrawn>
+    <withdrawn_on></withdrawn_on>
+  </issues>
+</response>

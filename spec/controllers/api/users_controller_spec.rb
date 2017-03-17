@@ -60,5 +60,43 @@ RSpec.describe Api::UsersController, type: :controller do
         expect(json['errors']).to_not be nil
       end
     end
+
+    context "user has borrowed an item of this biblio" do
+      before :each do
+        WebMock.stub_request(:get, "http://koha.example.com/members/get?borrower=xtest&password=password&userid=username").
+          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+          to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/patron/patron-has-issues.xml"), :headers => {})
+        @xtest_token = AccessToken.generate_token(User.find_by_username('xtest'))
+        WebMock.stub_request(:get, "http://koha.example.com/bib/1385442?items=1&password=password&userid=username").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+         to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/biblio/biblio-monograph.xml"), :headers => {})
+        WebMock.stub_request(:get, "http://koha.example.com/reserves/list?biblionumber=1385442&password=password&userid=username").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+         to_return(:status => 200, :body => "", :headers => {})
+      end
+      it "should return an error object" do
+        get :current_user, params: {token: @xtest_token.token, biblio: 1385442}
+        expect(json['errors']).to_not be nil
+      end
+    end
+
+    context "user has reserved an item of this biblio" do
+      before :each do
+        WebMock.stub_request(:get, "http://koha.example.com/members/get?borrower=xtest&password=password&userid=username").
+          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+          to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/patron/patron-has-reserves.xml"), :headers => {})
+        @xtest_token = AccessToken.generate_token(User.find_by_username('xtest'))
+        WebMock.stub_request(:get, "http://koha.example.com/bib/191130?items=1&password=password&userid=username").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+         to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/biblio/biblio-monograph.xml"), :headers => {})
+        WebMock.stub_request(:get, "http://koha.example.com/reserves/list?biblionumber=191130&password=password&userid=username").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+         to_return(:status => 200, :body => "", :headers => {})
+      end
+      it "should return an error object" do
+        get :current_user, params: {token: @xtest_token.token, biblio: 191130}
+        expect(json['errors']).to_not be nil
+      end
+    end
   end
 end

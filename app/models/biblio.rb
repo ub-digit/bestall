@@ -32,6 +32,10 @@ class Biblio
     Biblio.queue_level(@record_type) == 'item'
   end
 
+  def has_biblio_level_queue
+    Biblio.queue_level(@record_type) == 'bib'
+  end
+
   def self.queue_level record_type
     type_obj = RECORD_TYPES.find do |type|
       type[:label] == record_type
@@ -103,7 +107,7 @@ class Biblio
           if reserve.xpath('itemnumber').text == item.id
             item.is_reserved = true
             if reserve.xpath('found').text.present?
-              item.found = reserve.xpath('found').text              
+              item.found = reserve.xpath('found').text
             end
           end
         else
