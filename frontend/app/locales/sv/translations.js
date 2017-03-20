@@ -66,8 +66,8 @@ export default {
       "message": "Dina sammanlagda avgifter överstiger högsta tillåtna belopp och måste korrigeras innan nya lån kan göras."
     },
     "DEBARRED": {
-      "header": "Du har obetalda avgifter!",
-      "message": "Dina sammanlagda avgifter högsta tillåtna belopp och måste korrigeras innan nya lån kan göras."
+      "header": "Ditt konto är spärrat!",
+      "message": "Du tillåts inte låna något förrän det är upplåst."
     },
     "NO_ADDRESS": {
       "header": "Adress saknas!",
