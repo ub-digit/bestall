@@ -2,7 +2,9 @@
   <div class="col-xs-12">
     <h3>{{request.model.biblio.title}}</h3>
     <div class="author">{{request.model.biblio.author}}</div>
+    {{#if request.model.biblio.canBeQueued}}
     <div>{{request.model.biblio.noInQueue}} i kö</div>
+    {{/if}}
   </div>
 </div>
 <hr>
