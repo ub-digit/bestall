@@ -8,6 +8,7 @@ class Api::ReservesController < ApplicationController
     itemnumber = params[:reserve][:item_id]
     loantype = params[:reserve][:loan_type_id]
     reservenotes = params[:reserve][:reserve_notes]
+    subscriptionnotes = params[:reserve][:subscription_notes]
 
     error_list = Array.new
     error_list.push({code: "MISSING_USER", detail: "Required user_id is missing."}) if borrowernumber.blank?
@@ -22,7 +23,7 @@ class Api::ReservesController < ApplicationController
       else
         loan_type_name = ''
       end
-      reservenotes = "Lånetyp: #{loan_type_name} \n#{(reservenotes.present? ? reservenotes : '')}"
+      reservenotes = "Lånetyp: #{loan_type_name} \n#{(reservenotes.present? ? reservenotes : '')} \n#{(subscriptionnotes.present? ? subscriptionnotes : '')}"
     end
     if error_list.present?
       error_msg(ErrorCodes::UNPROCESSABLE_ENTITY, "At least one parameter was not valid.", error_list)

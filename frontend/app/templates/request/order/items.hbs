@@ -23,15 +23,17 @@
     <table class="table">
       <thead>
         <tr>
-          <th>Hylla</th>
-          <th>Beståndsinformation</th>
+          <th>Placering</th>
+          <th>Notering</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         {{#each request.model.biblio.subscriptions as |subscription|}}
         <tr>
-          <td>{{subscription.callNumber}}</td>
-          <td>{{subscription.publicNote}}</td>
+          <td>{{subscription.sublocation.name}}</td>
+          <td><pre>{{subscription.publicNote}}</pre></td>
+          <td><button class="btn btn-primary" {{action 'setItemToOrder' null}}>Välj</button></td>
         </tr>
         {{/each}}
       </tbody>
