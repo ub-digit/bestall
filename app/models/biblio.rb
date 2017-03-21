@@ -1,5 +1,5 @@
 class Biblio
-  attr_accessor :id, :title, :author, :items, :record_type, :no_in_queue
+  attr_accessor :id, :title, :author, :items, :subscriptions, :record_type, :no_in_queue
 
   include ActiveModel::Serialization
   include ActiveModel::Validations
@@ -52,6 +52,7 @@ class Biblio
   def initialize id, bib_xml, reserves_xml
     @id = id
     parse_xml bib_xml, reserves_xml
+    @subscriptions = Subscription.find_by_biblio_id id
   end
 
   def self.find id

@@ -6,6 +6,9 @@ export default ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin, {
   attrs: {
     items: {
       deserialize: 'records'
+    },
+    subscriptions: {
+      deserialize: 'records'
     }
   }
 
