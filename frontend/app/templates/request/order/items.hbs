@@ -1,21 +1,45 @@
 <div class="row">
-	<div class="col-xs-12">
-		<h3>{{request.model.biblio.title}}</h3>
-		<div class="author">{{request.model.biblio.author}}</div>
+  <div class="col-xs-12">
+    <h3>{{request.model.biblio.title}}</h3>
+    <div class="author">{{request.model.biblio.author}}</div>
     <div>{{request.model.biblio.noInQueue}} i kö</div>
-	</div>
+  </div>
 </div>
 <hr>
 {{#if request.model.biblio.canBeQueued}}
-	<div class="row">
-		<div class="col-xs-12">
-			<button class="btn btn-primary" {{action 'setItemToOrder' null}}>Köa på utlånade</button>
-		</div>
-	</div>
-	<hr>
+<div class="row">
+  <div class="col-xs-12">
+    <button class="btn btn-primary" {{action 'setItemToOrder' null}}>Köa på utlånade</button>
+  </div>
+</div>
+<hr>
+{{/if}}
+{{#if request.model.biblio.subscriptions}}
+<div class="row">
+  <h2>Bestånd, prenumerationer</h2>
+  <div class="col-xs-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Hylla</th>
+          <th>Beståndsinformation</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each request.model.biblio.subscriptions as |subscription|}}
+        <tr>
+          <td>{{subscription.callNumber}}</td>
+          <td>{{subscription.publicNote}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>
 {{/if}}
 <div class="row">
-	<div class="col-xs-12">
+  <h2>Exemplar</h2>
+  <div class="col-xs-12">
     <table class="table">
       <thead>
         <tr>
@@ -36,15 +60,15 @@
           <td>{{item.barcode}}</td>
           <td>{{item.status}}</td>
           <td>
-						{{item-order-button
-							canBeOrdered=item.canBeOrdered
-							canBeQueued=item.canBeQueued
-							onClick=(action 'setItemToOrder' item)
-						}}
-					</td>
+            {{item-order-button
+              canBeOrdered=item.canBeOrdered
+              canBeQueued=item.canBeQueued
+              onClick=(action 'setItemToOrder' item)
+            }}
+          </td>
         </tr>
         {{/each}}
       </tbody>
     </table>
-	</div>
+  </div>
 </div>

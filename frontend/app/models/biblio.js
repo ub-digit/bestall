@@ -7,6 +7,6 @@ export default DS.Model.extend({
   hasItemLevelQueue: DS.attr('boolean'),
   recordType: DS.attr('string'),
   noInQueue: DS.attr('number'),
-  items: DS.hasMany('item')
-  //subscriptions: DS.hasMany('subscription')
+  items: DS.hasMany('item'),
+  subscriptions: DS.hasMany('subscription')
 });
