@@ -22,6 +22,9 @@ RSpec.describe Biblio, :type => :model do
         WebMock.stub_request(:get, "http://koha.example.com/reserves/list?biblionumber=1&password=password&userid=username").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
           to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/reserve/reserve-empty.xml"), :headers => {})
+        WebMock.stub_request(:get, "http://koha.example.com/subscriptions/list?biblionumber=1&password=password&userid=username").
+          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+          to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/subscription/empty-response.xml"), :headers => {})
       end
       it "should return an object" do
         biblio = Biblio.find_by_id 1
