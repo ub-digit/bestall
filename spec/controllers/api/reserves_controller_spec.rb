@@ -104,8 +104,6 @@ RSpec.describe Api::ReservesController, type: :controller do
         end
         it "should show details in error payload" do
           post :create, params: {reserve: {user_id: 1, biblio_id:1 , item_id: 1, location_id: 10, loan_type_id: 1}, token: @xallowed_token.token}
-          pp "???BAD_REQUEST???"
-          pp json
           expect(json['errors']).to_not be nil
           expect(json['errors']['code']).to eq('BAD_REQUEST')
           expect(json['errors']['errors'][0]['detail']).to eq("Item 1 doesn't belong to biblio 1")
