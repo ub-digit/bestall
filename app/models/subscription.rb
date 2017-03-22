@@ -24,11 +24,13 @@ class Subscription
     subscriptions = Array.new
 
     xml.search('//response/subscriptions').each do |subscription|
-      id = Subscription.parse_id subscription
-      sublocation_id = Subscription.parse_sublocation_id subscription
-      call_number = Subscription.parse_call_number subscription
       public_note = Subscription.parse_public_note subscription
-      subscriptions << self.new(id, biblio_id, sublocation_id, call_number, public_note)
+      sublocation_id = Subscription.parse_sublocation_id subscription
+      if public_note.present? && sublocation_id.present?
+        id = Subscription.parse_id subscription
+        call_number = Subscription.parse_call_number subscription
+        subscriptions << self.new(id, biblio_id, sublocation_id, call_number, public_note)
+      end
     end
 
     return subscriptions
