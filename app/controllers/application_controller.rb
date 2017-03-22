@@ -39,7 +39,7 @@ private
 
   # Validates token and sets user if token if valid
   def validate_token
-    return false if @current_username
+    return true if @current_username
     token = get_token
     token.force_encoding('utf-8') if token
     token_object = AccessToken.find_by_token(token)

@@ -69,7 +69,7 @@ RSpec.describe Api::ReservesController, type: :controller do
 
     context "for a valid reservation with a valid token" do
       before :each do
-        WebMock.stub_request(:get, "http://koha.example.com/reserves/create?biblionumber=50&borrowernumber=1&branchcode=10&itemnumber=&password=password&reservenotes=L%C3%A5netyp:%20Heml%C3%A5n%20%0A&userid=username").
+        WebMock.stub_request(:get, "http://koha.example.com/reserves/create?biblionumber=50&borrowernumber=1&branchcode=10&itemnumber=&password=password&reservenotes=L%C3%A5netyp:%20Heml%C3%A5n%20%0A%20%0A&userid=username").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
           to_return(:status => 201, :body => File.new("#{Rails.root}/spec/support/reserve/reserve-success.xml"), :headers => {})
       end
@@ -83,7 +83,7 @@ RSpec.describe Api::ReservesController, type: :controller do
       # 403 - startswith "Reserve cannot be placed. Reason:"
       context "when the reserve cannot be placed (http 403)" do
         before :each do
-          WebMock.stub_request(:get, "http://koha.example.com/reserves/create?biblionumber=1&borrowernumber=1&branchcode=10&itemnumber=1&password=password&reservenotes=L%C3%A5netyp:%20Heml%C3%A5n%20%0A&userid=username").
+          WebMock.stub_request(:get, "http://koha.example.com/reserves/create?biblionumber=1&borrowernumber=1&branchcode=10&itemnumber=1&password=password&reservenotes=L%C3%A5netyp:%20Heml%C3%A5n%20%0A%20%0A&userid=username").
             with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
             to_return(:status => 403, :body => File.new("#{Rails.root}/spec/support/reserve/reserve-to-many-holds-for-this-record.xml"), :headers => {})
         end
@@ -104,6 +104,8 @@ RSpec.describe Api::ReservesController, type: :controller do
         end
         it "should show details in error payload" do
           post :create, params: {reserve: {user_id: 1, biblio_id:1 , item_id: 1, location_id: 10, loan_type_id: 1}, token: @xallowed_token.token}
+          pp "???BAD_REQUEST???"
+          pp json
           expect(json['errors']).to_not be nil
           expect(json['errors']['code']).to eq('BAD_REQUEST')
           expect(json['errors']['errors'][0]['detail']).to eq("Item 1 doesn't belong to biblio 1")
