@@ -171,4 +171,8 @@ RSpec.describe Api::ReservesController, type: :controller do
     end
 
   end
+
+  describe "reserve_notes" do
+    skip
+  end
 end
