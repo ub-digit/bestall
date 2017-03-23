@@ -9,6 +9,7 @@ export default Ember.Controller.extend({
     setItemToOrder(item) {
       this.get('order.model.reserve').set('item', item);
       this.get('order.model.reserve').set('subscription', null);
+      this.get('order.model.reserve').set('subscriptionNotes', null);
       this.transitionToRoute('request.order.details');
     },
     setSubscriptionToOrder(subscription) {

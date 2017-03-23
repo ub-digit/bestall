@@ -9,33 +9,46 @@
 	{{request.model.biblio.author}}
 	</div>
 </div>
+<hr/>
 <div class="row">
 	<div class="col-xs-12">
-		{{order.model.reserve.location.name}}
+		Hämta på {{order.model.reserve.location.name}}
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-xs-12">
-		{{order.model.reserve.loanType.name}}
+		Typ av lån {{order.model.reserve.loanType.name}}
 	</div>
 </div>
 
+{{#if order.model.reserve.item}}
+  <div class="row">
+	  <div class="col-xs-12">
+		  Exemplar {{order.model.reserve.item.id}}
+	  </div>
+  </div>
+{{/if}}
+
 <div class="row">
 	<div class="col-xs-12">
-		Exemplar: {{order.model.reserve.item.id}}
+		Kommentar {{order.model.reserve.reserveNotes}}
 	</div>
 </div>
-<div class="row">
-	<div class="col-xs-12">
-		Användare: {{order.model.reserve.user.fullName}}
+
+{{#if order.model.reserve.subscription}}
+	<div class="row">
+		<div class="col-xs-12">
+			Detaljer om beställningen {{order.model.reserve.subscriptionNotes}}
+		</div>
 	</div>
-</div>
-<div class="row">
-	<div class="col-xs-12">
-		Kommentar: {{order.model.reserve.reserve_notes}}
+
+	<div class="row">
+		<div class="col-xs-12">
+			Placering {{order.model.reserve.subscriptionLocation}}, {{order.model.reserve.subscriptionSublocation}}, {{order.model.reserve.subscriptionCallNumber}}
+		</div>
 	</div>
-</div>
+{{/if}}
 
 <div class="row">
 	<div class="col-sm-6">

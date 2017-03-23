@@ -8,7 +8,11 @@ export default DS.Model.extend({
   biblio: DS.belongsTo('biblio', {async: false, inverse: null}),
   item: DS.belongsTo('item', {async: false, inverse: null}),
   subscription: DS.belongsTo('subscription', {async: false, inverse: null}),
-  reserve_notes: DS.attr('string'),
-  subscription_notes: DS.attr('string')
+  reserveNotes: DS.attr('string'),
+
+  subscriptionNotes: DS.attr('string'),
+  subscriptionLocation: DS.attr('string'),
+  subscriptionSublocation: DS.attr('string'),
+  subscriptionCallNumber: DS.attr('string')
 
 });

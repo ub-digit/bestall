@@ -23,6 +23,14 @@ export default Ember.Controller.extend({
     setLoanType(id) {
       let loanType = this.get('store').peekRecord('loanType', id);
       this.get('order.model.reserve').set('loanType', loanType);
+    },
+    moveForward() {
+      if (this.get('order.model.reserve.subscription')) {
+        this.get('order.model.reserve').set('subscriptionLocation', this.get('order.model.reserve.subscription.sublocation.location.name'));
+        this.get('order.model.reserve').set('subscriptionSublocation', this.get('order.model.reserve.subscription.sublocation.name'));
+        this.get('order.model.reserve').set('subscriptionCallNumber', this.get('order.model.reserve.subscription.callNumber'));
+      }
+      this.transitionToRoute('request.order.summary');
     }
   }
 
