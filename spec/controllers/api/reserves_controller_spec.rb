@@ -98,14 +98,12 @@ RSpec.describe Api::ReservesController, type: :controller do
       # 400 - Item 1 doesn't belong to biblio 1
       context "when the given item belongs to other biblio than given biblio (http 400)" do
         before :each do
-          WebMock.stub_request(:get, "http://koha.example.com/reserves/create?biblionumber=1&borrowernumber=1&branchcode=10&itemnumber=1&password=password&reservenotes=L%C3%A5netyp:%20Heml%C3%A5n%20%0A&userid=username").
+          WebMock.stub_request(:get, "http://koha.example.com/reserves/create?biblionumber=1&borrowernumber=1&branchcode=10&itemnumber=1&password=password&reservenotes=L%C3%A5netyp:%20Heml%C3%A5n%20%0A%20%0A&userid=username").
             with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
             to_return(:status => 400, :body => File.new("#{Rails.root}/spec/support/reserve/reserve-item-does-not-belong-to-biblio.xml"), :headers => {})
         end
         it "should show details in error payload" do
           post :create, params: {reserve: {user_id: 1, biblio_id:1 , item_id: 1, location_id: 10, loan_type_id: 1}, token: @xallowed_token.token}
-          pp "???BAD_REQUEST???"
-          pp json
           expect(json['errors']).to_not be nil
           expect(json['errors']['code']).to eq('BAD_REQUEST')
           expect(json['errors']['errors'][0]['detail']).to eq("Item 1 doesn't belong to biblio 1")
@@ -115,7 +113,7 @@ RSpec.describe Api::ReservesController, type: :controller do
       # 400 "Branchcode is required"
       context "when the branchcode is somehow missing (http 400)" do
         before :each do
-          WebMock.stub_request(:get, "http://koha.example.com/reserves/create?biblionumber=1&borrowernumber=1&branchcode=10&itemnumber=1&password=password&reservenotes=L%C3%A5netyp:%20Heml%C3%A5n%20%0A&userid=username").
+          WebMock.stub_request(:get, "http://koha.example.com/reserves/create?biblionumber=1&borrowernumber=1&branchcode=10&itemnumber=1&password=password&reservenotes=L%C3%A5netyp:%20Heml%C3%A5n%20%0A%20%0A&userid=username").
             with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
             to_return(:status => 400, :body => File.new("#{Rails.root}/spec/support/reserve/reserve-branchcode-is-required.xml"), :headers => {})
         end
@@ -130,7 +128,7 @@ RSpec.describe Api::ReservesController, type: :controller do
       # 400 "At least one of biblionumber, itemnumber should be given"
       context "when both biblio and item are somehow missing (http 400)" do
         before :each do
-          WebMock.stub_request(:get, "http://koha.example.com/reserves/create?biblionumber=1&borrowernumber=1&branchcode=10&itemnumber=1&password=password&reservenotes=L%C3%A5netyp:%20Heml%C3%A5n%20%0A&userid=username").
+          WebMock.stub_request(:get, "http://koha.example.com/reserves/create?biblionumber=1&borrowernumber=1&branchcode=10&itemnumber=1&password=password&reservenotes=L%C3%A5netyp:%20Heml%C3%A5n%20%0A%20%0A&userid=username").
             with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
             to_return(:status => 400, :body => File.new("#{Rails.root}/spec/support/reserve/reserve-biblionumber-or-itemnumber.xml"), :headers => {})
         end
@@ -145,7 +143,7 @@ RSpec.describe Api::ReservesController, type: :controller do
       # 404 "Borrower not found"
       context "when the borrower is not found in Koha (http 404)" do
         before :each do
-          WebMock.stub_request(:get, "http://koha.example.com/reserves/create?biblionumber=50&borrowernumber=1&branchcode=10&itemnumber=&password=password&reservenotes=L%C3%A5netyp:%20Heml%C3%A5n%20%0A&userid=username").
+          WebMock.stub_request(:get, "http://koha.example.com/reserves/create?biblionumber=50&borrowernumber=1&branchcode=10&itemnumber=&password=password&reservenotes=L%C3%A5netyp:%20Heml%C3%A5n%20%0A%20%0A&userid=username").
             with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
             to_return(:status => 404, :body => File.new("#{Rails.root}/spec/support/reserve/reserve-borrower-not-found.xml"), :headers => {})
         end
@@ -159,7 +157,7 @@ RSpec.describe Api::ReservesController, type: :controller do
 
       context "when the something else breaks in Koha or CGI (http 500)" do
         before :each do
-          WebMock.stub_request(:get, "http://koha.example.com/reserves/create?biblionumber=50&borrowernumber=1&branchcode=10&itemnumber=&password=password&reservenotes=L%C3%A5netyp:%20Heml%C3%A5n%20%0A&userid=username").
+          WebMock.stub_request(:get, "http://koha.example.com/reserves/create?biblionumber=50&borrowernumber=1&branchcode=10&itemnumber=&password=password&reservenotes=L%C3%A5netyp:%20Heml%C3%A5n%20%0A%20%0A&userid=username").
             with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
             to_return(:status => 500, :body => File.new("#{Rails.root}/spec/support/reserve/reserve-unknown-error.xml"), :headers => {})
         end

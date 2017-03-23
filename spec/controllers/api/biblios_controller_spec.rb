@@ -88,7 +88,6 @@ RSpec.describe Api::BibliosController, type: :controller do
       it "should return an item with the correct attributes" do
         skip "JAvG: What is the point with this test? A biblio with a single item with only an ID and no other attributes..."
         get :show, params: {id: 1}
-        pp json
         item = json['biblio']['items'][0]
         expect(item).to have_key('id')
         expect(item).to have_key('biblio_id')
