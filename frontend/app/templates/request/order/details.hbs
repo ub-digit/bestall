@@ -6,16 +6,24 @@
 </div>
 <hr>
 
-{{#if request.model.biblio.subscriptions}}
+{{#if order.model.reserve.subscription}}
   <div class="row">
     <div class="col-xs-12 col-sm-8">
       {{reserve-note-input
-      value=order.model.reserve.subscription_notes
+      value=order.model.reserve.subscriptionNotes
       label="Detaljer om beställningen"
+      helptext="Ange volym, år och nummer för de exemplar du vill beställa."
       maxlength=140
     }}
     </div>
   </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-8">
+      <p>Du kan beställa exemplar ur följande bestånd:</p>
+      <pre>{{order.model.reserve.subscription.publicNote}}</pre>
+    </div>
+  </div>
+  <hr>
 {{/if}}
 
 <div class="row">
@@ -46,8 +54,9 @@
 <div class="row">
   <div class="col-xs-12 col-sm-8">
     {{reserve-note-input
-    value=order.model.reserve.reserve_notes
-    label="Kommentarer om din beställning"
+    value=order.model.reserve.reserveNotes
+    label="Kommentarer (valfri)"
+    helptext="Ange om det är något mer du tror att vi behöver veta om din beställning."
     maxlength=140
   }}
 </div>
