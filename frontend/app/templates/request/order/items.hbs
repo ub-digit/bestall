@@ -31,9 +31,9 @@
       <tbody>
         {{#each request.model.biblio.subscriptions as |subscription|}}
         <tr>
-          <td>{{subscription.sublocation.name}}</td>
+          <td>{{subscription.sublocation.location.name}}<br/>{{subscription.sublocation.name}}</td>
           <td><pre>{{subscription.publicNote}}</pre></td>
-          <td><button class="btn btn-primary" {{action 'setItemToOrder' null}}>Välj</button></td>
+          <td><button class="btn btn-primary" {{action 'setSubscriptionToOrder' subscription}}>Välj</button></td>
         </tr>
         {{/each}}
       </tbody>
