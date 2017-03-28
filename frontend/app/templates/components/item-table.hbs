@@ -1,0 +1,33 @@
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Placering</th>
+        <th>Hylla</th>
+        <th>Volym</th>
+        <th>Streckkod</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each items as |item|}}
+      <tr>
+        <td>{{item.sublocation.name}}</td>
+        <td>{{item.itemCallNumber}}</td>
+        <td>{{item.copyNumber}}</td>
+        <td>{{item.barcode}}</td>
+        <td>{{item.status}}</td>
+        <td>
+          {{item-order-button
+            canBeOrdered=item.canBeOrdered
+            canBeQueued=item.canBeQueued
+            onClick=(action 'setItemToOrder' item)
+          }}
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

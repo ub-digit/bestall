@@ -5,6 +5,11 @@ export default Ember.Controller.extend({
   request: Ember.inject.controller(),
   order: Ember.inject.controller('request.order'),
 
+  itemsThatCanBeOrdered: Ember.computed('request.model.biblio.items', function() {
+
+    return this.get("request.model.biblio.items").filterBy('canBeOrdered', true);
+  }),
+
   actions: {
     setItemToOrder(item) {
       this.get('order.model.reserve').set('item', item);

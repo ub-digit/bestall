@@ -46,7 +46,12 @@
 <div class="row">
 
   <div class="col-xs-12">
-    <h2>Exemplar</h2>
+    <h2>Tillgängliga</h2>
+    {{item-table items=itemsThatCanBeOrdered setItemToOrder=(action "userDidDeleteAccount")}}
+
+
+
+
     <div class="table-responsive">
       <table class="table">
         <thead>
@@ -60,7 +65,7 @@
           </tr>
         </thead>
         <tbody>
-          {{#each request.model.biblio.items as |item|}}
+          {{#each itemsThatCanBeOrdered as |item|}}
           <tr>
             <td>{{item.sublocation.name}}</td>
             <td>{{item.itemCallNumber}}</td>
