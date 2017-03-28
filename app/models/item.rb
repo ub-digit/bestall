@@ -114,7 +114,7 @@ class Item
       @item_call_number = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="o"]').text
     end
 
-    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="t"]').text.present?
+    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="h"]').text.present?
       @copy_number = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="h"]').text
     end
 
