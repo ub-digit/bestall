@@ -83,6 +83,34 @@ select.form-control {
 
 }
 
+.subscription-note {
+	font-family: "courier", serif;
+	width: 100%;
+	min-width: 200px;
+	height: 200px;
+}
+
+.table {
+	&.borderless {
+		td, th {
+	    border: none;
+	  }
+	}
+}
+
+.table-subscriptions {
+
+	tr {
+		&:first-child {
+			td {
+				&:first-child {
+					min-width: 300px;
+				}
+			}
+		}
+	}
+}
+
 .step-indicator {
 	margin-top: 30px;
 	margin-bottom: 20px;

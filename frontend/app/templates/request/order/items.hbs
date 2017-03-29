@@ -17,72 +17,64 @@
 <hr>
 {{/if}}
 {{#if request.model.biblio.subscriptions}}
-<div class="row">
-  <h2>Bestånd, prenumerationer</h2>
-  <div class="col-xs-12">
-    <div class="table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Placering</th>
-            <th>Notering</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each request.model.biblio.subscriptions as |subscription|}}
-          <tr>
-            <td>{{subscription.sublocation.name}}</td>
-            <td><pre>{{subscription.publicNote}}</pre></td>
-            <td><button class="btn btn-primary" {{action 'setItemToOrder' null}}>Välj</button></td>
-          </tr>
-          {{/each}}
-        </tbody>
-      </table>
+  <nav>
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#items" data-toggle="tab">Exemplar ({{itemsThatCanBeOrdered.length}})</a></li>
+      <li role="presentation"><a href="#subscriptions" data-toggle="tab">Bestånd ({{request.model.biblio.subscriptions.length}})</a></li>
+    </ul>
+  </nav>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="items" >
+      {{item-table items=itemsThatCanBeOrdered hasSubscription=true setItemToOrder=(action "setItemToOrder")}}
+    </div>
+    <div role="tabpanel" class="tab-pane" id="subscriptions">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="table-responsive">
+            <table class="table table-subscriptions">
+              <thead>
+                <tr>
+                  <th>Placering</th>
+                  <th>Notering</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each request.model.biblio.subscriptions as |subscription|}}
+                <tr>
+                  <td>{{subscription.sublocation.name}}</td>
+                  <td><textarea class="subscription-note" readonly wrap=off>{{subscription.publicNote}}</textarea></td>
+                  <td><button class="btn btn-primary btn-block" {{action 'setSubscriptionToOrder' subscription}}>Välj</button></td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+
+{{else}}
+  <nav>
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#items" data-toggle="tab">Tillgängliga</a></li>
+      <li role="presentation"><a href="#item-queue" data-toggle="tab">Utlånade</a></li>
+    </ul>
+  </nav>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="items" >
+      
+    </div>
+    <div role="tabpanel" class="tab-pane" id="item-queue">
+      <div class="row">
+        <div class="col-xs-12">
+          {{item-table items=itemsThatCanBeQueed setItemToOrder=(action "setItemToOrder")}}
+        </div>
+      </div>
+    </div>
+  </div>
 {{/if}}
-<div class="row">
-
-  <div class="col-xs-12">
-    <h2>Tillgängliga</h2>
-    {{item-table items=itemsThatCanBeOrdered setItemToOrder=(action "userDidDeleteAccount")}}
-
-
-
-
-    <div class="table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Placering</th>
-            <th>Hylla</th>
-            <th>Volym</th>
-            <th>Streckkod</th>
-            <th>Status</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each itemsThatCanBeOrdered as |item|}}
-          <tr>
-            <td>{{item.sublocation.name}}</td>
-            <td>{{item.itemCallNumber}}</td>
-            <td>{{item.copyNumber}}</td>
-            <td>{{item.barcode}}</td>
-            <td>{{item.status}}</td>
-            <td>
-              {{item-order-button
-                canBeOrdered=item.canBeOrdered
-                canBeQueued=item.canBeQueued
-                onClick=(action 'setItemToOrder' item)
-              }}
-            </td>
-          </tr>
-          {{/each}}
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>

@@ -3,10 +3,10 @@
   <table class="table">
     <thead>
       <tr>
-        <th>Placering</th>
-        <th>Hylla</th>
+        {{#if hasSubscription}}
         <th>Volym</th>
-        <th>Streckkod</th>
+        {{/if}}
+        <th>Placering</th>
         <th>Status</th>
         <th></th>
       </tr>
@@ -14,10 +14,8 @@
     <tbody>
       {{#each items as |item|}}
       <tr>
-        <td>{{item.sublocation.name}}</td>
-        <td>{{item.itemCallNumber}}</td>
         <td>{{item.copyNumber}}</td>
-        <td>{{item.barcode}}</td>
+        <td>{{item.sublocation.name}}</td>
         <td>{{item.status}}</td>
         <td>
           {{item-order-button

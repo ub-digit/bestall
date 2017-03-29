@@ -6,8 +6,11 @@ export default Ember.Controller.extend({
   order: Ember.inject.controller('request.order'),
 
   itemsThatCanBeOrdered: Ember.computed('request.model.biblio.items', function() {
-
     return this.get("request.model.biblio.items").filterBy('canBeOrdered', true);
+  }),
+
+  itemsThatCanBeQueed: Ember.computed('request.model.biblio.items', function() {
+    return this.get("request.model.biblio.items").filterBy('canBeQueed', true);
   }),
 
   actions: {

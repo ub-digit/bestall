@@ -28,13 +28,13 @@ export default {
     "order": {
       "header": "Min beställning",
       "items": {
-        "btnNext": "Nästa"
+        "btnNext": "Fortsätt"
       },
       "details": {
         "header": "Din beställning",
-        "labelForLoantypeDropdown": "Välj typ av lån",
-        "labelForLocationDropdown": "Välj upphämntningsställe",
-        "btnNext": "Nästa"
+        "labelForLoantypeDropdown": "Hur vill du låna?",
+        "labelForLocationDropdown": "Var vill du hämta?",
+        "btnNext": "Fortsätt"
       },
       "confirmation": {
       },
