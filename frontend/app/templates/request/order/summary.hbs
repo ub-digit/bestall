@@ -24,19 +24,23 @@
 						<td>{{order.model.reserve.loanType.name}}</td>
 					</tr>
 					{{#if order.model.reserve.subscription}}
-					<tr>
-						<th>Detaljer om beställningen</th>
-						<td>{{order.model.reserve.subscriptionNotes}}</td>
-					</tr>
-					<tr>
+						{{#if order.model.reserve.subscriptionNotes}}
+							<tr>
+								<th>Detaljer om beställningen</th>
+								<td>{{order.model.reserve.subscriptionNotes}}</td>
+							</tr>
+						{{/if}}
+						<tr>
 						<th>Placering</th>
 						<td>{{order.model.reserve.subscriptionLocation}}, {{order.model.reserve.subscriptionSublocation}}, {{order.model.reserve.subscriptionCallNumber}}</td>
 					</tr>
 					{{/if}}
-					<tr>
-						<th>Kommentar</th>
-						<td>{{order.model.reserve.reserveNotes}}</td>
-					</tr>
+					{{#if order.model.reserve.subscriptionNotes}}
+						<tr>
+							<th>Kommentar</th>
+							<td>{{order.model.reserve.reserveNotes}}</td>
+						</tr>
+					{{/if}}
 				</tbody>
 			</table>
 		</div>

@@ -4,7 +4,7 @@
     <thead>
       <tr>
         {{#if hasSubscription}}
-        <th>Volym</th>
+          <th>Volym</th>
         {{/if}}
         <th>Placering</th>
         <th>Status</th>
@@ -14,7 +14,9 @@
     <tbody>
       {{#each items as |item|}}
       <tr>
-        <td>{{item.copyNumber}}</td>
+        {{#if hasSubscription}}
+          <td>{{item.copyNumber}}</td>
+        {{/if}}
         <td>{{item.sublocation.name}}</td>
         <td>{{item.status}}</td>
         <td>
