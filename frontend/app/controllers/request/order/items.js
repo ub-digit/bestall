@@ -5,6 +5,18 @@ export default Ember.Controller.extend({
   request: Ember.inject.controller(),
   order: Ember.inject.controller('request.order'),
 
+
+
+  itemsAvailable: Ember.computed('request.model.biblio.items', function() {
+    return this.get("request.model.biblio.items").filter((item, index, self) => !item.get("dueDate")
+    );
+    //return this.get("request.model.biblio.items").filterBy('dueDate');
+  }),
+
+  itemsNotAvailable: Ember.computed('request.model.biblio.items', function() {
+    return this.get("request.model.biblio.items").filterBy('dueDate');
+  }),
+
   actions: {
     setItemToOrder(item) {
       this.get('order.model.reserve').set('item', item);

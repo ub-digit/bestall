@@ -1,22 +1,27 @@
-<h1>Login</h1>
+
 
 {{#if showForm}}
-<div class="col-xs-12">
-  <label>Username:
-    {{input value=username class="form-control"}}
-  </label>
+<div class="login-wrapper">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+      <h1>Login</h1>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="not-functional">
+          <div class="form-group">
+            <label>Username:</label>
+              {{input value=username class="form-control"}}
+          </div>
+          <div class="form-group">
+            <label>Password:</label>
+            {{input type='password' value=password class="form-control"}}
+          </div>
+          <button class="btn btn-primary btn-block" {{action 'login' username password}}>Login</button>
+          </div> <!-- end not-functional -->
+          <div class="cas-login-link"><a href="{{casUrl}}" class="small">Login using CAS</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="col-xs-12">
-  <label>Password:
-    {{input type='password' value=password class="form-control"}}
-  </label>
-</div>
-<div class="col-xs-12">
-  <button class="btn btn-primary" {{action 'login' username password}}>Login</button>
-</div>
-<div class="col-xs-12">
-  <a href="{{casUrl}}">Login using CAS</a>
-</div>
-{{else}}
-  <div><h2>Waiting...</h2></div>
 {{/if}}

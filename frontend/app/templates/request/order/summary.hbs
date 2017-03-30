@@ -12,49 +12,46 @@
 <hr/>
 <div class="row">
 	<div class="col-xs-12">
-		Hämta på {{order.model.reserve.location.name}}
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-xs-12">
-		Typ av lån {{order.model.reserve.loanType.name}}
-	</div>
-</div>
-
-{{#if order.model.reserve.item}}
-  <div class="row">
-	  <div class="col-xs-12">
-		  Exemplar {{order.model.reserve.item.id}}
-	  </div>
-  </div>
-{{/if}}
-
-<div class="row">
-	<div class="col-xs-12">
-		Kommentar {{order.model.reserve.reserveNotes}}
-	</div>
-</div>
-
-{{#if order.model.reserve.subscription}}
-	<div class="row">
-		<div class="col-xs-12">
-			Detaljer om beställningen {{order.model.reserve.subscriptionNotes}}
+		<div class="table-responsive">
+			<table class="table borderless">
+				<tbody>
+					<tr>
+						<th>Hämta på</th>
+						<td>{{order.model.reserve.location.name}}</td>
+					</tr>
+					<tr>
+						<th>Typ av lån</th>
+						<td>{{order.model.reserve.loanType.name}}</td>
+					</tr>
+					{{#if order.model.reserve.subscription}}
+						{{#if order.model.reserve.subscriptionNotes}}
+							<tr>
+								<th>Detaljer om beställningen</th>
+								<td>{{order.model.reserve.subscriptionNotes}}</td>
+							</tr>
+						{{/if}}
+						<tr>
+						<th>Placering</th>
+						<td>{{order.model.reserve.subscriptionLocation}}, {{order.model.reserve.subscriptionSublocation}}, {{order.model.reserve.subscriptionCallNumber}}</td>
+					</tr>
+					{{/if}}
+					{{#if order.model.reserve.subscriptionNotes}}
+						<tr>
+							<th>Kommentar</th>
+							<td>{{order.model.reserve.reserveNotes}}</td>
+						</tr>
+					{{/if}}
+				</tbody>
+			</table>
 		</div>
 	</div>
-
-	<div class="row">
-		<div class="col-xs-12">
-			Placering {{order.model.reserve.subscriptionLocation}}, {{order.model.reserve.subscriptionSublocation}}, {{order.model.reserve.subscriptionCallNumber}}
-		</div>
-	</div>
-{{/if}}
+</div>
 
 <div class="row">
-	<div class="col-sm-6">
+	<div class="col-xs-6 col-sm-6">
 		<button class="btn btn-block btn-default" {{action 'goBack'}}>Tillbaka</button>
 	</div>
-	<div class="col-sm-6">
-		<button class="btn btn-block btn-success" {{action 'submitOrder'}}>Skicka beställning</button>
+	<div class="col-xs-6 col-sm-6">
+		<button class="btn btn-block btn-success" {{action 'submitOrder'}}>Beställ</button>
 	</div>
 </div>

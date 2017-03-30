@@ -20,29 +20,31 @@ html {
 	}
 }
 
-#spinner {
-	display: none;
+
+.center {
+	text-align: center;
 }
-&.loading {
-	#spinner {
-		display: block;
-		position: fixed;
-		top: 50%;
-		left: 50%;
-		margin-left: -15px;
-		padding-top: 8px;
-		z-index: 10;
-		width: 50px;
-		height: 50px;
-		background: @gray-dark;
-		border-radius: 4px;
-		text-align: center;
-		.fa {
-			font-size: 30px;
-			color: #fff;
-		}
+
+
+#spinner {
+	display: block;
+	position: fixed;
+	top: 40%;
+	left: 50%;
+	margin-left: -15px;
+	padding-top: 7px;
+	z-index: 10;
+	width: 35px;
+	height: 35px;
+	background: @gray-dark;
+	border-radius: 4px;
+	text-align: center;
+	.fa {
+		font-size: 20px;
+		color: #fff;
 	}
 }
+
 
 .next-prev {
 	margin-top: 20px;
@@ -83,6 +85,34 @@ select.form-control {
 .order-ref-number {
 	font-size: 2em;
 
+}
+
+.subscription-note {
+	font-family: "courier", serif;
+	width: 100%;
+	min-width: 200px;
+	height: 200px;
+}
+
+.table {
+	&.borderless {
+		td, th {
+	    border: none;
+	  }
+	}
+}
+
+.table-subscriptions {
+
+	tr {
+		&:first-child {
+			td {
+				&:first-child {
+					min-width: 300px;
+				}
+			}
+		}
+	}
 }
 
 .step-indicator {
