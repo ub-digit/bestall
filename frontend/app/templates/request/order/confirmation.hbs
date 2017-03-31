@@ -1,14 +1,12 @@
-<div class="media">
+<div class="media confirmation">
   <div class="media-left">
-    <a href="#">
-      <img class="media-object" src="https://placeholder.pics/svg/200x300" alt="...">
-    </a>
+    <i class="fa fa-check-circle green-icon" aria-hidden="true"></i>
   </div>
   <div class="media-body">
-    <h3 class="media-heading">{{request.model.biblio.title}}</h3>
-    <div>{{request.model.biblio.author}}</div>
+    <h3>Tack för din beställning</h3>
     <br/>
-    <div><strong>Upphämtningsställe: </strong>{{order.model.reserve.location.name}}</div>
-    <div><strong>Typ av lån: </strong>{{order.model.reserve.loanType.name}}</div>
+    <p>Du får ett meddelande när materialet finns att hämta på {{order.model.reserve.location.name}}.</p> 
+    <i class="fa fa-angle-right" aria-hidden="true"></i>
+    <a href="#">Mina lån - se dina lån och beställningar</a>
   </div>
 </div>
