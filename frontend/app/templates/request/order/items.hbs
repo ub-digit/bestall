@@ -3,22 +3,25 @@
     <h3>{{request.model.biblio.title}}</h3>
     <div class="author">{{request.model.biblio.author}}</div>
   </div>
+  active TAB<br>
+  {{activeTab}}<br>
+  ----------------<br>
 </div>
 
 {{#if request.model.biblio.subscriptions}}
   <nav>
     <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active"><a href="#items" data-toggle="tab">Exemplar ({{itemsAvailable.length}})</a></li>
-      <li role="presentation"><a href="#subscriptions" data-toggle="tab">Bestånd ({{request.model.biblio.subscriptions.length}})</a></li>
+      <li role="presentation" class="{{is-active-tab 'tab1' activeTab}}"><a href="#items" data-toggle="tab" onclick={{action "setActiveTab" "tab1"}}>Exemplar ({{itemsAvailable.length}})</a></li>
+      <li role="presentation" class="{{is-active-tab 'tab2' activeTab}}"><a href="#subscriptions" data-toggle="tab" onclick={{action "setActiveTab" "tab2"}}>Bestånd ({{request.model.biblio.subscriptions.length}})</a></li>
     </ul>
   </nav>
 
   <!-- Tab panes -->
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="items" >
+    <div role="tabpanel" class="tab-pane {{is-active-tab 'tab1' activeTab}}" id="items" >
       {{item-table items=itemsAvailable hasSubscription=true setItemToOrder=(action "setItemToOrder")}}
     </div>
-    <div role="tabpanel" class="tab-pane" id="subscriptions">
+    <div role="tabpanel" class="tab-pane {{is-active-tab 'tab2' activeTab}}" id="subscriptions">
       <div class="row">
         <div class="col-xs-12">
           <div class="table-responsive">
@@ -49,16 +52,16 @@
 {{else}}
   <nav>
     <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active"><a href="#items" data-toggle="tab">Tillgängliga ({{itemsAvailable.length}})</a></li>
-      <li role="presentation"><a href="#item-queue" data-toggle="tab">Utlånade ({{itemsNotAvailable.length}})</a></li>
+      <li role="presentation" class="{{is-active-tab 'tab1' activeTab}}"><a href="#items" data-toggle="tab">Tillgängliga ({{itemsAvailable.length}})</a></li>
+      <li role="presentation" class="{{is-active-tab 'tab2' activeTab}}"><a href="#item-queue" data-toggle="tab">Utlånade ({{itemsNotAvailable.length}})</a></li>
     </ul>
   </nav>
   <!-- Tab panes -->
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="items" >
+    <div role="tabpanel" class="tab-pane {{is-active-tab 'tab1' activeTab}}" id="items" >
       {{item-table items=itemsAvailable setItemToOrder=(action "setItemToOrder")}}
     </div>
-    <div role="tabpanel" class="tab-pane" id="item-queue">    
+    <div role="tabpanel" class="tab-pane {{is-active-tab 'tab2' activeTab}}" id="item-queue">    
   
       {{#if request.model.biblio.canBeQueued}}
       <div class="row">

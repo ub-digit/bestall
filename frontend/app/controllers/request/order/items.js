@@ -5,11 +5,32 @@ export default Ember.Controller.extend({
   request: Ember.inject.controller(),
   order: Ember.inject.controller('request.order'),
 
+  activeTab: null,
 
+  tab1_active: Ember.computed('activeTab', function() {
+    return this.tabHelper('tab1');
+  }),
+
+  tab2_active: Ember.computed('activeTab', function() {
+    return this.tabHelper('tab2');
+  }),
+
+  tabHelper: function(name) {
+
+    const activeTab = this.get('activeTab');
+    if (!activeTab && name == 'tab1') {
+      return 'active';
+    }
+
+    if (!activeTab && name != 'tab1') {
+      return '';
+    }
+    return (name == activeTab) ? 'active' : '';
+
+  },
 
   itemsAvailable: Ember.computed('request.model.biblio.items', function() {
-    return this.get("request.model.biblio.items").filter((item, index, self) => !item.get("dueDate")
-    );
+    return this.get("request.model.biblio.items").filter((item, index, self) => !item.get("dueDate"));
     //return this.get("request.model.biblio.items").filterBy('dueDate');
   }),
 
@@ -19,15 +40,20 @@ export default Ember.Controller.extend({
 
   actions: {
     setItemToOrder(item) {
+
       this.get('order.model.reserve').set('item', item);
       this.get('order.model.reserve').set('subscription', null);
       this.get('order.model.reserve').set('subscriptionNotes', null);
       this.transitionToRoute('request.order.details');
     },
     setSubscriptionToOrder(subscription) {
+      this.set('activeTab', 'tab2');
       this.get('order.model.reserve').set('subscription', subscription);
       this.get('order.model.reserve').set('item', null);
       this.transitionToRoute('request.order.details');
+    },
+    setActiveTab(tab) {
+      this.set('activeTab', tab);
     }
   }
 
