@@ -7,28 +7,6 @@ export default Ember.Controller.extend({
 
   activeTab: null,
 
-  tab1_active: Ember.computed('activeTab', function() {
-    return this.tabHelper('tab1');
-  }),
-
-  tab2_active: Ember.computed('activeTab', function() {
-    return this.tabHelper('tab2');
-  }),
-
-  tabHelper: function(name) {
-
-    const activeTab = this.get('activeTab');
-    if (!activeTab && name == 'tab1') {
-      return 'active';
-    }
-
-    if (!activeTab && name != 'tab1') {
-      return '';
-    }
-    return (name == activeTab) ? 'active' : '';
-
-  },
-
   itemsAvailable: Ember.computed('request.model.biblio.items', function() {
     return this.get("request.model.biblio.items").filter((item, index, self) => !item.get("dueDate"));
     //return this.get("request.model.biblio.items").filterBy('dueDate');
