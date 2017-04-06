@@ -49,8 +49,8 @@
 {{else}}
   <nav>
     <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="{{is-active-tab 'tab1' activeTab}}"><a href="#items" data-toggle="tab">Tillgängliga ({{itemsAvailable.length}})</a></li>
-      <li role="presentation" class="{{is-active-tab 'tab2' activeTab}}"><a href="#item-queue" data-toggle="tab">Utlånade ({{itemsNotAvailable.length}})</a></li>
+      <li role="presentation" class="{{is-active-tab 'tab1' activeTab}}"><a href="#items" data-toggle="tab" onclick={{action "setActiveTab" "tab1"}}>Tillgängliga ({{itemsAvailable.length}})</a></li>
+      <li role="presentation" class="{{is-active-tab 'tab2' activeTab}}"><a href="#item-queue" data-toggle="tab" onclick={{action "setActiveTab" "tab2"}}>Utlånade ({{itemsNotAvailable.length}})</a></li>
     </ul>
   </nav>
   <!-- Tab panes -->
