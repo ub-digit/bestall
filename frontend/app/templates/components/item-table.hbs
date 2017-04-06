@@ -1,33 +1,34 @@
-
-<div class="table-responsive">
-  <table class="table">
-    <thead>
-      <tr>
-        {{#if hasSubscription}}
-          <th>Volym</th>
-        {{/if}}
-        <th>Placering</th>
-        <th>Status</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each items as |item|}}
-      <tr>
-        {{#if hasSubscription}}
-          <td>{{item.copyNumber}}</td>
-        {{/if}}
-        <td>{{item.sublocation.name}}</td>
-        <td>{{item.status}}</td>
-        <td>
-          {{item-order-button
-            canBeOrdered=item.canBeOrdered
-            canBeQueued=item.canBeQueued
-            onClick=(action 'setItemToOrder' item)
-          }}
-        </td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-</div>
+{{#if items}}
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          {{#if hasSubscription}}
+            <th>Volym</th>
+          {{/if}}
+          <th>Placering</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each items as |item|}}
+        <tr>
+          {{#if hasSubscription}}
+            <td>{{item.copyNumber}}</td>
+          {{/if}}
+          <td>{{item.sublocation.name}}</td>
+          <td>{{item.status}}</td>
+          <td>
+            {{item-order-button
+              canBeOrdered=item.canBeOrdered
+              canBeQueued=item.canBeQueued
+              onClick=(action 'setItemToOrder' item)
+            }}
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+{{/if}}

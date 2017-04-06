@@ -56,7 +56,22 @@
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane {{is-active-tab 'tab1' activeTab}}" id="items" >
+      {{#if itemsAvailable}}
       {{item-table items=itemsAvailable setItemToOrder=(action "setItemToOrder")}}
+      {{else}}
+        <p class="center zero-state vertical-space-bottom-40">
+          Det finns inga tillgängliga exemplar just nu. 
+        </p>
+        <div class="row">
+          <div class="col-xs-12">
+          <div class="panel panel-default">
+            <div class="panel-body center">
+              <strong>{{request.model.biblio.noInQueue}} personer i kö på utlånade exemplar</strong> <button class="btn btn-primary" {{action 'setItemToOrder' null}}>Ställ dig i kö</button>
+            </div>
+          </div>
+          </div>
+        </div>
+      {{/if}}
     </div>
     <div role="tabpanel" class="tab-pane {{is-active-tab 'tab2' activeTab}}" id="item-queue">    
   
@@ -74,7 +89,14 @@
       {{/if}}
       <div class="row">
         <div class="col-xs-12">
-          {{item-table items=itemsNotAvailable setItemToOrder=(action "setItemToOrder")}}
+          {{#if itemsNotAvailable}}
+            {{item-table items=itemsNotAvailable setItemToOrder=(action "setItemToOrder")}}
+          {{else}}
+              <p class="center zero-state ">
+                Alla exemplar finns tillgängliga. 
+              </p>
+          {{/if}}
+        
         </div>
       </div>
     </div>
