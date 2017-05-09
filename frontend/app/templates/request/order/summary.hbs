@@ -15,27 +15,21 @@
 		<div class="table-responsive">
 			<table class="table borderless">
 				<tbody>
+					{{#if order.model.reserve.item.copyNumber}}
 					<tr>
-						<th>Hämta på</th>
-						<td>{{order.model.reserve.location.name}}</td>
+						<th>Exemplar</th>
+						<td>{{order.model.reserve.item.copyNumber}}</td>
 					</tr>
+					{{/if}}
 					<tr>
 						<th>Typ av lån</th>
 						<td>{{order.model.reserve.loanType.name}}</td>
 					</tr>
-					{{#if order.model.reserve.subscription}}
-						{{#if order.model.reserve.subscriptionNotes}}
-							<tr>
-								<th>Detaljer om beställningen</th>
-								<td>{{order.model.reserve.subscriptionNotes}}</td>
-							</tr>
-						{{/if}}
-						<tr>
-						<th>Placering</th>
-						<td>{{order.model.reserve.subscriptionLocation}}, {{order.model.reserve.subscriptionSublocation}}, {{order.model.reserve.subscriptionCallNumber}}</td>
+					<tr>
+						<th>Hämta på</th>
+						<td>{{order.model.reserve.location.name}}</td>
 					</tr>
-					{{/if}}
-					{{#if order.model.reserve.subscriptionNotes}}
+					{{#if order.model.reserve.reserveNotes}}
 						<tr>
 							<th>Kommentar</th>
 							<td>{{order.model.reserve.reserveNotes}}</td>
