@@ -12,22 +12,20 @@ export default Ember.Controller.extend({
         const dictionary = this.get('i18n');
         // the node 'request-errors' in the locale files contains nodes corresponding to the error code.
         const errors = this.get('errors').errors;
-        const data = this.get('errors').data;
+        const header = dictionary.t('request-errors.header');
+        let res = `<h2>${header}</h2>`;
 
-        let res = '';
-        errors.map((obj) => {
-            if (obj.code) {
-                const header = dictionary.t('request-errors.' + obj.code + '.header');
-                let msg = dictionary.t('request-errors.' + obj.code + '.message');
-                if (obj.code === 'FINES' && data.fines_amount) {
-                    msg += data.fines_amount;
+
+        if (errors && errors.length > 0) {
+            errors.map((obj) => {
+                if (obj.code) {
+                    let msg = dictionary.t('request-errors.' + obj.code + '.message');
+                    res += `<p>${msg}</p>`;
                 }
-                res += `<h2>${header}</h2>
-                    <p>${msg}</p>`;
-            } else {
-                res = 'No error code supplied...';
-            }
-        });
+            });
+        } else {
+            res += dictionary.t('request-errors.UNKNOWN_ERROR.message');;
+        }
         return res;
     })
 });
