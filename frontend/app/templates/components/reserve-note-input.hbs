@@ -2,5 +2,9 @@
 	{{label}}
 </label>
 <span class="help-block">{{helptext}}</span>
-{{textarea value=value class="form-control" rows=3 maxlength=maxlength}}
+{{#if isTextarea}}
+  {{textarea value=value class="form-control" rows=3 maxlength=maxlength}}
+{{else}}
+  {{input type="text" value=value class="form-control" maxlength=maxlength}}
+{{/if}}
 <span class="help-block">{{inputLength}} / {{maxlength}}</span>

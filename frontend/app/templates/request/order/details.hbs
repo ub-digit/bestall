@@ -10,9 +10,10 @@
   <div class="row">
     <div class="col-xs-12 col-sm-8">
       {{reserve-note-input
+      type="input"
       value=order.model.reserve.subscriptionNotes
       label="Detaljer om beställningen"
-      helptext="Ange volym, år och nummer för de exemplar du vill beställa."
+      helptext="Ange volym, år och nummer eller sidnummer för det exemplar du vill beställa."
       maxlength=140
     }}
     </div>
@@ -50,10 +51,11 @@
   }}
 </div>
 </div>
-
+{{#unless order.model.reserve.subscription}}
 <div class="row">
   <div class="col-xs-12 col-sm-8">
     {{reserve-note-input
+    type="textarea"
     value=order.model.reserve.reserveNotes
     label="Kommentarer (valfri)"
     helptext="Ange om det är något mer du tror att vi behöver veta om din beställning."
@@ -61,6 +63,7 @@
   }}
 </div>
 </div>
+{{/unless}}
 
 <div class="row">
   <div class="col-xs-6 col-sm-6">
