@@ -12,7 +12,6 @@ export default Ember.Controller.extend({
         const dictionary = this.get('i18n');
         // the node 'request-errors' in the locale files contains nodes corresponding to the error code.
         const errors = this.get('errors').errors;
-        console.log(errors);
         const header = dictionary.t('request-errors.header');
         let res = `<h2>${header}</h2>`;
 
