@@ -18,7 +18,8 @@ class Item
   def as_json options = {}
     super(except: ["found"]).merge({can_be_ordered: can_be_ordered,
       can_be_queued: can_be_queued,
-      status: status
+      status: status,
+      is_availible: is_availible
       }).compact
   end
 
@@ -26,6 +27,13 @@ class Item
     # TODO Extend with more rules
     !item_type_ref?
   end
+
+  def is_availible
+    return false if is_reserved 
+    return false if due_date.present?
+    return true
+  end
+
 
   def can_be_ordered
     # TODO Extend with more rules
