@@ -35,6 +35,12 @@
 							<td>{{order.model.reserve.reserveNotes}}</td>
 						</tr>
 					{{/if}}
+					{{#if order.model.reserve.subscriptionNotes}}
+						<tr>
+							<th>Kommentar</th>
+							<td>{{order.model.reserve.subscriptionNotes}}</td>
+						</tr>
+					{{/if}}
 				</tbody>
 			</table>
 		</div>
