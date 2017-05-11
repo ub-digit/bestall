@@ -49,7 +49,7 @@ export default Ember.Controller.extend({
     if (a.get("sublocation.name") > b.get("sublocation.name")) {
       return 1;
     }
-    else if (a.get("sublocation.name") < b.get("sublocation.name")) {
+    if (a.get("sublocation.name") < b.get("sublocation.name")) {
       return -1;
     }
     if (!a.get("copyNumber") && b.get("copyNumber")) {
@@ -61,7 +61,7 @@ export default Ember.Controller.extend({
     if (a.get("copyNumber") > b.get("copyNumber")) {
       return 1;
     }
-    else if (a.get("copyNumber") < b.get("copyNumber")) {
+    if (a.get("copyNumber") < b.get("copyNumber")) {
       return -1;
     }
     return 0;
