@@ -12,5 +12,6 @@ export default DS.Model.extend({
   status: DS.attr('string'),
   dueDate: DS.attr('date'),
   notForLoan: DS.attr('string'),
-  isReserved: DS.attr('boolean')
+  isReserved: DS.attr('boolean'),
+  isAvailible: DS.attr('boolean')
 });
