@@ -46,7 +46,6 @@ export default Ember.Controller.extend({
   }),
 
   itemsAvailableSorted: Ember.computed.sort('itemsAvailable', function(a,b) {
-    console.log(a.get("copyNumber") + " -  " + b.get("copyNumber"));
     if (a.get("sublocation.name") > b.get("sublocation.name")) {
       return 1;
     }
