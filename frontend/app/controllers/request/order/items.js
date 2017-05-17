@@ -46,14 +46,12 @@ export default Ember.Controller.extend({
   }),
 
   itemsAvailableSorted: Ember.computed.sort('itemsAvailable', function(a,b) {
-    console.log(a.get("copyNumber") + ' : ' + b.get("copyNumber"));
     if (a.get("sublocation.name") > b.get("sublocation.name")) {
       return 1;
     }
     if (a.get("sublocation.name") < b.get("sublocation.name")) {
       return -1;
     }
-
     if (a.get("copyNumber") && !b.get("copyNumber")) {
       return -1;
     }
@@ -63,9 +61,7 @@ export default Ember.Controller.extend({
     if (!a.get("copyNumber") && !b.get("copyNumber")) {
       return 0;
     }
-
     return a.get("copyNumber").localeCompare(b.get("copyNumber"), undefined, {numeric: true, sensitivity: 'base'});
-
   }),
 
   itemsNotAvailable: Ember.computed('request.model.biblio.items', function() {
