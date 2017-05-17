@@ -1,4 +1,18 @@
 <div class="media confirmation">
+  <!-- If there for some reson occurs an error, display the error message-->
+{{#if order.errors}}
+  <div class="media-left hidden-xs">
+    <i class="fa fa-times-circle green-icon" aria-hidden="true"></i>
+  </div>
+  <div class="media-body">
+    <h3 class="confirmation-header">{{t "confirmation-errors.header"}}</h3><i class="fa fa-times-circle red-icon-mobile visible-xs" aria-hidden="true"></i>
+    <br/>
+    {{{reason}}}
+    
+  </div>
+        
+{{else}}
+  <!-- Otherwise disply order wconfirmation-->
   <div class="media-left hidden-xs">
     <i class="fa fa-check-circle green-icon" aria-hidden="true"></i>
   </div>
@@ -9,4 +23,5 @@
     <i class="fa fa-angle-right" aria-hidden="true"></i>
     <a href="#">Mina lån - se dina lån och beställningar</a>
   </div>
+{{/if}}
 </div>
