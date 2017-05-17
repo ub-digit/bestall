@@ -46,8 +46,8 @@ class Sublocation
     parsed_xml.search('//response/value').each do |loc|
       id = loc.xpath('authorised_value').text
       next if id.blank?
-      name_sv = loc.xpath('lib').text
-      name_en = loc.xpath('lib').text
+      name_sv = loc.xpath('lib_opac').text
+      name_en = loc.xpath('lib_opac').text
 
       is_open_loc = loc.xpath('open_loc').text
       is_paging_loc = loc.xpath('paging_loc').text
