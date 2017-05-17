@@ -9,7 +9,7 @@ export default Ember.Controller.extend({
 
 
   activeTab: Ember.computed('request.model.biblio.subscriptions', {
-    get(key) {
+    get() {
       if (this.get("request.model.biblio.hasItemLevelQueue")) {
         if (this.get("request.model.biblio.subscriptions.length")) {
           this.set("activeTabName", "tab1");
@@ -42,7 +42,7 @@ export default Ember.Controller.extend({
   }),
 
   itemsAvailable: Ember.computed('request.model.biblio.items', function() {
-    return this.get("request.model.biblio.items").filter((item, index, self) => item.get("isAvailible"));
+    return this.get("request.model.biblio.items").filter((item) => item.get("isAvailible"));
   }),
 
   itemsAvailableSorted: Ember.computed.sort('itemsAvailable', function(a,b) {
@@ -52,23 +52,20 @@ export default Ember.Controller.extend({
     if (a.get("sublocation.name") < b.get("sublocation.name")) {
       return -1;
     }
+    if (a.get("copyNumber") && !b.get("copyNumber")) {
+      return -1;
+    }
     if (!a.get("copyNumber") && b.get("copyNumber")) {
       return 1;
     }
-    if (!b.get("copyNumber") && a.get("copyNumber")) {
-      return -1;
+    if (!a.get("copyNumber") && !b.get("copyNumber")) {
+      return 0;
     }
-    if (a.get("copyNumber") > b.get("copyNumber")) {
-      return 1;
-    }
-    if (a.get("copyNumber") < b.get("copyNumber")) {
-      return -1;
-    }
-    return 0;
+    return a.get("copyNumber").localeCompare(b.get("copyNumber"), undefined, {numeric: true, sensitivity: 'base'});
   }),
 
   itemsNotAvailable: Ember.computed('request.model.biblio.items', function() {
-    return this.get("request.model.biblio.items").filter((item, index, self) => !item.get("isAvailible"));
+    return this.get("request.model.biblio.items").filter((item) => !item.get("isAvailible"));
   }),
 
 
@@ -77,8 +74,8 @@ export default Ember.Controller.extend({
     let second = null;
     if (!a.get("dueDate")) {
       first = new Date("October 13, 2094 11:13:00");
-    }       
-    else { 
+    }
+    else {
       first = a.get("dueDate");
     }
 
