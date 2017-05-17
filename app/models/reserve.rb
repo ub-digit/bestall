@@ -24,7 +24,6 @@ class Reserve
   # 'itemDoesNotBelongToBiblio'
   # 'unrecognizedError'
   def self.error_code(koha_code)
-    pp koha_code
     known_error_codes = [
       'damaged',
       'ageRestricted',
