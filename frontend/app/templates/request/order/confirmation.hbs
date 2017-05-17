@@ -19,7 +19,12 @@
   <div class="media-body">
     <h3 class="confirmation-header">Tack för din beställning</h3><i class="fa fa-check-circle green-icon-mobile visible-xs" aria-hidden="true"></i>
     <br/>
-    <p>Du får ett meddelande när materialet finns att hämta på {{order.model.reserve.location.name}}.</p> 
+
+    {{#if order.model.reserve.queuePosition}}
+       <p>Du har plats <b>{{order.model.reserve.queuePosition}}</b> i kön.</p>
+    {{/if}}
+
+    <p>Du får ett meddelande när materialet finns att hämta på {{order.model.reserve.location.name}}.</p>
     <i class="fa fa-angle-right" aria-hidden="true"></i>
     <a href="#">Mina lån - se dina lån och beställningar</a>
   </div>

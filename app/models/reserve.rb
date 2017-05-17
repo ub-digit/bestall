@@ -1,5 +1,5 @@
 class Reserve
-  attr_accessor :id, :borrowernumber, :biblionumber, :itemnumber, :branchcode, :reservedate, :timestamp, :reservenotes
+  attr_accessor :id, :borrowernumber, :biblionumber, :itemnumber, :branchcode, :reservedate, :timestamp, :reservenotes, :queue_position
 
   include ActiveModel::Model
   include ActiveModel::Serialization
@@ -118,6 +118,10 @@ class Reserve
     if xml.search('//response/reserve/reservenotes').text.present?
       @reservenotes = xml.search('//response/reserve/reservenotes').text
     end
+    if xml.search('//response/queue_position').text.present?
+      @queue_position = xml.search('//response/queue_position').text
+    else
+      @queue_position = nil
+    end
   end
-
 end
