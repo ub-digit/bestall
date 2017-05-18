@@ -17,16 +17,16 @@
     <i class="fa fa-check-circle green-icon" aria-hidden="true"></i>
   </div>
   <div class="media-body">
-    <h3 class="confirmation-header">Tack för din beställning</h3><i class="fa fa-check-circle green-icon-mobile visible-xs" aria-hidden="true"></i>
+    <h3 class="confirmation-header">{{t "request.order.confirmation.confirmation-header"}}</h3><i class="fa fa-check-circle green-icon-mobile visible-xs" aria-hidden="true"></i>
     <br/>
 
     {{#if order.model.reserve.queuePosition}}
-       <p>Du har plats <b>{{order.model.reserve.queuePosition}}</b> i kön.</p>
+       <p>{{t "request.order.confirmation.you-have-place"}} <b>{{order.model.reserve.queuePosition}}</b> {{t "request.order.confirmation.in-queue"}}</p>
     {{/if}}
 
-    <p>Du får ett meddelande när materialet finns att hämta på {{order.model.reserve.location.name}}.</p>
+    <p>{{t "request.order.confirmation.message"}}  {{order.model.reserve.location.name}}.</p>
     <i class="fa fa-angle-right" aria-hidden="true"></i>
-    <a href="#">Mina lån - se dina lån och beställningar</a>
+    <a href="#">{{t "request.order.confirmation.my-loans-link-text"}}</a>
   </div>
 {{/if}}
 </div>
