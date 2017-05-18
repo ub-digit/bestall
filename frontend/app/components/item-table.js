@@ -8,13 +8,11 @@ export default Ember.Component.extend({
     const dictionary = this.get('i18n');
     return this.get('items').map(function(item) {
       if (item.get('sublocation.isOpenLoc')) {
-        item.set('sublocationText', item.get('sublocation.name') + ' ' + item.get('itemCallNumber'));
+        item.set('sublocationText', item.get('sublocation.name') + ', ' + item.get('itemCallNumber'));
       }
       else {
         item.set('sublocationText', dictionary.t('components.item-table.must_be_ordered'));
       }
-
-      item.set('locationText', item.get('location.name'));
 
       if (item.get('isAvailible') === true) {
         item.set('statusText', dictionary.t('components.item-table.available'));
