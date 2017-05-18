@@ -22,7 +22,28 @@ export default {
       "step-details-label": "Din beställning",
       "step-summary-label": "Sammanfattning",
       "step-confirmation-label": "Bekräftelse"
-    }
+    },
+    "item-table": {
+      "must_be_ordered": "Måste beställas",
+
+      "available": "Tillgänglig",
+
+      "not_for_home_loan": "Ej hemlån",
+      "reading_room_only": "Beställs till läsesal",
+      "loan_in_house_only": "Utlån endast på plats",
+
+      "loaned": "Utlånad till",
+      "reserved": "Reserverad",
+      "waiting": "Väntar på avhämtning",
+      "in_transit": "Under transport",
+      "delayed": "Försenad",
+      "lost": "Ej på plats",
+      "under_acquisition": "Under inköp",
+      "recently_returned": "Nyligen återlämnad",
+      "unknown": "Okänd",
+
+    },
+
   },
   "request": {
     "order": {

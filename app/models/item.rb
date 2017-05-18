@@ -19,6 +19,7 @@ class Item
     super(except: ["found"]).merge({can_be_ordered: can_be_ordered,
       can_be_queued: can_be_queued,
       status: status,
+      status_limitation: status_limitation,
       is_availible: is_availible
       }).compact
   end
@@ -29,7 +30,7 @@ class Item
   end
 
   def is_availible
-    return false if is_reserved 
+    return false if is_reserved
     return false if due_date.present?
     return true
   end
@@ -89,6 +90,12 @@ class Item
     @item_type == '2'
   end
 
+  def status_limitation
+    return "NOT_FOR_HOME_LOAN" if item_type_ref?
+    return "READING_ROOM_ONLY" if @not_for_loan == '-3'
+    return "LOAN_IN_HOUSE_ONLY" if ['3', '4', '5', '6'].include?(@restricted)
+  end
+
   def status
     return "IN_TRANSIT" if @found == "T"
     return "FINISHED" if @found == "F"
@@ -96,6 +103,7 @@ class Item
     return "CAN_BE_ORDERED" if can_be_ordered
     return "LOANED" if @due_date.present?
     return "RESERVED" if @is_reserved
+    return "DURING_ACQUISITION" if @not_for_loan == '-1'
     return "RECENTLY_RETURNED" if @recently_returned
   end
 

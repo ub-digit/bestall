@@ -3,15 +3,16 @@ class Sublocation
   include ActiveModel::Serialization
   include ActiveModel::Validations
 
-  attr_accessor :id, :location_id, :name_sv, :name_en, :is_open_loc, :is_paging_loc
+  attr_accessor :id, :location_id, :name_sv, :name_en, :is_open_loc, :is_open_pickup_loc, :is_paging_loc
 
-  def initialize id:, name_sv:, name_en:, is_open_loc:, is_paging_loc:
+  def initialize id:, name_sv:, name_en:, is_open_loc:, is_open_pickup_loc:, is_paging_loc:
     @id = id
     @location_id = id[0..1]
     @name_sv = name_sv
     @name_en = name_en
     @is_open_loc = is_open_loc
     @is_paging_loc = is_paging_loc
+    @is_open_pickup_loc = is_open_pickup_loc
   end
 
   def self.all
@@ -35,7 +36,7 @@ class Sublocation
   def self.find_all_by_location_id location_id
     all.select do |loc|
       location_id.to_s == loc.location_id.to_s
-    end + [{id: "CART", location_id: location_id, name_sv: "Nyligen återlämnad", name_en: "Recently returned", is_open_loc: "0", is_paging_loc: "0"}]
+    end + [{id: "CART", location_id: location_id, name_sv: "Nyligen återlämnad", name_en: "Recently returned", is_open_loc: false, is_paging_loc: false}]
   end
 
   def self.parse_xml xml
@@ -46,13 +47,14 @@ class Sublocation
     parsed_xml.search('//response/value').each do |loc|
       id = loc.xpath('authorised_value').text
       next if id.blank?
-      name_sv = loc.xpath('lib').text
-      name_en = loc.xpath('lib').text
+      name_sv = loc.xpath('lib_opac').text
+      name_en = loc.xpath('lib_opac').text
 
-      is_open_loc = loc.xpath('open_loc').text
-      is_paging_loc = loc.xpath('paging_loc').text
+      is_open_pickup_loc = (loc.xpath('open_pickup_loc').text == '1')
+      is_open_loc = (loc.xpath('open_loc').text == '1' )
+      is_paging_loc = (loc.xpath('paging_loc').text == '1')
 
-      locs << self.new(id: id, name_sv: name_sv, name_en: name_en, is_open_loc: is_open_loc, is_paging_loc: is_paging_loc)
+      locs << self.new(id: id, name_sv: name_sv, name_en: name_en, is_open_loc: (is_open_loc || is_open_pickup_loc), is_open_pickup_loc: is_open_pickup_loc, is_paging_loc: is_paging_loc)
     end
 
     return locs
