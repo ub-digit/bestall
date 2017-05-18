@@ -7,9 +7,7 @@
             <th>Volym</th>
           {{/if}}
           <th>Placering</th>
-          <th></th>
           <th>Status</th>
-          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -18,11 +16,8 @@
           {{#if hasSubscription}}
             <td>{{item.copyNumber}}</td>
           {{/if}}
-          <td>{{item.sublocation.location.name}}</td>
-          <td>{{item.sublocationText}}</td>
-          <td>{{item.statusText}}</td>
-          <td>{{item.statusLimitationText}}</td>
-
+          <td>{{item.sublocation.location.name}}<br/>{{item.sublocationText}}</td>
+          <td>{{item.statusText}}<br/>{{item.statusLimitationText}}</td>
           <td>
             {{item-order-button
               canBeOrdered=item.canBeOrdered
