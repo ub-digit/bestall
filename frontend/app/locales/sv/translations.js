@@ -36,7 +36,14 @@ export default {
         "labelForLocationDropdown": "Var vill du hämta?",
         "btnNext": "Fortsätt"
       },
-      "confirmation": {},
+      "confirmation": {
+        "confirmation-header": "Tack för din beställning",
+        "you-have-place": "Du har plats",
+        "in-queue": "i kön",
+        "message": "Du får ett meddelande när materialet finns att hämta på",
+        "my-loans-link-text": "Mina lån - se dina lån och beställningar"
+
+      },
       "summary": {}
     }
   },
