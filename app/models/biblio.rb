@@ -1,5 +1,5 @@
 class Biblio
-  attr_accessor :id, :title, :author, :items, :subscriptions, :record_type, :no_in_queue
+  attr_accessor :id, :title, :author, :place, :items, :subscriptions, :record_type, :no_in_queue
 
   include ActiveModel::Serialization
   include ActiveModel::Validations
@@ -85,16 +85,35 @@ class Biblio
 
     @author = bib_xml.search('//record/datafield[@tag="100"]/subfield[@code="a"]').text
 
+    if bib_xml.search('//record/datafield[@tag="100"]/subfield[@code="d"]').text.present?
+      @author = @author + ' ' + bib_xml.search('//record/datafield[@tag="100"]/subfield[@code="d"]').text
+    end
+
     @record_type = Biblio.parse_record_type(bib_xml.search('//record/leader').text)
 
+    @title = ''
     if bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="a"]').text.present?
-      @title = bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="a"]').text
+      @title = @title + ' ' + bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="a"]').text
     end
     if bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="b"]').text.present?
       @title = @title + ' ' + bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="b"]').text
     end
+    if bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="c"]').text.present?
+      @title = @title + ' ' + bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="c"]').text
+    end
     if bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="p"]').text.present?
       @title = @title + ' ' + bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="p"]').text
+    end
+
+    @place = ''
+    if bib_xml.search('//record/datafield[@tag="260"]/subfield[@code="a"]').text.present?
+      @place = @place + ' ' + bib_xml.search('//record/datafield[@tag="260"]/subfield[@code="a"]').text
+    end
+    if bib_xml.search('//record/datafield[@tag="260"]/subfield[@code="b"]').text.present?
+      @place = @place + ' ' + bib_xml.search('//record/datafield[@tag="260"]/subfield[@code="b"]').text
+    end
+    if bib_xml.search('//record/datafield[@tag="260"]/subfield[@code="c"]').text.present?
+      @place = @place + ' ' + bib_xml.search('//record/datafield[@tag="260"]/subfield[@code="c"]').text
     end
 
     @no_in_queue = 0

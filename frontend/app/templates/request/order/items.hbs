@@ -2,6 +2,7 @@
   <div class="col-xs-12">
     <h3>{{request.model.biblio.title}}</h3>
     <div class="author">{{request.model.biblio.author}}</div>
+    <div class="author">{{request.model.biblio.place}}</div>
   </div>
 </div>
 {{#if request.model.biblio.hasItemLevelQueue}}
@@ -63,7 +64,7 @@
       {{item-table items=itemsAvailableSorted setItemToOrder=(action "setItemToOrder")}}
       {{else}}
         <p class="center zero-state vertical-space-bottom-40">
-          Det finns inga tillgängliga exemplar just nu. 
+          Det finns inga tillgängliga exemplar just nu.
         </p>
         <div class="row">
           <div class="col-xs-12">
@@ -76,8 +77,8 @@
         </div>
       {{/if}}
     </div>
-    <div role="tabpanel" class="tab-pane {{is-active-tab 'tab2' activeTab}}" id="item-queue">    
-  
+    <div role="tabpanel" class="tab-pane {{is-active-tab 'tab2' activeTab}}" id="item-queue">
+
       {{#if request.model.biblio.canBeQueued}}
       <div class="row">
         <div class="col-xs-12">
@@ -86,7 +87,7 @@
             <strong>{{request.model.biblio.noInQueue}} personer i kö på utlånade exemplar</strong> <button class="btn btn-primary" {{action 'setItemToOrder' null}}>Ställ dig i kö</button>
           </div>
         </div>
-        
+
         </div>
       </div>
       {{/if}}
@@ -96,10 +97,10 @@
             {{item-table items=itemsNotAvailableSorted setItemToOrder=(action "setItemToOrder")}}
           {{else}}
               <p class="center zero-state ">
-                Alla exemplar finns tillgängliga. 
+                Alla exemplar finns tillgängliga.
               </p>
           {{/if}}
-        
+
         </div>
       </div>
     </div>
