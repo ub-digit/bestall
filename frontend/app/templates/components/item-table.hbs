@@ -9,16 +9,20 @@
           <th>Placering</th>
           <th>Status</th>
           <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
-        {{#each items as |item|}}
+        {{#each StatusText as |item|}}
         <tr>
           {{#if hasSubscription}}
             <td>{{item.copyNumber}}</td>
           {{/if}}
-          <td>{{item.sublocation.name}}</td>
-          <td>{{item.status}}</td>
+          <td>{{item.sublocation.location.name}}</td>
+          <td>{{item.sublocationText}}</td>
+          <td>{{item.statusText}}</td>
+          <td>{{item.statusLimitationText}}</td>
+
           <td>
             {{item-order-button
               canBeOrdered=item.canBeOrdered

@@ -10,6 +10,7 @@ export default DS.Model.extend({
   copyNumber: DS.attr('string'),
   barcode: DS.attr('string'),
   status: DS.attr('string'),
+  statusLimitation: DS.attr('string'),
   dueDate: DS.attr('date'),
   notForLoan: DS.attr('string'),
   isReserved: DS.attr('boolean'),
