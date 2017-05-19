@@ -1,6 +1,10 @@
+import Ember from 'ember';
 import DS from 'ember-data';
+import moment from 'moment';
 
 export default DS.Model.extend({
+  i18n: Ember.inject.service(),
+
   biblio: DS.belongsTo('biblio'),
   sublocation: DS.belongsTo('sublocation'),
   canBeOrdered: DS.attr('boolean'),
@@ -14,5 +18,76 @@ export default DS.Model.extend({
   dueDate: DS.attr('date'),
   notForLoan: DS.attr('string'),
   isReserved: DS.attr('boolean'),
-  isAvailible: DS.attr('boolean')
+  isAvailible: DS.attr('boolean'),
+
+  sublocationText: Ember.computed('sublocation.isOpenLoc', 'sublocation.name', 'itemCallNumber', function() {
+    const dictionary = this.get('i18n');
+    if (this.get('sublocation.isOpenLoc')) {
+      if (this.get('itemCallNumber')) {
+        return this.get('sublocation.name') + ', ' + this.get('itemCallNumber');
+      }
+      else {
+        return this.get('sublocation.name');
+      }
+    }
+    else {
+      return dictionary.t('components.item-table.must_be_ordered');
+    }
+  }),
+
+  statusLimitationText: Ember.computed('statusLimitation', function() {
+    const dictionary = this.get('i18n');
+    if (this.get('statusLimitation') === 'NOT_FOR_HOME_LOAN') {
+      return dictionary.t('components.item-table.not_for_home_loan');
+    }
+    else if (this.get('statusLimitation') === 'READING_ROOM_ONLY') {
+      return dictionary.t('components.item-table.reading_room_only');
+    }
+    else if (this.get('statusLimitation') === 'LOAN_IN_HOUSE_ONLY') {
+      return dictionary.t('components.item-table.loan_in_house_only');
+    }
+    else {
+      return '';
+    }
+  }),
+
+  statusText: Ember.computed('status', 'dueDate', function() {
+    const dictionary = this.get('i18n');
+    if (this.get('isAvailible')) {
+      return dictionary.t('components.item-table.available');
+    }
+    else if (this.get('status') === 'LOANED') {
+      return dictionary.t('components.item-table.loaned') + ' ' + moment(this.get('dueDate')).format("YYYY-MM-DD");
+    }
+    else if (this.get('status') === 'RESERVED') {
+      return dictionary.t('components.item-table.reserved');
+    }
+    else if (this.get('status') === 'WAITING') {
+      return dictionary.t('components.item-table.waiting');
+    }
+    else if (this.get('status') === 'IN_TRANSIT') {
+      return dictionary.t('components.item-table.in_transit');
+    }
+    else if (this.get('status') === 'DELAYED') {
+      return dictionary.t('components.item-table.delayed');
+    }
+    else if (this.get('status') === 'LOST') {
+      return dictionary.t('components.item-table.lost');
+    }
+    else if (this.get('status') === 'DURING_ACQUISITION') {
+      return dictionary.t('components.item-table.under_acquisition');
+    }
+    else if (this.get('status') === 'RECENTLY_RETURNED') {
+      return dictionary.t('components.item-table.recently_returned');
+    }
+    else {
+      return dictionary.t('components.item-table.unknown');
+    }
+  }),
+
+  actions: {
+    setItemToOrder(item) {
+      this.get('setItemToOrder')(item);
+    }
+  }
 });
