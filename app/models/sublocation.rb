@@ -50,9 +50,9 @@ class Sublocation
       name_sv = loc.xpath('lib_opac').text
       name_en = loc.xpath('lib_opac').text
 
-      is_open_pickup_loc = (loc.xpath('open_pickup_loc').text == '1')
-      is_open_loc = (loc.xpath('open_loc').text == '1' )
-      is_paging_loc = (loc.xpath('paging_loc').text == '1')
+      is_open_pickup_loc = loc.xpath('open_pickup_loc').text
+      is_open_loc = loc.xpath('open_loc').text
+      is_paging_loc = loc.xpath('paging_loc').text
 
       locs << self.new(id: id, name_sv: name_sv, name_en: name_en, is_open_loc: (is_open_loc || is_open_pickup_loc), is_open_pickup_loc: is_open_pickup_loc, is_paging_loc: is_paging_loc)
     end
