@@ -12,7 +12,7 @@
       <li role="presentation" class="{{is-active-tab 'tab1' activeTab}}"><a href="#subscriptions" data-toggle="tab" onclick={{action "setActiveTab" "tab1"}}>Bestånd ({{request.model.biblio.subscriptions.length}})</a></li>
       {{/if}}
       {{#if itemsAvailable.length}}
-      <li role="presentation" class="{{is-active-tab 'tab2' activeTab}}"><a href="#items" data-toggle="tab" onclick={{action "setActiveTab" "tab2"}}>Exemplar ({{itemsAvailable.length}})</a></li>
+      <li role="presentation" class="{{is-active-tab 'tab2' activeTab}}"><a href="#items" data-toggle="tab" onclick={{action "setActiveTab" "tab2"}}>Exemplar ({{request.model.biblio.items.length}})</a></li>
       {{/if}}
     </ul>
   </nav>
@@ -20,7 +20,7 @@
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane {{is-active-tab 'tab2' activeTab}}" id="items" >
-      {{item-table items=itemsAvailableSorted hasSubscription=true setItemToOrder=(action "setItemToOrder")}}
+      {{item-table items=itemsSorted hasSubscription=true setItemToOrder=(action "setItemToOrder")}}
     </div>
     <div role="tabpanel" class="tab-pane {{is-active-tab 'tab1' activeTab}}" id="subscriptions">
       <div class="row">
