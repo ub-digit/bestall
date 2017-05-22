@@ -7,12 +7,20 @@ export default Ember.Controller.extend({
 
   pickupLocations: Ember.computed.filterBy('order.model.locations', 'isPickupLocation', true),
 
+  test: Ember.computed('order.model.locations', function() {
+    const userCategory = this.get('order.model.reserve.user.userCategory');
+    console.log('userCategory', userCategory);
+
+    const item = this.get('order.model.reserve.subscription');
+    console.log('item', item);
+  }),
+
   btnNextDisabled: Ember.computed('order.model.reserve.{location,loanType}', function() {
-		if (this.get('order.model.reserve.location') && this.get('order.model.reserve.loanType')){
-			return false;
-		}
-		return true;
-	}),
+    if (this.get('order.model.reserve.location') && this.get('order.model.reserve.loanType')) {
+      return false;
+    }
+    return true;
+  }),
 
   actions: {
     setLocation(id) {
