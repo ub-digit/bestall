@@ -11,6 +11,19 @@
 - Services (job queues, cache servers, search engines, etc.)
 - Deployment instructions
 
+## Starta utvecklingsmiljön
+
+- ha ett ub-namn i hosts-filen som pekar på 127.0.0.1, t.ex: ```127.0.0.1       bestall-dev.ub.gu.se```
+- gör följande:
+```bash
+bundle install
+rake db:migrate
+cd frontend
+npm install
+bower install
+cd ..
+rails server
+```
 
 ## Systembeskrivning
 
