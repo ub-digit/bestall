@@ -5,14 +5,38 @@ export default Ember.Controller.extend({
   request: Ember.inject.controller(),
   order: Ember.inject.controller('request.order'),
 
-  pickupLocations: Ember.computed.filterBy('order.model.locations', 'isPickupLocation', true),
+  possiblePickupLocations: Ember.computed.filterBy('order.model.locations', 'isPickupLocation', true),
 
-  test: Ember.computed('order.model.locations', function() {
+  pickupLocations: Ember.computed('order', function() {
+
+    // the current users userCategory
     const userCategory = this.get('order.model.reserve.user.userCategory');
-    console.log('userCategory', userCategory);
+    //All possible pickup locations
+    let locations = this.get('possiblePickupLocations');
+    let entity = this.get('order.model.reserve.subscription') ? this.get('order.model.reserve.subscription') : this.get('order.model.reserve.item');
+    // if there is no item or subscription return all pickup locations
+    if (!entity) {
+      return locations;
+    }
 
-    const item = this.get('order.model.reserve.subscription');
-    console.log('item', item);
+    let isOpenLoc = entity.get('sublocation.isOpenLoc');
+
+    if (isOpenLoc) {
+      // Only FI, SY, FU users can pickup items at its home/current location, thus return all locations
+      if (['FI', 'SY', 'FY'].includes(userCategory)) {
+        return locations;
+      } else {
+        // Elser filter out the home/current location from available locations
+        const homeLocation = entity.get('sublocation.location.id');
+        const filteredLocations = locations.filter((item) => {
+          const id = item.get('id');
+          return id != homeLocation;
+        });
+        return filteredLocations;
+      }
+    }
+    // If the items/subscriptions sublocation is not OPEN_LOC, return all locations
+    return locations;
   }),
 
   btnNextDisabled: Ember.computed('order.model.reserve.{location,loanType}', function() {
@@ -41,5 +65,4 @@ export default Ember.Controller.extend({
       this.transitionToRoute('request.order.summary');
     }
   }
-
 });
