@@ -16,14 +16,12 @@ export default Ember.Controller.extend({
 
     //const errorCodes = ['DAMAGED', 'AGE_RESTRICTED', 'ITEM_ALREADY_ON_HOLD', 'TOO_MANY_RESERVES', 'NOT_RESERVABLE', 'CANNOT_RESERVE_FROM_OTHER_BRANCHES', 'TOO_MANY_HOLDS_FOR_THIS_RECORD', 'BORROWER_NOT_FOUND', 'BRANCH_CODE_MISSING', 'ITEMNUMBER_OR_BIBLIONUMBER_IS_MISSING', 'BIBLIONUMBER_IS_MISSING', 'ITEM_DOES_NOT_BELONG_TO_BIBLIO', 'UNRECOGNIZED_ERROR', 'MISSING_USER', 'MISSING_LOCATION', 'MISSING_BIBLIO', 'MISSING_LOAN_TYPE'];
     let res = '';
-
-    errors.map((obj) => {
-      if (typeof(obj.detail) === 'object') {
-        if (obj.detail.detail) {
-          const msg = dictionary.t('confirmation-errors.' + obj.detail.code + '.message');
-          res += `<p>${msg}</p>`;
-        }
-      }
+    if (!errors.errors) {
+      return '';
+    }
+    errors.errors.map((obj) => {
+      const msg = dictionary.t('confirmation-errors.' + obj.code + '.message');
+      res += `<p>${msg}</p>`;
     });
     return res;
 
