@@ -11,40 +11,34 @@
 	</div>
 </div>
 <hr/>
-<div class="row">
+<div class="row summary-info">
 	<div class="col-xs-12">
-		<div class="table-responsive">
-			<table class="table borderless">
-				<tbody>
-					{{#if order.model.reserve.item.copyNumber}}
-					<tr>
-						<th>Exemplar</th>
-						<td>{{order.model.reserve.item.copyNumber}}</td>
-					</tr>
-					{{/if}}
-					<tr>
-						<th>Typ av lån</th>
-						<td>{{order.model.reserve.loanType.name}}</td>
-					</tr>
-					<tr>
-						<th>Hämta på</th>
-						<td>{{order.model.reserve.location.name}}</td>
-					</tr>
-					{{#if order.model.reserve.reserveNotes}}
-						<tr>
-							<th>Kommentar</th>
-							<td>{{order.model.reserve.reserveNotes}}</td>
-						</tr>
-					{{/if}}
-					{{#if order.model.reserve.subscriptionNotes}}
-						<tr>
-							<th>Kommentar</th>
-							<td>{{order.model.reserve.subscriptionNotes}}</td>
-						</tr>
-					{{/if}}
-				</tbody>
-			</table>
-		</div>
+		{{#if order.model.reserve.item.copyNumber}}
+			<div>
+				<span class="info-header">Exemplar</span>
+				<span class="info">{{order.model.reserve.item.copyNumber}}</span>
+			</div>
+		{{/if}}
+			<div>
+				<span class="info-header">Typ av lån</span>
+				<span class="info">{{order.model.reserve.loanType.name}}</span>
+			</div>
+			<div>
+				<span class="info-header">Hämta på</span>
+				<span class="info">{{order.model.reserve.location.name}}</span>
+			</div>
+		{{#if order.model.reserve.reserveNotes}}
+			<div>
+				<span class="info-header">Kommentar</span>
+				<span class="info">{{order.model.reserve.reserveNotes}}</span>
+			</div>
+		{{/if}}
+		{{#if order.model.reserve.subscriptionNotes}}
+			<div>
+				<span class="info-header">Kommentar</span>
+				<span class="info">{{order.model.reserve.subscriptionNotes}}</span>
+			</div>
+		{{/if}}
 	</div>
 </div>
 

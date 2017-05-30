@@ -227,9 +227,28 @@ select.form-control {
     }
 }
 
+.summary-info{
+	margin-bottom:50px;
+	.info-header{
+		min-width: 200px;
+    text-align: right;
+    display: inline-block;
+    font-weight: bold;
+    margin-right: 30px;
+	}
+}
 
  /*media quaries */
+@media (max-width: 640px){
+    .summary-info{
+				.info-header, .infoheader{
+					display: block;
+					width: 100%;
+					text-align: left;
 
+				}
+			}      
+    }
 @media  (max-width: 768px) {
     .user-confirmation{
         .fa-times-circle{
@@ -237,4 +256,6 @@ select.form-control {
         }
       
     }
+
+
 }
