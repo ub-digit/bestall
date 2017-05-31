@@ -37,11 +37,6 @@ RSpec.describe Biblio, :type => :model do
         expect(biblio).to_not be_nil
         expect(biblio.title).to eq("Test Title a Test Title b")
       end
-      it "should return author" do
-        biblio = Biblio.find_by_id 1
-        expect(biblio).to_not be_nil
-        expect(biblio.author).to eq("Test, Author")
-      end
       it "should return can_be_borrowed" do
         biblio = Biblio.find_by_id 1
         expect(biblio).to_not be_nil
