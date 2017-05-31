@@ -1,7 +1,6 @@
 class Api::BibliosController < ApplicationController
 	def show
     id = params[:id]
-
     biblio = Biblio.find_by_id id
     if biblio
 			if biblio.can_be_borrowed

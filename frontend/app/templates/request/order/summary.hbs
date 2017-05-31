@@ -1,10 +1,9 @@
-<div class="row">
-	<div class="col-xs-12">
-	<h3>{{request.model.biblio.title}}</h3>
-	{{request.model.biblio.author}}<br/>
-	{{request.model.biblio.place}}
-	</div>
+{{#each order.errors as |error|}}
+<div class="alert-danger col-xs-12">
+	{{error.detail}}
 </div>
+{{/each}}
+{{partial 'request/order/bibliographic-info'}}
 <hr/>
 <div class="row summary-info">
 	<div class="col-xs-12">

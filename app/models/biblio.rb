@@ -1,5 +1,5 @@
 class Biblio
-  attr_accessor :id, :title, :author, :place, :items, :subscriptions, :record_type, :no_in_queue
+  attr_accessor :id, :title, :origin, :isbn, :edition, :items, :subscriptions, :record_type, :no_in_queue
 
   include ActiveModel::Serialization
   include ActiveModel::Validations
@@ -73,49 +73,54 @@ class Biblio
     # TODO: Do something much better
     rescue RestClient::NotFound => error
       return nil
-    rescue => error
-      return nil
+    #rescue => error
+    #  return nil
   end
 
   def parse_xml bib_xml, reserves_xml
     bib_xml = Nokogiri::XML(bib_xml).remove_namespaces!
     reserves_xml = Nokogiri::XML(reserves_xml).remove_namespaces!
 
-    @items = []
-
-    @author = bib_xml.search('//record/datafield[@tag="100"]/subfield[@code="a"]').text
-
-    if bib_xml.search('//record/datafield[@tag="100"]/subfield[@code="d"]').text.present?
-      @author = @author + ' ' + bib_xml.search('//record/datafield[@tag="100"]/subfield[@code="d"]').text
-    end
-
     @record_type = Biblio.parse_record_type(bib_xml.search('//record/leader').text)
 
-    @title = ''
-    if bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="a"]').text.present?
-      @title = @title + ' ' + bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="a"]').text
-    end
-    if bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="b"]').text.present?
-      @title = @title + ' ' + bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="b"]').text
-    end
-    if bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="c"]').text.present?
-      @title = @title + ' ' + bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="c"]').text
-    end
-    if bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="p"]').text.present?
-      @title = @title + ' ' + bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="p"]').text
+    @title = nil
+    @origin = nil
+    @isbn =  nil
+    @edition = nil
+
+    if bib_xml.search('//record/datafield[@tag="260"]').text.present?
+      tmp_arr = []
+      bib_xml.search('//record/datafield[@tag="260"]').each do |data|
+      tmp_arr = tmp_arr + [data.search('subfield[@code="a"]').text, data.search('subfield[@code="b"]').text, data.search('subfield[@code="c"]').text]
+      end
+      @origin = tmp_arr.join(" ").strip
+    elsif bib_xml.search('//record/datafield[@tag="264" and @ind="1"]').text.present?
+      tmp_arr = []
+      bib_xml.search('//record/datafield[@tag="264" and @ind="1"]').each do |data|
+        tmp_arr = tmp_arr + [data.search('subfield[@code="a"]').text, data.search('subfield[@code="b"]').text, data.search('subfield[@code="c"]').text]
+      end
+      @origin = tmp_arr.join(" ").strip
     end
 
-    @place = ''
-    if bib_xml.search('//record/datafield[@tag="260"]/subfield[@code="a"]').text.present?
-      @place = @place + ' ' + bib_xml.search('//record/datafield[@tag="260"]/subfield[@code="a"]').text
-    end
-    if bib_xml.search('//record/datafield[@tag="260"]/subfield[@code="b"]').text.present?
-      @place = @place + ' ' + bib_xml.search('//record/datafield[@tag="260"]/subfield[@code="b"]').text
-    end
-    if bib_xml.search('//record/datafield[@tag="260"]/subfield[@code="c"]').text.present?
-      @place = @place + ' ' + bib_xml.search('//record/datafield[@tag="260"]/subfield[@code="c"]').text
+    if @record_type.eql?("serial") || @record_type.eql?("collection")
+      if bib_xml.search('//record/datafield[@tag="222"]').text.present?
+        @title = bib_xml.search('//record/datafield[@tag="222"]').text
+      else
+        @title = [bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="a"]').text,
+                  bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="b"]').text].join(" ").strip
+      end
+    else # monograph
+      @title = [bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="a"]').text,
+                bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="b"]').text,
+                bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="n"]').text,
+                bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="p"]').text,
+                bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="c"]').text].join(" ").strip
+
+      @edition = bib_xml.search('//record/datafield[@tag="250"]/subfield[@code="a"]').text if bib_xml.search('//record/datafield[@tag="250"]/subfield[@code="a"]').text.present?
+      @isbn = bib_xml.search('//record/datafield[@tag="020"]/subfield[@code="a"]').text if bib_xml.search('//record/datafield[@tag="020"]/subfield[@code="a"]').text.present?
     end
 
+    @items = []
     @no_in_queue = 0
 
     bib_xml.search('//record/datafield[@tag="952"]').each do |item_data|
