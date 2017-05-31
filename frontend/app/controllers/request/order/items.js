@@ -116,6 +116,8 @@ export default Ember.Controller.extend({
     setSubscriptionToOrder(subscription) {
       this.get('order.model.reserve').set('subscription', subscription);
       this.get('order.model.reserve').set('item', null);
+      this.get('order.model.reserve').set('reserveNotes', null);
+
       this.transitionToRoute('request.order.details');
     },
     setActiveTab(tab) {

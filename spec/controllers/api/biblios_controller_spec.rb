@@ -47,14 +47,11 @@ RSpec.describe Api::BibliosController, type: :controller do
         get :show, params: {id: 1}
         expect(json['biblio']).to_not be nil
       end
-      it "should return author" do
-        get :show, params: {id: 1}
-        expect(json['biblio']['author']).to_not be nil
-      end
       it "should return title" do
         get :show, params: {id: 1}
         expect(json['biblio']['title']).to_not be nil
       end
+      # TODO: Test other attributes
       it "should return an array of items" do
         get :show, params: {id: 1}
         expect(json['biblio']['items']).to be_kind_of(Array)

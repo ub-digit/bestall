@@ -1,10 +1,4 @@
-<div class="row">
-  <div class="col-xs-12">
-    <h3>{{request.model.biblio.title}}</h3>
-    <div class="author">{{request.model.biblio.author}}</div>
-    <div class="author">{{request.model.biblio.place}}</div>
-  </div>
-</div>
+{{partial 'request/order/bibliographic-info'}}
 <hr>
 
 {{#if order.model.reserve.subscription}}
