@@ -7,12 +7,16 @@ export default Ember.Controller.extend({
 
   possiblePickupLocations: Ember.computed.filterBy('order.model.locations', 'isPickupLocation', true),
 
-  pickupLocations: Ember.computed('order', function() {
+  pickupLocations: Ember.computed('order', 'possiblePickupLocations', function() {
 
     // the current users userCategory
     const userCategory = this.get('order.model.reserve.user.userCategory');
     //All possible pickup locations
     let locations = this.get('possiblePickupLocations');
+    console.log('locations', locations);
+    for (let i = 0; i < locations.length; i++) {
+      console.log(locations[i].get('name'));
+    }
     let entity = this.get('order.model.reserve.subscription') ? this.get('order.model.reserve.subscription') : this.get('order.model.reserve.item');
     // if there is no item or subscription return all pickup locations
     if (!entity) {
@@ -20,8 +24,17 @@ export default Ember.Controller.extend({
     }
 
     let isOpenLoc = entity.get('sublocation.isOpenLoc');
+    let isOpenPickupLoc = entity.get('sublocation.isOpenPickupLoc');
 
+    // I items is OPEN_PICKUP_LOC, return all locations.
+    // Nope, item can be booth OPEN_LOC and OPEN_PICKUP_LOC.
+    console.log('isOpenPickupLoc ', isOpenPickupLoc);
+    if (isOpenPickupLoc) {
+      console.log('return all locations');
+      return locations;
+    }
     if (isOpenLoc) {
+      console.log('entering open loc code');
       // Only FI, SY, FU users can pickup items at its home/current location, thus return all locations
       if (['FI', 'SY', 'FY'].includes(userCategory)) {
         return locations;
@@ -35,8 +48,7 @@ export default Ember.Controller.extend({
         return filteredLocations;
       }
     }
-    // If the items/subscriptions sublocation is not OPEN_LOC, return all locations
-    return locations;
+
   }),
 
   btnNextDisabled: Ember.computed('order.model.reserve.{location,loanType}', function() {
