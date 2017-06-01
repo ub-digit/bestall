@@ -16,7 +16,7 @@
           {{#if hasSubscription}}
             <td>{{item.copyNumber}}</td>
           {{/if}}
-          <td>{{item.sublocation.location.name}}<br/>{{item.sublocationText}}</td>
+          <td>{{item.sublocation.location.name}}<br/><span class="sublocation-text">{{item.sublocationText}}</span></td>
           <td>{{item.statusText}}<br/>{{item.statusLimitationText}}</td>
           <td>
             {{item-order-button
