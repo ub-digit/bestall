@@ -9,6 +9,7 @@ nav{
             padding-left: 25px;
             padding-right: 25px;
             font-size: 16px;
+            margin-right: 0px;
         }
         li:not(.active){
             a{
@@ -16,7 +17,20 @@ nav{
                 border: 1px solid #ddd;
                 height: 34px;
                 margin-top: 10px;
-                padding-top: 8px;
+                padding-top: 5px;
+
+                &.left{
+                    margin-right: 0px;
+                    border-right: none;
+                    border-radius: 4px 0 0 0;
+
+                }
+
+                &.right{
+                    margin-left: 0px;
+                    border-left: none;
+                    border-radius: 0 4px 0 0;
+                }
             }
             
         }
