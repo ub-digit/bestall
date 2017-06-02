@@ -90,9 +90,9 @@ class Biblio
 
     if bib_xml.search('//record/datafield[@tag="260"]').text.present?
       tmp_arr = []
-      bib_xml.search('//record/datafield[@tag="260"]').each do |data|
+      data = bib_xml.search('//record/datafield[@tag="260"]').first
       tmp_arr = tmp_arr + [data.search('subfield[@code="a"]').text, data.search('subfield[@code="b"]').text, data.search('subfield[@code="c"]').text]
-      end
+      
       @origin = tmp_arr.join(" ").strip
     elsif bib_xml.search('//record/datafield[@tag="264" and @ind="1"]').text.present?
       tmp_arr = []
