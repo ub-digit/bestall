@@ -21,7 +21,6 @@ export default Ember.Controller.extend({
 
     let isOpenLoc = entity.get('sublocation.isOpenLoc');
     let isOpenPickupLoc = entity.get('sublocation.isOpenPickupLoc');
-
     // I items is OPEN_PICKUP_LOC, return all locations.
     // Nope, item can be booth OPEN_LOC and OPEN_PICKUP_LOC.
     if (isOpenPickupLoc) {
@@ -33,10 +32,16 @@ export default Ember.Controller.extend({
         return locations;
       } else {
         // Elser filter out the home/current location from available locations
+
         const homeLocation = entity.get('sublocation.location.id');
-        const filteredLocations = locations.filter((item) => {
+        const filteredLocations = [];
+        locations.map((item) => {
+          item.set('disabled', false);
           const id = item.get('id');
-          return id != homeLocation;
+          if (id == homeLocation) {
+            item.set('disabled', true);
+          }
+          filteredLocations.push(item);
         });
         return filteredLocations;
       }
