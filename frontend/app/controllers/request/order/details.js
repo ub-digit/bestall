@@ -46,13 +46,6 @@ export default Ember.Controller.extend({
           }
           filteredLocations.push(item);
         });
-
-
-        //const homeLocation = entity.get('sublocation.location.id');
-        //const filteredLocations = locations.filter((item) => {
-        //  const id = item.get('id');
-        //  return id != homeLocation;
-        //});
         return filteredLocations;
       }
     }
