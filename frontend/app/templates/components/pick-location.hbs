@@ -4,6 +4,6 @@
 {{#x-select class="form-control" on-change=(action onSelect) value=selectedItem as |item|}}
 	{{#item.option}}{{label}}{{/item.option}}
 	{{#each locations as |loc|}}
-		{{#item.option value=loc.id}}{{loc.name}}{{/item.option}}
+		{{#item.option value=loc.id disabled=loc.disabled}}{{loc.name}}{{/item.option}}
 	{{/each}}
 {{/x-select}}

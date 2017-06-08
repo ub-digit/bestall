@@ -16,7 +16,9 @@ export default Ember.Controller.extend({
     let res = `<h3>${header}</h3>`;
 
     if (errors && errors.length > 0) {
+      console.log()
       errors.map((obj) => {
+        console.log('request-error obj', obj);
         if (obj.code) {
           let msg = dictionary.t('request-errors.' + obj.code + '.message');
           res += `<p>${msg}</p>`;

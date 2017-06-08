@@ -16,12 +16,14 @@ export default Ember.Controller.extend({
     let entity = this.get('order.model.reserve.subscription') ? this.get('order.model.reserve.subscription') : this.get('order.model.reserve.item');
     // if there is no item or subscription return all pickup locations
     if (!entity) {
+      console.log('no entity')
       return locations;
     }
 
     let isOpenLoc = entity.get('sublocation.isOpenLoc');
     let isOpenPickupLoc = entity.get('sublocation.isOpenPickupLoc');
-
+    console.log('isOpenPickupLoc ', isOpenPickupLoc);
+    console.log('isOpenLoc ', isOpenLoc);
     // I items is OPEN_PICKUP_LOC, return all locations.
     // Nope, item can be booth OPEN_LOC and OPEN_PICKUP_LOC.
     if (isOpenPickupLoc) {
@@ -33,11 +35,24 @@ export default Ember.Controller.extend({
         return locations;
       } else {
         // Elser filter out the home/current location from available locations
+
         const homeLocation = entity.get('sublocation.location.id');
-        const filteredLocations = locations.filter((item) => {
+        const filteredLocations = [];
+        locations.map((item) => {
+          item.set('disabled', false);
           const id = item.get('id');
-          return id != homeLocation;
+          if (id == homeLocation) {
+            item.set('disabled', true);
+          }
+          filteredLocations.push(item);
         });
+
+
+        //const homeLocation = entity.get('sublocation.location.id');
+        //const filteredLocations = locations.filter((item) => {
+        //  const id = item.get('id');
+        //  return id != homeLocation;
+        //});
         return filteredLocations;
       }
     }
