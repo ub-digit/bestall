@@ -16,14 +16,11 @@ export default Ember.Controller.extend({
     let entity = this.get('order.model.reserve.subscription') ? this.get('order.model.reserve.subscription') : this.get('order.model.reserve.item');
     // if there is no item or subscription return all pickup locations
     if (!entity) {
-      console.log('no entity')
       return locations;
     }
 
     let isOpenLoc = entity.get('sublocation.isOpenLoc');
     let isOpenPickupLoc = entity.get('sublocation.isOpenPickupLoc');
-    console.log('isOpenPickupLoc ', isOpenPickupLoc);
-    console.log('isOpenLoc ', isOpenLoc);
     // I items is OPEN_PICKUP_LOC, return all locations.
     // Nope, item can be booth OPEN_LOC and OPEN_PICKUP_LOC.
     if (isOpenPickupLoc) {
