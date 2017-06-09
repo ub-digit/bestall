@@ -130,7 +130,7 @@ export default {
       "message": "Du har redan beställt eller köar på materialet."
     },
     "TOO_MANY_RESERVES": {
-      "message": "Du har för många lån för att få beställa."
+      "message": "Du har för många reservationer för att få beställa."
     },
     "NOT_RESERVABLE": {
       "message": "Materialet kunde inte beställas. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
