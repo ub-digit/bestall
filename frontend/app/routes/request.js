@@ -15,7 +15,7 @@ export default Ember.Route.extend({
     }
 
     if (ticket) {
-      return new Ember.RSVP.Promise((resolve) => {
+      return new Ember.RSVP.Promise((resolve, reject) => {
         this.get('session').authenticate('authenticator:cas', {
           cas_ticket: ticket,
           cas_service: this.returnUrl(biblioId)
@@ -28,6 +28,8 @@ export default Ember.Route.extend({
           } else {
             resolve();
           }
+        }, (reasons) => {
+          reject({errors: {errors: [reasons.errors]}});
         });
       });
     }

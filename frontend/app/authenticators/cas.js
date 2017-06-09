@@ -26,7 +26,7 @@ export default Base.extend({
         });
       }, function(xhr) {
         Ember.run(function() {
-          reject(xhr.responseJSON.error);
+          reject(xhr.responseJSON);
         });
       });
     });
