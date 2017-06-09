@@ -51,13 +51,9 @@ RSpec.describe Item, type: :model do
         item = Item.new(biblio_id: 1, xml: @xml)
         expect(item.is_available_for_queue).to_not be_nil
       end
-      it "should return recently_returned" do
-        item = Item.new(biblio_id: 1, xml: @xml)
-        expect(item.recently_returned).to be false
-      end
       it "should return a status" do
         item = Item.new(biblio_id: 1, xml: @xml)
-        expect(item.recently_returned).to_not be_nil
+        expect(item.status).to_not be_nil
       end
     end
 
@@ -213,19 +209,6 @@ RSpec.describe Item, type: :model do
         it "should return can_be_queued false when item doesn't have item level queue" do
           item = Item.new(biblio_id: 1, xml: @xml[0].to_xml, has_item_level_queue: false)
           expect(item.can_be_queued).to be_falsey
-        end
-      end
-    end
-
-    describe "status" do
-      context "item is recently returned" do
-        it "should return true when current location is CART" do
-          recently_returned = Item.parse_recently_returned('<datafield tag="952" ind1=" " ind2=" "><subfield code="c">CART</subfield></datafield>')
-          expect(recently_returned).to be true
-        end
-        it "should return false when current location is not CART" do
-          recently_returned = Item.parse_recently_returned('<datafield tag="952" ind1=" " ind2=" "><subfield code="c">400005</subfield></datafield>')
-          expect(recently_returned).to be false
         end
       end
     end
