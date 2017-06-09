@@ -36,7 +36,7 @@ class Sublocation
   def self.find_all_by_location_id location_id
     all.select do |loc|
       location_id.to_s == loc.location_id.to_s
-    end + [{id: "CART", location_id: location_id, name_sv: "Nyligen återlämnad", name_en: "Recently returned", is_open_loc: false, is_paging_loc: false}]
+    end
   end
 
   def self.parse_xml xml
