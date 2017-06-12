@@ -3,8 +3,7 @@ class Item
   include ActiveModel::Validations
 
   attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number,
-                :copy_number, :due_date, :lost, :restricted, :not_for_loan, :is_reserved,
-                :recently_returned
+                :copy_number, :due_date, :lost, :restricted, :not_for_loan, :is_reserved
 
   attr_writer :found
 
@@ -104,7 +103,6 @@ class Item
     return "LOANED" if @due_date.present?
     return "RESERVED" if @is_reserved
     return "DURING_ACQUISITION" if @not_for_loan == '-1'
-    return "RECENTLY_RETURNED" if @recently_returned
   end
 
   def parse_xml xml
@@ -114,8 +112,8 @@ class Item
       @id = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="9"]').text
     end
 
-    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="v"]').text.present?
-      @sublocation_id = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="v"]').text
+    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="c"]').text.present?
+      @sublocation_id = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="c"]').text
     end
 
     if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="y"]').text.present?
@@ -146,17 +144,10 @@ class Item
     if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="7"]').text.present?
       @not_for_loan = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="7"]').text
     end
-
-    @recently_returned = Item.parse_recently_returned parsed_xml
-
   end
 
   def self.process_xml xml
     return xml if xml.kind_of?(Nokogiri::XML::Document)
     Nokogiri::XML(xml).remove_namespaces!
-  end
-
-  def self.parse_recently_returned xml
-    process_xml(xml).search('//datafield[@tag="952"]/subfield[@code="c"]').text == "CART"
   end
 end

@@ -39,7 +39,6 @@ export default {
       "delayed": "Försenad",
       "lost": "Ej på plats",
       "under_acquisition": "Under inköp",
-      "recently_returned": "Nyligen återlämnad",
       "unknown": "Okänd",
 
     },

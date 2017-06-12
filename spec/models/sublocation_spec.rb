@@ -49,7 +49,7 @@ RSpec.describe Sublocation, type: :model do
       sublocations = Sublocation.find_all_by_location_id(10)
       expect(sublocations).to_not be_nil
       expect(sublocations).to be_an(Array)
-      expect(sublocations.size).to eq(3)
+      expect(sublocations.size).to eq(2)
     end
   end
 

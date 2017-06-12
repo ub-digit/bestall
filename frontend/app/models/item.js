@@ -77,9 +77,6 @@ export default DS.Model.extend({
     else if (this.get('status') === 'DURING_ACQUISITION') {
       return dictionary.t('components.item-table.under_acquisition');
     }
-    else if (this.get('status') === 'RECENTLY_RETURNED') {
-      return dictionary.t('components.item-table.recently_returned');
-    }
     else {
       return dictionary.t('components.item-table.unknown');
     }
