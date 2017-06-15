@@ -7,16 +7,9 @@ export default Ember.Component.extend({
     const itemType = this.get('item.itemType');
     const notForLoan = this.get('item.notForLoan');
     const loanTypes = this.get('loanTypes');
-    /*
-        let filteredLoanTypes = loanTypes.filter(function(type) {
-          if (type.id === 1) {
-            return (itemType !== '8' && itemType !== '17' && notForLoan !== '-3');
-          } else {
-            return true;
-          }
-        });*/
 
-    let filteredLoanTypes = loanTypes.map((type) => {
+
+    loanTypes.map((type) => {
       type.set('disabled', false);
       if (type.id === 1) {
         if (itemType == '8' || itemType == '17' || notForLoan == '-3') {
@@ -25,7 +18,7 @@ export default Ember.Component.extend({
       }
     });
 
-    return filteredLoanTypes;
+    return loanTypes;
 
   }),
 
