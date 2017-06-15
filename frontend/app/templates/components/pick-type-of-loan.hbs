@@ -3,6 +3,6 @@
 </label>
 {{#x-select class="form-control" on-change=(action onSelect) value=selectedItem as |item|}}
 	{{#each filteredLoanTypes as |type|}}
-		{{#item.option value=type.id}}{{type.name}}{{/item.option}}
+		{{#item.option value=type.id  disabled=type.disabled}}{{type.name}}{{#if type.disabled}} ({{t "request.order.details.notAllowed"}}){{/if}}{{/item.option}}
 	{{/each}}
 {{/x-select}}

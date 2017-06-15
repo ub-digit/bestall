@@ -54,7 +54,10 @@ export default {
         "header": "Din beställning",
         "labelForLoantypeDropdown": "Hur vill du låna?",
         "labelForLocationDropdown": "Var vill du hämta?",
-        "btnNext": "Fortsätt"
+        "btnNext": "Fortsätt",
+        "cantBePickedupHere": "Kan ej beställas hit",
+        "notAllowed": "Ej tillåtet"
+
       },
       "confirmation": {
         "confirmation-header": "Tack för din beställning",
