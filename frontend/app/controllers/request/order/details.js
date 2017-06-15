@@ -40,6 +40,7 @@ export default Ember.Controller.extend({
           const id = item.get('id');
           if (id == homeLocation) {
             item.set('disabled', true);
+
           }
           filteredLocations.push(item);
         });
