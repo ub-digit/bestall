@@ -46,6 +46,8 @@ export default Ember.Controller.extend({
         });
         return filteredLocations;
       }
+    } else {
+      return locations;
     }
 
   }),
