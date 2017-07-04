@@ -63,9 +63,6 @@ class User
     if xml.search('//response/borrower/firstname').text.present?
       @first_name = xml.search('//response/borrower/firstname').text
     end
-    if xml.search('//response/borrower/borrowernumber').text.present?
-      @id = xml.search('//response/borrower/borrowernumber').text.to_i
-    end
 
     @denied = false # spärrad
 
