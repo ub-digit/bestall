@@ -53,10 +53,8 @@ export default DS.Model.extend({
 
   statusText: Ember.computed('status', 'dueDate', function() {
     const dictionary = this.get('i18n');
-    if (this.get('isAvailible')) {
-      return dictionary.t('components.item-table.available');
-    }
-    else if (this.get('status') === 'LOANED') {
+
+    if (this.get('status') === 'LOANED') {
       return dictionary.t('components.item-table.loaned') + ' ' + moment(this.get('dueDate')).format("YYYY-MM-DD");
     }
     else if (this.get('status') === 'RESERVED') {
@@ -71,11 +69,14 @@ export default DS.Model.extend({
     else if (this.get('status') === 'DELAYED') {
       return dictionary.t('components.item-table.delayed');
     }
-    else if (this.get('status') === 'LOST') {
-      return dictionary.t('components.item-table.lost');
-    }
     else if (this.get('status') === 'DURING_ACQUISITION') {
       return dictionary.t('components.item-table.under_acquisition');
+    }
+    else if (this.get('status') === 'NOT_IN_PLACE') {
+      return dictionary.t('components.item-table.not_in_place');
+    }
+    else if (this.get('status') === 'AVAILABLE') {
+      return dictionary.t('components.item-table.available');
     }
     else {
       return dictionary.t('components.item-table.unknown');

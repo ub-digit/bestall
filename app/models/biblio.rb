@@ -92,7 +92,7 @@ class Biblio
       tmp_arr = []
       data = bib_xml.search('//record/datafield[@tag="260"]').first
       tmp_arr = tmp_arr + [data.search('subfield[@code="a"]').text, data.search('subfield[@code="b"]').text, data.search('subfield[@code="c"]').text]
-      
+
       @origin = tmp_arr.join(" ").strip
     elsif bib_xml.search('//record/datafield[@tag="264" and @ind="1"]').text.present?
       tmp_arr = []
@@ -140,7 +140,7 @@ class Biblio
           @borrower = reserve.xpath('borrowernumber').text
           if !@borrowers.include? @borrower
             @borrowers.push(@borrower)
-             # increase only when itemnumber is not included  
+             # increase only when itemnumber is not included
             @no_in_queue += 1
           end
         end

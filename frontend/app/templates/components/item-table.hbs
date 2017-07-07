@@ -17,7 +17,7 @@
             <td>{{item.copyNumber}}</td>
           {{/if}}
           <td>{{item.sublocation.location.name}}<br/><span class="sublocation-text">{{item.sublocationText}}</span></td>
-          <td>{{item.statusText}}<br/>{{item.statusLimitationText}}</td>
+          <td>{{item.statusText}}<br/><span class="status-text">{{item.statusLimitationText}}</span></td>
           <td>
             {{item-order-button
               canBeOrdered=item.canBeOrdered
