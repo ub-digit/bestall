@@ -37,10 +37,9 @@ export default {
       "waiting": "Väntar på avhämtning",
       "in_transit": "Under transport",
       "delayed": "Försenad",
-      "lost": "Ej på plats",
       "under_acquisition": "Under inköp",
+      "not_in_place": "Ej på plats",
       "unknown": "Okänd",
-
     },
 
   },

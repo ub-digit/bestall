@@ -96,13 +96,15 @@ class Item
   end
 
   def status
+    return "LOANED" if @due_date.present? && Date.parse(@due_date) >= Date.today
+    return "RESERVED" if @is_reserved
+    return "WAITING" if @found == "W"
     return "IN_TRANSIT" if @found == "T"
     return "FINISHED" if @found == "F"
-    return "WAITING" if @found == "W"
-    return "CAN_BE_ORDERED" if can_be_ordered
-    return "LOANED" if @due_date.present?
-    return "RESERVED" if @is_reserved
+    return "DELAYED" if @due_date.present? && Date.parse(@due_date) < Date.today
+    return "NOT_IN_PLACE" if @lost == '4'
     return "DURING_ACQUISITION" if @not_for_loan == '-1'
+    return "AVAILABLE"
   end
 
   def parse_xml xml
