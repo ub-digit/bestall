@@ -20,7 +20,7 @@ unless ($status eq "ok") {
 }
 
 my $reserve_id = $query->param('reserve_id');
-my $reserve = C4::Reserves::GetReserve($reserve_id);
+my $reserve = Koha::Holds->find($reserve_id)->unblessed;
 
 unless ($reserve) {
   print $query->header(-type => 'text/xml', -status => '404');

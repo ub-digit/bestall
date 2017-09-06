@@ -7,12 +7,12 @@ use CGI qw ( -utf8 );
 use XML::Simple;
 use C4::Auth qw/check_api_auth/;
 
-use C4::Biblio;
 use C4::Reserves;
 use C4::Items;
 use Koha::Patrons;
 use Koha::Holds;
-
+use Koha::Items;
+use Koha::Biblios;
 
 my $query = new CGI;
 binmode STDOUT, ':encoding(UTF-8)';
@@ -51,7 +51,8 @@ unless ($branchcode) {
 }
 
 if ($itemnumber) {
-  my $item_biblionumber = C4::Biblio::GetBiblionumberFromItemnumber($itemnumber);
+  my $item = Koha::Items->find($itemnumber);
+  my $item_biblionumber = $item->biblio->biblionumber;
   if ($biblionumber and $biblionumber != $item_biblionumber) {
     print $query->header(-type => 'text/xml', -status => '400');
     print XMLout({ status => "Item $itemnumber doesn't belong to biblio $biblionumber", error_code => "itemDoesNotBelongToBiblio" }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
@@ -60,13 +61,12 @@ if ($itemnumber) {
   $biblionumber ||= $item_biblionumber;
 }
 
-my $biblio = C4::Biblio::GetBiblio($biblionumber);
+my $biblio = Koha::Biblios->find($biblionumber)->unblessed;
 
 my $can_reserve =
   $itemnumber
   ? CanItemBeReserved( $borrowernumber, $itemnumber )
   : CanBookBeReserved( $borrowernumber, $biblionumber );
-
 
 unless ($can_reserve eq 'OK') {
   print $query->header(-type => 'text/xml', -status => '403');
@@ -77,7 +77,6 @@ unless ($can_reserve eq 'OK') {
 my $priority = C4::Reserves::CalculatePriority($biblionumber);
 $itemnumber ||= undef;
 
-
 my $reserve_id = C4::Reserves::AddReserve($branchcode, $borrowernumber, $biblionumber, undef, $priority, undef, undef, $reservenotes, $biblio->{title}, $itemnumber);
 
 unless ($reserve_id) {
@@ -86,8 +85,7 @@ unless ($reserve_id) {
   exit 0;
 }
 
-my $reserve = C4::Reserves::GetReserve($reserve_id);
-
+my $reserve = Koha::Holds->find($reserve_id)->unblessed;
 
 my $queue_position = '';
 my $item;
@@ -102,7 +100,6 @@ if ($reserve->{priority} ne '0') {
     $queue_position = $reserve->{priority};
   }
 }
- 
 
 print $query->header(-type => 'text/xml',-charset => 'utf-8', -status => '201');
 print XMLout({ reserve => $reserve, queue_position => $queue_position }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
