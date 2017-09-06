@@ -70,6 +70,9 @@ RSpec.describe Api::UsersController, type: :controller do
         WebMock.stub_request(:get, "http://koha.example.com/bib/1385442?items=1&password=password&userid=username").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
          to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/biblio/biblio-monograph.xml"), :headers => {})
+        WebMock.stub_request(:get, "http://koha.example.com/items/list?biblionumber=1385442&password=password&userid=username").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+         to_return(:status => 200, :body => "", :headers => {})
         WebMock.stub_request(:get, "http://koha.example.com/reserves/list?biblionumber=1385442&password=password&userid=username").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
          to_return(:status => 200, :body => "", :headers => {})
@@ -92,6 +95,9 @@ RSpec.describe Api::UsersController, type: :controller do
         WebMock.stub_request(:get, "http://koha.example.com/bib/191130?items=1&password=password&userid=username").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
          to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/biblio/biblio-monograph.xml"), :headers => {})
+        WebMock.stub_request(:get, "http://koha.example.com/items/list?biblionumber=191130&password=password&userid=username").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
+         to_return(:status => 200, :body => "", :headers => {})
         WebMock.stub_request(:get, "http://koha.example.com/reserves/list?biblionumber=191130&password=password&userid=username").
          with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
          to_return(:status => 200, :body => "", :headers => {})

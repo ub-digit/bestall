@@ -37,6 +37,7 @@ RSpec.describe Item, type: :model do
       end
       it "should return a due date" do
         item = Item.new(biblio_id: 1, xml: @xml)
+        item.due_date = '2017-03-02'
         expect(item.due_date).to eq('2017-03-02')
       end
       it "should return can_be_ordered" do
@@ -101,6 +102,7 @@ RSpec.describe Item, type: :model do
       end
       it "should return can_be_ordered false when a due date is present" do
         item = Item.new(biblio_id: 1, xml: @xml[2].to_xml)
+        item.due_date = '2020-01-01'
         expect(item.can_be_ordered).to be_falsey
       end
       it "should return can_be_ordered false when item is lost" do
@@ -170,6 +172,7 @@ RSpec.describe Item, type: :model do
             Nokogiri::XML(f).remove_namespaces!.search('//record/datafield[@tag="952"]')
           }
           item = Item.new(biblio_id: 1, xml: is_available_for_queue_xml[0].to_xml)
+          item.due_date = '2020-01-01'
           item.is_reserved = false
           expect(item.is_available_for_queue).to be_truthy
         end
@@ -193,6 +196,7 @@ RSpec.describe Item, type: :model do
         end
         it "should return can_be_queued true" do
           item = Item.new(biblio_id: 1, xml: @xml[0].to_xml, has_item_level_queue: true)
+          item.due_date = '2020-01-01'
           expect(item.can_be_queued).to be_truthy
         end
       end

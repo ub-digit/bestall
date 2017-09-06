@@ -134,15 +134,14 @@ class Item
       @copy_number = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="h"]').text
     end
 
-    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="q"]').text.present?
-      @due_date = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="q"]').text
-    end
     if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="1"]').text.present?
       @lost = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="1"]').text
     end
+
     if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="5"]').text.present?
       @restricted = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="5"]').text
     end
+
     if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="7"]').text.present?
       @not_for_loan = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="7"]').text
     end
