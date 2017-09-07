@@ -7,6 +7,7 @@ use CGI qw ( -utf8 );
 use C4::Auth qw/check_api_auth/;
 use C4::Members;
 use C4::Reserves;
+use Koha::Patrons;
 use XML::Simple;
 
 my $query = new CGI;
@@ -19,23 +20,30 @@ unless ($status eq "ok") {
   exit 0;
 }
 my $userid= $query->url_param('borrower');
-my $borrower = GetMember(userid => $userid);
+#my $borrower = GetMember(userid => $userid);
+my $patrons = Koha::Patrons->search({userid => $userid});
+my $borrower = $patrons->next;
 unless ($borrower) {
   print $query->header(-type => 'text/xml', -status => '404 Not found');
   print XMLout({ status => 'Borrower not found', error_code => 'borrowerNotFound' }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
   exit 0;
 }
+use Data::Dumper;
 
-my $flags = C4::Members::patronflags($borrower);
 
-my $borrowernumber = $borrower -> {'borrowernumber'};
-
+my $flags = C4::Members::patronflags($borrower->unblessed);
+my $borrowernumber = $borrower->{'borrowernumber'};
 my $issues = GetAllIssues($borrowernumber);
-
-my @reserves = GetReservesFromBorrowernumber($borrowernumber);
+#my @reserves = GetReservesFromBorrowernumber($borrowernumber);
+my @reserves = $borrower->holds->unblessed;
+print STDERR Dumper(@reserves);
 
 print $query->header(-type => 'text/xml',-charset => 'utf-8');
 
-print XMLout({ flags => $flags, borrower => $borrower, issues => $issues, reserves => \@reserves }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
+print XMLout({ 
+flags => $flags, 
+borrower => $borrower->unblessed, 
+issues => $issues, 
+reserves => \@reserves }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
 
 exit 0;

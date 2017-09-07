@@ -49,9 +49,9 @@ class Biblio
   end
 
 
-  def initialize id, bib_xml, reserves_xml
+  def initialize id, bib_xml, items_xml, reserves_xml
     @id = id
-    parse_xml bib_xml, reserves_xml
+    parse_xml bib_xml, items_xml, reserves_xml
     @subscriptions = Subscription.find_by_biblio_id id
   end
 
@@ -61,10 +61,14 @@ class Biblio
     password =  APP_CONFIG['koha']['password']
 
     bib_url = "#{base_url}/bib/#{id}?userid=#{user}&password=#{password}&items=1"
+    items_url = "#{base_url}/items/list?biblionumber=#{id}&userid=#{user}&password=#{password}"
     reserves_url = "#{base_url}/reserves/list?biblionumber=#{id}&userid=#{user}&password=#{password}"
+
     bib_response = RestClient.get bib_url
+    items_response = RestClient.get items_url
     reserves_response = RestClient.get reserves_url
-    item = self.new id, bib_response, reserves_response
+
+    item = self.new id, bib_response, items_response, reserves_response
     return item
   end
 
@@ -77,8 +81,9 @@ class Biblio
       return nil
   end
 
-  def parse_xml bib_xml, reserves_xml
+  def parse_xml bib_xml, items_xml, reserves_xml
     bib_xml = Nokogiri::XML(bib_xml).remove_namespaces!
+    items_xml = Nokogiri::XML(items_xml).remove_namespaces!
     reserves_xml = Nokogiri::XML(reserves_xml).remove_namespaces!
 
     @record_type = Biblio.parse_record_type(bib_xml.search('//record/leader').text)
@@ -143,6 +148,13 @@ class Biblio
              # increase only when itemnumber is not included
             @no_in_queue += 1
           end
+        end
+      end
+      # get due date from items xml
+      items_xml.search('//response/items').each do |item_xml|
+        if item_xml.xpath('itemnumber').text == item.id.to_s && item_xml.xpath('datedue').text.present?
+          puts item_xml.xpath('datedue').text.to_s
+          item.due_date = item_xml.xpath('datedue').text
         end
       end
       @items << item
