@@ -28,15 +28,11 @@ unless ($borrower) {
   print XMLout({ status => 'Borrower not found', error_code => 'borrowerNotFound' }, NoAttr => 1, RootName => 'response', XMLDecl => 1);
   exit 0;
 }
-use Data::Dumper;
-
 
 my $flags = C4::Members::patronflags($borrower->unblessed);
-my $borrowernumber = $borrower->{'borrowernumber'};
-my $issues = GetAllIssues($borrowernumber);
-#my @reserves = GetReservesFromBorrowernumber($borrowernumber);
+my $borrowernumber = $borrower->unblessed->{'borrowernumber'};
+my $issues = C4::Members::GetAllIssues($borrowernumber);
 my @reserves = $borrower->holds->unblessed;
-print STDERR Dumper(@reserves);
 
 print $query->header(-type => 'text/xml',-charset => 'utf-8');
 
