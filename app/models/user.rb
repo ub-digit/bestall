@@ -119,7 +119,7 @@ class User
     end
 
     @reserves = []
-    xml.xpath('//response/reserves').each do |reserve|
+    xml.xpath('//response/reserves/anon').each do |reserve|
         biblionumber = reserve.xpath('biblionumber').text
         itemnumber = reserve.xpath('itemnumber').text
         @reserves << {biblionumber: biblionumber, itemnumber: itemnumber}
