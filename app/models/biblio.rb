@@ -122,7 +122,7 @@ class Biblio
                 bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="c"]').text].join(" ").strip
 
       @edition = bib_xml.search('//record/datafield[@tag="250"]/subfield[@code="a"]').text if bib_xml.search('//record/datafield[@tag="250"]/subfield[@code="a"]').text.present?
-      @isbn = bib_xml.search('//record/datafield[@tag="020"]/subfield[@code="a"]').text if bib_xml.search('//record/datafield[@tag="020"]/subfield[@code="a"]').text.present?
+      @isbn = bib_xml.search('//record/datafield[@tag="020"]/subfield[@code="a"]').map(&:text).join("; ") if bib_xml.search('//record/datafield[@tag="020"]/subfield[@code="a"]').text.present?
     end
 
     @items = []
