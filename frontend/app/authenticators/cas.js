@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import Base from 'ember-simple-auth/authenticators/base';
 import ENV from 'frontend/config/environment';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+//import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
 export default Base.extend({
 
@@ -18,26 +18,24 @@ export default Base.extend({
         contentType: 'application/json'
       }).then(function(response) {
         var token = response.access_token;
-        Ember.run(function() {
-          resolve({
-            authenticated: true,
-            token: token
-          });
+        resolve({
+          authenticated: true,
+          token: token
         });
       }, function(xhr) {
-        Ember.run(function() {
-          reject(xhr.responseJSON);
-        });
+        reject(xhr.responseJSON);
       });
     });
   },
   invalidate: function() {
-    return new Ember.RSVP.Promise(function(resolve) {
-      resolve();
-    });
+    // TODO: perhaps invalidate, or not implement, or reason to leave as is?
+    return Ember.RSVP.resolve();
   }
 });
 
+
+//@FIXME: This seems unused. Remove? Fix?
+/*
 AuthenticatedRouteMixin.reopen({
   beforeModel: function(transition) {
     var session = this.get('session');
@@ -54,3 +52,4 @@ AuthenticatedRouteMixin.reopen({
     return this._super(transition);
   }
 });
+*/

@@ -18,12 +18,13 @@ export default Ember.Route.extend({
       return new Ember.RSVP.Promise((resolve, reject) => {
         this.get('session').authenticate('authenticator:cas', {
           cas_ticket: ticket,
-          cas_service: this.returnUrl(biblioId)
+          cas_service: this.returnUrl(biblioId, SSOscanner)
         }).then(() => {
           // If this session is only used in the iframe to scan for successful SSO,
           // do not resolve the promise
           if(SSOscanner) {
             localStorage.setItem('login-check', 'inner-login-ok');
+            // @FIXME: 'nope' value is never checked against elsewhere in the code?
             localStorage.setItem('logged-in-ok', 'nope');
           } else {
             resolve();
@@ -38,6 +39,7 @@ export default Ember.Route.extend({
   model(params) {
     if (this.get('session.isAuthenticated')) {
       return Ember.RSVP.hash({
+        //@FIXME: this.get('store')?
         biblio: this.store.find('biblio', params.id),
         user: this.store.queryRecord('user', {
           biblio: params.id
@@ -78,10 +80,13 @@ export default Ember.Route.extend({
     controller.set('SSOscanner', null);
   },
 
-  returnUrl(id) {
+  returnUrl(id, SSOscanner) {
     let baseUrl = window.location.origin;
     let routeName = this.get('routeName');
     let routeUrl = this.router.generate(routeName, {id: id});
+    if (SSOscanner) {
+      routeUrl += '?SSOscanner=true';
+    }
     return baseUrl + routeUrl;
   },
 
