@@ -10,6 +10,27 @@ export default Ember.Controller.extend({
   request: inject.controller(),
   order: inject.controller('request.order'),
 
+  hasItemLevelQueue: computed('order.model.reserve.biblio.hasItemLevelQueue', function() {
+    let res = this.get('order.model.reserve.biblio.hasItemLevelQueue');
+    return res;
+  }),
+
+  hasSubscription: computed('order.model.reserve.subscription', function() {
+    let hs = this.get('order.model.reserve.subscription');
+    if (hs) return true;
+    return false;
+  }),
+
+  showQueue: computed('hasItemLevelQueue', 'hasSubscription', function() {
+
+    let itemLevelQ = this.get('hasItemLevelQueue');
+    let hasSub = this.get('hasSubscription');
+    if (itemLevelQ || hasSub) {
+      return false;
+    }
+    return true;
+  }),
+
   reason: computed('order.errors', function() {
     const errors = this.get('order.errors');
     const dictionary = this.get('i18n');
