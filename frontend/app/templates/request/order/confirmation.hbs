@@ -18,11 +18,10 @@
   </div>
   <div class="media-body">
     <h3 class="confirmation-header">{{t "request.order.confirmation.confirmation-header"}}</h3><i class="fa fa-check-circle green-icon-mobile visible-xs" aria-hidden="true"></i>
-    <br/>
-    <p>-- show que --</p>
+    <br/> 
     {{{showQueue}}}
-    <p>-- show que --</p>
     {{#if order.model.reserve.queuePosition}}
+        
        <p>{{t "request.order.confirmation.you-have-place"}} <b>{{order.model.reserve.queuePosition}}</b> {{t "request.order.confirmation.in-queue"}}</p>
     {{/if}}
 

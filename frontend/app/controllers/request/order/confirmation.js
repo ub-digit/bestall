@@ -15,10 +15,18 @@ export default Ember.Controller.extend({
     return res;
   }),
 
+  hasSubscription: computed('order', function() {
+    let hs = this.get('order.model.reserve.subscription');
+    if (hs) return true;
+    return false;
+  }),
+
   showQueue: computed('order', function() {
     //let hasItemLevelQueue = this.get('hasItemLevelQueue');
-    let hasSubscription = this.get('oder.model.reserve.subscription');
-    return hasSubscription;
+    let itemLevelQ = this.get('hasItemLevelQueue');
+    let hasSub = this.get('hasSubscription');
+
+    return true;
   }),
 
   reason: computed('order.errors', function() {
