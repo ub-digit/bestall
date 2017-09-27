@@ -41,10 +41,11 @@ class Api::SessionController < ApplicationController
     }.to_param
     casValidateUrl = "#{casBaseUrl}/serviceValidate?#{casParams}"
     open(casValidateUrl) do |u|
-      doc = Nokogiri::XML(u.read)
+      body = u.read
+      doc = Nokogiri::XML(body)
       doc.remove_namespaces!
       username = doc.search('//serviceResponse/authenticationSuccess/user').text
-      return username if username
+      return username if not username.empty?
     end
   end
 end

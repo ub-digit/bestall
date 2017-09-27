@@ -9,7 +9,6 @@ export default Ember.Route.extend({
         localStorage.setItem('logged-in-ok', 'success');
         window.location.href = this.casLoginUrl() + '?' + Ember.$.param({service: this.returnUrl(biblioId)});
         //this.transitionTo('request.order.items', biblioId);
-        return;
       } else {
         localStorage.setItem('logged-in-ok', 'no');
         this.checkLoginOk(resolve, biblioId);

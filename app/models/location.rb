@@ -14,7 +14,6 @@ class Location
   end
 
   def as_json options={}
-
     super.merge({
       sublocations: Sublocation.find_all_by_location_id(id)
     })
