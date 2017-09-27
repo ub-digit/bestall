@@ -22,10 +22,12 @@ export default Ember.Controller.extend({
   }),
 
   showQueue: computed('order', function() {
-    //let hasItemLevelQueue = this.get('hasItemLevelQueue');
+
     let itemLevelQ = this.get('hasItemLevelQueue');
     let hasSub = this.get('hasSubscription');
-
+    if (itemLevelQ || hasSub) {
+      return false;
+    }
     return true;
   }),
 
