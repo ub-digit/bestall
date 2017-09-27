@@ -21,7 +21,7 @@ export default Ember.Controller.extend({
     return false;
   }),
 
-  showQueue: computed('hasItemLevelQueue,hasSubscription', function() {
+  showQueue: computed('hasItemLevelQueue', 'hasSubscription', function() {
 
     let itemLevelQ = this.get('hasItemLevelQueue');
     let hasSub = this.get('hasSubscription');
