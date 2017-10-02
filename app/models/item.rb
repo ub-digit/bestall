@@ -3,7 +3,7 @@ class Item
   include ActiveModel::Validations
 
   attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number,
-                :copy_number, :due_date, :lost, :restricted, :not_for_loan, :is_reserved
+                :copy_number, :due_date, :lost, :restricted, :not_for_loan, :is_reserved, :withdrawn
 
   attr_writer :found
 
@@ -89,6 +89,10 @@ class Item
     @item_type == '2'
   end
 
+  def masked?
+    ['1', '2', '3'].include?(@withdrawn) || @lost == '1'
+  end
+
   def status_limitation
     return "NOT_FOR_HOME_LOAN" if item_type_ref?
     return "READING_ROOM_ONLY" if @not_for_loan == '-3'
@@ -144,6 +148,10 @@ class Item
 
     if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="7"]').text.present?
       @not_for_loan = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="7"]').text
+    end
+
+    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="0"]').text.present?
+      @withdrawn = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="0"]').text
     end
   end
 
