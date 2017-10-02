@@ -11,27 +11,19 @@ export default {
     },
   },
   "components": {
-    "toggle-lang": {
-      "language": {
-        "sv": "Svenska",
-        "en": "English",
-      }
-    },
-    "progress-steps": {
-      "step-items-label": "Exemplar",
-      "step-details-label": "Din beställning",
-      "step-summary-label": "Sammanfattning",
-      "step-confirmation-label": "Bekräftelse"
+    "item-order-button": {
+      "queue": "Köa",
+      "order": "Beställ"
     },
     "item-table": {
+      "volume": "Volym",
+      "location": "Placering",
+      "status": "Status",
       "must_be_ordered": "Måste beställas",
-
       "available": "Tillgänglig",
-
       "not_for_home_loan": "Ej hemlån",
       "reading_room_only": "Beställs till läsesal",
       "loan_in_house_only": "Utlån endast på plats",
-
       "loaned": "Utlånad till",
       "reserved": "Reserverad",
       "waiting": "Väntar på avhämtning",
@@ -41,32 +33,73 @@ export default {
       "not_in_place": "Ej på plats",
       "unknown": "Okänd",
     },
-
+    "pick-location": {
+      "cannot-pickup-here" : "Kan ej beställas hit"
+    },
+    "pick-type-of-loans": {
+      "not-allowed": "Ej tillåtet"
+    },
+    "progress-steps": {
+      "step-items-label": "Exemplar",
+      "step-details-label": "Din beställning",
+      "step-summary-label": "Sammanfattning",
+      "step-confirmation-label": "Bekräftelse"
+    },
+    "toggle-lang": {
+      "language": {
+        "sv": "Svenska",
+        "en": "English",
+      }
+    }
   },
   "request": {
     "order": {
       "header": "Min beställning",
       "items": {
-        "btnNext": "Fortsätt"
+        "next-button": "Fortsätt",
+        "select-button": "Välj",
+        "location": "Placering",
+        "note": "Notering",
+        "items": "Exemplar",
+        "subscriptions": "Bestånd",
+        "available": "Tillgängliga",
+        "not-available": "Utlånade",
+        "currently-no-available-items": "Det finns inga tillgängliga exemplar just nu.",
+        "number-of-people-in-queue": "personer i kö på utlånade exemplar",
+        "queue-up": "Ställ dig i kö",
+        "all-items-are-available": "Alla exemplar finns tillgängliga."
       },
       "details": {
         "header": "Din beställning",
-        "labelForLoantypeDropdown": "Hur vill du låna?",
-        "labelForLocationDropdown": "Var vill du hämta?",
-        "btnNext": "Fortsätt",
-        "cantBePickedupHere": "Kan ej beställas hit",
-        "notAllowed": "Ej tillåtet"
-
+        "loantype-dropdown-label": "Hur vill du låna?",
+        "location-dropdown-label": "Var vill du hämta?",
+        "next-button": "Fortsätt",
+        "cant-be-pickedup-here": "Kan ej beställas hit",
+        "not-allowed": "Ej tillåtet",
+        "subscription-reserve-label": "Detaljer om beställningen",
+        "subscription-reserve-helptext": "Ange volym, år och nummer eller sidnummer för det exemplar du vill beställa.",
+        "subscription-note": "Du kan beställa exemplar ur följande bestånd:",
+        "reserve-label": "Kommentarer (valfri)",
+        "reserve-helptext": "Ange om det är något mer du tror att vi behöver veta om din beställning.",
+        "goback-button": "Tillbaka"
       },
       "confirmation": {
-        "confirmation-header": "Tack för din beställning",
+        "header": "Tack för din beställning",
+        "error-header": "Det gick inte att beställa",
         "you-have-place": "Du har plats",
         "in-queue": "i kön",
         "message": "Du får ett meddelande när materialet finns att hämta på",
         "my-loans-link-text": "Mina lån - se dina lån och beställningar"
-
       },
-      "summary": {}
+      "summary": {
+        "copy-number": "Exemplar",
+        "loantype": "Typ av lån",
+        "pickup-location": "Hämta på",
+        "reserve-notes": "Kommentar",
+        "subscription-notes": "Kommentar",
+        "goback-button": "Tillbaka",
+        "submit-order-button": "Beställ"
+      }
     }
   },
   "status-errors": {
@@ -76,7 +109,7 @@ export default {
     "casLogin": "Log in"
   },
   "request-errors": {
-    "header": "Det går inte att beställa",
+    "header": "Det gick inte att beställa",
     "NO_ID": {
       "message": "Detta felet uppkommer eftersom applikationen laddas utan sitt dynamiska segment som krävs för rutten request. Felet fångas på application-nivå i before-model.",
     },
@@ -113,7 +146,9 @@ export default {
     "NOT_FOUND": {
       "message": "Du är inte registrerad för att få låna på biblioteket. Ansök om ett bibliotekskort här."
     },
-
+    "UNAUTHORIZED": {
+      "message": "unauthorized..."
+    },
     "UNKNOWN_ERROR": {
       "message": "Något gick fel. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
     }
