@@ -31,6 +31,12 @@ class Location
     end
   end
 
+  def self.find_by_id id
+    all.find do |loc|
+      id.to_s == loc.id.to_s
+    end
+  end
+
   def self.parse_xml xml
     parsed_xml = Nokogiri::XML(xml).remove_namespaces!
 

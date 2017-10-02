@@ -2,16 +2,22 @@ class Api::ReservesController < ApplicationController
   before_action :validate_access
 
   def create
+    # Just print order if this is subscription order
+    if params[:reserve][:subscription_notes]
+      pp params
+      obj = Print.prepare_subscription_order(params, @current_username)
+      pdf = Print.create_pdf(obj)
+      @response[:reserve] = {}
+      render_json(201)
+      return
+    end
+
     borrowernumber = params[:reserve][:user_id]
     branchcode = params[:reserve][:location_id]
     biblionumber = params[:reserve][:biblio_id]
     itemnumber = params[:reserve][:item_id]
     loantype = params[:reserve][:loan_type_id]
     reservenotes = params[:reserve][:reserve_notes]
-    subscriptionnotes = params[:reserve][:subscription_notes]
-    subscriptionlocation = params[:reserve][:subscription_location]
-    subscriptionsublocation = params[:reserve][:subscription_sublocation]
-    subscriptioncallnumber = params[:reserve][:subscription_call_number]
 
     error_list = Array.new
     error_list.push({code: "MISSING_USER", detail: "Required user_id is missing."}) if borrowernumber.blank?
@@ -26,8 +32,7 @@ class Api::ReservesController < ApplicationController
       else
         loan_type_name = ''
       end
-      reservenotes = reserve_notes(loan_type_name, reservenotes, subscriptionnotes, subscriptionlocation, subscriptionsublocation, subscriptioncallnumber)
-      #reservenotes = "Lånetyp: #{loan_type_name} \n#{(reservenotes.present? ? reservenotes : '')} \n#{(subscriptionnotes.present? ? subscriptionnotes : '')}"
+      reservenotes = reserve_notes(loan_type_name, reservenotes)
     end
     if error_list.present?
       error_msg(ErrorCodes::UNPROCESSABLE_ENTITY, "At least one parameter was not valid.", error_list)
@@ -71,14 +76,10 @@ class Api::ReservesController < ApplicationController
     render_json
   end
 
-  def reserve_notes(loan_type_name, reservenotes, subscriptionnotes, subscriptionlocation, subscriptionsublocation, subscriptioncallnumber)
+  def reserve_notes(loan_type_name, reservenotes)
     notes = Array.new
     notes << "Lånetyp: #{loan_type_name}"
     notes << reservenotes
-    notes << subscriptionnotes
-    notes << subscriptionlocation
-    notes << subscriptionsublocation
-    notes << subscriptioncallnumber
     notes.delete_if{|e|e.blank?}
     notes.join("\n")
   end
