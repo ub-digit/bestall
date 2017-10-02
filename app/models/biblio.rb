@@ -153,7 +153,6 @@ class Biblio
       # get due date from items xml
       items_xml.search('//response/items').each do |item_xml|
         if item_xml.xpath('itemnumber').text == item.id.to_s && item_xml.xpath('datedue').text.present?
-          puts item_xml.xpath('datedue').text.to_s
           item.due_date = item_xml.xpath('datedue').text
         end
       end

@@ -73,6 +73,7 @@ export default Ember.Controller.extend({
       if (this.get('order.model.reserve.subscription')) {
         this.get('order.model.reserve').set('subscriptionLocation', this.get('order.model.reserve.subscription.sublocation.location.name'));
         this.get('order.model.reserve').set('subscriptionSublocation', this.get('order.model.reserve.subscription.sublocation.name'));
+        this.get('order.model.reserve').set('subscriptionSublocationId', this.get('order.model.reserve.subscription.sublocation.id'));
         this.get('order.model.reserve').set('subscriptionCallNumber', this.get('order.model.reserve.subscription.callNumber'));
       }
       this.transitionToRoute('request.order.summary');

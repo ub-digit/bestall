@@ -13,6 +13,7 @@ export default DS.Model.extend({
 
   subscriptionNotes: DS.attr('string'),
   subscriptionLocation: DS.attr('string'),
+  subscriptionSublocationId: DS.attr('string'),
   subscriptionSublocation: DS.attr('string'),
   subscriptionCallNumber: DS.attr('string')
 
