@@ -1,7 +1,6 @@
 require "prawn/measurement_extensions"
 class Print
   def self.prepare_subscription_order(params, username)
-    pp params
     obj = {}
     obj[:borrowernumber] = params[:reserve][:user_id] if params[:reserve][:user_id].present?
     obj[:bibid] = params[:reserve][:biblio_id] if params[:reserve][:biblio_id].present?
@@ -118,7 +117,6 @@ class Print
   end
 
   def self.create_pdf(obj)
-    pp obj
     document = Prawn::Document.new :page_size=> 'A5', :margin=>[5.send(:mm), 10.send(:mm), 5.send(:mm), 10.send(:mm)]
     pdf = print_segment(document, obj, document.cursor)
     pdf = print_segment(document, obj, 95.send(:mm))

@@ -4,7 +4,6 @@ class Api::ReservesController < ApplicationController
   def create
     # Just print order if this is subscription order
     if params[:reserve][:subscription_notes]
-      pp params
       obj = Print.prepare_subscription_order(params, @current_username)
       pdf = Print.create_pdf(obj)
       @response[:reserve] = {}
