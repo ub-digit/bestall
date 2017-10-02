@@ -19,7 +19,6 @@ class Api::UsersController < ApplicationController
         error_list.push({"code" => "FINES", "detail" => "Fines exceed maximum allowed amount."}) if user.fines
         error_list.push({"code" => "DEBARRED", "detail" => "User is debarred."}) if user.debarred
         error_list.push({"code" => "NO_ADDRESS", "detail" => "User has no address record."}) if user.no_address
-        error_list.push({"code" => "EXPIRED", "detail" => "Card has expired."}) if user.expired
         user_data = {"user_category" => user.user_category}
         user_data["fines_amount"] = user.fines_amount if user.fines
         error_msg(ErrorCodes::FORBIDDEN, "Access denied", error_list, user_data)
