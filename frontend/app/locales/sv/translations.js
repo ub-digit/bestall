@@ -100,6 +100,13 @@ export default {
         "goback-button": "Tillbaka",
         "submit-order-button": "Beställ"
       }
+    },
+    "login": {
+      "header": "Logga in",
+      "username-label": "Användarnamn:",
+      "password-label": "Lösenord:",
+      "login-button": "Logga in",
+      "cas-link-text": "Logga in med CAS"
     }
   },
   "status-errors": {
