@@ -132,6 +132,7 @@ class Biblio
     bib_xml.search('//record/datafield[@tag="952"]').each do |item_data|
       item = Item.new(biblio_id: self.id, xml: item_data.to_xml, has_item_level_queue: self.has_item_level_queue)
       next if item.item_type.blank?
+      next if item.masked?
       item.is_reserved = false
       reserves_xml.search('//response/reserve').each do |reserve|
         if reserve.xpath('itemnumber').text.present?

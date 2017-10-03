@@ -74,47 +74,49 @@
     <zipcode></zipcode>
   </borrower>
   <reserves>
-    <biblionumber>191130</biblionumber>
-    <borrowernumber>2</borrowernumber>
-    <branchcode>42</branchcode>
-    <cancellationdate></cancellationdate>
-    <expirationdate></expirationdate>
-    <found>W</found>
-    <itemnumber>315960</itemnumber>
-    <itemtype></itemtype>
-    <lowestPriority>0</lowestPriority>
-    <notificationdate></notificationdate>
-    <priority>0</priority>
-    <reminderdate></reminderdate>
-    <reserve_id>192</reserve_id>
-    <reservedate>2017-03-01</reservedate>
-    <reservenotes>Lånetyp: Hemlån
+    <anon>
+      <biblionumber>191130</biblionumber>
+      <borrowernumber>2</borrowernumber>
+      <branchcode>42</branchcode>
+      <cancellationdate></cancellationdate>
+      <expirationdate></expirationdate>
+      <found>W</found>
+      <itemnumber>315960</itemnumber>
+      <itemtype></itemtype>
+      <lowestPriority>0</lowestPriority>
+      <notificationdate></notificationdate>
+      <priority>0</priority>
+      <reminderdate></reminderdate>
+      <reserve_id>192</reserve_id>
+      <reservedate>2017-03-01</reservedate>
+      <reservenotes>Lånetyp: Hemlån
 </reservenotes>
-    <suspend>0</suspend>
-    <suspend_until></suspend_until>
-    <timestamp>2017-03-01 16:19:42</timestamp>
-    <waitingdate>2017-03-01</waitingdate>
-  </reserves>
-  <reserves>
-    <biblionumber>145759</biblionumber>
-    <borrowernumber>2</borrowernumber>
-    <branchcode>40</branchcode>
-    <cancellationdate></cancellationdate>
-    <expirationdate></expirationdate>
-    <found></found>
-    <itemnumber>140963</itemnumber>
-    <itemtype></itemtype>
-    <lowestPriority>0</lowestPriority>
-    <notificationdate></notificationdate>
-    <priority>1</priority>
-    <reminderdate></reminderdate>
-    <reserve_id>198</reserve_id>
-    <reservedate>2017-03-03</reservedate>
-    <reservenotes>Lånetyp: Hemlån
-</reservenotes>
-    <suspend>0</suspend>
-    <suspend_until></suspend_until>
-    <timestamp>2017-03-03 11:12:26</timestamp>
-    <waitingdate></waitingdate>
+      <suspend>0</suspend>
+      <suspend_until></suspend_until>
+      <timestamp>2017-03-01 16:19:42</timestamp>
+      <waitingdate>2017-03-01</waitingdate>
+    </anon>>
+    <anon>
+      <biblionumber>145759</biblionumber>
+      <borrowernumber>2</borrowernumber>
+      <branchcode>40</branchcode>
+      <cancellationdate></cancellationdate>
+      <expirationdate></expirationdate>
+      <found></found>
+      <itemnumber>140963</itemnumber>
+      <itemtype></itemtype>
+      <lowestPriority>0</lowestPriority>
+      <notificationdate></notificationdate>
+      <priority>1</priority>
+      <reminderdate></reminderdate>
+      <reserve_id>198</reserve_id>
+      <reservedate>2017-03-03</reservedate>
+      <reservenotes>Lånetyp: Hemlån
+  </reservenotes>
+      <suspend>0</suspend>
+      <suspend_until></suspend_until>
+      <timestamp>2017-03-03 11:12:26</timestamp>
+      <waitingdate></waitingdate>
+    </anon>>
   </reserves>
 </response>

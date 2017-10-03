@@ -3,7 +3,7 @@ class Item
   include ActiveModel::Validations
 
   attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number,
-                :copy_number, :due_date, :lost, :restricted, :not_for_loan, :is_reserved
+                :copy_number, :due_date, :lost, :restricted, :not_for_loan, :is_reserved, :withdrawn
 
   attr_writer :found
 
@@ -89,6 +89,10 @@ class Item
     @item_type == '2'
   end
 
+  def masked?
+    ['1', '2', '3'].include?(@withdrawn) || @lost == '1'
+  end
+
   def status_limitation
     return "NOT_FOR_HOME_LOAN" if item_type_ref?
     return "READING_ROOM_ONLY" if @not_for_loan == '-3'
@@ -97,12 +101,12 @@ class Item
 
   def status
     return "LOANED" if @due_date.present? && Date.parse(@due_date) >= Date.today
-    return "RESERVED" if @is_reserved
+    return "RESERVED" if (@is_reserved && @due_date.blank?) || ['5', '6', '7', '8','9'].include?(@lost)
     return "WAITING" if @found == "W"
     return "IN_TRANSIT" if @found == "T"
     return "FINISHED" if @found == "F"
-    return "DELAYED" if @due_date.present? && Date.parse(@due_date) < Date.today
-    return "NOT_IN_PLACE" if @lost == '4'
+    return "DELAYED" if (@due_date.present? && Date.parse(@due_date) < Date.today) || @lost == '2'
+    return "NOT_IN_PLACE" if ['1', '4'].include?(@lost)
     return "DURING_ACQUISITION" if @not_for_loan == '-1'
     return "AVAILABLE"
   end
@@ -144,6 +148,10 @@ class Item
 
     if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="7"]').text.present?
       @not_for_loan = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="7"]').text
+    end
+
+    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="0"]').text.present?
+      @withdrawn = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="0"]').text
     end
   end
 

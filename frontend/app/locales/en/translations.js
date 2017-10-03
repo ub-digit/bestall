@@ -135,9 +135,6 @@ export default {
     "NO_ADDRESS": {
       "message": "Vi saknar adressuppgifter till dig. Fyll i din adress i <a href=\"#\">Mina lån</a>."
     },
-    "EXPIRED": {
-      "message": "Giltighetstiden på ditt bibliotekskort har gått ut. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att uppdatera kortet."
-    },
     "CAN_NOT_BE_BORROWED": {
       "message": "Det här materialet går inte att beställa eller låna hem. Du kan hämta boken från hyllan och läsa på plats i biblioteket."
     },

@@ -1,15 +1,15 @@
 class User
   attr_accessor :id, :username, :first_name, :last_name, :denied, :fines_amount, :reserves, :loans
-  attr_reader :banned, :card_lost, :fines, :debarred, :no_address, :expired, :user_category
+  attr_reader :banned, :card_lost, :fines, :debarred, :no_address, :user_category
 
   include ActiveModel::Model
   include ActiveModel::Serialization
   include ActiveModel::Validations
 
   def as_json options = {}
-    result = super(except: ['xml', 'banned', 'fines', 'debarred', 'no_address', 'card_lost', 'expired'])
+    result = super(except: ['xml', 'banned', 'fines', 'debarred', 'no_address', 'card_lost'])
     if @denied
-      result[:denied_reasons] = {banned: @banned, fines: @fines, debarred: @debarred, no_address: @no_address, card_lost: @card_lost, expired: @expired}
+      result[:denied_reasons] = {banned: @banned, fines: @fines, debarred: @debarred, no_address: @no_address, card_lost: @card_lost}
     else
       result[:denied_reasons] = nil
     end
@@ -73,20 +73,12 @@ class User
     @debarred = false # utgånget lånekort
     @no_address = false # saknar adress
     @card_lost = false # förlorat lånekort
-    @expired = false # utgånget
 
     if xml.search('//response/borrower/categorycode').text.present? && xml.search('//response/borrower/categorycode').text == 'AV'
       @banned = true
       @denied = true
     end
 
-    if xml.search('//response/borrower/dateexpiry').text.present?
-      date_expiry = xml.search('//response/borrower/dateexpiry').text
-      if date_expiry && (Date.parse(date_expiry) < Date.today)
-        @expired = true
-        @denied = true
-      end
-    end
     xml.xpath('//response/flags').each do |flag|
       if flag.xpath('name').text == 'CHARGES'
         if flag.xpath('amount').text.to_i > 69
