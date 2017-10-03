@@ -17,7 +17,9 @@ export default Ember.Controller.extend({
 
   hasSubscription: computed('order.model.reserve.subscription', function() {
     let hs = this.get('order.model.reserve.subscription');
-    if (hs) return true;
+    if (hs) {
+      return true;
+    }
     return false;
   }),
 

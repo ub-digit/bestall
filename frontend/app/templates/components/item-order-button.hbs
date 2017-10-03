@@ -1,5 +1,9 @@
 {{#if canBeQueued}}
-  <button {{action 'onOrderClick'}} class="btn btn-block btn-xs btn-primary">Köa</button>
+  <button {{action 'onOrderClick'}} class="btn btn-block btn-xs btn-primary">
+    {{t 'components.item-order-button.queue'}}
+  </button>
 {{else if canBeOrdered}}
-  <button {{action 'onOrderClick'}} class="btn btn-block btn-xs btn-primary">Beställ</button>
+  <button {{action 'onOrderClick'}} class="btn btn-block btn-xs btn-primary">
+    {{t 'components.item-order-button.order'}}
+  </button>
 {{/if}}

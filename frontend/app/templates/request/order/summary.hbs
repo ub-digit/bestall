@@ -1,46 +1,46 @@
 {{#each order.errors as |error|}}
-<div class="alert-danger col-xs-12">
-	{{error.detail}}
-</div>
+  <div class="alert-danger col-xs-12">
+    {{error.detail}}
+  </div>
 {{/each}}
 {{partial 'request/order/bibliographic-info'}}
 <hr/>
 <div class="row summary-info">
-	<div class="col-xs-12">
-		{{#if order.model.reserve.item.copyNumber}}
-			<div>
-				<span class="info-header">Exemplar</span>
-				<span class="info">{{order.model.reserve.item.copyNumber}}</span>
-			</div>
-		{{/if}}
-			<div>
-				<span class="info-header">Typ av lån</span>
-				<span class="info">{{order.model.reserve.loanType.name}}</span>
-			</div>
-			<div>
-				<span class="info-header">Hämta på</span>
-				<span class="info">{{order.model.reserve.location.name}}</span>
-			</div>
-		{{#if order.model.reserve.reserveNotes}}
-			<div>
-				<span class="info-header">Kommentar</span>
-				<span class="info">{{order.model.reserve.reserveNotes}}</span>
-			</div>
-		{{/if}}
-		{{#if order.model.reserve.subscriptionNotes}}
-			<div>
-				<span class="info-header">Kommentar</span>
-				<span class="info">{{order.model.reserve.subscriptionNotes}}</span>
-			</div>
-		{{/if}}
-	</div>
+  <div class="col-xs-12">
+    {{#if order.model.reserve.item.copyNumber}}
+      <div>
+        <span class="info-header">{{t "request.order.summary.copy-number"}}</span>
+        <span class="info">{{order.model.reserve.item.copyNumber}}</span>
+      </div>
+    {{/if}}
+    <div>
+      <span class="info-header">{{t "request.order.summary.loantype"}}</span>
+      <span class="info">{{order.model.reserve.loanType.name}}</span>
+    </div>
+    <div>
+      <span class="info-header">{{t "request.order.summary.pickup-location"}}</span>
+      <span class="info">{{order.model.reserve.location.name}}</span>
+    </div>
+    {{#if order.model.reserve.reserveNotes}}
+      <div>
+        <span class="info-header">{{t "request.order.summary.reserve-notes"}}</span>
+        <span class="info">{{order.model.reserve.reserveNotes}}</span>
+      </div>
+    {{/if}}
+    {{#if order.model.reserve.subscriptionNotes}}
+      <div>
+        <span class="info-header">{{t "request.order.summary.subscription-notes"}}</span>
+        <span class="info">{{order.model.reserve.subscriptionNotes}}</span>
+      </div>
+    {{/if}}
+  </div>
 </div>
 
 <div class="row">
-	<div class="col-xs-6 col-sm-6">
-		<button class="btn btn-block btn-default" {{action 'goBack'}}>Tillbaka</button>
-	</div>
-	<div class="col-xs-6 col-sm-6">
-		<button class="btn btn-block btn-success" {{action 'submitOrder'}}>Beställ</button>
-	</div>
+  <div class="col-xs-6 col-sm-6">
+    <button class="btn btn-block btn-default" {{action 'goBack'}}>{{t "request.order.summary.goback-button"}}</button>
+  </div>
+  <div class="col-xs-6 col-sm-6">
+    <button class="btn btn-block btn-success" {{action 'submitOrder'}}>{{t "request.order.summary.submit-order-button"}}</button>
+  </div>
 </div>

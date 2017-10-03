@@ -1,5 +1,5 @@
 {{partial 'request/order/bibliographic-info'}}
-<hr>
+<hr/>
 
 {{#if order.model.reserve.subscription}}
   <div class="row">
@@ -7,64 +7,68 @@
       {{reserve-note-input
       type="input"
       value=order.model.reserve.subscriptionNotes
-      label="Detaljer om beställningen"
-      helptext="Ange volym, år och nummer eller sidnummer för det exemplar du vill beställa."
+      label=(t 'request.order.details.subscription-reserve-label')
+      helptext=(t 'request.order.details.subscription-reserve-helptext')
       maxlength=140
     }}
     </div>
   </div>
   <div class="row">
     <div class="col-xs-12 col-sm-8">
-      <p>Du kan beställa exemplar ur följande bestånd:</p>
+      <p>{{t "request.order.details.subscription-note"}}</p>
       <pre class="subscription-note">{{order.model.reserve.subscription.publicNote}}</pre>
     </div>
   </div>
-  <hr>
+  <hr/>
 {{/if}}
 
 <div class="row">
   <div class="col-xs-12 col-sm-8">
     {{pick-location
-    locations=pickupLocations
-    selectedItem=order.model.reserve.location.id
-    userCategory=request.model.user.userCategory
-    item=order.model.reserve.item
-    onSelect=(action 'setLocation')
-    label=(t 'request.order.details.labelForLocationDropdown')
-  }}
-</div>
+      locations=pickupLocations
+      selectedItem=order.model.reserve.location.id
+      userCategory=request.model.user.userCategory
+      item=order.model.reserve.item
+      onSelect=(action 'setLocation')
+      label=(t 'request.order.details.location-dropdown-label')
+    }}
+  </div>
 </div>
 
 <div class="row">
   <div class="col-xs-12 col-sm-8">
     {{pick-type-of-loan
-    loanTypes=order.model.loantypes
-    selectedItem=order.model.reserve.loanType.id
-    item=order.model.reserve.item
-    onSelect=(action 'setLoanType')
-    label=(t 'request.order.details.labelForLoantypeDropdown')
-  }}
-</div>
+      loanTypes=order.model.loantypes
+      selectedItem=order.model.reserve.loanType.id
+      item=order.model.reserve.item
+      onSelect=(action 'setLoanType')
+      label=(t 'request.order.details.loantype-dropdown-label')
+    }}
+  </div>
 </div>
 {{#unless order.model.reserve.subscription}}
 <div class="row">
   <div class="col-xs-12 col-sm-8">
     {{reserve-note-input
-    type="textarea"
-    value=order.model.reserve.reserveNotes
-    label="Kommentarer (valfri)"
-    helptext="Ange om det är något mer du tror att vi behöver veta om din beställning."
-    maxlength=140
-  }}
-</div>
+      type="textarea"
+      value=order.model.reserve.reserveNotes
+      label=(t 'request.order.details.reserve-label')
+      helptext=(t 'request.order.details.reserve-helptext')
+      maxlength=140
+    }}
+  </div>
 </div>
 {{/unless}}
 
 <div class="row">
   <div class="col-xs-6 col-sm-6">
-    <button class="btn btn-block btn-default" {{action 'goBack'}}>Tillbaka</button>
+    <button class="btn btn-block btn-default" {{action 'goBack'}}>
+      {{t "request.order.details.goback-button"}}
+    </button>
   </div>
   <div class="col-xs-6 col-sm-6">
-    <button class="btn btn-block btn-primary pull-right" disabled={{btnNextDisabled}} {{action 'moveForward'}}>{{t 'request.order.details.btnNext'}}</button>
+    <button class="btn btn-block btn-primary pull-right" disabled={{btnNextDisabled}} {{action 'moveForward'}}>
+      {{t 'request.order.details.next-button'}}
+    </button>
   </div>
 </div>
