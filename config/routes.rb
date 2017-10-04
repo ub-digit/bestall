@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
     get 'users/current', to: 'users#current_user'
 
+    post 'print', to: 'print#create'
+
     # Config API
     get 'config/:id', to: 'config#cas_url'
   end
