@@ -23,7 +23,7 @@ export default {
       "available": "Tillgänglig",
       "not_for_home_loan": "Ej hemlån",
       "reading_room_only": "Beställs till läsesal",
-      "loan_in_house_only": "Utlån endast på plats",
+      "loan_in_house_only": "Endast utlån på plats",
       "loaned": "Utlånad till",
       "reserved": "Reserverad",
       "waiting": "Väntar på avhämtning",
@@ -67,7 +67,7 @@ export default {
         "currently-no-available-items": "Det finns inga tillgängliga exemplar just nu.",
         "number-of-people-in-queue": "personer i kö på utlånade exemplar",
         "queue-up": "Ställ dig i kö",
-        "all-items-are-available": "Alla exemplar finns tillgängliga."
+        "all-items-are-available": "Alla exemplar är tillgängliga."
       },
       "details": {
         "header": "Din beställning",
@@ -77,10 +77,10 @@ export default {
         "cant-be-pickedup-here": "kan ej beställas hit",
         "not-allowed": "ej tillåtet",
         "subscription-reserve-label": "Detaljer om beställningen",
-        "subscription-reserve-helptext": "Ange volym, år och nummer eller sidnummer för det exemplar du vill beställa.",
+        "subscription-reserve-helptext": "Ange volym, år, nummer eller sidnummer för det exemplar du vill beställa.",
         "subscription-note": "Du kan beställa exemplar ur följande bestånd:",
         "reserve-label": "Kommentar (valfri)",
-        "reserve-helptext": "Ange om det är något mer du tror att vi behöver veta om din beställning.",
+        "reserve-helptext": "Ange om det är något mer du vill meddela om din beställning.",
         "goback-button": "Tillbaka"
       },
       "confirmation": {
@@ -96,7 +96,7 @@ export default {
         "loantype": "Typ av lån",
         "pickup-location": "Hämta på",
         "reserve-notes": "Kommentar",
-        "subscription-notes": "Kommentar",
+        "subscription-notes": "Detaljer",
         "goback-button": "Tillbaka",
         "submit-order-button": "Beställ"
       }
@@ -113,7 +113,7 @@ export default {
     "404": "Vi hittade tyvärr inte posten du sökte.",
   },
   "login": {
-    "casLogin": "Log in"
+    "casLogin": "Logga in"
   },
   "request-errors": {
     "header": "Det går inte att beställa",
@@ -124,7 +124,7 @@ export default {
       "message": "Du är avstängd från bibliotekets tjänster. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> om du har frågor om detta."
     },
     "CARD_LOST": {
-      "message": "Ditt bibliotekskort/konto är spärrat. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
+      "message": "Ditt bibliotekskonto är spärrat. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
     },
     "FINES": {
       "message": "Du har för höga förseningsavgifter. Besök något av <a href=\"http://www.ub.gu.se/bibliotek/\">biblioteken</a> för att betala din avgift. Vi accepterar endast kortbetalning."
@@ -136,7 +136,7 @@ export default {
       "message": "Vi saknar adressuppgifter till dig. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att uppdatera din kontaktinformation."
     },
     "EXPIRED": {
-      "message": "Giltighetstiden på ditt bibliotekskort har gått ut. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att uppdatera kortet."
+      "message": "Giltighetstiden på ditt bibliotekskonto har gått ut. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att uppdatera ditt konto."
     },
     "CAN_NOT_BE_BORROWED": {
       "message": "Det här materialet går inte att beställa eller låna hem. Du kan hämta boken från hyllan och läsa på plats i biblioteket."
@@ -153,14 +153,12 @@ export default {
     "NOT_FOUND": {
       "message": "Du är inte registrerad för att få låna på biblioteket. <a href=\"http://www.ub.gu.se/lana/kort/\">Ansök om ett bibliotekskort</a> för att komma igång."
     },
-
     "UNKNOWN_ERROR": {
       "message": "Något gick fel. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
     }
   },
   "confirmation-errors": {
     "header": "Det gick inte att beställa",
-
     "DAMAGED": {
       "message": "Materialet är skadat och kan inte beställas. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
     },
