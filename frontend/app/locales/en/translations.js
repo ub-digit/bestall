@@ -3,8 +3,8 @@ export default {
     "headers": {
       "logoPrintUrl": '/gu_logo_en_high.png',
       "level1": 'Gothenburg University Library',
-      "level2": 'Order',
-      "mainHeader": 'Order articles and interlibrary loans',
+      "level2": 'Request and reserve',
+      "mainHeader": 'Request and reserve',
     },
     "footer": {
       "content": '© <a title="Göteborgs universitet" href="http://www.gu.se/">University of Gothenburg, Sweden</a><br>Box 100, S-405 30 Gothenburg<br>Phone +46 31-786 0000, <a title="Contact" href="http://www.gu.se/omuniversitetet/kontakt/">Contact</a>'
@@ -12,36 +12,36 @@ export default {
   },
   "components": {
     "item-order-button": {
-      "queue": "Queue",
-      "order": "Order"
+      "queue": "Reserve",
+      "order": "Request"
     },
     "item-table": {
-      "volume": "Volume",
+      "volume": "Item",
       "location": "Location",
       "status": "Status",
-      "must_be_ordered": "Must be ordered",
+      "must_be_ordered": "Must be requested",
       "available": "Available",
-      "not_for_home_loan": "Ej hemlån",
-      "reading_room_only": "Beställs till läsesal",
-      "loan_in_house_only": "Utlån endast på plats",
-      "loaned": "Utlånad till",
-      "reserved": "Reserverad",
-      "waiting": "Waiting for avhämtning",
+      "not_for_home_loan": "Not for home loan",
+      "reading_room_only": "Request to reading room",
+      "loan_in_house_only": "Borrow on location",
+      "loaned": "On loan until",
+      "reserved": "Reserved",
+      "waiting": "Waiting for pick up",
       "in_transit": "In transit",
-      "delayed": "Delayed",
-      "under_acquisition": "Under inköp",
-      "not_in_place": "Ej på plats",
+      "delayed": "Overdue",
+      "under_acquisition": "Ongoing purchase",
+      "not_in_place": "Not on shelf",
       "unknown": "Unknown",
     },
     "pick-location": {
-      "cannot-pickup-here" : "Kan ej beställas hit"
+      "cannot-pickup-here" : "can't be picked up here"
     },
     "pick-type-of-loans": {
-      "not-allowed": "Ej tillåtet"
+      "not-allowed": "not allowed"
     },
     "progress-steps": {
       "step-items-label": "Items",
-      "step-details-label": "Your order",
+      "step-details-label": "Details",
       "step-summary-label": "Summary",
       "step-confirmation-label": "Confirmation"
     },
@@ -54,162 +54,161 @@ export default {
   },
   "request": {
     "order": {
-      "header": "My order",
+      "header": "Your request",
       "items": {
         "next-button": "Continue",
         "select-button": "Select",
         "location": "Location",
         "note": "Note",
         "items": "Items",
-        "subscriptions": "Subscriptions",
+        "subscriptions": "Holdings",
         "available": "Available",
-        "not-available": "Not available",
+        "not-available": "On loan",
         "currently-no-available-items": "Currently there are no available items.",
-        "number-of-people-in-queue": "personer i kö på utlånade exemplar",
-        "queue-up": "Ställ dig i kö",
-        "all-items-are-available": "Alla exemplar finns tillgängliga."
+        "number-of-people-in-queue": "reservations for items on loan",
+        "queue-up": "Make a reservation",
+        "all-items-are-available": "All items are available."
       },
       "details": {
-        "header": "Din beställning",
-        "loantype-dropdown-label": "Hur vill du låna?",
-        "location-dropdown-label": "Var vill du hämta?",
-        "next-button": "Fortsätt",
-        "cant-be-pickedup-here": "Kan ej beställas hit",
-        "not-allowed": "Ej tillåtet",
-        "subscription-reserve-label": "Detaljer om beställningen",
-        "subscription-reserve-helptext": "Ange volym, år och nummer eller sidnummer för det exemplar du vill beställa.",
-        "subscription-note": "Du kan beställa exemplar ur följande bestånd:",
-        "reserve-label": "Kommentarer (valfri)",
-        "reserve-helptext": "Ange om det är något mer du tror att vi behöver veta om din beställning.",
-        "goback-button": "Tillbaka"
+        "header": "Your request",
+        "loantype-dropdown-label": "Select type of loan",
+        "location-dropdown-label": "Select a pick up location",
+        "next-button": "Continue",
+        "cant-be-pickedup-here": "can't be picked up here",
+        "not-allowed": "not allowed",
+        "subscription-reserve-label": "Details about your request",
+        "subscription-reserve-helptext": "Enter the requested item's volume, year, issue or page number.",
+        "subscription-note": "You can make requests for items from these holdings:",
+        "reserve-label": "Comment (optional)",
+        "reserve-helptext": "Enter any additional details that you may have about your request.",
+        "goback-button": "Go back"
       },
       "confirmation": {
-        "header": "Tack för din beställning",
-        "error-header": "Det gick inte att beställa",
-        "you-have-place": "Du har plats",
-        "in-queue": "i kön",
-        "message": "Du får ett meddelande när materialet finns att hämta på",
-        "my-loans-link-text": "Mina lån - se dina lån och beställningar"
+        "header": "Thank you for your request!",
+        "error-header": "The request couldn't be placed.",
+        "you-have-place": "You have place",
+        "in-queue": "in queue.",
+        "message": "You will get a message when the request is available for pick up at",
+        "my-loans-link-text": "See your loans and requests in My loans."
       },
       "summary": {
-        "copy-number": "Exemplar",
-        "loantype": "Typ av lån",
-        "pickup-location": "Hämta på",
-        "reserve-notes": "Kommentar",
-        "subscription-notes": "Kommentar",
-        "goback-button": "Tillbaka",
-        "submit-order-button": "Beställ"
+        "copy-number": "Item",
+        "loantype": "Type of loan",
+        "pickup-location": "Pick up at",
+        "reserve-notes": "Comment",
+        "subscription-notes": "Details",
+        "goback-button": "Go back",
+        "submit-order-button": "Request"
       }
     },
     "login": {
-      "header": "Login",
+      "header": "Log in",
       "username-label": "Username:",
       "password-label": "Password:",
-      "login-button": "Login",
-      "cas-link-text": "Login using CAS"
+      "login-button": "Log in",
+      "cas-link-text": "Log in using CAS"
     }
   },
   "status-errors": {
-    "404": "The page you were looking for does not exist.",
+    "404": "The record you were looking for does not exist.",
   },
   "login": {
     "casLogin": "Log in"
   },
   "request-errors": {
-    "header": "Unable to order",
+    "header": "A request can't be placed.",
     "NO_ID": {
-      "message": "Detta felet uppkommer eftersom applikationen laddas utan sitt dynamiska segment som krävs för rutten request. Felet fångas på application-nivå i before-model.",
+      "message": "Search for something to request at the <a href=\"http://www.ub.gu.se/\">library's website.</a>",
     },
     "BANNED": {
-      "message": "Du är avstängd från bibliotekets tjänster. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> om du har frågor om detta."
+      "message": "You are suspended from using the library's services. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library.</a>"
     },
     "CARD_LOST": {
-      "message": "Ditt bibliotekskort/konto är spärrat. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
+      "message": "Your library account is suspended. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library.</a>"
     },
     "FINES": {
-      "message": "Du har för höga förseningsavgifter. Besök något av <a href=\"http://www.ub.gu.se/bibliotek/\">biblioteken</a> för att betala din avgift."
+      "message": "Your late fees are too high. Please visit one of <a href=\"http://www.ub.gu.se/bibliotek/\">the libraries</a> to pay your fee. We only accept card payment."
     },
     "DEBARRED": {
-      "message": "Du får inte beställa. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
+      "message": "You are not allowed to place a request. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library.</a>"
     },
     "NO_ADDRESS": {
-      "message": "Vi saknar adressuppgifter till dig. Fyll i din adress i <a href=\"#\">Mina lån</a>."
+      "message": "We don't have your address on file. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library</a> to update your contact information."
+    },
+    "EXPIRED": {
+      "message": "Your library account has expired. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library</a> to update your account."
     },
     "CAN_NOT_BE_BORROWED": {
-      "message": "Det här materialet går inte att beställa eller låna hem. Du kan hämta boken från hyllan och läsa på plats i biblioteket."
+      "message": "This material can't be requested or borrowed. You can collect the book from the shelf and read it in the library."
     },
     "ITEM_NOT_FOUND": {
-      "message": "Något gick fel. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
+      "message": "Something went wrong. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library.</a>"
     },
     "ALREADY_BORROWED": {
-      "message": "Du har redan lånat materialet."
+      "message": "You have already borrowed this material."
     },
     "ALREADY_RESERVED": {
-      "message": "Du har allaredan beställt eller köar på materialet."
+      "message": "You have already requested this material."
     },
     "NOT_FOUND": {
-      "message": "Du är inte registrerad för att få låna på biblioteket. Ansök om ett bibliotekskort här."
-    },
-    "UNAUTHORIZED": {
-      "message": "unauthorized..."
+      "message": "You are not yet registered to borrow at the library. <a href=\"http://www.ub.gu.se/lana/kort/\">Apply for a library card</a> to get started."
     },
     "UNKNOWN_ERROR": {
-      "message": "Något gick fel. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
+      "message": "Something went wrong. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library.</a>"
     }
   },
   "confirmation-errors": {
-    "header": "Unable to order",
-
+    "header": "A request can't be placed",
     "DAMAGED": {
-      "message": "Materialet är skadat och kan inte beställas. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
+      "message": "This material is damaged and can't be requested. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library</a> if you need any assistance."
     },
     "AGE_RESTRICTED": {
-      "message": "Du får inte beställa det här materialet. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
+      "message": "You are not allowed to request this material. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library</a> if you need any assistance."
     },
     "ITEM_ALREADY_ON_HOLD": {
-      "message": "Du har redan beställt eller köar på materialet."
+      "message": "You have already requested this material."
     },
     "TOO_MANY_RESERVES": {
-      "message": "Du har för många reservationer för att få beställa."
+      "message": "You have reached the maximum amount of allowed requests and can't place any more requests."
     },
     "NOT_RESERVABLE": {
-      "message": "Materialet kunde inte beställas. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
+      "message": "This material can't be requested. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library</a> if you need any assistance."
     },
     "CANNOT_RESERVE_FROM_OTHER_BRANCHES": {
-      "message": "Materialet kunde inte beställas till andra bibliotek."
+      "message": "This material can't be requested to other libraries."
     },
     "TOO_MANY_HOLDS_FOR_THIS_RECORD": {
-      "message": "Det gick inte att beställa det här materialet. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
+      "message": "This material can't be requested. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library</a> if you need any assistance."
     },
     "BORROWER_NOT_FOUND": {
-      "message": "Du är inte registrerad för att få låna på biblioteket. Ansök om ett bibliotekskort <a href=\"http://www.ub.gu.se/lana/kort/\"här</a>."
+      "message": "You are not yet registered to borrow at the library. <a href=\"http://www.ub.gu.se/lana/kort/\">Apply for a library card</a> to get started."
     },
     "BRANCH_CODE_MISSING": {
-      "message": "Du måste ange ett bibliotek att hämta materialet på."
+      "message": "You have to choose what library you want as your pick-up location."
     },
     "ITEMNUMBER_OR_BIBLIONUMBER_IS_MISSING": {
-      "message": "Något gick fel. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
+      "message": "Something went wrong. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library.</a>"
     },
     "BIBLIONUMBER_IS_MISSING": {
-      "message": "Något gick fel. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
+      "message": "Something went wrong. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library.</a>"
     },
     "ITEM_DOES_NOT_BELONG_TO_BIBLIO": {
-      "message": "Något gick fel. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
+      "message": "Something went wrong. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library.</a>"
     },
     "UNRECOGNIZED_ERROR": {
-      "message": "Något gick fel. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
+      "message": "Something went wrong. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library.</a>"
     },
     "MISSING_USER": {
-      "message": "Något gick fel. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
+      "message": "Something went wrong. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library.</a>"
     },
     "MISSING_LOCATION": {
-      "message": "Något gick fel. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
+      "message": "Something went wrong. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library.</a>"
     },
     "MISSING_BIBLIO": {
-      "message": "Något gick fel. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
+      "message": "Something went wrong. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library.</a>"
     },
     "MISSING_LOAN_TYPE": {
-      "message": "Något gick fel. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
+      "message": "Something went wrong. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library.</a>"
     }
   }
 };
