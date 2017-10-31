@@ -1,5 +1,6 @@
 export default {
   "home": {
+    "title": "Order",
     "headers": {
       "logoPrintUrl": '/gu_logo_en_high.png',
       "level1": 'Gothenburg University Library',
@@ -34,7 +35,7 @@ export default {
       "unknown": "Unknown",
     },
     "pick-location": {
-      "cannot-pickup-here" : "can't be picked up here"
+      "cannot-pickup-here": "can't be picked up here"
     },
     "pick-type-of-loans": {
       "not-allowed": "not allowed"

@@ -1,5 +1,6 @@
 export default {
   "home": {
+    "title": "Beställ",
     "headers": {
       "logoPrintUrl": '/gu_logo_sv_high.png',
       "level1": 'Göteborgs universitetsbibliotek',
@@ -34,7 +35,7 @@ export default {
       "unknown": "Okänd",
     },
     "pick-location": {
-      "cannot-pickup-here" : "kan ej beställas hit"
+      "cannot-pickup-here": "kan ej beställas hit"
     },
     "pick-type-of-loans": {
       "not-allowed": "ej tillåtet"
