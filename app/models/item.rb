@@ -101,13 +101,13 @@ class Item
 
   def status
     return "LOANED" if @due_date.present? && Date.parse(@due_date) >= Date.today
-    return "RESERVED" if (@is_reserved && @due_date.blank?) || ['5', '6', '7', '8','9'].include?(@lost)
     return "WAITING" if @found == "W"
     return "IN_TRANSIT" if @found == "T"
     return "FINISHED" if @found == "F"
+    return "RESERVED" if (@is_reserved && @due_date.blank?) || ['5', '6', '7', '8','9'].include?(@lost)
     return "DELAYED" if (@due_date.present? && Date.parse(@due_date) < Date.today) || @lost == '2'
     return "NOT_IN_PLACE" if ['1', '4'].include?(@lost)
-    return "DURING_ACQUISITION" if @not_for_loan == '-1'
+    return "DURING_ACQUISITION" if @withdrawn == '-4'
     return "AVAILABLE"
   end
 
