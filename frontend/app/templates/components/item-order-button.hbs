@@ -6,4 +6,6 @@
   <button {{action 'onOrderClick'}} class="btn btn-block btn-xs btn-primary">
     {{t 'components.item-order-button.order'}}
   </button>
+{{else if isAvailible}}
+  {{t 'components.item-order-button.collect'}}
 {{/if}}

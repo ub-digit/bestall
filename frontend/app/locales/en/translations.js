@@ -14,7 +14,8 @@ export default {
   "components": {
     "item-order-button": {
       "queue": "Reserve",
-      "order": "Request"
+      "order": "Request",
+      "collect": "Collect it from the shelf"
     },
     "item-table": {
       "volume": "Item",
