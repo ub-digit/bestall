@@ -20,6 +20,7 @@
           <td>{{item.statusText}}<br/><span class="status-text">{{item.statusLimitationText}}</span></td>
           <td>
             {{item-order-button
+              isAvailible=item.isAvailible
               canBeOrdered=item.canBeOrdered
               canBeQueued=item.canBeQueued
               onClick=(action 'setItemToOrder' item)
