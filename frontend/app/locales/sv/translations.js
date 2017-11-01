@@ -14,7 +14,8 @@ export default {
   "components": {
     "item-order-button": {
       "queue": "Köa",
-      "order": "Beställ"
+      "order": "Beställ",
+      "collect": "Hämta själv från hyllan"
     },
     "item-table": {
       "volume": "Exemplar",
