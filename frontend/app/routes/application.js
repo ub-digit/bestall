@@ -5,15 +5,18 @@ export default Ember.Route.extend({
 	session: Ember.inject.service(),
 
 	beforeModel(transition) {
-		var lang = transition.queryParams.lang;
+    if(!transition.params.request){
+      //  console.log('no request in params');
+        //this.replaceWith('error', {error:'error_msg'});
+        this.transitionTo('request','error');
+    }
 
-	    if(!transition.params.request){
-	      //  console.log('no request in params');
-	        //this.replaceWith('error', {error:'error_msg'});
-	        this.transitionTo('request','error');
-	    }
-
+  	var lang = transition.queryParams.lang;
+    if (!lang) {
+      lang = localStorage.getItem('lang');
+    }
 	    if(lang) {
+	    	localStorage.setItem('lang', lang);
 	    	this.set('i18n.locale', lang);
 	    }
 	},
@@ -24,6 +27,6 @@ export default Ember.Route.extend({
 
 
 	actions: {
-	
+
 	}
 });
