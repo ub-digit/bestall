@@ -15,6 +15,7 @@ class Biblio
   ]
 
   def can_be_borrowed
+    return true if !@subscriptions.empty?
     @items.each do |item|
       return true if item.can_be_borrowed
     end
