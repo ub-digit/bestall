@@ -155,6 +155,9 @@ export default {
     "NOT_FOUND": {
       "message": "You are not yet registered to borrow at the library. <a href=\"http://www.ub.gu.se/lana/kort/\">Apply for a library card</a> to get started."
     },
+    "BROWSER_ERROR": {
+      "message": "Something went wrong. Try another web browser, or <a href=\"http://www.ub.gu.se/kontakta/\">contact the library.</a>"
+    },
     "UNKNOWN_ERROR": {
       "message": "Something went wrong. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library.</a>"
     }
