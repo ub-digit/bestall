@@ -155,6 +155,9 @@ export default {
     "NOT_FOUND": {
       "message": "Du är inte registrerad för att få låna på biblioteket. <a href=\"http://www.ub.gu.se/lana/kort/\">Ansök om ett bibliotekskort</a> för att komma igång."
     },
+    "BROWSER_ERROR": {
+      "message": "Något gick fel. Försök med en annan webbläsare, eller <a href=\"http://www.ub.gu.se/kontakta/\">kontakta biblioteket</a> för att få hjälp."
+    },
     "UNKNOWN_ERROR": {
       "message": "Något gick fel. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
     }

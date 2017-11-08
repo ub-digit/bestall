@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  session: Ember.inject.service(),
 
   queryParams: {
     location: {
@@ -11,6 +12,20 @@ export default Ember.Route.extend({
     }
   },
 
+  beforeModel() {
+    /* WORKAROUND! NO SOLUTION KNOWN!
+     * Check if user is available (login has occurred) and 
+     * session is unauthenticated (Chrome lost authentication for some reason).
+     * 
+     * If true, reject with an error so that the default error page can present
+     * a message about trying another browser.
+     */
+    let user = this.modelFor('request').user;
+    if (user && !this.get('session.isAuthenticated')) {
+      return Ember.RSVP.reject({errors: {errors: [{code: 'BROWSER_ERROR', data: 'Unknown browser error'}]}});
+    }
+  },
+  
   model() {
     let biblio = this.modelFor('request').biblio;
     let user = this.modelFor('request').user;
