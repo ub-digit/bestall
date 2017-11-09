@@ -40,8 +40,9 @@
                 {{#each subscriptionsSorted as |subscription|}}
                 <tr>
                   <td>{{subscription.sublocation.name}}</td>
-                  <td><pre class="subscription-note">{{subscription.publicNote}}</pre></td>
-                  <td><button class="btn btn-primary btn-block" {{action 'setSubscriptionToOrder' subscription}}>{{t "request.order.items.select-button"}}</button></td>
+
+                  <td><textarea class="subscription-note" wrap=off readonly>{{subscription.publicNote}}</textarea></td>
+                  <td><button class="btn btn-primary" {{action 'setSubscriptionToOrder' subscription}}>{{t "request.order.items.select-button"}}</button></td>
                 </tr>
                 {{/each}}
               </tbody>
