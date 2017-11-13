@@ -26,7 +26,8 @@ export default Ember.Component.extend({
     // First get the filtered list
     const filteredLoanTypes = this.get('filteredLoanTypes');
     const selectedItem = this.get('selectedItem');
-    let defaultValue = filteredLoanTypes.get('firstObject').id;
+    const filteredFromDisabledLoanTypes = filteredLoanTypes.filter(function(item) {if (!item.disabled) {return item}})
+    let defaultValue = filteredFromDisabledLoanTypes.get('firstObject').id;
 
     // Check if anything is selected
     if (selectedItem) {
