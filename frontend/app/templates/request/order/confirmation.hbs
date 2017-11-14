@@ -28,8 +28,10 @@
        {{/if}}
     {{/if}}
     <p>{{t "request.order.confirmation.message"}}  {{order.model.reserve.location.name}}.</p>
-    <i class="fa fa-angle-right" aria-hidden="true"></i>
-    <a href="#">{{t "request.order.confirmation.my-loans-link-text"}}</a>
+    {{#unless order.model.reserve.subscriptionNotes}}
+      <i class="fa fa-angle-right" aria-hidden="true"></i>
+      <a href="#">{{t "request.order.confirmation.my-loans-link-text"}}</a>
+    {{/unless}}
   </div>
 {{/if}}
 </div>
