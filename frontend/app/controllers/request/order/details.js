@@ -94,8 +94,8 @@ export default Ember.Controller.extend({
 
   }),
 
-  btnNextDisabled: Ember.computed('order.model.reserve.{location,loanType}', function() {
-    if (this.get('order.model.reserve.location') && this.get('order.model.reserve.loanType')) {
+  btnNextDisabled: Ember.computed('order.model.reserve.{location,loanType,subscriptionNotes}', function() {
+    if (this.get('order.model.reserve.location') && this.get('order.model.reserve.loanType') && this.get('order.model.reserve.subscriptionNotes')) {
       return false;
     }
     return true;
