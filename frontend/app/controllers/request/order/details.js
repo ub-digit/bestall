@@ -98,11 +98,14 @@ export default Ember.Controller.extend({
     let that = this;
     let subscriptionNotesCheck = function() {
       if (that.get('order.model.reserve.biblio.recordType') != 'monograph') {
+        if (that.get('order.model.reserve.item')) {
+          return true;
+        }
         if (that.get('order.model.reserve.subscriptionNotes')) {
-          return false
+          return true;
         }
       }
-      return true;
+      return false;
     }
     if (this.get('order.model.reserve.location') && this.get('order.model.reserve.loanType') && subscriptionNotesCheck()) {
       return false;
