@@ -95,7 +95,16 @@ export default Ember.Controller.extend({
   }),
 
   btnNextDisabled: Ember.computed('order.model.reserve.{location,loanType,subscriptionNotes}', function() {
-    if (this.get('order.model.reserve.location') && this.get('order.model.reserve.loanType') && this.get('order.model.reserve.subscriptionNotes')) {
+    let that = this;
+    let subscriptionNotesCheck = function() {
+      if (that.get('order.model.reserve.biblio.recordType') != 'monograph') {
+        if (that.get('order.model.reserve.subscriptionNotes')) {
+          return false
+        }
+      }
+      return true;
+    }
+    if (this.get('order.model.reserve.location') && this.get('order.model.reserve.loanType') && subscriptionNotesCheck()) {
       return false;
     }
     return true;
