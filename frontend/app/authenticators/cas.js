@@ -4,9 +4,11 @@ import ENV from 'frontend/config/environment';
 //import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
 export default Base.extend({
+  store: Ember.inject.service(),
 
   authenticate: function(credentials) {
     var authCredentials = {};
+    var that = this;
     if(credentials.cas_ticket && credentials.cas_service) {
       authCredentials = credentials;
     }
@@ -18,6 +20,7 @@ export default Base.extend({
         contentType: 'application/json'
       }).then(function(response) {
         var token = response.access_token;
+        that.get('store').createRecord('token', {id: 1, token: token});
         resolve({
           authenticated: true,
           token: token
