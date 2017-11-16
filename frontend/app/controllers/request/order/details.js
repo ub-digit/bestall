@@ -105,6 +105,9 @@ export default Ember.Controller.extend({
           return true;
         }
       }
+      else {
+        return true;
+      }
       return false;
     }
     if (this.get('order.model.reserve.location') && this.get('order.model.reserve.loanType') && subscriptionNotesCheck()) {
