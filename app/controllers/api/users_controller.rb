@@ -14,10 +14,10 @@ class Api::UsersController < ApplicationController
       if user.denied
         #compose error list of the reasons to why the user is denied
         error_list = Array.new
-        error_list.push({"code" => "AV", "detail" => "User is banned."}) if user.av
-        error_list.push({"code" => "ORI", "detail" => "User has obetald räkning inkasso."}) if user.ori
+        error_list.push({"code" => "RESTRICTION_AV", "detail" => "User is banned."}) if user.restriction_av
+        error_list.push({"code" => "RESTRICTION_ORI", "detail" => "User has obetald räkning inkasso."}) if user.restriction_ori
         user_data = {"user_category" => user.user_category}
-        user_data["fines_amount"] = user.fines_amount if user.fines
+        user_data["fines_amount"] = user.fines_amount if user.restriction_fines
         error_msg(ErrorCodes::FORBIDDEN, "Access denied", error_list, user_data)
       elsif biblio && biblio.has_biblio_level_queue && user.has_borrowed_item?(biblio_id)
         error_list = Array.new

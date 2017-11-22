@@ -125,10 +125,10 @@ export default {
     "NO_ID": {
       "message": "Search for something to request at the <a href=\"http://www.ub.gu.se/\">library's website.</a>",
     },
-    "AV": {
+    "RESTRICTION_AV": {
       "message": "You are suspended from using the library's services. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library.</a>"
     },
-    "ORI": {
+    "RESTRICTION_ORI": {
       "message": "Du har en obetald räkning inkasso och får inte beställa. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> om du har frågor om detta."
     },
     "CAN_NOT_BE_BORROWED": {
