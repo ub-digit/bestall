@@ -13,13 +13,11 @@ export default DS.Model.extend({
   expirationDate: DS.attr('date'),
 
   denied: DS.attr('boolean'),
+  warning: DS.attr('boolean'),
 
-  banned: DS.attr('boolean'), // @banned
-  fines: DS.attr('boolean'), // @fines
-  debarred: DS.attr('boolean'), // @debarred
-  noAddress: DS.attr('boolean'), // @no_address
-  cardLost: DS.attr('boolean'), // @card_lost
-  expired: DS.attr('boolean'), //@expired
+  deniedReasons: DS.attr(),
+  warningReasons: DS.attr(),
+
   userCategory: DS.attr('string') //@user_category
 
 });

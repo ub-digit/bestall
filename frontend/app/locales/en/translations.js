@@ -101,7 +101,10 @@ export default {
         "subscription-notes": "Details",
         "goback-button": "Go back",
         "submit-order-button": "Request"
-      }
+      },
+      "warning": {
+        "message": "Du får beställa det här materialet men kommer inte kunna låna det för att du har förseningsavgifter eller försenade lån. Se detaljer i <a href=\"http://www.ub.gu.se/\">Mina lån.</a"
+      },
     },
     "login": {
       "header": "Log in",
@@ -122,23 +125,11 @@ export default {
     "NO_ID": {
       "message": "Search for something to request at the <a href=\"http://www.ub.gu.se/\">library's website.</a>",
     },
-    "BANNED": {
+    "AV": {
       "message": "You are suspended from using the library's services. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library.</a>"
     },
-    "CARD_LOST": {
-      "message": "Your library account is suspended. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library.</a>"
-    },
-    "FINES": {
-      "message": "Your late fees are too high. Please visit one of <a href=\"http://www.ub.gu.se/bibliotek/\">the libraries</a> to pay your fee. We only accept card payment."
-    },
-    "DEBARRED": {
-      "message": "You are not allowed to place a request. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library.</a>"
-    },
-    "NO_ADDRESS": {
-      "message": "We don't have your address on file. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library</a> to update your contact information."
-    },
-    "EXPIRED": {
-      "message": "Your library account has expired. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library</a> to update your account."
+    "ORI": {
+      "message": "Du har en obetald räkning inkasso och får inte beställa. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> om du har frågor om detta."
     },
     "CAN_NOT_BE_BORROWED": {
       "message": "This material can't be requested or borrowed. You can collect the book from the shelf and read it in the library."

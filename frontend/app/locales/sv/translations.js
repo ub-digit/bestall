@@ -101,7 +101,10 @@ export default {
         "subscription-notes": "Detaljer",
         "goback-button": "Tillbaka",
         "submit-order-button": "Beställ"
-      }
+      },
+      "warning": {
+        "message": "Du får beställa det här materialet men kommer inte kunna låna det för att du har förseningsavgifter eller försenade lån. Se detaljer i <a href=\"http://www.ub.gu.se/\">Mina lån.</a"
+      },
     },
     "login": {
       "header": "Logga in",
@@ -122,23 +125,11 @@ export default {
     "NO_ID": {
       "message": "Sök efter något att beställa på <a href=\"http://www.ub.gu.se/\">bibliotekets webbplats.</a>",
     },
-    "BANNED": {
+    "AV": {
       "message": "Du är avstängd från bibliotekets tjänster. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> om du har frågor om detta."
     },
-    "CARD_LOST": {
-      "message": "Ditt bibliotekskonto är spärrat. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
-    },
-    "FINES": {
-      "message": "Du har för höga förseningsavgifter. Besök något av <a href=\"http://www.ub.gu.se/bibliotek/\">biblioteken</a> för att betala din avgift. Vi accepterar endast kortbetalning."
-    },
-    "DEBARRED": {
-      "message": "Du får inte beställa. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
-    },
-    "NO_ADDRESS": {
-      "message": "Vi saknar adressuppgifter till dig. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att uppdatera din kontaktinformation."
-    },
-    "EXPIRED": {
-      "message": "Giltighetstiden på ditt bibliotekskonto har gått ut. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att uppdatera ditt konto."
+    "ORI": {
+      "message": "Du har en obetald räkning inkasso och får inte beställa. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> om du har frågor om detta."
     },
     "CAN_NOT_BE_BORROWED": {
       "message": "Det här materialet går inte att beställa eller låna hem. Du kan hämta boken från hyllan och läsa på plats i biblioteket."
