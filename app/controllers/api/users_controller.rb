@@ -14,11 +14,8 @@ class Api::UsersController < ApplicationController
       if user.denied
         #compose error list of the reasons to why the user is denied
         error_list = Array.new
-        error_list.push({"code" => "BANNED", "detail" => "User is banned."}) if user.banned
-        error_list.push({"code" => "CARD_LOST", "detail" => "Users card has been reported as lost."}) if user.card_lost
-        error_list.push({"code" => "FINES", "detail" => "Fines exceed maximum allowed amount."}) if user.fines
-        error_list.push({"code" => "DEBARRED", "detail" => "User is debarred."}) if user.debarred
-        error_list.push({"code" => "NO_ADDRESS", "detail" => "User has no address record."}) if user.no_address
+        error_list.push({"code" => "AV", "detail" => "User is banned."}) if user.av
+        error_list.push({"code" => "ORI", "detail" => "User has obetald räkning inkasso."}) if user.ori
         user_data = {"user_category" => user.user_category}
         user_data["fines_amount"] = user.fines_amount if user.fines
         error_msg(ErrorCodes::FORBIDDEN, "Access denied", error_list, user_data)

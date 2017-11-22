@@ -1,17 +1,22 @@
 class User
-  attr_accessor :id, :username, :first_name, :last_name, :denied, :fines_amount, :reserves, :loans
-  attr_reader :banned, :card_lost, :fines, :debarred, :no_address, :user_category
+  attr_accessor :id, :username, :first_name, :last_name, :denied, :warning, :fines_amount, :reserves, :loans
+  attr_reader :fines, :av, :or, :ori, :user_category
 
   include ActiveModel::Model
   include ActiveModel::Serialization
   include ActiveModel::Validations
 
   def as_json options = {}
-    result = super(except: ['xml', 'banned', 'fines', 'debarred', 'no_address', 'card_lost'])
+    result = super(except: ['xml'])
     if @denied
-      result[:denied_reasons] = {banned: @banned, fines: @fines, debarred: @debarred, no_address: @no_address, card_lost: @card_lost}
+      result[:denied_reasons] = {av: @av, ori: @ori}
     else
       result[:denied_reasons] = nil
+    end
+    if @warning
+      result[:warning_reasons] = {fines: @fines, or: @or, overdue: @overdue}
+    else
+      result[:warning_reasons] = nil
     end
     return result
   end
@@ -65,39 +70,46 @@ class User
     end
 
     @denied = false # spärrad
-
+    @warning = false # ska varnas
     @fines_amount = nil # bötesbelopp
-
-    @banned = false # avstängd (AV)
     @fines = false # böter mer än 69 kr
-    @debarred = false # utgånget lånekort
-    @no_address = false # saknar adress
-    @card_lost = false # förlorat lånekort
+    @av = false # avstängd
+    @or = false # obetald räkning
+    @ori = false # obetald räkning inkasso
+    @overdue = false # 2a krav
 
+    # TBD remove this, when AV is moved from patron category
     if xml.search('//response/borrower/categorycode').text.present? && xml.search('//response/borrower/categorycode').text == 'AV'
-      @banned = true
+      @av = true
       @denied = true
+    end
+
+    xml.xpath('//response/debarments').each do |debarment|
+      if debarment.xpath('comment').text.starts_with?('AV, ')
+        @av = true
+        @denied = true
+      end
+      if debarment.xpath('comment').text.starts_with?('OR, ')
+        @or = true
+        @warning = true
+      end
+      if debarment.xpath('comment').text.starts_with?('ORI, ')
+        @ori = true
+        @denied = true
+      end
+      if debarment.xpath('comment').text.starts_with?('OVERDUES_PROCESS ')
+        @overdue = true
+        @warning = true
+      end
     end
 
     xml.xpath('//response/flags').each do |flag|
       if flag.xpath('name').text == 'CHARGES'
         if flag.xpath('amount').text.to_i > 69
           @fines = true
-          @denied = true
+          @warning = true
         end
         @fines_amount = flag.xpath('amount').text
-      end
-      if flag.xpath('name').text == 'DBARRED'
-        @debarred = true
-        @denied = true
-      end
-      if flag.xpath('name').text == 'GNA'
-        @no_address = true
-        @denied = true
-      end
-      if flag.xpath('name').text == 'LOST'
-        @card_lost = true
-        @denied = true
       end
     end
 

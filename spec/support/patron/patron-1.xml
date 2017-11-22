@@ -79,16 +79,14 @@
     <message>Patron owes 150.00</message>
     <noissues>1</noissues>
   </flags>
-  <flags>
-    <name>DBARRED</name>
-    <dateend>9999-12-31</dateend>
-    <debarredcomment>FL</debarredcomment>
-    <message>FL</message>
-    <noissues>1</noissues>
-  </flags>
-  <flags>
-    <name>GNA</name>
-    <message>Borrower has no valid address.</message>
-    <noissues>1</noissues>
-  </flags>
+  <debarments>
+    <borrower_debarment_id>22</borrower_debarment_id>
+    <borrowernumber>2</borrowernumber>
+    <comment>OVERDUES_PROCESS 2017-11-21 14:23</comment>
+    <created>2017-11-21 14:23:50</created>
+    <expiration></expiration>
+    <manager_id></manager_id>
+    <type>OVERDUES</type>
+    <updated></updated>
+  </debarments>
 </response>

@@ -91,4 +91,14 @@
     <message>Borrower has no valid address.</message>
     <noissues>1</noissues>
   </flags>
+  <debarments>
+    <borrower_debarment_id>22</borrower_debarment_id>
+    <borrowernumber>2</borrowernumber>
+    <comment>ORI, Obetald räkning inkasso: kommentar</comment>
+    <created>2017-11-21 14:36:01</created>
+    <expiration></expiration>
+    <manager_id>183621</manager_id>
+    <type>MANUAL</type>
+    <updated></updated>
+  </debarments>
 </response>
