@@ -68,16 +68,16 @@ RSpec.describe Api::SessionController, :type => :controller do
         expect(json['user']['first_name']).to be_truthy
       end
 
-      it "should return denied" do
+      it "should return warning" do
         get :create, params: {cas_ticket: "VALID-KOHA-USER", cas_service: "myapp.example.com"}
 
-        expect(json['user']['denied']).to be_truthy
+        expect(json['user']['warning']).to be_truthy
       end
-      it "should return locked_reasons" do
+      it "should return warning_reasons" do
         get :create, params: {cas_ticket: "VALID-KOHA-USER", cas_service: "myapp.example.com"}
 
-        expect(json['user']['denied_reasons']).to be_truthy
-        expect(json['user']['denied_reasons']).to be_kind_of(Hash)
+        expect(json['user']['warning_reasons']).to be_truthy
+        expect(json['user']['warning_reasons']).to be_kind_of(Hash)
       end
     end
   end

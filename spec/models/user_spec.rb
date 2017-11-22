@@ -40,11 +40,6 @@ RSpec.describe User, :type => :model do
         expect(user).to_not be_nil
         expect(user.first_name).to eq("Test")
       end
-      it "should return locked" do
-        user = User.find_by_username 'xtest'
-        expect(user).to_not be_nil
-        expect(user.denied).to eq(true)
-      end
     end
   end
 
@@ -67,15 +62,10 @@ RSpec.describe User, :type => :model do
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'koha.example.com'}).
           to_return(:status => 200, :body => File.new("#{Rails.root}/spec/support/patron/patron-1.xml"), :headers => {})
       end
-      it "should return an object" do
+      it "should return a user object" do
         user = User.find_by_username 'xtest'
         expect(user.as_json).to_not be_nil
         expect(user).to be_kind_of(User)
-      end
-      it "should return locked reasons object" do
-        user = User.find_by_username 'xtest'
-        expect(user).to_not be_nil
-        expect(user.as_json[:denied_reasons]).to_not be_nil
       end
     end
   end
