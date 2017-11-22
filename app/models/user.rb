@@ -1,6 +1,6 @@
 class User
   attr_accessor :id, :username, :first_name, :last_name, :denied, :warning, :fines_amount, :reserves, :loans
-  attr_reader :fines, :av, :or, :ori, :user_category
+  attr_reader :restriction_fines, :restriction_av, :restriction_or, :restriction_ori, :restriction_overdue, :user_category
 
   include ActiveModel::Model
   include ActiveModel::Serialization
@@ -9,12 +9,12 @@ class User
   def as_json options = {}
     result = super(except: ['xml'])
     if @denied
-      result[:denied_reasons] = {av: @av, ori: @ori}
+      result[:denied_reasons] = {restriction_av: @restriction_av, restriction_ori: @restriction_ori}
     else
       result[:denied_reasons] = nil
     end
     if @warning
-      result[:warning_reasons] = {fines: @fines, or: @or, overdue: @overdue}
+      result[:warning_reasons] = {restriction_fines: @restriction_fines, restriction_or: @restriction_or, restriction_overdue: @restriction_overdue}
     else
       result[:warning_reasons] = nil
     end
@@ -72,33 +72,33 @@ class User
     @denied = false # spärrad
     @warning = false # ska varnas
     @fines_amount = nil # bötesbelopp
-    @fines = false # böter mer än 69 kr
-    @av = false # avstängd
-    @or = false # obetald räkning
-    @ori = false # obetald räkning inkasso
-    @overdue = false # 2a krav
+    @restriction_fines = false # böter mer än 69 kr
+    @restriction_av = false # avstängd
+    @restriction_or = false # obetald räkning
+    @restriction_ori = false # obetald räkning inkasso
+    @restriction_overdue = false # 2a krav
 
     # TBD remove this, when AV is moved from patron category
     if xml.search('//response/borrower/categorycode').text.present? && xml.search('//response/borrower/categorycode').text == 'AV'
-      @av = true
+      @restriction_av = true
       @denied = true
     end
 
     xml.xpath('//response/debarments').each do |debarment|
       if debarment.xpath('comment').text.starts_with?('AV, ')
-        @av = true
+        @restriction_av = true
         @denied = true
       end
       if debarment.xpath('comment').text.starts_with?('OR, ')
-        @or = true
+        @restriction_or = true
         @warning = true
       end
       if debarment.xpath('comment').text.starts_with?('ORI, ')
-        @ori = true
+        @restriction_restriction_ori = true
         @denied = true
       end
       if debarment.xpath('comment').text.starts_with?('OVERDUES_PROCESS ')
-        @overdue = true
+        @restriction_overdue = true
         @warning = true
       end
     end
@@ -106,7 +106,7 @@ class User
     xml.xpath('//response/flags').each do |flag|
       if flag.xpath('name').text == 'CHARGES'
         if flag.xpath('amount').text.to_i > 69
-          @fines = true
+          @restriction_fines = true
           @warning = true
         end
         @fines_amount = flag.xpath('amount').text
