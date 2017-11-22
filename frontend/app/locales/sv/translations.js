@@ -103,7 +103,7 @@ export default {
         "submit-order-button": "Beställ"
       },
       "warning": {
-        "message": "Du får beställa det här materialet men kommer inte kunna låna det för att du har förseningsavgifter eller försenade lån. Se detaljer i <a href=\"http://www.ub.gu.se/\">Mina lån.</a"
+        "message": "Du kan beställa det här materialet, men kommer inte kunna låna det, eftersom du har förseningsavgifter eller försenade lån. <a class=\"alert-link\" href=\"https://koha-staging.ub.gu.se/\">Logga in i Mina lån</a> för att se vad du behöver göra."
       },
     },
     "login": {
@@ -129,7 +129,7 @@ export default {
       "message": "Du är avstängd från bibliotekets tjänster. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> om du har frågor om detta."
     },
     "RESTRICTION_ORI": {
-      "message": "Du har en obetald räkning inkasso och får inte beställa. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> om du har frågor om detta."
+      "message": "Du får inte låna eller beställa. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
     },
     "CAN_NOT_BE_BORROWED": {
       "message": "Det här materialet går inte att beställa eller låna hem. Du kan hämta boken från hyllan och läsa på plats i biblioteket."
