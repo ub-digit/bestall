@@ -103,7 +103,7 @@ export default {
         "submit-order-button": "Request"
       },
       "warning": {
-        "message": "Du får beställa det här materialet men kommer inte kunna låna det för att du har förseningsavgifter eller försenade lån. Se detaljer i <a href=\"http://www.ub.gu.se/\">Mina lån.</a"
+        "message": "You can place a request but you are not allowed to borrow anything, because of overdue loans or fines. <a class=\"alert-link\" href=\"https://koha-staging.ub.gu.se/\">Log in to My loans</a> to find out what you need to do."
       },
     },
     "login": {
@@ -126,10 +126,10 @@ export default {
       "message": "Search for something to request at the <a href=\"http://www.ub.gu.se/\">library's website.</a>",
     },
     "RESTRICTION_AV": {
-      "message": "You are suspended from using the library's services. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library.</a>"
+      "message": "You are suspended from using the library's services. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library if you have any questions concerning this.</a>"
     },
     "RESTRICTION_ORI": {
-      "message": "Du har en obetald räkning inkasso och får inte beställa. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> om du har frågor om detta."
+      "message": "You are not allowed to borrow or place requests. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library</a>."
     },
     "CAN_NOT_BE_BORROWED": {
       "message": "This material can't be requested or borrowed. You can collect the book from the shelf and read it in the library."
