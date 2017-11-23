@@ -36,27 +36,25 @@
     border-left: 1px solid #c5c5c5;
   }
 
-  ol.steps-list {
+  .steps-list {
+    min-width: 300px;
+    .list-unstyled();
     counter-reset: steps-list-counter;
 
     @media (max-width: @screen-md-min) {
-
-      list-style: none;
       text-align: justify;
       font-size: .1px;
       color: #c5c5c5;
-      padding: 0;
       margin: -20px 0 0 0;
-      
-      &::after {
+
+      &:after {
         content: ' ';
-        width: 100%;
         display: inline-block;
+        width: 100%;
       }
     }
 
     @media (min-width: @screen-md-min) {
-      .list-unstyled();
       margin-left: -20px;
     }
 
@@ -69,10 +67,13 @@
         margin-bottom: 30px;
       }
 
+      &::before {
+        content: '';
+      }
+
       div {
         height: 40px;
         line-height: 40px;
-
         &::before {
           .number();
           @media (min-width: @screen-md-min) {
@@ -80,7 +81,6 @@
           }
         }
       }
-
       &.active {
         color: @gray-darker;
 
@@ -90,7 +90,6 @@
           }
         }
       }
-
     }
   }
 }
