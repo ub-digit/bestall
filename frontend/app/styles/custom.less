@@ -137,6 +137,9 @@ select.form-control {
 				}
 			}
 		}
+		td:last-child {
+		  text-align: right;
+		}
 	}
 }
 
@@ -151,69 +154,11 @@ select.form-control {
 	}
 }
 
-.step-indicator {
-	margin-top: 30px;
-	margin-bottom: 20px;
-
-	ol {
-		list-style-type: decimal;
-		list-style-position: inside;
-		padding: 0;
-		li {
-			@media (min-width: @screen-sm-min) {
-				float: left;
-				padding: 0;
-				list-style: none;
-				&:after {
-					content: '\f054';
-					font-family: 'FontAwesome';
-					margin-left: 15px;
-				}
-				&:last-child {
-					&:after {
-						content: none;
-					}
-				}
-			}
-			margin-right: 15px;
-			padding: 5px 0;
-			font-size: 13px;
-			span {
-				padding: 6px;
-			}
-			&.active {
-				span {
-					color: #fff;
-					background-color: @brand-primary;
-					border-radius: 4px;
-				}
-			}
-		}
-	}
-	a{
-		color: @gray-light;
-		&.active {
-			color:#025da6 !important;
-		}
-	}
-
-	&.disabled {
-		a {
-
-			cursor: text;
-			&:hover {
-				text-decoration: none;
-				color: @gray-light;
-			}
-
-			&:active {
-				text-decoration: none;
-			}
-			&:focus {
-				text-decoration: none;
-			}
-		}
-	}
+.bibliographic-title {
+	font-size: 1.250em;
+	font-weight: bold;
+	line-height: 1.2em;
+	margin-bottom: 8px;
 }
 
 .confirmation{
