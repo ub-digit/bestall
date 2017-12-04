@@ -33,6 +33,20 @@ export default Ember.Controller.extend({
     return true;
   }),
 
+  getMyLoanUrl: computed('order.model', function() {
+    let host = document.location.host;
+    let running_in_env = ''; // default is prod
+    if (host.indexOf('staging') !== -1) {
+       running_in_env = '-staging';
+    }
+    else if (host.indexOf('lab') !== -1)  {
+      running_in_env = '-lab';
+    }
+    let url = "http://koha" + running_in_env + ".ub.gu.se";
+    return url;
+  }),
+
+
   reason: computed('order.errors', function() {
     const errors = this.get('order.errors');
     const dictionary = this.get('i18n');
