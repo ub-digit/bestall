@@ -9,7 +9,6 @@ export default Ember.Controller.extend({
     login() {
       let { username, password } = this.getProperties('username', 'password');
       this.get('session').authenticate('authenticator:cas', {username: username, password: password}).catch((reason) => {
-        console.log(reason);
         this.set('errorMessage', reason.error || reason);
       });
     }
