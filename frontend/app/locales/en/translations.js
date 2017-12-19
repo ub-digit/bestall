@@ -111,7 +111,8 @@ export default {
       "username-label": "Username:",
       "password-label": "Password:",
       "login-button": "Log in",
-      "cas-link-text": "Log in using CAS"
+      "cas-link-text": "Log in using CAS",
+      "loginError": "Wrong username or password. Please try again."
     }
   },
   "status-errors": {

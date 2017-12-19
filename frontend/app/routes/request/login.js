@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.Route.extend({
   model: function(params, transition) {
     var biblioId = transition.params.request.id;
+    this.get('store').createRecord('tmp_biblio', {id: 1, biblio: biblioId});
 
     return new Ember.RSVP.Promise((resolve) => {
       localStorage.removeItem('login-check');

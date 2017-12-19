@@ -1,8 +1,19 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+  session: Ember.inject.service(),
   request: Ember.inject.controller(),
   showForm: false,
+
+  actions: {
+    login() {
+      let { username, password } = this.getProperties('username', 'password');
+      this.get('session').authenticate('authenticator:cas', {username: username, password: password}).catch((reason) => {
+        console.log(reason);
+        this.set('errorMessage', reason.error || reason);
+      });
+    }
+  },
 
   casLoginUrl: Ember.computed(function() {
     return this.get('store').peekRecord('config', 1).get('casurl') + '/login';

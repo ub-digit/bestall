@@ -4,10 +4,13 @@ class Api::SessionController < ApplicationController
 
   # Create a session, with a newly generated access token
   def create
+    pp params
     if params[:cas_ticket] && params[:cas_service]
       username = cas_validate(params[:cas_ticket], params[:cas_service])
+    elsif params[:username] && params[:password] && User.authenticate(params[:username], params[:password])
+      username = params[:username]
     else
-      error_msg(ErrorCodes::UNAUTHORIZED, "CAS ticket is mandatory.")
+      error_msg(ErrorCodes::UNAUTHORIZED, "Invalid credentials")
       render_json
       return
     end

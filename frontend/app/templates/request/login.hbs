@@ -1,5 +1,3 @@
-
-
 {{#if showForm}}
 <div class="login-wrapper">
   <div class="row">
@@ -7,7 +5,10 @@
       <h1>{{t "request.login.header"}}</h1>
       <div class="row">
         <div class="col-xs-12">
-          <div class="not-functional">
+          <!--<div class="not-functional">-->
+            {{#if errorMessage}}
+              <div class="alert alert-danger col-xs-12">{{t 'request.login.loginError'}}</div>
+            {{/if}}
           <div class="form-group">
             <label>{{t "request.login.username-label"}}</label>
               {{input value=username class="form-control"}}
@@ -17,7 +18,7 @@
             {{input type='password' value=password class="form-control"}}
           </div>
           <button class="btn btn-primary btn-block" {{action 'login' username password}}>{{t "request.login.login-button"}}</button>
-          </div> <!-- end not-functional -->
+          <!--</div>--> <!-- end not-functional -->
           <div class="cas-login-link"><a href="{{casUrl}}" class="small">{{t "request.login.cas-link-text"}}</a></div>
         </div>
       </div>
