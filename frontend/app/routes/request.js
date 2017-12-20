@@ -15,6 +15,7 @@ export default Ember.Route.extend({
     }
 
     if (ticket) {
+      this.get('store').createRecord('tmp_biblio', {id: 1, biblio: biblioId});
       return new Ember.RSVP.Promise((resolve, reject) => {
         this.get('session').authenticate('authenticator:cas', {
           cas_ticket: ticket,
@@ -56,7 +57,10 @@ export default Ember.Route.extend({
   afterModel(model, transition) {
     let ticket = transition.queryParams.ticket;
     if (!ticket) {
-      this.controllerFor('request').set('goToLogin', true);
+      let token = this.store.peekRecord('token', 1);
+      if (!token) {
+        this.controllerFor('request').set('goToLogin', true);
+      }
     } else {
       // There is a ticket, login was successful.
       localStorage.setItem('login-check', 'inner-login-ok');

@@ -1,4 +1,3 @@
-
 class Reserve
   require "prawn/measurement_extensions"
   attr_accessor :id, :borrowernumber, :biblionumber, :itemnumber, :branchcode, :reservedate, :timestamp, :reservenotes, :queue_position

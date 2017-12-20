@@ -45,6 +45,21 @@ class User
     return nil
   end
 
+  def self.authenticate cardnumber, personalnumber
+    base_url = APP_CONFIG['koha']['base_url']
+    user =  APP_CONFIG['koha']['user']
+    password =  APP_CONFIG['koha']['password']
+
+    url = "#{base_url}/members/auth?cardnumber=#{cardnumber}&personalnumber=#{personalnumber}&userid=#{user}&password=#{password}"
+    response = RestClient.get url
+    xml = Nokogiri::XML(response.body).remove_namespaces!
+    if xml.search('//response/match').text.present?
+      return xml.search('//response/match').text.eql?("true")
+    end
+  rescue => error
+    return false
+  end
+
   def has_borrowed_item? biblio_id
     return !@loans.select{|loan| loan[:biblionumber].eql? biblio_id}.empty?
   end

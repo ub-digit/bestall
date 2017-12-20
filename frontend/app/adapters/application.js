@@ -8,6 +8,7 @@ export default ActiveModelAdapter.extend({
 
   headers: Ember.computed(function() {
     var that = this;
+
     let token = that.get('store').peekRecord('token', 1);
     let token_string;
     if(token) {
@@ -17,7 +18,7 @@ export default ActiveModelAdapter.extend({
 //      'Authorization': 'Token ' + this.get('session.data.authenticated.token')
       'Authorization': 'Token ' + token_string
     };
-  }),
+  }).volatile(),
 
   handleResponse(status, header, payload) {
     if (404 === status) {

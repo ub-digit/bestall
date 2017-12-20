@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(ApplicationRouteMixin, {
 	i18n: Ember.inject.service(),
 	session: Ember.inject.service(),
 
@@ -23,10 +24,6 @@ export default Ember.Route.extend({
 
 	model() {
 		return this.store.find('config', 1);
-	},
-
-
-	actions: {
-
 	}
+
 });

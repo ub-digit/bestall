@@ -111,7 +111,8 @@ export default {
       "username-label": "Användarnamn:",
       "password-label": "Lösenord:",
       "login-button": "Logga in",
-      "cas-link-text": "Logga in med CAS"
+      "cas-link-text": "Logga in med CAS",
+      "loginError": "Fel användarnamn eller lösenord. Vänligen försök igen."
     }
   },
   "status-errors": {
