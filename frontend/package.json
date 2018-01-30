@@ -44,7 +44,7 @@
     "ember-page-title": "^3.2.2",
     "ember-power-select": "1.9.6",
     "ember-resolver": "^4.1.0",
-    "ember-simple-auth": "^1.4.2",
+    "ember-simple-auth": "1.4.0",
     "ember-welcome-page": "^3.1.1",
     "emberx-select": "^3.0.0",
     "ember-cli-moment-shim": "3.5.0",
