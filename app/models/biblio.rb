@@ -128,7 +128,7 @@ class Biblio
 
     @items = []
     @no_in_queue = 0
-    @borrowers = [];
+    borrowers = [];
 
     bib_xml.search('//record/datafield[@tag="952"]').each do |item_data|
       item = Item.new(biblio_id: self.id, xml: item_data.to_xml, has_item_level_queue: self.has_item_level_queue)
@@ -145,9 +145,9 @@ class Biblio
             end
           end
         else
-          @borrower = reserve.xpath('borrowernumber').text
-          if !@borrowers.include? @borrower
-            @borrowers.push(@borrower)
+          borrower = reserve.xpath('borrowernumber').text
+          if !borrowers.include? borrower
+            borrowers.push(borrower)
              # increase only when itemnumber is not included
             @no_in_queue += 1
           end
