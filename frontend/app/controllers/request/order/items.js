@@ -31,6 +31,14 @@ export default Ember.Controller.extend({
   }),
 
 
+  hasItemAvailableForOrder: Ember.computed('request.model.biblio.items', function() {
+    if (this.get("itemsAvailable.length") > 0) {
+      return true;
+    }
+    return false;
+  }),
+
+
   subscriptionsSorted: Ember.computed.sort('request.model.biblio.subscriptions', function(a,b) {
     if (a.get("sublocation.name") > b.get("sublocation.name")) {
       return 1;

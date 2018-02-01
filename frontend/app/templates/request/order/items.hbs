@@ -89,7 +89,7 @@
         <div class="panel panel-default">
           <div class="panel-body center">
             <strong>{{request.model.biblio.noInQueue}} {{t "request.order.items.number-of-people-in-queue"}}</strong> 
-            {{#unless itemsAvailable.length }}
+            {{#unless hasItemAvailableForOrder }}
              <button class="btn btn-primary btn-space-left" {{action 'setItemToOrder' null}}>{{t "request.order.items.queue-up"}}</button>
             {{/unless}}
           </div>
