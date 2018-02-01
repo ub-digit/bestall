@@ -54,16 +54,8 @@ export default Ember.Controller.extend({
   }),
 
 
-  itemsAvailableSorted: Ember.computed.sort('itemsAvailable', function(a,b) {
-    if (a.get("sublocation.name") > b.get("sublocation.name")) {
-      return 1;
-    }
-    if (a.get("sublocation.name") < b.get("sublocation.name")) {
-      return -1;
-    }
-    return 0;
-  }),
-
+  sortProperties: ['canBeOrdered:desc'],
+  itemsAvailableSorted: Ember.computed.sort('itemsAvailable', 'sortProperties'),
 
   itemsSorted: Ember.computed.sort('request.model.biblio.items', function(a,b) {
     if (a.get("sublocation.name") > b.get("sublocation.name")) {
