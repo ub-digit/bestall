@@ -32,7 +32,7 @@ export default Ember.Controller.extend({
 
 
   hasItemAvailableForOrder: Ember.computed('request.model.biblio.items', function() {
-    if (this.get("itemsAvailable.length") > 0) {
+    if (this.get("itemsAvailableForOrder.length") > 0) {
       return true;
     }
     return false;
@@ -53,6 +53,9 @@ export default Ember.Controller.extend({
     return this.get("request.model.biblio.items").filter((item) => item.get("isAvailible"));
   }),
 
+  itemsAvailableForOrder: Ember.computed('request.model.biblio.items', function() {
+    return this.get("request.model.biblio.items").filter((item) => item.get("canBeOrdered"));
+  }),
 
 
   sortProperties: ['canBeOrdered:desc'],
