@@ -13,12 +13,10 @@ export default Ember.Controller.extend({
       if (this.get("request.model.biblio.hasItemLevelQueue")) {
         if (this.get("request.model.biblio.subscriptions.length")) {
           this.set("activeTabName", "tab1");
-        }
-        else {
+        } else {
           this.set("activeTabName", "tab2");
         }
-      }
-      else {
+      } else {
         this.set("activeTabName", "tab1");
       }
       return this.get("activeTabName");
@@ -39,11 +37,10 @@ export default Ember.Controller.extend({
   }),
 
 
-  subscriptionsSorted: Ember.computed.sort('request.model.biblio.subscriptions', function(a,b) {
+  subscriptionsSorted: Ember.computed.sort('request.model.biblio.subscriptions', function(a, b) {
     if (a.get("sublocation.name") > b.get("sublocation.name")) {
       return 1;
-    }
-    else if (a.get("sublocation.name") < b.get("sublocation.name"))  {
+    } else if (a.get("sublocation.name") < b.get("sublocation.name")) {
       return -1;
     }
     return 0;
@@ -62,7 +59,7 @@ export default Ember.Controller.extend({
   itemsAvailableSorted: Ember.computed.sort('itemsAvailable', 'sortProperties'),
 
 
-  itemsSorted: Ember.computed.sort('request.model.biblio.items', function(a,b) {
+  itemsSorted: Ember.computed.sort('request.model.biblio.items', function(a, b) {
     if (a.get("sublocation.name") > b.get("sublocation.name")) {
       return 1;
     }
@@ -78,7 +75,7 @@ export default Ember.Controller.extend({
     if (!a.get("copyNumber") && !b.get("copyNumber")) {
       return 0;
     }
-    return a.get("copyNumber").localeCompare(b.get("copyNumber"), undefined, {numeric: true, sensitivity: 'base'});
+    return a.get("copyNumber").localeCompare(b.get("copyNumber"), undefined, { numeric: true, sensitivity: 'base' });
   }),
 
   itemsNotAvailable: Ember.computed('request.model.biblio.items', function() {
@@ -86,26 +83,23 @@ export default Ember.Controller.extend({
   }),
 
 
-  itemsNotAvailableSorted: Ember.computed.sort('itemsNotAvailable', function(a,b) {
+  itemsNotAvailableSorted: Ember.computed.sort('itemsNotAvailable', function(a, b) {
     let first = null;
     let second = null;
     if (!a.get("dueDate")) {
       first = new Date("October 13, 2094 11:13:00");
-    }
-    else {
+    } else {
       first = a.get("dueDate");
     }
 
     if (!b.get("dueDate")) {
       second = new Date("October 13, 2094 11:13:00");
-    }
-    else {
+    } else {
       second = b.get("dueDate");
     }
     if (first > second) {
       return 1;
-    }
-    else if (first < second) {
+    } else if (first < second) {
       return -1;
     }
     return 0;

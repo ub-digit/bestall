@@ -122,13 +122,14 @@ select.form-control {
 .table {
 	&.borderless {
 		td, th {
-	    border: none;
+			&:not(.border){
+				border: none;
+			}
 	  }
 	}
 }
 
 .table-subscriptions {
-
 	tr {
 		&:first-child {
 			td {
@@ -138,7 +139,7 @@ select.form-control {
 			}
 		}
 		td:last-child {
-		  text-align: right;
+		  /*text-align: right;*/
 		}
 	}
 }

@@ -49,12 +49,51 @@ class Biblio
     super.merge(can_be_queued: can_be_queued, has_item_level_queue: has_item_level_queue)
   end
 
-
   def initialize id, bib_xml, items_xml, reserves_xml
     @id = id
     parse_xml bib_xml, items_xml, reserves_xml
     @subscriptions = Subscription.find_by_biblio_id id
+    if !@subscriptions.empty?
+      puts ' --- subscriptions ----'
+      pp @subscriptions
+      puts ' --- end subscriptions ----'
+      grouped_subscriptions = @subscriptions.group_by do |sub|
+          sub.location_id
+      end
+
+      #map library
+      libmap = {
+        40 => 'Gm',
+        42 => 'Gk',
+        43 => 'Gb',
+        44 => 'G',
+        47 => 'Gp',
+        48 => 'Ge',
+        49 => 'Gg',
+        50 => 'Gcl',
+        60 => 'Ghdk',
+        62 => 'Gumu'
+      }
+    
+      @subscriptiongroups = []
+      grouped_subscriptions.each_key do |location_id|
+        short_info = self.getShortInfo libmap[location_id.to_i].to_s
+        sg = Subscriptiongroup.new short_info, grouped_subscriptions[location_id], location_id, self.id
+        @subscriptiongroups.unshift(sg)
+      end
+    end  
   end
+
+  def getShortInfo key
+    if @stock.key?(key)
+        puts ' --  short info ---'
+        puts @stock[key]
+        puts ' --  short info end ---'
+        return @stock[key]
+    end
+    return nil
+  end
+  
 
   def self.find id
     base_url = APP_CONFIG['koha']['base_url']
@@ -129,7 +168,31 @@ class Biblio
     @items = []
     @no_in_queue = 0
     borrowers = [];
+    @stock = {};
+    
+    bib_xml.search('//record/datafield[@tag="866"]').each do |sto|
+     
+      if sto.search('subfield[@code="a"]').text.present? || sto.search('subfield[@code="z"]').text.present?
+        sigel = sto.search('subfield[@code="5"]').text
+        subscription_stock = sto.search('subfield[@code="a"]').text
+        item_type = sto.search('subfield[@code="z"]').text
+      
+        if !@stock[sigel] 
+          @stock[sigel] = []
+        end
+        res = ''
+        if subscription_stock.length > 0 && 
+          res += subscription_stock  
+        end
 
+        if item_type.length > 0
+          if res.length > 0 
+            res += ', ' + item_type
+          end
+        end
+        @stock[sigel] << res
+      end
+    end
     bib_xml.search('//record/datafield[@tag="952"]').each do |item_data|
       item = Item.new(biblio_id: self.id, xml: item_data.to_xml, has_item_level_queue: self.has_item_level_queue)
       next if item.item_type.blank?
