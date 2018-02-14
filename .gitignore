@@ -26,6 +26,8 @@ config/deploy.yml
 
 .vscode/*
 
+
+
 *~
 .#*
 \#*#

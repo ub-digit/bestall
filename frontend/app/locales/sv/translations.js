@@ -60,6 +60,7 @@ export default {
       "items": {
         "next-button": "Fortsätt",
         "select-button": "Välj",
+        "order-subscription-button": "Beställ ur bestånd",
         "location": "Placering",
         "note": "Notering",
         "items": "Exemplar",
