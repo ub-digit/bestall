@@ -6,7 +6,7 @@
       {{#if request.model.biblio.subscriptiongroups.length}}
       <li role="presentation" class="{{is-active-tab 'tab1' activeTab}}">
         <a href="#subscriptions" class="left" data-toggle="tab" onclick={{action "setActiveTab" "tab1"}}>
-          {{t "request.order.items.subscriptions"}} ({{request.model.biblio.subscriptiongroups.length}})
+          {{t "request.order.items.subscriptions"}} ({{numSubscriptions}})
         </a>
       </li>
       {{/if}}

@@ -7,11 +7,19 @@ export default Ember.Controller.extend({
 
   activeTabName: null,
 
+  numSubscriptions: Ember.computed('request.model.biblio.subscriptiongroups', function() {
+    let res = 0;
+    var grps = this.get('request.model.biblio.subscriptiongroups');
+    grps.map((obj) => {
+      res += obj.get('subscriptions.length');
+    });
+    return res;
+  }),
 
-  activeTab: Ember.computed('request.model.biblio.subscriptions', {
+  activeTab: Ember.computed('request.model.biblio.subscriptiongroups', {
     get() {
       if (this.get("request.model.biblio.hasItemLevelQueue")) {
-        if (this.get("request.model.biblio.subscriptions.length")) {
+        if (this.get("request.model.biblio.subscriptiongroups.length")) {
           this.set("activeTabName", "tab1");
         } else {
           this.set("activeTabName", "tab2");
@@ -37,14 +45,14 @@ export default Ember.Controller.extend({
   }),
 
 
-  subscriptionsSorted: Ember.computed.sort('request.model.biblio.subscriptions', function(a, b) {
+  /*subscriptionsSorted: Ember.computed.sort('request.model.biblio.subscriptions', function(a, b) {
     if (a.get("sublocation.name") > b.get("sublocation.name")) {
       return 1;
     } else if (a.get("sublocation.name") < b.get("sublocation.name")) {
       return -1;
     }
     return 0;
-  }),
+  }),*/
 
   itemsAvailable: Ember.computed('request.model.biblio.items', function() {
     return this.get("request.model.biblio.items").filter((item) => item.get("isAvailible"));

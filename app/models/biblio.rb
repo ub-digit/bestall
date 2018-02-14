@@ -1,5 +1,5 @@
 class Biblio
-  attr_accessor :id, :title, :origin, :isbn, :edition, :items, :subscriptions, :record_type, :no_in_queue
+  attr_accessor :id, :title, :origin, :isbn, :edition, :items, :record_type, :no_in_queue, :subscriptiongroups
 
   include ActiveModel::Serialization
   include ActiveModel::Validations
@@ -15,7 +15,7 @@ class Biblio
   ]
 
   def can_be_borrowed
-    return true if !@subscriptions.empty?
+    return true if !@subscriptiongroups.empty?
     @items.each do |item|
       return true if item.can_be_borrowed
     end
@@ -51,17 +51,16 @@ class Biblio
 
   def initialize id, bib_xml, items_xml, reserves_xml
     @id = id
+    @subscriptiongroups = []
     parse_xml bib_xml, items_xml, reserves_xml
-    @subscriptions = Subscription.find_by_biblio_id id
-    if !@subscriptions.empty?
-      puts ' --- subscriptions ----'
-      pp @subscriptions
-      puts ' --- end subscriptions ----'
-      grouped_subscriptions = @subscriptions.group_by do |sub|
+    subscriptions = Subscription.find_by_biblio_id id
+    if !subscriptions.empty?
+      #order subscriptions by home library
+      grouped_subscriptions = subscriptions.group_by do |sub|
           sub.location_id
       end
 
-      #map library
+      #map library code against sigel
       libmap = {
         40 => 'Gm',
         42 => 'Gk',
@@ -74,22 +73,48 @@ class Biblio
         60 => 'Ghdk',
         62 => 'Gumu'
       }
-    
-      @subscriptiongroups = []
+
+      shortInfoHash = self.findShortInfo bib_xml
       grouped_subscriptions.each_key do |location_id|
-        short_info = self.getShortInfo libmap[location_id.to_i].to_s
+        short_info = self.getShortInfo shortInfoHash, libmap[location_id.to_i].to_s
         sg = Subscriptiongroup.new short_info, grouped_subscriptions[location_id], location_id, self.id
         @subscriptiongroups.unshift(sg)
       end
     end  
   end
 
-  def getShortInfo key
-    if @stock.key?(key)
-        puts ' --  short info ---'
-        puts @stock[key]
-        puts ' --  short info end ---'
-        return @stock[key]
+  def findShortInfo bib_xml
+    info_result = {}
+    bib_xml = Nokogiri::XML(bib_xml).remove_namespaces!
+    bib_xml.search('//record/datafield[@tag="866"]').each do |sto|
+     
+      if sto.search('subfield[@code="a"]').text.present? || sto.search('subfield[@code="z"]').text.present?
+        sigel = sto.search('subfield[@code="5"]').text
+        subscription_stock = sto.search('subfield[@code="a"]').text
+        item_type = sto.search('subfield[@code="z"]').text
+      
+        if !info_result[sigel] 
+          info_result[sigel] = []
+        end
+        res = ''
+        if subscription_stock.length > 0 && 
+          res += subscription_stock  
+        end
+
+        if item_type.length > 0
+          if res.length > 0 
+            res += ', ' + item_type
+          end
+        end
+        info_result[sigel] << res
+      end
+    end
+    return info_result
+  end
+
+  def getShortInfo shortInfoHash, key
+    if shortInfoHash.key?(key)
+        return shortInfoHash[key]
     end
     return nil
   end
@@ -168,31 +193,7 @@ class Biblio
     @items = []
     @no_in_queue = 0
     borrowers = [];
-    @stock = {};
     
-    bib_xml.search('//record/datafield[@tag="866"]').each do |sto|
-     
-      if sto.search('subfield[@code="a"]').text.present? || sto.search('subfield[@code="z"]').text.present?
-        sigel = sto.search('subfield[@code="5"]').text
-        subscription_stock = sto.search('subfield[@code="a"]').text
-        item_type = sto.search('subfield[@code="z"]').text
-      
-        if !@stock[sigel] 
-          @stock[sigel] = []
-        end
-        res = ''
-        if subscription_stock.length > 0 && 
-          res += subscription_stock  
-        end
-
-        if item_type.length > 0
-          if res.length > 0 
-            res += ', ' + item_type
-          end
-        end
-        @stock[sigel] << res
-      end
-    end
     bib_xml.search('//record/datafield[@tag="952"]').each do |item_data|
       item = Item.new(biblio_id: self.id, xml: item_data.to_xml, has_item_level_queue: self.has_item_level_queue)
       next if item.item_type.blank?
