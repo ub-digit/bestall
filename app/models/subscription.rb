@@ -1,15 +1,17 @@
 class Subscription
-  attr_accessor :id, :biblio_id, :sublocation_id, :call_number, :public_note
+  attr_accessor :id, :biblio_id, :sublocation_id, :call_number, :public_note, :location_id
 
   include ActiveModel::Serialization
   include ActiveModel::Validations
 
-  def initialize id, biblio_id, sublocation_id, call_number, public_note
+  def initialize id, biblio_id, sublocation_id, call_number, public_note, location_id
     @id = id
     @biblio_id = biblio_id
     @sublocation_id = sublocation_id
     @call_number = call_number
     @public_note = public_note
+    @location_id = location_id
+    @subscriptiongroup_id = location_id
   end
 
   def self.find_by_biblio_id biblio_id
@@ -26,10 +28,11 @@ class Subscription
     xml.search('//response/subscriptions').each do |subscription|
       public_note = Subscription.parse_public_note subscription
       sublocation_id = Subscription.parse_sublocation_id subscription
+      location_id = Subscription.parse_location_id subscription
       if public_note.present? && sublocation_id.present?
         id = Subscription.parse_id subscription
         call_number = Subscription.parse_call_number subscription
-        subscriptions << self.new(id, biblio_id, sublocation_id, call_number, public_note)
+        subscriptions << self.new(id, biblio_id, sublocation_id, call_number, public_note, location_id)
       end
     end
 
@@ -43,6 +46,10 @@ class Subscription
 
   def self.parse_id xml
     xml.search('subscriptionid').text
+  end
+
+  def self.parse_location_id xml
+    xml.search('branchcode').text
   end
 
   def self.parse_sublocation_id xml

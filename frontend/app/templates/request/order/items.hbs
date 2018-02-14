@@ -3,10 +3,10 @@
 {{#if request.model.biblio.hasItemLevelQueue}}
   <nav>
     <ul class="nav nav-tabs" role="tablist">
-      {{#if request.model.biblio.subscriptions.length}}
+      {{#if request.model.biblio.subscriptiongroups.length}}
       <li role="presentation" class="{{is-active-tab 'tab1' activeTab}}">
         <a href="#subscriptions" class="left" data-toggle="tab" onclick={{action "setActiveTab" "tab1"}}>
-          {{t "request.order.items.subscriptions"}} ({{request.model.biblio.subscriptions.length}})
+          {{t "request.order.items.subscriptions"}} ({{request.model.biblio.subscriptiongroups.length}})
         </a>
       </li>
       {{/if}}
@@ -29,7 +29,7 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="table-responsive">
-            <table class="table table-subscriptions">
+            <table class="table table-subscriptions borderless">
               <thead>
                 <tr>
                   <th>{{t "request.order.items.location"}}</th>
@@ -38,14 +38,25 @@
                 </tr>
               </thead>
               <tbody>
-                {{#each subscriptionsSorted as |subscription|}}
+              {{#each request.model.biblio.subscriptiongroups as |subscriptiongroup|}}
                 <tr>
-                  <td>{{subscription.sublocation.name}}</td>
-
+                  <td class="border">{{subscriptiongroup.location.name}}</td>
+                  <td class="border">
+                    {{#each subscriptiongroup.shortInfo as |shortInfo|}}
+                      {{shortInfo}}<br>
+                    {{/each}}
+                  </td>
+                </tr>
+                {{#each subscriptiongroup.subscriptions as |subscription|}}
+                <tr>
+                  <td>{{subscription.sublocation.name}}, {{subscription.callNumber}}</td>
+                </tr>
+                <tr>
                   <td><textarea class="subscription-note" wrap=off readonly>{{subscription.publicNote}}</textarea></td>
-                  <td><button class="btn btn-primary" {{action 'setSubscriptionToOrder' subscription}}>{{t "request.order.items.select-button"}}</button></td>
+                  <td><button class="btn btn-primary" {{action 'setSubscriptionToOrder' subscription}}>{{t "request.order.items.order-subscription-button"}}</button></td>
                 </tr>
                 {{/each}}
+              {{/each}}
               </tbody>
             </table>
           </div>
@@ -82,7 +93,6 @@
       {{/if}}
     </div>
     <div role="tabpanel" class="tab-pane {{is-active-tab 'tab2' activeTab}}" id="item-queue">
-
       {{#if request.model.biblio.canBeQueued}}
       <div class="row">
         <div class="col-xs-12">
