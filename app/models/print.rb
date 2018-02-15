@@ -12,6 +12,7 @@ class Print
 
     user_obj = User.find_by_username(username)
     obj[:name] = user_obj ? [user_obj.first_name, user_obj.last_name].compact.join(" ") : ''
+    obj[:extra_info] = user_obj ? user_obj.attr_print : ''
 
     loan_type_obj = LoanType.find_by_id(params[:reserve][:loan_type_id].to_i)
     obj[:loantype] = loan_type_obj ? loan_type_obj.name_sv : ''
