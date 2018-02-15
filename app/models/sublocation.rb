@@ -3,7 +3,7 @@ class Sublocation
   include ActiveModel::Serialization
   include ActiveModel::Validations
 
-  attr_accessor :id, :location_id, :name_sv, :name_en, :is_open_loc, :is_open_pickup_loc, :is_paging_loc
+  attr_accessor :id, :location_id, :name_sv, :name_en, :is_open_loc, :is_open_pickup_loc, :is_paging_loc, :location
 
   def initialize id:, name_sv:, name_en:, is_open_loc:, is_open_pickup_loc:, is_paging_loc:
     @id = id
@@ -13,8 +13,11 @@ class Sublocation
     @is_open_loc = is_open_loc
     @is_paging_loc = is_paging_loc
     @is_open_pickup_loc = is_open_pickup_loc
+    @location = Location.find_by_id(@location_id)
   end
 
+  
+  
   def self.all
     Rails.cache.fetch("sublocations", expires_in: 24.hours) do
       base_url = APP_CONFIG['koha']['base_url']
@@ -54,7 +57,7 @@ class Sublocation
       is_open_loc = loc.xpath('open_loc').text
       is_paging_loc = loc.xpath('paging_loc').text
 
-      locs << self.new(id: id, name_sv: name_sv, name_en: name_en, is_open_loc: (is_open_loc || is_open_pickup_loc), is_open_pickup_loc: is_open_pickup_loc, is_paging_loc: is_paging_loc)
+      locs << Sublocation.new(id: id, name_sv: name_sv, name_en: name_en, is_open_loc: (is_open_loc || is_open_pickup_loc), is_open_pickup_loc: is_open_pickup_loc, is_paging_loc: is_paging_loc)
     end
 
     return locs

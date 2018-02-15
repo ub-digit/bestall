@@ -12,6 +12,12 @@ class Subscription
     @public_note = public_note
     @location_id = location_id
     @subscriptiongroup_id = location_id
+    sublocation = Sublocation.find_by_id(sublocation_id)
+    @sublocation_name_sv = sublocation.name_sv
+    @sublocation_name_en = sublocation.name_en
+    @location_name_sv = sublocation.location.name_sv
+    @location_name_en = sublocation.location.name_en
+
   end
 
   def self.find_by_biblio_id biblio_id
