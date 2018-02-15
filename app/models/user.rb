@@ -1,5 +1,5 @@
 class User
-  attr_accessor :id, :username, :first_name, :last_name, :denied, :warning, :fines_amount, :reserves, :loans
+  attr_accessor :id, :username, :first_name, :last_name, :denied, :warning, :fines_amount, :reserves, :loans, :attr_print
   attr_reader :restriction_fines, :restriction_av, :restriction_or, :restriction_ori, :restriction_overdue, :user_category
 
   include ActiveModel::Model
@@ -144,6 +144,9 @@ class User
         @reserves << {biblionumber: biblionumber, itemnumber: itemnumber}
     end
 
+    if xml.search('//response/attributes[code="PRINT"]/value').text.present?
+      @attr_print = xml.search('//response/attributes[code="PRINT"]/value').text
+    end
   end
 
 end
