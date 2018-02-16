@@ -61,6 +61,7 @@ export default {
         "next-button": "Continue",
         "select-button": "Select",
         "order-subscription-button": "Select from holdings",
+        "unspecified-holdings": "Unspecified holdings",
         "location": "Location",
         "note": "Note",
         "items": "Items",

@@ -112,11 +112,39 @@ select.form-control {
 
 }
 
+.subscription-note-wrapper{
+	width: 60%;
+	display: inline-block;
+	@media (max-width: @screen-sm-min) {
+		display: block;
+		width: 100%;
+	}
+}
+.subscription-margin{
+	padding-left: 20px!important;
+}
+.subscription-button-wrapper{
+	width: 40%;
+	vertical-align: top;
+	display: inline-block;
+	@media (max-width: @screen-sm-min) {
+		display: block;
+		width: 100%;
+		.btn{
+			width: 100%;
+		}
+	}
+	.btn{
+		float: right;
+	}
+}
+
 .subscription-note {
 	overflow: scroll;
 	height: 155px;
 	width: 100%;
 	background-color: #ffffff;
+	font-family: Courier New, Courier, monospace;
 }
 
 .table {
@@ -135,6 +163,7 @@ select.form-control {
 			td {
 				&:first-child {
 					max-width: 180px;
+					width: 33%;
 				}
 			}
 		}

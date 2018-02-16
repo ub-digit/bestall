@@ -6,7 +6,7 @@
       {{#if request.model.biblio.subscriptiongroups.length}}
       <li role="presentation" class="{{is-active-tab 'tab1' activeTab}}">
         <a href="#subscriptions" class="left" data-toggle="tab" onclick={{action "setActiveTab" "tab1"}}>
-          {{t "request.order.items.subscriptions"}} ({{numSubscriptions}})
+          {{t "request.order.items.subscriptions"}} ({{request.model.biblio.subscriptiongroups.length}})
         </a>
       </li>
       {{/if}}
@@ -34,7 +34,6 @@
                 <tr>
                   <th>{{t "request.order.items.location"}}</th>
                   <th>{{t "request.order.items.note"}}</th>
-                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -47,22 +46,22 @@
                         {{shortInfo}}<br>
                       {{/each}}
                     {{else}}
-                      Ospecificerat bestånd
+                      {{t "request.order.items.unspecified-holdings"}}
                     {{/if}}
                   </td>
                 </tr>
                 {{#each subscriptiongroup.subscriptions as |subscription|}}
                 <tr>
-                  <td>{{subscription.sublocation.name}}, {{subscription.callNumber}}</td>
+                  <td colspan="2" class="subscription-margin">{{subscription.sublocation.name}}, {{subscription.callNumber}}</td>
                 </tr>
                 <tr>
-                  <td colspan="2">
-                    <div class="row">
-                    <textarea class="subscription-note col-sm-8 col-xs-12" wrap=off readonly>{{subscription.publicNote}}</textarea>
-                  <button class="btn btn-primary col-sm-4 col-xs-12" {{action 'setSubscriptionToOrder' subscription}}>{{t "request.order.items.order-subscription-button"}}</button>
+                  <td colspan="2" class="subscription-margin">
+                    <div class="subscription-note-wrapper">
+                      <textarea class="subscription-note" wrap=off readonly>{{subscription.publicNote}}</textarea>
+                    </div><div class="subscription-button-wrapper">
+                      <button class="btn btn-primary" {{action 'setSubscriptionToOrder' subscription}}>{{t "request.order.items.order-subscription-button"}}</button>
                     </div>
                   </td>
-
                 </tr>
                 {{/each}}
               {{/each}}
