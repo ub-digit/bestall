@@ -13,7 +13,6 @@ class Sublocation
     @is_open_loc = is_open_loc
     @is_paging_loc = is_paging_loc
     @is_open_pickup_loc = is_open_pickup_loc
-    @location = Location.find_by_id(@location_id)
   end
 
   
@@ -57,7 +56,7 @@ class Sublocation
       is_open_loc = loc.xpath('open_loc').text
       is_paging_loc = loc.xpath('paging_loc').text
 
-      locs << Sublocation.new(id: id, name_sv: name_sv, name_en: name_en, is_open_loc: (is_open_loc || is_open_pickup_loc), is_open_pickup_loc: is_open_pickup_loc, is_paging_loc: is_paging_loc)
+      locs << self.new(id: id, name_sv: name_sv, name_en: name_en, is_open_loc: (is_open_loc || is_open_pickup_loc), is_open_pickup_loc: is_open_pickup_loc, is_paging_loc: is_paging_loc)
     end
 
     return locs

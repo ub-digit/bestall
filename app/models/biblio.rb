@@ -142,8 +142,8 @@ class Biblio
     # TODO: Do something much better
     rescue RestClient::NotFound => error
       return nil
-   # rescue => error
-    #  return nil
+    rescue => error
+      return nil
   end
 
   def parse_xml bib_xml, items_xml, reserves_xml

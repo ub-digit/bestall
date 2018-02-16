@@ -15,8 +15,9 @@ class Subscription
     sublocation = Sublocation.find_by_id(sublocation_id)
     @sublocation_name_sv = sublocation.name_sv
     @sublocation_name_en = sublocation.name_en
-    @location_name_sv = sublocation.location.name_sv
-    @location_name_en = sublocation.location.name_en
+    location = Location.find_by_id(sublocation.location_id)
+    @location_name_sv = location.name_sv
+    @location_name_en = location.name_en
 
   end
 
