@@ -12,6 +12,7 @@ class Print
 
     user_obj = User.find_by_username(username)
     obj[:name] = user_obj ? [user_obj.first_name, user_obj.last_name].compact.join(" ") : ''
+    obj[:extra_info] = user_obj ? user_obj.attr_print : ''
 
     loan_type_obj = LoanType.find_by_id(params[:reserve][:loan_type_id].to_i)
     obj[:loantype] = loan_type_obj ? loan_type_obj.name_sv : ''
@@ -31,86 +32,85 @@ class Print
 
   def self.print_segment(pdf, obj, start_cursor)
     # Right column (data)
+    size = 9
     pdf.bounding_box([27.send(:mm), start_cursor], :width => 100.send(:mm)) do
-      pdf.text "#{Time.now.strftime("%Y-%m-%d %H:%M")}", :size=>8, :align=>:right
-      pdf.text "#{obj[:location]} #{obj[:sublocation]} ", :size=>8
+      pdf.text "#{Time.now.strftime("%Y-%m-%d %H:%M")}", size: size, :align=>:right
+      pdf.text "#{obj[:location]} #{obj[:sublocation]} ", size: size
     end
     end_of_location_line_cursor = pdf.cursor
     pdf.bounding_box([27.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
-      pdf.text "#{obj[:call_number]} ", :size=>8
-      pdf.text "#{obj[:barcode]} ", :size=>8
-      pdf.text "#{obj[:bibid]} ", :size=>8
-      pdf.text "#{obj[:author]} ", :size=>8
-      pdf.text "#{obj[:title]} ", :size=>8
+      pdf.text "#{obj[:call_number]} ", size: size
+      pdf.text "#{obj[:barcode]} ", size: size
+      pdf.text "#{obj[:bibid]} ", size: size
+      pdf.text "#{obj[:author]} ", size: size
+      pdf.text "#{obj[:title]} ", size: size
     end
     end_of_title_line_cursor = pdf.cursor
     pdf.bounding_box([27.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
-      pdf.text "#{obj[:alt_title]} ", :size=>8
+      pdf.text "#{obj[:alt_title]} ", size: size
     end
     end_of_alt_title_line_cursor = pdf.cursor
     pdf.bounding_box([27.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
-      pdf.text "#{obj[:volume]} ", :size=>8
-      pdf.text "#{obj[:place]} ", :size=>8
+      pdf.text "#{obj[:volume]} ", size: size
+      pdf.text "#{obj[:place]} ", size: size
     end
     end_of_place_line_cursor = pdf.cursor
     pdf.bounding_box([27.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
-      pdf.text "#{obj[:edition]} ", :size=>8
-      pdf.text "#{obj[:serie]} ", :size=>8
-      pdf.text "#{obj[:notes]} ", :size=>8
+      pdf.text "#{obj[:edition]} ", size: size
+      pdf.text "#{obj[:serie]} ", size: size
+      pdf.text "#{obj[:notes]} ", size: size
     end
     end_of_msg_line_cursor = pdf.cursor
     pdf.bounding_box([27.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
-      pdf.text "#{obj[:description]} ", :size=>8
+      pdf.text "#{obj[:description]} ", size: size
     end
     end_of_desc_line_cursor = pdf.cursor
     pdf.bounding_box([27.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
-      pdf.text "#{obj[:loantype]} ", :size=>8
-      pdf.text "#{obj[:extra_info]} ", :size=>8
+      pdf.text "#{obj[:loantype]} ", size: size
+      pdf.text "#{obj[:extra_info]} ", size: size
     end
     end_of_extra_info_line_cursor = pdf.cursor
     pdf.bounding_box([27.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
-      pdf.text "#{obj[:name]} ", :size=>8
-      pdf.text "#{obj[:borrowernumber]} ", :size=>8
-      pdf.text "#{obj[:pickup_location]} ", :size=>8
-      pdf.text "#{(Time.now + 7.days).strftime("%Y-%m-%d")}", :size=>8, :align=>:right
+      pdf.text "#{obj[:name]} ", size: size
+      pdf.text "#{obj[:borrowernumber]} ", size: size
+      pdf.text "#{obj[:pickup_location]} ", size: size
     end
 
     # Left column (labels)
     pdf.bounding_box([0, start_cursor], :width => 25.send(:mm)) do
-      pdf.text " ", :size=>8, :align=>:right
-      pdf.text "PLACERING:", :size=>8, :align=>:right
+      pdf.text " ", size: size, :align=>:right
+      pdf.text "PLACERING:", size: size, :align=>:right
     end
-    pdf.bounding_box([0, end_of_location_line_cursor], :width => 25.send(:mm), :font_size=>8) do
-      pdf.text "HYLLUPPST:", :size=>8, :align=>:right
-      pdf.text "STRECKKOD:", :size=>8, :align=>:right
-      pdf.text "BIBID:", :size=>8, :align=>:right
-      pdf.text "FÖRF/INST:", :size=>8, :align=>:right
-      pdf.text "TITEL:", :size=>8, :align=>:right
+    pdf.bounding_box([0, end_of_location_line_cursor], :width => 25.send(:mm), font_size: size) do
+      pdf.text "HYLLUPPST:", size: size, :align=>:right
+      pdf.text "STRECKKOD:", size: size, :align=>:right
+      pdf.text "BIBID:", size: size, :align=>:right
+      pdf.text "FÖRF/INST:", size: size, :align=>:right
+      pdf.text "TITEL:", size: size, :align=>:right
     end
-    pdf.bounding_box([0, end_of_title_line_cursor], :width => 25.send(:mm), :font_size=>8) do
-      pdf.text "DELTITEL:", :size=>8, :align=>:right
+    pdf.bounding_box([0, end_of_title_line_cursor], :width => 25.send(:mm), font_size: size) do
+      pdf.text "DELTITEL:", size: size, :align=>:right
     end
-    pdf.bounding_box([0, end_of_alt_title_line_cursor], :width => 25.send(:mm), :font_size=>8) do
-      pdf.text "VOLYM:", :size=>8, :align=>:right
-      pdf.text "ORT/../ÅR:", :size=>8, :align=>:right
+    pdf.bounding_box([0, end_of_alt_title_line_cursor], :width => 25.send(:mm), font_size: size) do
+      pdf.text "VOLYM:", size: size, :align=>:right
+      pdf.text "ORT/../ÅR:", size: size, :align=>:right
     end
-    pdf.bounding_box([0, end_of_place_line_cursor], :width => 25.send(:mm), :font_size=>8) do
-      pdf.text "UPPLAGA:", :size=>8, :align=>:right
-      pdf.text "SERIE:", :size=>8, :align=>:right
-      pdf.text "MEDD:", :size=>8, :align=>:right
+    pdf.bounding_box([0, end_of_place_line_cursor], :width => 25.send(:mm), font_size: size) do
+      pdf.text "UPPLAGA:", size: size, :align=>:right
+      pdf.text "SERIE:", size: size, :align=>:right
+      pdf.text "MEDD:", size: size, :align=>:right
     end
-    pdf.bounding_box([0, end_of_msg_line_cursor], :width => 25.send(:mm), :font_size=>8) do
-      pdf.text "BESKRIVN:", :size=>8, :align=>:right
+    pdf.bounding_box([0, end_of_msg_line_cursor], :width => 25.send(:mm), font_size: size) do
+      pdf.text "BESKRIVN:", size: size, :align=>:right
     end
-    pdf.bounding_box([0, end_of_desc_line_cursor], :width => 25.send(:mm), :font_size=>8) do
-      pdf.text "BEST.TYP:", :size=>8, :align=>:right
-      pdf.text "SÄRSK.INFO:", :size=>8, :align=>:right
+    pdf.bounding_box([0, end_of_desc_line_cursor], :width => 25.send(:mm), font_size: size) do
+      pdf.text "BEST.TYP:", size: size, :align=>:right
+      pdf.text "SÄRSK.INFO:", size: size, :align=>:right
     end
-    pdf.bounding_box([0, end_of_extra_info_line_cursor], :width => 25.send(:mm), :font_size=>8) do
-      pdf.text "NAMN:", :size=>8, :align=>:right
-      pdf.text "ID-NR:", :size=>8, :align=>:right
-      pdf.text "HÄMTAS PÅ:", :size=>8, :align=>:right
-      pdf.text "HÄMTAS SENAST:", :size=>8, :align=>:right
+    pdf.bounding_box([0, end_of_extra_info_line_cursor], :width => 25.send(:mm), font_size: size) do
+      pdf.text "NAMN:", size: size, :align=>:right
+      pdf.text "ID-NR:", size: size, :align=>:right
+      pdf.text "HÄMTAS PÅ:", size: size, :align=>:right
     end
 
     return pdf
