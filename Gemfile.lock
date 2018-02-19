@@ -117,6 +117,7 @@ GEM
       ttfunk (~> 1.4.0)
     puma (3.7.0)
     rack (2.0.1)
+    rack-cors (1.0.2)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.1)
@@ -217,6 +218,7 @@ DEPENDENCIES
   pg
   prawn
   puma (~> 3.0)
+  rack-cors
   rails (~> 5.0.1)
   rest-client
   rspec-rails (~> 3.5)
@@ -228,4 +230,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.14.3
+   1.14.5
