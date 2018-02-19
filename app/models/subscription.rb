@@ -68,6 +68,6 @@ class Subscription
   end
 
   def self.parse_public_note xml
-    xml.search('recievedlist').text
+    xml.search('recievedlist').text.gsub!(%r~<br\s*\/?>~, "\n")
   end
 end
