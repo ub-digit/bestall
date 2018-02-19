@@ -68,6 +68,6 @@ class Subscription
   end
 
   def self.parse_public_note xml
-    xml.search('notes').text
+    xml.search('recievedlist').text
   end
 end
