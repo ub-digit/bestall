@@ -3,7 +3,7 @@ class Api::BibliosController < ApplicationController
     id = params[:id]
     biblio = Biblio.find_by_id id
     if biblio
-			if biblio.can_be_borrowed
+			if biblio.can_be_borrowed || params[:force]
       	@response[:biblio] = biblio.as_json
 			else
 				error_msg(ErrorCodes::FORBIDDEN, "Item not allowed for loan: #{params[:id]}", [{"code" => "CAN_NOT_BE_BORROWED", "detail" => "This item is not allowed for loan."}])
