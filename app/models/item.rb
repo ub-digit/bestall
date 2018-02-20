@@ -119,11 +119,7 @@ class Item
 
   def parse_xml xml
     parsed_xml = Item.process_xml xml
-
-    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="h"]').text.present?
-      @serial_enum = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="h"]').text
-    end
-
+   
     if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="9"]').text.present?
       @id = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="9"]').text
     end

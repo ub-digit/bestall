@@ -19,19 +19,16 @@ export default DS.Model.extend({
   notForLoan: DS.attr('string'),
   isReserved: DS.attr('boolean'),
   isAvailible: DS.attr('boolean'),
-  serialEnum: DS.attr('string'),
 
   sublocationText: Ember.computed('sublocation.isOpenLoc', 'sublocation.name', 'itemCallNumber', function() {
     const dictionary = this.get('i18n');
     if (this.get('sublocation.isOpenLoc')) {
       if (this.get('itemCallNumber')) {
         return this.get('sublocation.name') + ', ' + this.get('itemCallNumber');
-      }
-      else {
+      } else {
         return this.get('sublocation.name');
       }
-    }
-    else {
+    } else {
       return dictionary.t('components.item-table.must_be_ordered');
     }
   }),
@@ -40,14 +37,11 @@ export default DS.Model.extend({
     const dictionary = this.get('i18n');
     if (this.get('statusLimitation') === 'NOT_FOR_HOME_LOAN') {
       return dictionary.t('components.item-table.not_for_home_loan');
-    }
-    else if (this.get('statusLimitation') === 'READING_ROOM_ONLY') {
+    } else if (this.get('statusLimitation') === 'READING_ROOM_ONLY') {
       return dictionary.t('components.item-table.reading_room_only');
-    }
-    else if (this.get('statusLimitation') === 'LOAN_IN_HOUSE_ONLY') {
+    } else if (this.get('statusLimitation') === 'LOAN_IN_HOUSE_ONLY') {
       return dictionary.t('components.item-table.loan_in_house_only');
-    }
-    else {
+    } else {
       return '';
     }
   }),
@@ -57,29 +51,21 @@ export default DS.Model.extend({
 
     if (this.get('status') === 'LOANED') {
       return dictionary.t('components.item-table.loaned') + ' ' + moment(this.get('dueDate')).format("YYYY-MM-DD");
-    }
-    else if (this.get('status') === 'RESERVED') {
+    } else if (this.get('status') === 'RESERVED') {
       return dictionary.t('components.item-table.reserved');
-    }
-    else if (this.get('status') === 'WAITING') {
+    } else if (this.get('status') === 'WAITING') {
       return dictionary.t('components.item-table.waiting');
-    }
-    else if (this.get('status') === 'IN_TRANSIT') {
+    } else if (this.get('status') === 'IN_TRANSIT') {
       return dictionary.t('components.item-table.in_transit');
-    }
-    else if (this.get('status') === 'DELAYED') {
+    } else if (this.get('status') === 'DELAYED') {
       return dictionary.t('components.item-table.delayed');
-    }
-    else if (this.get('status') === 'DURING_ACQUISITION') {
+    } else if (this.get('status') === 'DURING_ACQUISITION') {
       return dictionary.t('components.item-table.under_acquisition');
-    }
-    else if (this.get('status') === 'NOT_IN_PLACE') {
+    } else if (this.get('status') === 'NOT_IN_PLACE') {
       return dictionary.t('components.item-table.not_in_place');
-    }
-    else if (this.get('status') === 'AVAILABLE') {
+    } else if (this.get('status') === 'AVAILABLE') {
       return dictionary.t('components.item-table.available');
-    }
-    else {
+    } else {
       return dictionary.t('components.item-table.unknown');
     }
   }),
