@@ -10,5 +10,6 @@ export default DS.Model.extend({
   recordType: DS.attr('string'),
   noInQueue: DS.attr('number'),
   items: DS.hasMany('item'),
-  subscriptiongroups: DS.hasMany('subscriptiongroup')
+  subscriptiongroups: DS.hasMany('subscriptiongroup'),
+  hasEnum: DS.attr('boolean')
 });

@@ -19,7 +19,6 @@
       {{/if}}
     </ul>
   </nav>
-
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane {{is-active-tab 'tab2' activeTab}}" id="items" >
@@ -72,7 +71,6 @@
       </div>
     </div>
   </div>
-
 {{else}}
   <nav>
     <ul class="nav nav-tabs" role="tablist">
@@ -84,7 +82,7 @@
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane {{is-active-tab 'tab1' activeTab}}" id="items" >
       {{#if itemsAvailableSorted}}
-      {{item-table items=itemsAvailableSorted setItemToOrder=(action "setItemToOrder")}}
+      {{item-table items=itemsAvailableSorted hasSubscription=request.model.biblio.hasEnum setItemToOrder=(action "setItemToOrder")}}
       {{else}}
         <p class="center zero-state vertical-space-bottom-40">
           {{t "request.order.items.currently-no-available-items"}}
@@ -104,15 +102,14 @@
       {{#if request.model.biblio.canBeQueued}}
       <div class="row">
         <div class="col-xs-12">
-        <div class="panel panel-default">
-          <div class="panel-body center">
-            <strong>{{request.model.biblio.noInQueue}} {{t "request.order.items.number-of-people-in-queue"}}</strong> 
-            {{#unless hasItemAvailableForOrder }}
-             <button class="btn btn-primary btn-space-left" {{action 'setItemToOrder' null}}>{{t "request.order.items.queue-up"}}</button>
-            {{/unless}}
+          <div class="panel panel-default">
+            <div class="panel-body center">
+              <strong>{{request.model.biblio.noInQueue}} {{t "request.order.items.number-of-people-in-queue"}}</strong> 
+              {{#unless hasItemAvailableForOrder }}
+              <button class="btn btn-primary btn-space-left" {{action 'setItemToOrder' null}}>{{t "request.order.items.queue-up"}}</button>
+              {{/unless}}
+            </div>
           </div>
-        </div>
-
         </div>
       </div>
       {{/if}}
@@ -125,7 +122,6 @@
                 {{t "request.order.items.all-items-are-available"}}
               </p>
           {{/if}}
-
         </div>
       </div>
     </div>

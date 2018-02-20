@@ -157,6 +157,7 @@ class Biblio
     @origin = nil
     @isbn =  nil
     @edition = nil
+    @has_enum = nil
 
     if bib_xml.search('//record/datafield[@tag="260"]').text.present?
       tmp_arr = []
@@ -224,6 +225,9 @@ class Biblio
         end
       end
       @items << item
+      if item.copy_number 
+        @has_enum = true
+      end
     end
   end
 
