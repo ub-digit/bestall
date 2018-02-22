@@ -42,7 +42,6 @@ class Subscription
         subscriptions << self.new(id, biblio_id, sublocation_id, call_number, public_note, location_id)
       end
     end
-
     return subscriptions
   end
 
@@ -68,6 +67,6 @@ class Subscription
   end
 
   def self.parse_public_note xml
-    xml.search('recievedlist').text.gsub!(%r~<br\s*\/?>~, "\n")
+    xml.search('recievedlist').text.gsub(%r~<br\s*\/?>~, "\n")
   end
 end
