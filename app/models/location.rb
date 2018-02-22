@@ -20,14 +20,16 @@ class Location
   end
 
   def self.all
-    base_url = APP_CONFIG['koha']['base_url']
-    user =  APP_CONFIG['koha']['user']
-    password =  APP_CONFIG['koha']['password']
+    Rails.cache.fetch("locations", expires_in: 24.hours) do
+      base_url = APP_CONFIG['koha']['base_url']
+      user =  APP_CONFIG['koha']['user']
+      password =  APP_CONFIG['koha']['password']
 
-    url = "#{base_url}/branches/list?userid=#{user}&password=#{password}"
-    response = RestClient.get url
-    parse_xml(response).sort_by do |location|
-      location.id.to_i
+      url = "#{base_url}/branches/list?userid=#{user}&password=#{password}"
+      response = RestClient.get url
+      parse_xml(response).sort_by do |location|
+        location.id.to_i
+      end
     end
   end
 
