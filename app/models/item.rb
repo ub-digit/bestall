@@ -3,7 +3,7 @@ class Item
   include ActiveModel::Validations
 
   attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number,
-                :copy_number, :due_date, :lost, :restricted, :not_for_loan, :is_reserved, :withdrawn
+                :copy_number, :due_date, :lost, :restricted, :not_for_loan, :is_reserved, :withdrawn, :location_id
 
   attr_writer :found
 
@@ -15,7 +15,8 @@ class Item
     sublocation = Sublocation.find_by_id(@sublocation_id)
     @sublocation_name_sv = sublocation.name_sv
     @sublocation_name_en = sublocation.name_en
-    location = Location.find_by_id(sublocation.location_id)
+    @location_id = sublocation.location_id
+    location = Location.find_by_id(@location_id)
     @location_name_sv = location.name_sv
     @location_name_en = location.name_en
   end

@@ -229,6 +229,8 @@ class Biblio
         @has_enum = true
       end
     end
+    # Sort items
+    @items = @items.sort_by { |a| [ a.location_id, a.sublocation_id, a.item_call_number ] }
   end
 
   def self.parse_record_type leader
