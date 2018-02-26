@@ -36,23 +36,12 @@ export default Ember.Controller.extend({
     }
   }),
 
-
   hasItemAvailableForOrder: Ember.computed('request.model.biblio.items', function() {
     if (this.get("itemsAvailableForOrder.length") > 0) {
       return true;
     }
     return false;
   }),
-
-
-  /*subscriptionsSorted: Ember.computed.sort('request.model.biblio.subscriptions', function(a, b) {
-    if (a.get("sublocation.name") > b.get("sublocation.name")) {
-      return 1;
-    } else if (a.get("sublocation.name") < b.get("sublocation.name")) {
-      return -1;
-    }
-    return 0;
-  }),*/
 
   itemsAvailable: Ember.computed('request.model.biblio.items', function() {
     return this.get("request.model.biblio.items").filter((item) => item.get("isAvailible"));
@@ -62,57 +51,9 @@ export default Ember.Controller.extend({
     return this.get("request.model.biblio.items").filter((item) => item.get("canBeOrdered"));
   }),
 
-
-  sortProperties: ['canBeOrdered:desc'],
-  itemsAvailableSorted: Ember.computed.sort('itemsAvailable', 'sortProperties'),
-
-
-  itemsSorted: Ember.computed.sort('request.model.biblio.items', function(a, b) {
-    if (a.get("sublocation.name") > b.get("sublocation.name")) {
-      return 1;
-    }
-    if (a.get("sublocation.name") < b.get("sublocation.name")) {
-      return -1;
-    }
-    if (a.get("copyNumber") && !b.get("copyNumber")) {
-      return -1;
-    }
-    if (!a.get("copyNumber") && b.get("copyNumber")) {
-      return 1;
-    }
-    if (!a.get("copyNumber") && !b.get("copyNumber")) {
-      return 0;
-    }
-    return a.get("copyNumber").localeCompare(b.get("copyNumber"), undefined, { numeric: true, sensitivity: 'base' });
-  }),
-
   itemsNotAvailable: Ember.computed('request.model.biblio.items', function() {
     return this.get("request.model.biblio.items").filter((item) => !item.get("isAvailible"));
   }),
-
-
-  itemsNotAvailableSorted: Ember.computed.sort('itemsNotAvailable', function(a, b) {
-    let first = null;
-    let second = null;
-    if (!a.get("dueDate")) {
-      first = new Date("October 13, 2094 11:13:00");
-    } else {
-      first = a.get("dueDate");
-    }
-
-    if (!b.get("dueDate")) {
-      second = new Date("October 13, 2094 11:13:00");
-    } else {
-      second = b.get("dueDate");
-    }
-    if (first > second) {
-      return 1;
-    } else if (first < second) {
-      return -1;
-    }
-    return 0;
-  }),
-
   actions: {
     setItemToOrder(item) {
       this.get('order.model.reserve').set('item', item);

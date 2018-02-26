@@ -81,8 +81,8 @@
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane {{is-active-tab 'tab1' activeTab}}" id="items" >
-      {{#if itemsAvailableSorted}}
-      {{item-table items=itemsAvailableSorted hasSubscription=request.model.biblio.hasEnum setItemToOrder=(action "setItemToOrder")}}
+      {{#if itemsAvailable}}
+      {{item-table items=itemsAvailable hasSubscription=request.model.biblio.hasEnum setItemToOrder=(action "setItemToOrder")}}
       {{else}}
         <p class="center zero-state vertical-space-bottom-40">
           {{t "request.order.items.currently-no-available-items"}}
@@ -115,8 +115,8 @@
       {{/if}}
       <div class="row">
         <div class="col-xs-12">
-          {{#if itemsNotAvailableSorted}}
-            {{item-table items=itemsNotAvailableSorted setItemToOrder=(action "setItemToOrder")}}
+          {{#if itemsNotAvailable}}
+            {{item-table items=itemsNotAvailable setItemToOrder=(action "setItemToOrder")}}
           {{else}}
               <p class="center zero-state ">
                 {{t "request.order.items.all-items-are-available"}}

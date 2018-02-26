@@ -61,7 +61,7 @@ export default {
         "next-button": "Fortsätt",
         "select-button": "Välj",
         "order-subscription-button": "Beställ ur bestånd",
-        "unspecified-holdings": "Ospecifierat bestånd",
+        "unspecified-holdings": "Ospecificerat bestånd",
         "location": "Placering",
         "note": "Notering",
         "items": "Exemplar",
