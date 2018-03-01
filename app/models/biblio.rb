@@ -49,10 +49,10 @@ class Biblio
     super.merge(can_be_queued: can_be_queued, has_item_level_queue: has_item_level_queue)
   end
 
-  def initialize id, bib_xml, items_xml, reserves_xml
+  def initialize id, bib_xml, items_data, reserves_data
     @id = id
     @subscriptiongroups = []
-    parse_xml bib_xml, items_xml, reserves_xml
+    parse_data bib_xml, items_data, reserves_data
     subscriptions = Subscription.find_by_biblio_id id
     if !subscriptions.empty?
       #order subscriptions by home library
@@ -80,29 +80,29 @@ class Biblio
         sg = Subscriptiongroup.new short_info, grouped_subscriptions[location_id], location_id, self.id
         @subscriptiongroups.unshift(sg)
       end
-    end  
+    end
   end
 
   def findShortInfo bib_xml
     info_result = {}
     bib_xml = Nokogiri::XML(bib_xml).remove_namespaces!
     bib_xml.search('//record/datafield[@tag="866"]').each do |sto|
-     
+
       if sto.search('subfield[@code="a"]').text.present? || sto.search('subfield[@code="z"]').text.present?
         sigel = sto.search('subfield[@code="5"]').text
         subscription_stock = sto.search('subfield[@code="a"]').text
         item_type = sto.search('subfield[@code="z"]').text
-      
-        if !info_result[sigel] 
+
+        if !info_result[sigel]
           info_result[sigel] = []
         end
         res = ''
-        if subscription_stock.length > 0 && 
-          res += subscription_stock  
+        if subscription_stock.length > 0 &&
+          res += subscription_stock
         end
 
         if item_type.length > 0
-          if res.length > 0 
+          if res.length > 0
             res += ', ' + item_type
           end
         end
@@ -118,14 +118,14 @@ class Biblio
     end
     return nil
   end
-  
+
 
   def self.find id
     base_url = APP_CONFIG['koha']['base_url']
     user =  APP_CONFIG['koha']['user']
     password =  APP_CONFIG['koha']['password']
 
-    bib_url = "#{base_url}/bib/#{id}?userid=#{user}&password=#{password}&items=1"
+    bib_url = "#{base_url}/bib/#{id}?userid=#{user}&password=#{password}"
     items_url = "#{base_url}/items/list?biblionumber=#{id}&userid=#{user}&password=#{password}"
     reserves_url = "#{base_url}/reserves/list?biblionumber=#{id}&userid=#{user}&password=#{password}"
 
@@ -146,10 +146,8 @@ class Biblio
       return nil
   end
 
-  def parse_xml bib_xml, items_xml, reserves_xml
+  def parse_data bib_xml, items_data, reserves_data
     bib_xml = Nokogiri::XML(bib_xml).remove_namespaces!
-    items_xml = Nokogiri::XML(items_xml).remove_namespaces!
-    reserves_xml = Nokogiri::XML(reserves_xml).remove_namespaces!
 
     @record_type = Biblio.parse_record_type(bib_xml.search('//record/leader').text)
 
@@ -194,23 +192,24 @@ class Biblio
     @items = []
     @no_in_queue = 0
     borrowers = [];
-    
-    bib_xml.search('//record/datafield[@tag="952"]').each do |item_data|
-      item = Item.new(biblio_id: self.id, xml: item_data.to_xml, has_item_level_queue: self.has_item_level_queue)
+
+    reserves = JSON.parse(reserves_data)["reserves"]
+    JSON.parse(items_data)["items"].each do |item_data|
+      item = Item.new(biblio_id: self.id, rawdata: item_data, has_item_level_queue: self.has_item_level_queue)
       next if item.item_type.blank?
       next if item.sublocation_id.blank?
       next if item.masked?
       item.is_reserved = false
-      reserves_xml.search('//response/reserve').each do |reserve|
-        if reserve.xpath('itemnumber').text.present?
-          if reserve.xpath('itemnumber').text == item.id
+      reserves.each do |reserve|
+        if reserve["itemnumber"].present?
+          if reserve["itemnumber"] == item.id
             item.is_reserved = true
-            if reserve.xpath('found').text.present?
-              item.found = reserve.xpath('found').text
+            if reserve["found"].present?
+              item.found = reserve["found"]
             end
           end
         else
-          borrower = reserve.xpath('borrowernumber').text
+          borrower = reserve["borrowernumber"]
           if !borrowers.include? borrower
             borrowers.push(borrower)
              # increase only when itemnumber is not included
@@ -218,14 +217,8 @@ class Biblio
           end
         end
       end
-      # get due date from items xml
-      items_xml.search('//response/items').each do |item_xml|
-        if item_xml.xpath('itemnumber').text == item.id.to_s && item_xml.xpath('datedue').text.present?
-          item.due_date = item_xml.xpath('datedue').text
-        end
-      end
       @items << item
-      if item.copy_number 
+      if item.copy_number
         @has_enum = true
       end
     end

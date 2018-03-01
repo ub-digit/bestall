@@ -7,11 +7,11 @@ class Item
 
   attr_writer :found
 
-  def initialize biblio_id:, xml:, has_item_level_queue: false
+  def initialize biblio_id:, rawdata:, has_item_level_queue: false
     @biblio_id = biblio_id
     @has_item_level_queue = has_item_level_queue
     @is_reserved = false
-    parse_xml(xml)
+    parse_rawdata(rawdata)
     sublocation = Sublocation.find_by_id(@sublocation_id)
     @sublocation_name_sv = sublocation.name_sv
     @sublocation_name_en = sublocation.name_en
@@ -118,52 +118,17 @@ class Item
     return "AVAILABLE"
   end
 
-  def parse_xml xml
-    parsed_xml = Item.process_xml xml
-   
-    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="9"]').text.present?
-      @id = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="9"]').text
-    end
-
-    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="c"]').text.present?
-      @sublocation_id = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="c"]').text
-    end
-
-    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="y"]').text.present?
-      @item_type = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="y"]').text
-    end
-
-    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="p"]').text.present?
-      @barcode = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="p"]').text
-    end
-
-    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="o"]').text.present?
-      @item_call_number = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="o"]').text
-    end
-
-    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="h"]').text.present?
-      @copy_number = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="h"]').text
-    end
-
-    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="1"]').text.present?
-      @lost = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="1"]').text
-    end
-
-    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="5"]').text.present?
-      @restricted = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="5"]').text
-    end
-
-    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="7"]').text.present?
-      @not_for_loan = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="7"]').text
-    end
-
-    if parsed_xml.search('//datafield[@tag="952"]/subfield[@code="0"]').text.present?
-      @withdrawn = parsed_xml.search('//datafield[@tag="952"]/subfield[@code="0"]').text
-    end
-  end
-
-  def self.process_xml xml
-    return xml if xml.kind_of?(Nokogiri::XML::Document)
-    Nokogiri::XML(xml).remove_namespaces!
+  def parse_rawdata rawdata
+    rawdata["itemnumber"].present? ? @id = rawdata["itemnumber"] : @id = nil
+    rawdata["location"].present? ? @sublocation_id = rawdata["location"] : @sublocation_id = nil
+    rawdata["itype"].present? ? @item_type = rawdata["itype"] : @item_type = nil
+    rawdata["barcode"].present? ? @barcode = rawdata["barcode"] : @barcode = nil
+    rawdata["itemcallnumber"].present? ? @item_call_number = rawdata["itemcallnumber"] : @item_call_number = nil
+    rawdata["enumchron"].present? ? @copy_number = rawdata["enumchron"] : @copy_number = nil
+    rawdata["itemlost"].present? ? @lost = rawdata["itemlost"] : @lost = nil
+    rawdata["restricted"].present? ? @restricted = rawdata["restricted"] : @restricted = nil
+    rawdata["notforloan"].present? ? @not_for_loan = rawdata["notforloan"] : @not_for_loan = nil
+    rawdata["withdrawn"].present? ? @withdrawn = rawdata["withdrawn"] : @withdrawn = nil
+    rawdata["datedue"].present? ? @due_date = rawdata["datedue"] : @due_date = nil
   end
 end
