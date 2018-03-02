@@ -15,8 +15,8 @@ class Sublocation
     @is_open_pickup_loc = is_open_pickup_loc
   end
 
-  
-  
+
+
   def self.all
     Rails.cache.fetch("sublocations", expires_in: 24.hours) do
       base_url = APP_CONFIG['koha']['base_url']
@@ -30,9 +30,11 @@ class Sublocation
   end
 
   def self.find_by_id id
-    all.find do |loc|
+    res = all.find do |loc|
       id.to_s == loc.id.to_s
     end
+    return self.new(id: "1", name_sv: "", name_en: "", is_open_loc: false, is_open_pickup_loc: false, is_paging_loc: false) if res.blank?
+    res
   end
 
   def self.find_all_by_location_id location_id

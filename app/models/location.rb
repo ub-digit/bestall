@@ -34,9 +34,11 @@ class Location
   end
 
   def self.find_by_id id
-    all.find do |loc|
+    res = all.find do |loc|
       id.to_s == loc.id.to_s
     end
+    return self.new(id: "1", name_sv: "", name_en: "", categories: []) if res.blank?
+    res
   end
 
   def self.parse_xml xml
