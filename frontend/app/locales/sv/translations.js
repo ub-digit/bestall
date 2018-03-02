@@ -109,11 +109,15 @@ export default {
       },
     },
     "login": {
+      "login-heading": "Logga in med GU-konto",
+      "login-body": "För studenter och anställda vid GU med ett gus-konto eller x-konto.",
       "header": "Logga in",
-      "username-label": "Användarnamn:",
-      "password-label": "Lösenord:",
+      "login-account-heading": "Logga in med bibliotekskonto",
+      "login-account-body": "För användare som inte har något GU-konto.",
+      "card-number-label": "Nummer på bibliotekskort",
+      "personal-number-label": "Personnummer",
       "login-button": "Logga in",
-      "cas-link-text": "Logga in med CAS",
+      "library-card-link-text": "Skaffa bibliotekskonto",
       "loginError": "Fel användarnamn eller lösenord. Vänligen försök igen."
     }
   },

@@ -109,11 +109,14 @@ export default {
       },
     },
     "login": {
-      "header": "Log in",
-      "username-label": "Username:",
-      "password-label": "Password:",
+      "login-heading": "Log in with GU account",
+      "login-body": "For students and employees at GU with an gus account or an x account",
+      "login-account-heading": "Log in with library account",
+      "login-account-body": "For users without GU-account.",
+      "card-number-label": "Library card number",
+      "personal-number-label": "Swedish personal number",
       "login-button": "Log in",
-      "cas-link-text": "Log in using CAS",
+      "library-card-link-text": "Sign up for an account",
       "loginError": "Wrong username or password. Please try again."
     }
   },
