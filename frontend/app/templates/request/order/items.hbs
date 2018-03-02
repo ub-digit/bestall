@@ -22,7 +22,7 @@
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane {{is-active-tab 'tab2' activeTab}}" id="items" >
-      {{item-table items=itemsSorted hasSubscription=true setItemToOrder=(action "setItemToOrder")}}
+      {{item-table items=request.model.biblio.items hasSubscription=true setItemToOrder=(action "setItemToOrder")}}
     </div>
     <div role="tabpanel" class="tab-pane {{is-active-tab 'tab1' activeTab}}" id="subscriptions">
       <div class="row">
