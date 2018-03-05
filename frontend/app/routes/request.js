@@ -41,10 +41,8 @@ export default Ember.Route.extend({
     if (this.get('session.isAuthenticated')) {
       return Ember.RSVP.hash({
         //@FIXME: this.get('store')?
-        biblio: this.store.find('biblio', params.id),
-        user: this.store.queryRecord('user', {
-          biblio: params.id
-        })
+        biblio: this.store.findRecord('biblio', params.id, {adapterOptions: {items_on_subscriptions: "true"}}),
+        user: this.store.queryRecord('user', {biblio: params.id})
       });
     } else {
       return Ember.RSVP.hash({
