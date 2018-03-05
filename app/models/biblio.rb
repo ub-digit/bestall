@@ -52,6 +52,7 @@ class Biblio
   def initialize id, bib_xml, items_data, reserves_data
     @id = id
     @subscriptiongroups = []
+
     parse_data bib_xml, items_data, reserves_data
     subscriptions = Subscription.find_by_biblio_id id
     if !subscriptions.empty?
@@ -120,25 +121,33 @@ class Biblio
   end
 
 
-  def self.find id
+  def self.find id, opts = {}
     base_url = APP_CONFIG['koha']['base_url']
     user =  APP_CONFIG['koha']['user']
     password =  APP_CONFIG['koha']['password']
 
     bib_url = "#{base_url}/bib/#{id}?userid=#{user}&password=#{password}"
-    items_url = "#{base_url}/items/list?biblionumber=#{id}&userid=#{user}&password=#{password}"
-    reserves_url = "#{base_url}/reserves/list?biblionumber=#{id}&userid=#{user}&password=#{password}"
-
     bib_response = RestClient.get bib_url
-    items_response = RestClient.get items_url
-    reserves_response = RestClient.get reserves_url
+    bib_response_body = bib_response.body
 
-    item = self.new id, bib_response, items_response, reserves_response
+    if opts[:items_on_subscriptions] && opts[:items_on_subscriptions].eql?("true")
+      items_url = "#{base_url}/items/list?biblionumber=#{id}&userid=#{user}&password=#{password}"
+      items_response = RestClient.get items_url
+      items_response_body = items_response.body
+      reserves_url = "#{base_url}/reserves/list?biblionumber=#{id}&userid=#{user}&password=#{password}"
+      reserves_response = RestClient.get reserves_url
+      reserves_response_body = reserves_response.body
+    else
+      # set json with empty item and reserve arrays
+      items_response_body = "{\"items\": []}"
+      reserves_response_body = "{\"reserves\": []}"
+    end
+    item = self.new id, bib_response_body, items_response_body, reserves_response_body
     return item
   end
 
-  def self.find_by_id id
-    self.find id
+  def self.find_by_id id, opts = {}
+    self.find id, opts
     # TODO: Do something much better
     rescue RestClient::NotFound => error
       return nil

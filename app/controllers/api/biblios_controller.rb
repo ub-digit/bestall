@@ -1,9 +1,11 @@
 class Api::BibliosController < ApplicationController
 	def show
     id = params[:id]
-    biblio = Biblio.find_by_id id
+    # setting items_on_subscriptions to false will speed up response time by excluding item and reserve lists
+    items_on_subscriptions = params[:items_on_subscriptions]
+    biblio = Biblio.find_by_id id, {items_on_subscriptions: items_on_subscriptions}
     if biblio
-			if biblio.can_be_borrowed || params[:force]
+			if biblio.can_be_borrowed
       	@response[:biblio] = biblio.as_json
 			else
 				error_msg(ErrorCodes::FORBIDDEN, "Item not allowed for loan: #{params[:id]}", [{"code" => "CAN_NOT_BE_BORROWED", "detail" => "This item is not allowed for loan."}])
