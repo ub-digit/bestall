@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     post 'print', to: 'print#create'
 
     # Config API
-    get 'config/:id', to: 'config#cas_url'
+    get 'config/:id', to: 'config#show'
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
