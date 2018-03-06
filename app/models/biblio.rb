@@ -49,12 +49,10 @@ class Biblio
     super.merge(can_be_queued: can_be_queued, has_item_level_queue: has_item_level_queue)
   end
 
-  def initialize id, bib_xml, items_data, reserves_data
+  def initialize id, bib_xml, items_data, reserves_data, subscriptions
     @id = id
     @subscriptiongroups = []
-
     parse_data bib_xml, items_data, reserves_data
-    subscriptions = Subscription.find_by_biblio_id id
     if !subscriptions.empty?
       #order subscriptions by home library
       grouped_subscriptions = subscriptions.group_by do |sub|
@@ -130,19 +128,22 @@ class Biblio
     bib_response = RestClient.get bib_url
     bib_response_body = bib_response.body
 
-    if opts[:items_on_subscriptions] && opts[:items_on_subscriptions].eql?("true")
+    subscriptions = Subscription.find_by_biblio_id id
+
+    if !subscriptions.empty? && opts[:items_on_subscriptions].eql?("false")
+      # set json with empty item and reserve arrays
+      items_response_body = "{\"items\": []}"
+      reserves_response_body = "{\"reserves\": []}"
+    else
       items_url = "#{base_url}/items/list?biblionumber=#{id}&userid=#{user}&password=#{password}"
       items_response = RestClient.get items_url
       items_response_body = items_response.body
       reserves_url = "#{base_url}/reserves/list?biblionumber=#{id}&userid=#{user}&password=#{password}"
       reserves_response = RestClient.get reserves_url
       reserves_response_body = reserves_response.body
-    else
-      # set json with empty item and reserve arrays
-      items_response_body = "{\"items\": []}"
-      reserves_response_body = "{\"reserves\": []}"
     end
-    item = self.new id, bib_response_body, items_response_body, reserves_response_body
+
+    item = self.new id, bib_response_body, items_response_body, reserves_response_body, subscriptions
     return item
   end
 
