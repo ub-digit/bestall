@@ -114,7 +114,7 @@ export default {
       "login-account-heading": "Log in with library account",
       "login-account-body": "For users without GU-account.",
       "card-number-label": "Library card number",
-      "personal-number-label": "Swedish personal number",
+      "personal-number-label": "Personal number",
       "login-button": "Log in",
       "library-card-link-text": "Sign up for an account",
       "loginError": "Wrong username or password. Please try again."
