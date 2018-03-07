@@ -19,20 +19,14 @@ export default Ember.Controller.extend({
   },
 
   libraryCardUrl: Ember.computed(function() {
-    let lang = this.get('getLocale');
-    let baseUrl = window.location.origin;
-    var url = 'https://bibliotekskort.ub.gu.se?lang=' + lang;
-    if (baseUrl.indexOf('staging') > -1) {
-      url = 'https://bibliotekskort-staging.ub.gu.se/?lang=' + lang;
-    } else if (baseUrl.indexOf('lab') > -1) {
-      url = 'https://bibliotekskort-lab.ub.gu.se/?lang=' + lang;
-    }
-    return url;
+    var lang = this.get('getLocale');
+    return this.get('store').peekRecord('config', 1).get('registrationurl') + '?lang=' + lang;
   }),
 
   casLoginUrl: Ember.computed(function() {
     return this.get('store').peekRecord('config', 1).get('casurl') + '/login';
   }),
+
   returnUrl: Ember.computed('request.model.biblio.id', function() {
     let id = this.get('request.model.biblio.id');
     let baseUrl = window.location.origin;

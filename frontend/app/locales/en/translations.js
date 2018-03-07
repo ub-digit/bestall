@@ -117,7 +117,8 @@ export default {
       "personal-number-label": "Personal number",
       "login-button": "Log in",
       "library-card-link-text": "Sign up for an account",
-      "loginError": "Wrong username or password. Please try again."
+      "loginError": "Wrong username or password. Please try again.",
+      "or": "Or"
     }
   },
   "status-errors": {
