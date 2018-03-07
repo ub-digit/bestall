@@ -110,9 +110,9 @@ export default {
     },
     "login": {
       "login-heading": "Log in with GU account",
-      "login-body": "For students and employees at GU with an gus account or an x account",
+      "login-body": "For students and employees at GU with a gus-account or an x-account.",
       "login-account-heading": "Log in with library account",
-      "login-account-body": "For users without GU-account.",
+      "login-account-body": "For users without a GU account.",
       "card-number-label": "Library card number",
       "personal-number-label": "Personal number",
       "login-button": "Log in",
