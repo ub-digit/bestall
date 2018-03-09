@@ -8,7 +8,7 @@ export default {
       "mainHeader": 'Request and reserve',
     },
     "footer": {
-      "content": '© <a title="Göteborgs universitet" href="http://www.gu.se/">University of Gothenburg, Sweden</a><br>Box 100, S-405 30 Gothenburg<br>Phone +46 31-786 0000, <a title="Contact" href="http://www.gu.se/omuniversitetet/kontakt/">Contact</a>'
+      "content": '© <a title="University of Gothenburg" href="http://www.gu.se/">University of Gothenburg, Sweden</a><br>Box 100, S-405 30 Gothenburg<br>Phone +46 31-786 0000, <a title="Contact" href="http://www.gu.se/omuniversitetet/kontakt/">Contact</a>'
     },
   },
   "components": {
@@ -28,7 +28,7 @@ export default {
       "loan_in_house_only": "Borrow on location",
       "loaned": "On loan until",
       "reserved": "Reserved",
-      "waiting": "Waiting for pick up",
+      "waiting": "Waiting for pick-up",
       "in_transit": "In transit",
       "delayed": "Overdue",
       "under_acquisition": "Ongoing purchase",
@@ -60,10 +60,10 @@ export default {
       "items": {
         "next-button": "Continue",
         "select-button": "Select",
-        "order-subscription-button": "Select from holdings",
+        "order-subscription-button": "Request from holdings",
         "unspecified-holdings": "Unspecified holdings",
         "location": "Location",
-        "note": "Note",
+        "note": "Holdings",
         "items": "Items",
         "subscriptions": "Holdings",
         "available": "Available",
@@ -75,8 +75,8 @@ export default {
       },
       "details": {
         "header": "Your request",
-        "loantype-dropdown-label": "Select type of loan",
-        "location-dropdown-label": "Select a pick up location",
+        "loantype-dropdown-label": "Type of loan",
+        "location-dropdown-label": "Pick up at",
         "next-button": "Continue",
         "cant-be-pickedup-here": "can't be picked up here",
         "not-allowed": "not allowed",
@@ -91,8 +91,8 @@ export default {
         "header": "Thank you for your request!",
         "error-header": "The request couldn't be placed.",
         "you-have-place": "You have place",
-        "in-queue": "in queue.",
-        "message": "You will get a message when the request is available for pick up at",
+        "in-queue": "in the queue.",
+        "message": "You will get a message when the request is available for pick-up at",
         "my-loans-link-text": "See your loans and requests in My loans."
       },
       "summary": {
@@ -114,7 +114,7 @@ export default {
       "login-account-heading": "Log in with library account",
       "login-account-body": "For users without a GU account.",
       "card-number-label": "Library card number",
-      "personal-number-label": "Personal number",
+      "personal-number-label": "Personal identity number",
       "login-button": "Log in",
       "library-card-link-text": "Sign up for an account",
       "loginError": "Wrong username or password. Please try again.",

@@ -63,7 +63,7 @@ export default {
         "order-subscription-button": "Beställ ur bestånd",
         "unspecified-holdings": "Ospecificerat bestånd",
         "location": "Placering",
-        "note": "Notering",
+        "note": "Bestånd",
         "items": "Exemplar",
         "subscriptions": "Bestånd",
         "available": "Tillgängliga",
