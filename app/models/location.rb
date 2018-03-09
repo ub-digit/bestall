@@ -45,12 +45,13 @@ class Location
     parsed_xml = Nokogiri::XML(xml).remove_namespaces!
 
     branches = []
+    branches_en =  {"40" => "Biomedical Library", "42" => "Social Sciences Library", "43" => "Botanical and Environmental Library", "44" => "Humanities Library", "46" => "Department Library", "47" => "Education Library", "48" => "Economics Library", "49" => "Earth Sciences and Conservation Library", "50" => "Learning Centre Campus Linné", "60" => "Art Library", "62" => "Music and Drama Library", "66" => "Learning Centre Hälsovetarbacken"}
 
     parsed_xml.search('//response/branches').each do |branch|
       id = branch.xpath('branchcode').text
       next if id.blank?
       name_sv = branch.xpath('branchname').text
-      name_en = branch.xpath('branchname').text
+      name_en = branches_en[id]
       categories = branch.xpath('categories').map(&:text)
 
       branches << self.new(id: id, name_sv: name_sv, name_en: name_en, categories: categories)
