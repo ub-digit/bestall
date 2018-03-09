@@ -1,8 +1,91 @@
 .login-wrapper {
-  .not-functional {
-    opacity: .4;
+  .gu-login-account-heading{
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
   }
-  .cas-login-link {
+
+  .gu-login-account-body{
+    margin-bottom: 40px;
+    display: block;
+  }
+  
+
+
+body {padding-top: 40px;}
+
+.gu-account-login {
+  &:hover {
+    .gu-login-heading, .gu-login-body {
+      text-decoration: underline;
+    }
+  }
+  .panel-body {
+    padding: 20px;
+  }
+  .gu-login-logo {
+    width: 193px;
+    height:30px;
+    margin-bottom: 10px;
+    background: transparent url("/gu-logo-login-gu-account@2x.png") no-repeat;
+    background-size: 100%;
+    
+    &.en{
+      width: 231px;
+      background: transparent url("/gu-logo-login-gu-account@2x_en.png") no-repeat;
+      background-size: 100%;
+    }
+  }
+  .gu-login-text {
+    width: 90%;
+    float: left;
+    .gu-login-heading {
+      font-size: 20px;
+      font-weight:bold;
+      margin-bottom: 5px;      
+     }
+    .gu-login-body {
+      font-size: 16px;
+    }    
+  }  
+  .gu-login-arrow {
+    text-align: right;
+    float: right;
+    margin-top: 3px;
+    width: 10%;
+  }
+  
+  a {
+    color: #333;    
+  }
+}
+
+.gu-login-heading {
+  font-size: 20px;
+  font-weight:bold;
+  margin-bottom: 5px;      
+  }
+  
+  .alternative-wrapper{
+    margin-top: 40px;
+    margin-bottom: 40px;
+    color: #e2e2e2;
+    .lines{
+      width: 100%;
+      height: 14px;
+      border-bottom: 2px solid #e2e2e2;
+      text-align: center;
+      margin-bottom: 10px;
+      .word{
+        background-color: #fff;
+        padding-left: 8px;
+        padding-right: 8px;
+        height: 10px;
+        font-weight: bold;
+      }
+    }
+  }
+  .library-card-link {
     text-align: center;
     margin-top: 20px;
   }
