@@ -39,7 +39,6 @@ export default Ember.Controller.extend({
 
   getMyLoanUrl: computed('order.model', function() {
     var lang = this.get('getLocale');
-    alert(this.get('store').peekRecord('config', 1).get('myloansurl') + '?lang=' + lang);
     return this.get('store').peekRecord('config', 1).get('myloansurl') + '?lang=' + lang;
   }),
 
