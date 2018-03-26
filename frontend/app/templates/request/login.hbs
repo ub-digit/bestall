@@ -44,11 +44,12 @@
         {{/if}}
       <div class="form-group">
         <label>{{t "request.login.card-number-label"}}</label>
-          {{input value=username class="form-control"}}
+          {{input value=username class="form-control" insert-newline='login'}}
       </div>
       <div class="form-group">
         <label>{{t "request.login.personal-number-label"}}</label>
-        {{input type='password' value=password class="form-control"}}
+        {{input type='password' value=password class="form-control"  insert-newline='login'}}
+
       </div>
       <button class="btn btn-primary btn-block" {{action 'login' username password}}>{{t "request.login.login-button"}}</button>
       <div class="library-card-link"><a href="{{libraryCardUrl}}" class="small">{{t "request.login.library-card-link-text"}}</a></div>
