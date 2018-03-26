@@ -1,4 +1,5 @@
 {{#if showForm}}
+<form {{action 'login' username password on='submit'}}>
 <div class="login-wrapper">
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-sm-offset-3">
@@ -49,6 +50,7 @@
       <div class="form-group">
         <label>{{t "request.login.personal-number-label"}}</label>
         {{input type='password' value=password class="form-control"}}
+
       </div>
       <button class="btn btn-primary btn-block" {{action 'login' username password}}>{{t "request.login.login-button"}}</button>
       <div class="library-card-link"><a href="{{libraryCardUrl}}" class="small">{{t "request.login.library-card-link-text"}}</a></div>
@@ -56,4 +58,5 @@
     </div>
   </div>
 </div>
+</form>
 {{/if}}
