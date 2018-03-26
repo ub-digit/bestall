@@ -36,7 +36,7 @@
         <div class="lines">
           <span class="word">{{t 'request.login.or'}}</span>
         </div>
-      </div>
+     
       <div class="gu-login-account-heading">{{t 'request.login.login-account-heading'}}</div>
       <span class="gu-login-account-body">{{t 'request.login.login-account-body'}}</span>
         {{#if errorMessage}}
@@ -52,6 +52,7 @@
       </div>
       <button class="btn btn-primary btn-block" {{action 'login' username password}}>{{t "request.login.login-button"}}</button>
       <div class="library-card-link"><a href="{{libraryCardUrl}}" class="small">{{t "request.login.library-card-link-text"}}</a></div>
+    </div>
     </div>
   </div>
 </div>

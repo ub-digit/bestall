@@ -1,6 +1,7 @@
 .login-wrapper {
   .gu-login-account-heading{
     margin-bottom: 20px;
+    margin-top: 40px;
     font-size: 20px;
     font-weight: bold;
   }
@@ -73,10 +74,16 @@ body {padding-top: 40px;}
   }
   
   .alternative-wrapper{
+     @media (min-width: 992px) {
+				max-width: 343px;
+        margin: 0 auto;
+			}
+
     margin-top: 40px;
     margin-bottom: 40px;
-    color: #e2e2e2;
+    
     .lines{
+      color: #e2e2e2;
       width: 100%;
       height: 14px;
       border-bottom: 2px solid #e2e2e2;
