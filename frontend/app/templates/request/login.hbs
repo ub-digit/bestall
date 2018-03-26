@@ -1,4 +1,6 @@
 {{#if showForm}}
+Stefan Berndtsson [2:33 PM]
+<form {{action 'login' username password on='submit'}}>
 <div class="login-wrapper">
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-sm-offset-3">
@@ -44,11 +46,11 @@
         {{/if}}
       <div class="form-group">
         <label>{{t "request.login.card-number-label"}}</label>
-          {{input value=username class="form-control" insert-newline='login'}}
+          {{input value=username class="form-control"}}
       </div>
       <div class="form-group">
         <label>{{t "request.login.personal-number-label"}}</label>
-        {{input type='password' value=password class="form-control"  insert-newline='login'}}
+        {{input type='password' value=password class="form-control"}}
 
       </div>
       <button class="btn btn-primary btn-block" {{action 'login' username password}}>{{t "request.login.login-button"}}</button>
@@ -56,4 +58,5 @@
     </div>
   </div>
 </div>
+</form>
 {{/if}}
