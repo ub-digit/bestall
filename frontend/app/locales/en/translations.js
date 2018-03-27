@@ -80,7 +80,7 @@ export default {
         "next-button": "Continue",
         "cant-be-pickedup-here": "can't be picked up here",
         "not-allowed": "not allowed",
-        "subscription-reserve-label": "Details about your request",
+        "subscription-reserve-label": "Details about your request (mandatory)",
         "subscription-reserve-helptext": "Enter the requested item's volume, year, issue or page number.",
         "subscription-note": "You can make requests for items from these holdings:",
         "reserve-label": "Comment (optional)",
