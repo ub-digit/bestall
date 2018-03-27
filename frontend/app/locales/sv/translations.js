@@ -80,7 +80,7 @@ export default {
         "next-button": "Fortsätt",
         "cant-be-pickedup-here": "kan ej beställas hit",
         "not-allowed": "ej tillåtet",
-        "subscription-reserve-label": "Detaljer om beställningen",
+        "subscription-reserve-label": "Detaljer om beställningen (obligatoriskt)",
         "subscription-reserve-helptext": "Ange volym, år, nummer eller sidnummer för det exemplar du vill beställa.",
         "subscription-note": "Du kan beställa exemplar ur följande bestånd:",
         "reserve-label": "Kommentar (valfri)",
