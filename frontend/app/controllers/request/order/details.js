@@ -7,6 +7,10 @@ export default Ember.Controller.extend({
 
   possiblePickupLocations: Ember.computed.filterBy('order.model.locations', 'isPickupLocation', true),
 
+  inputAutocomplete: Ember.computed(function() {
+    return (this.get('request.view') !== '46GUB_KOHA');
+  }),
+
   applyFilter: Ember.computed('order.model.reserve.biblio', 'order.model.reserve.item', function() {
     let recordType = this.get('order.model.reserve.biblio.recordType');
 

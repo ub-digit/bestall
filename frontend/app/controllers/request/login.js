@@ -18,6 +18,9 @@ export default Ember.Controller.extend({
     }
   },
 
+  inputAutocomplete: Ember.computed(function() {
+    return (this.get('request.view') !== '46GUB_KOHA');
+  }),
   showCasLogin: Ember.computed(function() {
     return (this.get('request.view') !== '46GUB_KOHA');
   }),
