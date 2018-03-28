@@ -1,6 +1,11 @@
 {{#if request.model.user.warning}}
   <div class="alert alert-warning">
     <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-    <div class="alert-msg">{{t "request.order.warning.message"}}</div>
+    <div class="alert-msg">
+      {{t "request.order.warning.message"}}
+      {{#if showMyLoanMessage}}
+        {{t "request.order.warning.myloan-message"}}
+      {{/if}}
+    </div>
   </div>
 {{/if}}

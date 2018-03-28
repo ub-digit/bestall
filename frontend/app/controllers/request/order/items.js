@@ -36,6 +36,10 @@ export default Ember.Controller.extend({
     }
   }),
 
+  showMyLoanMessage: Ember.computed(function() {
+    return (this.get('request.view') !== '46GUB_KOHA');
+  }),
+
   hasItemAvailableForOrder: Ember.computed('request.model.biblio.items', function() {
     if (this.get("itemsAvailableForOrder.length") > 0) {
       return true;

@@ -37,6 +37,10 @@ export default Ember.Controller.extend({
     return this.get('i18n.locale');
   }),
 
+  showMyLoanUrl: Ember.computed(function() {
+    return (this.get('request.view') !== '46GUB_KOHA');
+  }),
+
   getMyLoanUrl: computed('order.model', function() {
     var lang = this.get('getLocale');
     return this.get('store').peekRecord('config', 1).get('myloansurl') + '?lang=' + lang;

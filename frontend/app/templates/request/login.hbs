@@ -42,7 +42,9 @@
           </div>
         {{/if}}
       <div class="gu-login-account-heading">{{t 'request.login.login-account-heading'}}</div>
-      <span class="gu-login-account-body">{{t 'request.login.login-account-body'}}</span>
+      {{#if showCasLogin}}
+        <span class="gu-login-account-body">{{t 'request.login.login-account-body'}}</span>
+      {{/if}}
         {{#if errorMessage}}
           <div class="alert alert-danger col-xs-12">{{t 'request.login.loginError'}}</div>
         {{/if}}

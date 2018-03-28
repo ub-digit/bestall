@@ -105,7 +105,8 @@ export default {
         "submit-order-button": "Beställ"
       },
       "warning": {
-        "message": "Du kan beställa det här materialet, men kommer inte kunna låna det, eftersom du har förseningsavgifter eller försenade lån. <a class=\"alert-link\" href=\"https://koha-staging.ub.gu.se/\">Logga in i Mina lån</a> för att se vad du behöver göra."
+        "message": "Du kan beställa det här materialet, men kommer inte kunna låna det, eftersom du har förseningsavgifter eller försenade lån.",
+        "myloan-message": "<a class=\"alert-link\" href=\"https://koha-staging.ub.gu.se/\">Logga in i Mina lån</a> för att se vad du behöver göra."
       },
     },
     "login": {

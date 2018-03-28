@@ -29,8 +29,10 @@
     {{/if}}
     <p>{{t "request.order.confirmation.message"}}  {{order.model.reserve.location.name}}.</p>
     {{#unless order.model.reserve.subscriptionNotes}}
-      <i class="fa fa-angle-right" aria-hidden="true"></i>
-      <a href={{getMyLoanUrl}}>{{t "request.order.confirmation.my-loans-link-text"}}</a>
+      {{#if showMyLoanUrl}}
+        <i class="fa fa-angle-right" aria-hidden="true"></i>
+        <a href={{getMyLoanUrl}}>{{t "request.order.confirmation.my-loans-link-text"}}</a>
+      {{/if}}
     {{/unless}}
   </div>
 {{/if}}
