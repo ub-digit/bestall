@@ -18,15 +18,19 @@ export default Ember.Controller.extend({
     }
   },
 
+  inputAutocomplete: Ember.computed(function() {
+    return (this.get('request.view') !== '46GUB_KOHA');
+  }),
+  showCasLogin: Ember.computed(function() {
+    return (this.get('request.view') !== '46GUB_KOHA');
+  }),
   libraryCardUrl: Ember.computed(function() {
     var lang = this.get('getLocale');
     return this.get('store').peekRecord('config', 1).get('registrationurl') + '?lang=' + lang;
   }),
-
   casLoginUrl: Ember.computed(function() {
     return this.get('store').peekRecord('config', 1).get('casurl') + '/login';
   }),
-
   returnUrl: Ember.computed('request.model.biblio.id', function() {
     let id = this.get('request.model.biblio.id');
     let baseUrl = window.location.origin;

@@ -1,62 +1,75 @@
 {{#if showForm}}
-<form {{action 'login' username password on='submit'}}>
-<div class="login-wrapper">
-  <div class="row">
-    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-      <div class="gu-account-login">
-        <a href="{{casUrl}}">
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <div class="gu-login-logo {{getLocale}}">
+  <form {{action 'login' username password on='submit'}}>
+    <div class="login-wrapper">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+          {{#if showCasLogin}}
+            <div class="gu-account-login">
+              <a href="{{casUrl}}">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <div class="gu-login-logo {{getLocale}}">
+                    </div>
+                    <div class="gu-login-text">
+                      <div class="gu-login-heading">{{t 'request.login.login-heading'}}</div>
+                      <div class="gu-login-body">{{t 'request.login.login-body'}}</div>
+                    </div>
+                    <div class="gu-login-arrow">
+                      <svg width="15px" height="24px" viewBox="0 0 15 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+                        <desc>Created with Sketch.</desc>
+                        <defs></defs>
+                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-family="FontAwesome" font-size="25" font-weight="normal" opacity="0.329999983">
+                          <g id="Logga-in-Copy-11" transform="translate(-714.000000, -264.000000)" fill="#C3C3C3">
+                            <g id="Group-7" transform="translate(450.000000, 199.000000)">
+                              <text id="">
+                                <tspan x="263.142857" y="87"></tspan>
+                              </text>
+                            </g>
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          {{/if}}
+          <div class="alternative-wrapper">
+            {{#if showCasLogin}}
+              <div class="lines">
+                <span class="word">{{t 'request.login.or'}}</span>
               </div>
-              <div class="gu-login-text">
-                <div class="gu-login-heading">{{t 'request.login.login-heading'}}</div>
-                <div class="gu-login-body">{{t 'request.login.login-body'}}</div>
-              </div>
-              <div class="gu-login-arrow">
-                <svg width="15px" height="24px" viewBox="0 0 15 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                  <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
-                  <desc>Created with Sketch.</desc>
-                  <defs></defs>
-                  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-family="FontAwesome" font-size="25" font-weight="normal" opacity="0.329999983">
-                    <g id="Logga-in-Copy-11" transform="translate(-714.000000, -264.000000)" fill="#C3C3C3">
-                      <g id="Group-7" transform="translate(450.000000, 199.000000)">
-                        <text id="">
-                          <tspan x="263.142857" y="87"></tspan>
-                        </text>
-                      </g>
-                    </g>
-                  </g>
-                </svg>
-              </div>
+            {{/if}}
+            <div class="gu-login-account-heading">{{t 'request.login.login-account-heading'}}</div>
+            {{#if showCasLogin}}
+              <span class="gu-login-account-body">{{t 'request.login.login-account-body'}}</span>
+            {{/if}}
+            {{#if errorMessage}}
+              <div class="alert alert-danger col-xs-12">{{t 'request.login.loginError'}}</div>
+            {{/if}}
+            <div class="form-group">
+              <label>{{t "request.login.card-number-label"}}</label>
+              {{#if inputAutocomplete}}
+               {{input value=username class="form-control"}}
+              {{else}}
+                {{input value=username class="form-control" autocomplete="off"}}
+              {{/if}}
+            </div>
+            <div class="form-group">
+              <label>{{t "request.login.personal-number-label"}}</label>
+              {{#if inputAutocomplete}}
+                {{input type='password' value=password class="form-control"}}
+              {{else}}
+                {{input type='password' value=password class="form-control" autocomplete="new-password"}}
+              {{/if}}
+            </div>            <button class="btn btn-primary btn-block" {{action 'login' username password}}>{{t "request.login.login-button"}}</button>
+            <div class="library-card-link">
+              <a href="{{libraryCardUrl}}" class="small">{{t "request.login.library-card-link-text"}}</a>
             </div>
           </div>
-        </a>
-      </div>
-      <div class="alternative-wrapper">
-        <div class="lines">
-          <span class="word">{{t 'request.login.or'}}</span>
         </div>
-     
-      <div class="gu-login-account-heading">{{t 'request.login.login-account-heading'}}</div>
-      <span class="gu-login-account-body">{{t 'request.login.login-account-body'}}</span>
-        {{#if errorMessage}}
-          <div class="alert alert-danger col-xs-12">{{t 'request.login.loginError'}}</div>
-        {{/if}}
-      <div class="form-group">
-        <label>{{t "request.login.card-number-label"}}</label>
-          {{input value=username class="form-control"}}
       </div>
-      <div class="form-group">
-        <label>{{t "request.login.personal-number-label"}}</label>
-        {{input type='password' value=password class="form-control"}}
-
-      </div>
-      <button class="btn btn-primary btn-block" {{action 'login' username password}}>{{t "request.login.login-button"}}</button>
-      <div class="library-card-link"><a href="{{libraryCardUrl}}" class="small">{{t "request.login.library-card-link-text"}}</a></div>
     </div>
-    </div>
-  </div>
-</div>
-</form>
+  </form>
 {{/if}}

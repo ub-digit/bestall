@@ -109,7 +109,7 @@ class User
         @warning = true
       end
       if debarment.xpath('comment').text.starts_with?('ORI, ')
-        @restriction_restriction_ori = true
+        @restriction_ori = true
         @denied = true
       end
       if debarment.xpath('comment').text.starts_with?('OVERDUES_PROCESS ')
