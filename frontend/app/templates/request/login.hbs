@@ -3,41 +3,44 @@
 <div class="login-wrapper">
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-      <div class="gu-account-login">
-        <a href="{{casUrl}}">
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <div class="gu-login-logo {{getLocale}}">
-              </div>
-              <div class="gu-login-text">
-                <div class="gu-login-heading">{{t 'request.login.login-heading'}}</div>
-                <div class="gu-login-body">{{t 'request.login.login-body'}}</div>
-              </div>
-              <div class="gu-login-arrow">
-                <svg width="15px" height="24px" viewBox="0 0 15 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                  <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
-                  <desc>Created with Sketch.</desc>
-                  <defs></defs>
-                  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-family="FontAwesome" font-size="25" font-weight="normal" opacity="0.329999983">
-                    <g id="Logga-in-Copy-11" transform="translate(-714.000000, -264.000000)" fill="#C3C3C3">
-                      <g id="Group-7" transform="translate(450.000000, 199.000000)">
-                        <text id="">
-                          <tspan x="263.142857" y="87"></tspan>
-                        </text>
+      {{#if showCasLogin}}
+        <div class="gu-account-login">
+          <a href="{{casUrl}}">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="gu-login-logo {{getLocale}}">
+                </div>
+                <div class="gu-login-text">
+                  <div class="gu-login-heading">{{t 'request.login.login-heading'}}</div>
+                  <div class="gu-login-body">{{t 'request.login.login-body'}}</div>
+                </div>
+                <div class="gu-login-arrow">
+                  <svg width="15px" height="24px" viewBox="0 0 15 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+                    <desc>Created with Sketch.</desc>
+                    <defs></defs>
+                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-family="FontAwesome" font-size="25" font-weight="normal" opacity="0.329999983">
+                      <g id="Logga-in-Copy-11" transform="translate(-714.000000, -264.000000)" fill="#C3C3C3">
+                        <g id="Group-7" transform="translate(450.000000, 199.000000)">
+                          <text id="">
+                            <tspan x="263.142857" y="87"></tspan>
+                          </text>
+                        </g>
                       </g>
                     </g>
-                  </g>
-                </svg>
+                  </svg>
+                </div>
               </div>
             </div>
-          </div>
-        </a>
-      </div>
-      <div class="alternative-wrapper">
-        <div class="lines">
-          <span class="word">{{t 'request.login.or'}}</span>
+          </a>
         </div>
-     
+      {{/if}}
+      <div class="alternative-wrapper">
+        {{#if showCasLogin}}
+          <div class="lines">
+            <span class="word">{{t 'request.login.or'}}</span>
+          </div>
+        {{/if}}
       <div class="gu-login-account-heading">{{t 'request.login.login-account-heading'}}</div>
       <span class="gu-login-account-body">{{t 'request.login.login-account-body'}}</span>
         {{#if errorMessage}}
