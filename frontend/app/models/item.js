@@ -25,6 +25,8 @@ export default DS.Model.extend({
     if (this.get('sublocation.isOpenLoc')) {
       if (this.get('itemCallNumber')) {
         return this.get('sublocation.name') + ', ' + this.get('itemCallNumber');
+      } else if (this.get('biblio.biblioCallNumber')) {
+        return this.get('sublocation.name') + ', ' + this.get('biblio.biblioCallNumber');
       } else {
         return this.get('sublocation.name');
       }

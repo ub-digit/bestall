@@ -11,5 +11,6 @@ export default DS.Model.extend({
   noInQueue: DS.attr('number'),
   items: DS.hasMany('item'),
   subscriptiongroups: DS.hasMany('subscriptiongroup'),
-  hasEnum: DS.attr('boolean')
+  hasEnum: DS.attr('boolean'),
+  biblioCallNumber: DS.attr('string')
 });
