@@ -58,6 +58,7 @@ export default {
     "order": {
       "header": "Din beställning",
       "items": {
+        "items-are-available": "Det finns tillgängliga exemplar som du kan beställa",
         "next-button": "Fortsätt",
         "select-button": "Välj",
         "order-subscription-button": "Beställ",

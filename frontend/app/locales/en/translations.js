@@ -58,6 +58,7 @@ export default {
     "order": {
       "header": "Your request",
       "items": {
+        "items-are-available": "There are available items for you to order",
         "next-button": "Continue",
         "select-button": "Select",
         "order-subscription-button": "Request",
