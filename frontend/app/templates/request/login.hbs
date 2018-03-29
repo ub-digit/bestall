@@ -63,7 +63,8 @@
               {{else}}
                 {{input type='password' value=password class="form-control" autocomplete="new-password"}}
               {{/if}}
-            </div>            <button class="btn btn-primary btn-block" {{action 'login' username password}}>{{t "request.login.login-button"}}</button>
+            </div>
+            <button class="btn btn-primary btn-block" {{action 'login' username password}}>{{t "request.login.login-button"}}</button>
             <div class="library-card-link">
               <a href="{{libraryCardUrl}}" class="small">{{t "request.login.library-card-link-text"}}</a>
             </div>
