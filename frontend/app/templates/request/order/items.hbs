@@ -58,7 +58,11 @@
                     <div class="subscription-note-wrapper">
                       <textarea class="subscription-note" wrap=off readonly>{{subscription.publicNote}}</textarea>
                     </div><div class="subscription-button-wrapper">
-                      <button class="btn btn-primary" {{action 'setSubscriptionToOrder' subscription}}>{{t "request.order.items.order-subscription-button"}}</button>
+                      {{#unless subscription.sublocation.isPagingLoc}}
+                        <span class="subscription-cant-be-ordered-text">{{t 'request.order.items.cant-be-ordered'}}</span>
+                      {{else}}
+                        <button class="btn btn-primary" {{action 'setSubscriptionToOrder' subscription}}>{{t "request.order.items.order-subscription-button"}}</button>
+                      {{/unless}}
                     </div>
                   </td>
                 </tr>

@@ -71,7 +71,8 @@ export default {
         "currently-no-available-items": "Det finns inga tillgängliga exemplar just nu.",
         "number-of-people-in-queue": "personer i kö på utlånade exemplar",
         "queue-up": "Ställ dig i kö",
-        "all-items-are-available": "Alla exemplar är tillgängliga."
+        "all-items-are-available": "Alla exemplar är tillgängliga.",
+        "cant-be-ordered": "Går inte att beställa"
       },
       "details": {
         "header": "Din beställning",

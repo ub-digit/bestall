@@ -71,7 +71,8 @@ export default {
         "currently-no-available-items": "Currently there are no available items.",
         "number-of-people-in-queue": "reservations for items on loan",
         "queue-up": "Make a reservation",
-        "all-items-are-available": "All items are available."
+        "all-items-are-available": "All items are available.",
+        "cant-be-ordered": "Can't be requested"
       },
       "details": {
         "header": "Your request",
