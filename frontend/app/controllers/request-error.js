@@ -17,13 +17,21 @@ export default Ember.Controller.extend({
 
     if (errors && errors.length > 0) {
       errors.map((obj) => {
+        let eventLabel = '';
         if (obj.code) {
           let msg = dictionary.t('request-errors.' + obj.code + '.message');
           res += `<p>${msg}</p>`;
+          eventLabel = eventLabel + ' ' + obj.code;
+        }
+        if (dataLayer) {
+          dataLayer.push({'event' : 'GAEvent', 'eventCategory': 'Errors', 'eventAction': 'Request error', 'eventLabel': eventLabel.trim()});
         }
       });
     } else {
       res += dictionary.t('request-errors.UNKNOWN_ERROR.message');
+      if (dataLayer) {
+        dataLayer.push({'event' : 'GAEvent', 'eventCategory': 'Errors', 'eventAction': 'Request error', 'eventLabel': 'UNKNOWN_ERROR'});
+      }
     }
     return res;
   })
