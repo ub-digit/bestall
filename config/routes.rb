@@ -14,6 +14,9 @@ Rails.application.routes.draw do
 
     # Config API
     get 'config/:id', to: 'config#show'
+
+    # Endpoint för Libris exemplarinfo
+    get 'libris', to: 'libris#index'
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
