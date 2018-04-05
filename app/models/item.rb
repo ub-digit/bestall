@@ -38,6 +38,8 @@ class Item
   def is_availible
     return false if is_reserved
     return false if due_date.present?
+    return false if not_in_place?
+    return false if during_acquisition?
     return true
   end
 
@@ -100,6 +102,14 @@ class Item
     ['1', '2', '3'].include?(@withdrawn) || @lost == '1'
   end
 
+  def not_in_place?
+    @lost == '4'
+  end
+
+  def during_acquisition?
+    @withdrawn == '4'
+  end
+
   def status_limitation
     return "NOT_FOR_HOME_LOAN" if item_type_ref?
     return "READING_ROOM_ONLY" if @not_for_loan == '-3'
@@ -113,8 +123,8 @@ class Item
     return "FINISHED" if @found == "F"
     return "RESERVED" if (@is_reserved && @due_date.blank?) || ['5', '6', '7', '8','9'].include?(@lost)
     return "DELAYED" if (@due_date.present? && Date.parse(@due_date) < Date.today) || @lost == '2'
-    return "NOT_IN_PLACE" if ['1', '4'].include?(@lost)
-    return "DURING_ACQUISITION" if @withdrawn == '-4'
+    return "NOT_IN_PLACE" if not_in_place?
+    return "DURING_ACQUISITION" if during_acquisition?
     return "AVAILABLE"
   end
 
