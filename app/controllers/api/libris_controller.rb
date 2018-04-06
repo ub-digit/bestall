@@ -1,19 +1,38 @@
 class Api::LibrisController < ApplicationController
   def index
-    id = params[:id]
+    librisid = params[:Bib_ID]
     sigel = params[:BIBL]
-    location = sigel ? (get_location_id sigel) : nil
-    biblio = Biblio.find_by_id id, {items_on_subscriptions: false}
-    if biblio
+    bibid =  get_bibid librisid
+
+    items_xml = ""
+    if bibid
+      location = sigel ? (get_location_id sigel) : nil
+      biblio = Biblio.find_by_id bibid, {items_on_subscriptions: false}
+
       items_xml = ""
-      biblio.items.each_with_index do |item, index|
-        if location.nil? || location == item.location_id.to_i
-          items_xml << (print_item item, index)
+      if biblio
+        biblio.items.each_with_index do |item, index|
+          if location.nil? || location == item.location_id.to_i
+            items_xml << (print_item item, index)
+          end
         end
       end
     end
     xml_document = print_document items_xml
     render xml: xml_document
+  end
+
+  def get_bibid librisid
+    return nil if librisid.blank?
+
+    base_url = APP_CONFIG['koha']['base_url']
+    user =  APP_CONFIG['koha']['user']
+    password =  APP_CONFIG['koha']['password']
+    url = "#{base_url}/librisid2bibid/?librisid=#{librisid}&userid=#{user}&password=#{password}"
+    response = RestClient.get url
+    bibid = JSON.parse(response.body)["bibid"]
+    return nil if bibid.blank?
+    return bibid
   end
 
   def print_item item, index
