@@ -4,7 +4,7 @@ class Item
 
   attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number,
                 :copy_number, :due_date, :lost, :restricted, :not_for_loan, :is_reserved, :withdrawn, :location_id,
-                :location_name_sv
+                :location_name_sv,:sublocation_open_loc
 
   attr_writer :found
 
@@ -14,6 +14,7 @@ class Item
     @is_reserved = false
     parse_rawdata(rawdata)
     sublocation = Sublocation.find_by_id(@sublocation_id)
+    @sublocation_open_loc = sublocation_open_loc?
     @sublocation_name_sv = sublocation.name_sv
     @sublocation_name_en = sublocation.name_en
     @location_id = sublocation.location_id
@@ -74,6 +75,9 @@ class Item
     Sublocation.find_by_id(@sublocation_id).is_paging_loc == '1'
   end
 
+  def sublocation_open_loc?
+    Sublocation.find_by_id(@sublocation_id).is_open_loc == '1'
+  end
   def lost?
     @lost != '0'
   end
