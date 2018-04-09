@@ -3,7 +3,8 @@ class Item
   include ActiveModel::Validations
 
   attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number,
-                :copy_number, :due_date, :lost, :restricted, :not_for_loan, :is_reserved, :withdrawn, :location_id
+                :copy_number, :due_date, :lost, :restricted, :not_for_loan, :is_reserved, :withdrawn, :location_id,
+                :location_name_sv
 
   attr_writer :found
 
