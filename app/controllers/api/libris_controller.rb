@@ -5,15 +5,13 @@ class Api::LibrisController < ApplicationController
     bibid =  get_bibid librisid
 
     items_xml = ""
-    if bibid
+    if bibid.present?
       location = sigel ? (get_location_id sigel) : nil
       biblio = Biblio.find_by_id bibid, {items_on_subscriptions: false}
-
-      items_xml = ""
       if biblio
         biblio.items.each_with_index do |item, index|
           if location.nil? || location == item.location_id.to_i
-            items_xml << (print_item item, index)
+            items_xml << print_item(item, index)
           end
         end
       end
@@ -24,7 +22,6 @@ class Api::LibrisController < ApplicationController
 
   def get_bibid librisid
     return nil if librisid.blank?
-
     base_url = APP_CONFIG['koha']['base_url']
     user =  APP_CONFIG['koha']['user']
     password =  APP_CONFIG['koha']['password']

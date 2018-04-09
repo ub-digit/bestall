@@ -56,6 +56,9 @@ class Item
     return false if reserved?
     return false if lost?
     return false if restricted?
+    return false if during_acquisition?
+    return false if not_in_place?
+
     return false unless sublocation_paging_loc?
     return true
   end
@@ -67,7 +70,7 @@ class Item
   def is_available_for_queue
     return false if item_type_ref?
     return false if restricted?
-    return false unless checked_out? || reserved?
+    return false unless checked_out? || reserved? || during_acquisition? || not_in_place?
     return true
   end
 
