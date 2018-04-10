@@ -5,7 +5,7 @@
         <div class="col-xs-12 col-sm-6 col-sm-offset-3">
           {{#if showCasLogin}}
             <div class="gu-account-login">
-              <a href="{{casUrl}}">
+              <a href="{{casUrl}}" id="gu-account-login-link">
                 <div class="panel panel-default">
                   <div class="panel-body">
                     <div class="gu-login-logo {{getLocale}}">
@@ -16,8 +16,7 @@
                     </div>
                     <div class="gu-login-arrow">
                       <svg width="15px" height="24px" viewBox="0 0 15 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
-                        <desc>Created with Sketch.</desc>
+                        <desc></desc>
                         <defs></defs>
                         <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-family="FontAwesome" font-size="25" font-weight="normal" opacity="0.329999983">
                           <g id="Logga-in-Copy-11" transform="translate(-714.000000, -264.000000)" fill="#C3C3C3">
@@ -64,7 +63,7 @@
                 {{input type='password' value=password class="form-control" autocomplete="new-password"}}
               {{/if}}
             </div>
-            <button class="btn btn-primary btn-block" {{action 'login' username password}}>{{t "request.login.login-button"}}</button>
+            <button class="btn btn-primary btn-block" id="alternative-login-button" {{action 'login' username password}}>{{t "request.login.login-button"}}</button>
             <div class="library-card-link">
               <a href="{{libraryCardUrl}}" class="small">{{t "request.login.library-card-link-text"}}</a>
             </div>
