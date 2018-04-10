@@ -1,3 +1,4 @@
+# encoding: ISO-8859-1
 class Api::LibrisController < ApplicationController
   def index
     librisid = params[:Bib_ID]
