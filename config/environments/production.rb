@@ -73,6 +73,10 @@ Rails.application.configure do
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  if ENV['LOG_FILE_PATH'].present?
+    config.logger = ActiveSupport::Logger.new(ENV['LOG_FILE_PATH'])
+  end
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
