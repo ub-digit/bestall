@@ -3,8 +3,8 @@ class Item
   include ActiveModel::Validations
 
   attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number,
-                :copy_number, :due_date, :lost, :restricted, :not_for_loan, :is_reserved, :withdrawn, :location_id,
-                :location_name_sv,:sublocation_open_loc
+                :copy_number, :due_date, :lost, :restricted, :not_for_loan, :is_reserved,
+                :withdrawn, :in_transit, :location_id, :location_name_sv,:sublocation_open_loc
 
   attr_writer :found
 
@@ -42,6 +42,7 @@ class Item
     return false if due_date.present?
     return false if not_in_place?
     return false if during_acquisition?
+    return false if in_transit?
     return true
   end
 
@@ -58,7 +59,7 @@ class Item
     return false if restricted?
     return false if during_acquisition?
     return false if not_in_place?
-
+    return false if in_transit?
     return false unless sublocation_paging_loc?
     return true
   end
@@ -118,6 +119,10 @@ class Item
     @withdrawn == '4'
   end
 
+  def in_transit?
+    @in_transit == '1'
+  end
+
   def status_limitation
     return "NOT_FOR_HOME_LOAN" if item_type_ref?
     return "READING_ROOM_ONLY" if @not_for_loan == '-3'
@@ -126,11 +131,9 @@ class Item
 
   def status
     return "LOANED" if @due_date.present? && Date.parse(@due_date) >= Date.today
-    return "WAITING" if @found == "W"
-    return "IN_TRANSIT" if @found == "T"
-    return "FINISHED" if @found == "F"
-    return "RESERVED" if (@is_reserved && @due_date.blank?) || ['5', '6', '7', '8','9'].include?(@lost)
+    return "RESERVED" if (@is_reserved && @due_date.blank?) || ['5', '6', '7', '8','9'].include?(@lost) || @found == "W" || @found == "T"
     return "DELAYED" if (@due_date.present? && Date.parse(@due_date) < Date.today) || @lost == '2'
+    return "IN_TRANSIT" if in_transit?
     return "NOT_IN_PLACE" if not_in_place?
     return "DURING_ACQUISITION" if during_acquisition?
     return "AVAILABLE"
@@ -148,5 +151,6 @@ class Item
     rawdata["notforloan"].present? ? @not_for_loan = rawdata["notforloan"] : @not_for_loan = nil
     rawdata["withdrawn"].present? ? @withdrawn = rawdata["withdrawn"] : @withdrawn = nil
     rawdata["datedue"].present? ? @due_date = rawdata["datedue"] : @due_date = nil
+    rawdata["in_transit"].present? ? @in_transit = rawdata["in_transit"] : @in_transit = nil
   end
 end
