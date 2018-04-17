@@ -71,7 +71,7 @@ class Item
   def is_available_for_queue
     return false if item_type_ref?
     return false if restricted?
-    return false unless checked_out? || reserved? || during_acquisition? || not_in_place?
+    return false unless checked_out? || reserved? || during_acquisition? || not_in_place? || in_transit?
     return true
   end
 
