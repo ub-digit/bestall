@@ -71,7 +71,7 @@ class Item
   def is_available_for_queue
     return false if item_type_ref?
     return false if restricted?
-    return false unless checked_out? || reserved? || during_acquisition? || not_in_place?
+    return false unless checked_out? || reserved? || during_acquisition? || not_in_place? || in_transit?
     return true
   end
 
@@ -120,7 +120,7 @@ class Item
   end
 
   def in_transit?
-    @in_transit == '1'
+    @in_transit == '1' || (@currentlocation_id != @location_id)
   end
 
   def status_limitation
@@ -152,5 +152,6 @@ class Item
     rawdata["withdrawn"].present? ? @withdrawn = rawdata["withdrawn"] : @withdrawn = nil
     rawdata["datedue"].present? ? @due_date = rawdata["datedue"] : @due_date = nil
     rawdata["in_transit"].present? ? @in_transit = rawdata["in_transit"] : @in_transit = nil
+    rawdata["holdingbranch"].present? ? @currentlocation_id = rawdata["holdingbranch"] : @currentlocation_id = nil
   end
 end
