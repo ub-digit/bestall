@@ -118,6 +118,9 @@ class Print
 
   def self.create_pdf(obj)
     document = Prawn::Document.new :page_size=> 'A5', :margin=>[5.send(:mm), 10.send(:mm), 5.send(:mm), 10.send(:mm)]
+    document.font_families.update("Roboto" => {:normal => "lib/fonts/Roboto-Regular.ttf"})
+    document.font "Roboto"
+
     pdf = print_segment(document, obj, document.cursor)
     pdf = print_segment(document, obj, 95.send(:mm))
 
