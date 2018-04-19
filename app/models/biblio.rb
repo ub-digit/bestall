@@ -30,6 +30,8 @@ class Biblio
   end
 
   def has_item_level_queue
+    # Biblios wrongly cataloged as monographs should be considered as serials if subscriptions exist
+    return true if !@subscriptiongroups.empty?
     Biblio.queue_level(@record_type) == 'item'
   end
 
@@ -171,7 +173,7 @@ class Biblio
     if bib_xml.search('//record/datafield[@tag="095"]/subfield[@code="a"]').text.present?
       @biblio_call_number = bib_xml.search('//record/datafield[@tag="095"]/subfield[@code="a"]').text
     end
-    
+
     if bib_xml.search('//record/datafield[@tag="260"]').text.present?
       tmp_arr = []
       data = bib_xml.search('//record/datafield[@tag="260"]').first
