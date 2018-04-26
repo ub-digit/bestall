@@ -29,13 +29,13 @@ class Api::PrintController < ApplicationController
     obj[:place] = params[:place] if params[:place].present?
     obj[:edition] = params[:edition] if params[:edition].present?
     obj[:serie] = params[:serie] if params[:serie].present?
-    obj[:notes] = params[:notes] if params[:notes].present?
     obj[:description] = params[:description] if params[:description].present?
     obj[:loantype] = params[:loantype] if params[:loantype].present?
     obj[:extra_info] = params[:extra_info] if params[:extra_info].present?
     obj[:name] = params[:name] if params[:name].present?
     obj[:borrowernumber] = params[:borrowernumber] if params[:borrowernumber].present?
     obj[:pickup_location] = params[:pickup_location] if params[:pickup_location].present?
+    obj[:reserve_id] = params[:reserve_id] if params[:reserve_id].present?
 
     pdf = Print.create_pdf(obj)
 

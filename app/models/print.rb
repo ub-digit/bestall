@@ -2,13 +2,14 @@ require "prawn/measurement_extensions"
 class Print
   def self.prepare_subscription_order(params, username)
     obj = {}
+    obj[:subscription_info_text] = true
     obj[:borrowernumber] = params[:reserve][:user_id] if params[:reserve][:user_id].present?
     obj[:bibid] = params[:reserve][:biblio_id] if params[:reserve][:biblio_id].present?
     obj[:location] = params[:reserve][:subscription_location] if params[:reserve][:subscription_location].present?
     obj[:sublocation] = params[:reserve][:subscription_sublocation] if params[:reserve][:subscription_sublocation].present?
     obj[:sublocation_id] = params[:reserve][:subscription_sublocation_id] if params[:reserve][:subscription_sublocation_id].present?
     obj[:call_number] = params[:reserve][:subscription_call_number] if params[:reserve][:subscription_call_number].present?
-    obj[:notes] = params[:reserve][:subscription_notes] if params[:reserve][:subscription_notes].present?
+    obj[:description] = params[:reserve][:subscription_notes] if params[:reserve][:subscription_notes].present?
 
     user_obj = User.find_by_username(username)
     obj[:name] = user_obj ? [user_obj.first_name, user_obj.last_name].compact.join(" ") : ''
@@ -58,10 +59,6 @@ class Print
     pdf.bounding_box([27.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
       pdf.text "#{obj[:edition]} ", size: size
       pdf.text "#{obj[:serie]} ", size: size
-      pdf.text "#{obj[:notes]} ", size: size
-    end
-    end_of_msg_line_cursor = pdf.cursor
-    pdf.bounding_box([27.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
       pdf.text "#{obj[:description]} ", size: size
     end
     end_of_desc_line_cursor = pdf.cursor
@@ -75,6 +72,7 @@ class Print
       pdf.text "#{obj[:borrowernumber]} ", size: size
       pdf.text "#{obj[:pickup_location]} ", size: size
     end
+    end_of_pickup_location_line_cursor = pdf.cursor
 
     # Left column (labels)
     pdf.bounding_box([0, start_cursor], :width => 25.send(:mm)) do
@@ -98,10 +96,7 @@ class Print
     pdf.bounding_box([0, end_of_place_line_cursor], :width => 25.send(:mm), font_size: size) do
       pdf.text "UPPLAGA:", size: size, :align=>:right
       pdf.text "SERIE:", size: size, :align=>:right
-      pdf.text "MEDD:", size: size, :align=>:right
-    end
-    pdf.bounding_box([0, end_of_msg_line_cursor], :width => 25.send(:mm), font_size: size) do
-      pdf.text "BESKRIVN:", size: size, :align=>:right
+      pdf.text "BESKRIVNING:", size: size, :align=>:right
     end
     pdf.bounding_box([0, end_of_desc_line_cursor], :width => 25.send(:mm), font_size: size) do
       pdf.text "BEST.TYP:", size: size, :align=>:right
@@ -113,12 +108,22 @@ class Print
       pdf.text "HÄMTAS PÅ:", size: size, :align=>:right
     end
 
+    pdf.bounding_box([0, end_of_extra_info_line_cursor], :width => 25.send(:mm), font_size: size) do
+      pdf.text "NAMN:", size: size, :align=>:right
+      pdf.text "ID-NR:", size: size, :align=>:right
+      pdf.text "HÄMTAS PÅ:", size: size, :align=>:right
+    end
+    if obj[:subscription_info_text]
+      pdf.bounding_box([0, end_of_pickup_location_line_cursor], :width => 100.send(:mm), font_size: size) do
+        pdf.text "Lägg till en reservation på exemplaret och återlämna.", size: size, :style=>:bold
+      end
+    end
     return pdf
   end
 
   def self.create_pdf(obj)
     document = Prawn::Document.new :page_size=> 'A5', :margin=>[5.send(:mm), 10.send(:mm), 5.send(:mm), 10.send(:mm)]
-    document.font_families.update("Roboto" => {:normal => "lib/fonts/Roboto-Regular.ttf"})
+    document.font_families.update("Roboto" => {:normal => "lib/fonts/Roboto-Regular.ttf", :bold => "lib/fonts/Roboto-Bold.ttf"})
     document.font "Roboto"
 
     pdf = print_segment(document, obj, document.cursor)
@@ -127,7 +132,10 @@ class Print
     file_path = APP_CONFIG['file_path']
     sublocation_id = obj[:sublocation_id].to_i
     location_id = Sublocation.find_by_id(sublocation_id).location_id
-    pdf.render_file "#{file_path}/#{sublocation_id}_pr#{location_id}_#{Time.now.strftime("%Y%m%d%H%M%S")}_#{SecureRandom.hex}.pdf"
+    suffix = ""
+    suffix = "_#{obj[:reserve_id]}" if obj[:reserve_id]
+
+    pdf.render_file "#{file_path}/#{sublocation_id}_pr#{location_id}_#{Time.now.strftime("%Y%m%d%H%M%S")}_#{SecureRandom.hex}#{suffix}.pdf"
 
     return pdf
   end
