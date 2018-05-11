@@ -7,8 +7,8 @@ class LoanType
 
   LOAN_TYPES = [{id: 1, name_sv: 'Hemlån', name_en: 'Home loan'},
                 {id: 2, name_sv: 'Läsesal', name_en: 'Reading room loan'},
-                {id: 3, name_sv: 'Forskarskåp', name_en: 'Loan to researcher’s locker'},
-                {id: 4, name_sv: 'Institutionslån', name_en: 'Loan to department (permit required)'}]
+                {id: 3, name_sv: 'Forskarskåp (tillstånd krävs)', name_en: 'Loan to researcher’s locker (permit required)'},
+                {id: 4, name_sv: 'Institutionslån (tillstånd krävs)', name_en: 'Loan to department (permit required)'}]
 
   def initialize id:, name_sv:, name_en:
     @id = id
