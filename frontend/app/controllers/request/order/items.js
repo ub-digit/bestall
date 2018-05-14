@@ -4,9 +4,12 @@ export default Ember.Controller.extend({
 
   request: Ember.inject.controller(),
   order: Ember.inject.controller('request.order'),
-
   activeTabName: null,
-
+  isReservedClick: false,
+   isReservedClicked: Ember.observer('isReservedClick', function() {
+    // deal with the change
+    this.get('order.model.reserve').set('isReservedClicked', this.get('isReservedClick'));
+  }),
   numSubscriptions: Ember.computed('request.model.biblio.subscriptiongroups', function() {
     let res = 0;
     var grps = this.get('request.model.biblio.subscriptiongroups');
@@ -59,7 +62,10 @@ export default Ember.Controller.extend({
     return this.get("request.model.biblio.items").filter((item) => !item.get("isAvailible"));
   }),
   actions: {
-    setItemToOrder(item) {
+    setItemToOrder(item, isReservedClicked) {
+      if (isReservedClicked) {
+        this.set('isReservedClick', true);
+      }
       this.get('order.model.reserve').set('item', item);
       this.get('order.model.reserve').set('subscription', null);
       this.get('order.model.reserve').set('subscriptionNotes', null);

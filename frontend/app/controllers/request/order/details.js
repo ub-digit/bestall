@@ -11,6 +11,15 @@ export default Ember.Controller.extend({
     return (this.get('request.view') !== '46GUB_KOHA');
   }),
 
+
+  displayTypeOfLoan: Ember.computed('order.model.reserve.isReservedClicked', function() {
+    // typeofloan shoule not be displayed if user has clicked the reserve-button
+    if  (this.get("order.model.reserve.isReservedClicked")) {
+      return false;
+    }
+    return true;
+  }),
+
   applyFilter: Ember.computed('order.model.reserve.biblio', 'order.model.reserve.item', function() {
     let recordType = this.get('order.model.reserve.biblio.recordType');
 
