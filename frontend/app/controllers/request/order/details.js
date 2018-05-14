@@ -123,7 +123,8 @@ export default Ember.Controller.extend({
       }
       return false;
     }
-    if (this.get('order.model.reserve.location') && this.get('order.model.reserve.loanType') && subscriptionNotesCheck()) {
+
+    if (this.get('order.model.reserve.location') && ((this.get('order.model.reserve.loanType')) || this.get("order.model.reserve.isReservedClicked")) && subscriptionNotesCheck()) {
       return false;
     }
     return true;
@@ -131,8 +132,14 @@ export default Ember.Controller.extend({
 
   actions: {
     setLocation(id) {
-      let location = this.get('store').peekRecord('location', id);
-      this.get('order.model.reserve').set('location', location);
+      if (id != null) {
+        let location = this.get('store').peekRecord('location', id);
+        this.get('order.model.reserve').set('location', location);      
+      }
+      else {
+         this.get('order.model.reserve').set('location', null); 
+      }
+
     },
 
     setLoanType(id) {
