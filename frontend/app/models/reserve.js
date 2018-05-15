@@ -10,6 +10,7 @@ export default DS.Model.extend({
   subscription: DS.belongsTo('subscription', {async: false, inverse: null}),
   reserveNotes: DS.attr('string'),
   queuePosition: DS.attr('string'),
+  isReservedClicked: DS.attr('boolean'),
 
   subscriptionNotes: DS.attr('string'),
   subscriptionLocation: DS.attr('string'),

@@ -24,44 +24,48 @@
   <hr/>
 {{/if}}
 
-<div class="row">
-  <div class="col-xs-12 col-sm-8">
-    {{pick-location
-      locations=pickupLocations
-      selectedItem=order.model.reserve.location.id
-      userCategory=request.model.user.userCategory
-      item=order.model.reserve.item
-      onSelect=(action 'setLocation')
-      label=(t 'request.order.details.location-dropdown-label')
-    }}
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-xs-12 col-sm-8">
-    {{pick-type-of-loan
-      loanTypes=order.model.loantypes
-      selectedItem=order.model.reserve.loanType.id
-      item=order.model.reserve.item
-      onSelect=(action 'setLoanType')
-      label=(t 'request.order.details.loantype-dropdown-label')
-    }}
+  <div class="row">
+    <div class="col-xs-12 col-sm-8">
+      {{pick-location
+        locations=pickupLocations
+        selectedItem=order.model.reserve.location.id
+        userCategory=request.model.user.userCategory
+        item=order.model.reserve.item
+        onSelect=(action 'setLocation')
+        label=(t 'request.order.details.location-dropdown-label')
+      }}
+    </div>
   </div>
-</div>
-{{#unless order.model.reserve.subscription}}
-<div class="row">
-  <div class="col-xs-12 col-sm-8">
-    {{reserve-note-input
-      type="textarea"
-      value=order.model.reserve.reserveNotes
-      label=(t 'request.order.details.reserve-label')
-      helptext=(t 'request.order.details.reserve-helptext')
-      maxlength=140
-      autoComplete=inputAutocomplete
-    }}
+
+  {{#if displayTypeOfLoan}}
+    <div class="row">
+      <div class="col-xs-12 col-sm-8">
+        {{pick-type-of-loan
+          loanTypes=order.model.loantypes
+          selectedItem=order.model.reserve.loanType.id
+          item=order.model.reserve.item
+          onSelect=(action 'setLoanType')
+          label=(t 'request.order.details.loantype-dropdown-label')
+        }}
+      </div>
+    </div>
+  {{/if}}
+  {{#unless order.model.reserve.subscription}}
+  <div class="row">
+    <div class="col-xs-12 col-sm-8">
+      {{reserve-note-input
+        type="textarea"
+        value=order.model.reserve.reserveNotes
+        label=(t 'request.order.details.reserve-label')
+        helptext=(t 'request.order.details.reserve-helptext')
+        maxlength=140
+        autoComplete=inputAutocomplete
+      }}
+    </div>
   </div>
-</div>
-{{/unless}}
+  {{/unless}}
+
 
 <div class="row navigation-buttons">
   <div class="col-xs-6 col-sm-6">

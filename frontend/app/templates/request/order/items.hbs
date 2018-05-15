@@ -22,7 +22,7 @@
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane {{is-active-tab 'tab2' activeTab}}" id="items" >
-      {{item-table items=request.model.biblio.items hasSubscription=true setItemToOrder=(action "setItemToOrder")}}
+      {{item-table items=request.model.biblio.items isReservedClick=isReservedClick hasSubscription=true setItemToOrder=(action "setItemToOrder")}}
     </div>
     <div role="tabpanel" class="tab-pane {{is-active-tab 'tab1' activeTab}}" id="subscriptions">
       <div class="row">
@@ -95,7 +95,7 @@
           <div class="col-xs-12">
           <div class="panel panel-default">
             <div class="panel-body center">
-              <strong>{{request.model.biblio.noInQueue}} {{t "request.order.items.number-of-people-in-queue"}}</strong> <button class="btn btn-primary" {{action 'setItemToOrder' null}}>{{t "request.order.items.queue-up"}}</button>
+              <strong>{{request.model.biblio.noInQueue}} {{t "request.order.items.number-of-people-in-queue"}}</strong> <button class="btn btn-primary" {{action 'setItemToOrder' null true}}>{{t "request.order.items.queue-up"}}</button>
             </div>
           </div>
           </div>
@@ -114,7 +114,7 @@
               <div class="panel panel-default">
                 <div class="panel-body center">
                   <strong>{{request.model.biblio.noInQueue}} {{t "request.order.items.number-of-people-in-queue"}}</strong>
-                  <button class="btn btn-primary btn-space-left" {{action 'setItemToOrder' null}}>{{t "request.order.items.queue-up"}}</button>
+                  <button class="btn btn-primary btn-space-left" {{action 'setItemToOrder' null true}}>{{t "request.order.items.queue-up"}}</button>
             </div>
           </div>
           {{/if}}

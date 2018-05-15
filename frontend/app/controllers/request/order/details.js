@@ -11,6 +11,15 @@ export default Ember.Controller.extend({
     return (this.get('request.view') !== '46GUB_KOHA');
   }),
 
+
+  displayTypeOfLoan: Ember.computed('order.model.reserve.isReservedClicked', function() {
+    // typeofloan shoule not be displayed if user has clicked the reserve-button
+    if  (this.get("order.model.reserve.isReservedClicked")) {
+      return false;
+    }
+    return true;
+  }),
+
   applyFilter: Ember.computed('order.model.reserve.biblio', 'order.model.reserve.item', function() {
     let recordType = this.get('order.model.reserve.biblio.recordType');
 
@@ -114,7 +123,8 @@ export default Ember.Controller.extend({
       }
       return false;
     }
-    if (this.get('order.model.reserve.location') && this.get('order.model.reserve.loanType') && subscriptionNotesCheck()) {
+
+    if (this.get('order.model.reserve.location') && ((this.get('order.model.reserve.loanType')) || this.get("order.model.reserve.isReservedClicked")) && subscriptionNotesCheck()) {
       return false;
     }
     return true;
@@ -122,8 +132,14 @@ export default Ember.Controller.extend({
 
   actions: {
     setLocation(id) {
-      let location = this.get('store').peekRecord('location', id);
-      this.get('order.model.reserve').set('location', location);
+      if (id != null) {
+        let location = this.get('store').peekRecord('location', id);
+        this.get('order.model.reserve').set('location', location);      
+      }
+      else {
+         this.get('order.model.reserve').set('location', null); 
+      }
+
     },
 
     setLoanType(id) {
