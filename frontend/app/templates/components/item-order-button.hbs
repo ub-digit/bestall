@@ -1,9 +1,9 @@
 {{#if canBeQueued}}
-  <button {{action 'onOrderClick' isReservedButtonClicked}} class="btn btn-block btn-xs btn-primary">
+  <button {{action 'onOrderClick' true}} class="btn btn-block btn-xs btn-primary">
     {{t 'components.item-order-button.queue'}}
   </button>
 {{else if canBeOrdered}}
-  <button {{action 'onOrderClick'}} class="btn btn-block btn-xs btn-primary">
+  <button {{action 'onOrderClick' false}} class="btn btn-block btn-xs btn-primary">
     {{t 'components.item-order-button.order'}}
   </button>
 {{else if isAvailible}}
