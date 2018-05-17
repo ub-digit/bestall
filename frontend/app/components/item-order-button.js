@@ -1,12 +1,11 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  isReservedButtonClicked: true, 
   isVisible: Ember.computed.or('canBeQueued', 'canBeOrdered', 'isAvailible'),
 
   actions: {
-    onOrderClick(isReservedButtonClicked) {
-      if (this.get("isReservedButtonClicked")) {
+    onOrderClick(isReserve) {
+      if (isReserve) {
         this.set("isReservedClick", true);
       }
       else {
