@@ -36,7 +36,8 @@ export default {
       "unknown": "Okänd",
     },
     "pick-location": {
-      "cannot-pickup-here": "kan ej beställas hit"
+      "cannot-pickup-here": "kan ej beställas hit",
+      "library-closed": "Stängt"
     },
     "pick-type-of-loans": {
       "not-allowed": "ej tillåtet"

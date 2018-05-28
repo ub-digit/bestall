@@ -6,8 +6,12 @@
   {{#each locations as |loc|}}
     {{#item.option value=loc.id disabled=loc.disabled}}{{loc.name}}
       {{#if loc.disabled}}
-        ({{t "components.pick-location.cannot-pickup-here"}})
-      {{/if}}
+        {{#if loc.pickupLocationClosed}}
+          ({{t "components.pick-location.library-closed"}})
+        {{else}}
+          ({{t "components.pick-location.cannot-pickup-here"}})
+       {{/if}}
+       {{/if}}
     {{/item.option}}
   {{/each}}
 {{/x-select}}
