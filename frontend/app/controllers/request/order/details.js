@@ -14,9 +14,10 @@ export default Ember.Controller.extend({
 
   displayTypeOfLoan: Ember.computed('order.model.reserve.isReservedClicked', function() {
     // typeofloan shoule not be displayed if user has clicked the reserve-button
-    if (this.get("order.model.reserve.isReservedClicked")) {
-      return false;
-    }
+    // Always display type of loan dropdown!
+    //if  (this.get("order.model.reserve.isReservedClicked")) {
+    //  return false;
+    //}
     return true;
   }),
 
@@ -140,9 +141,17 @@ export default Ember.Controller.extend({
     setLocation(id) {
       if (id != null) {
         let location = this.get('store').peekRecord('location', id);
-        this.get('order.model.reserve').set('location', location);
+        this.get('order.model.reserve').set('location', location); <<
+        <<
+        << < HEAD
       } else {
-        this.get('order.model.reserve').set('location', null);
+        this.get('order.model.reserve').set('location', null); ===
+        ===
+        =
+      } else {
+        this.get('order.model.reserve').set('location', null); >>>
+        >>>
+        > master
       }
 
     },
