@@ -141,17 +141,9 @@ export default Ember.Controller.extend({
     setLocation(id) {
       if (id != null) {
         let location = this.get('store').peekRecord('location', id);
-        this.get('order.model.reserve').set('location', location); <<
-        <<
-        << < HEAD
+        this.get('order.model.reserve').set('location', location);
       } else {
-        this.get('order.model.reserve').set('location', null); ===
-        ===
-        =
-      } else {
-        this.get('order.model.reserve').set('location', null); >>>
-        >>>
-        > master
+        this.get('order.model.reserve').set('location', null);
       }
 
     },
