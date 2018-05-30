@@ -98,7 +98,6 @@ export default Ember.Controller.extend({
         //sätta värdet på referensen till originalobjektet
         ////let newObject = Object.assign({}, oldObject)
         locations.map((item) => {
-          item.set('disabled', false);
           const id = item.get('id');
           if (id == homeLocation) {
             item.set('disabled', true);

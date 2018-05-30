@@ -37,7 +37,7 @@ export default {
     },
     "pick-location": {
       "cannot-pickup-here": "kan ej beställas hit",
-      "library-closed": "Stängt"
+      "library-closed": "stängt"
     },
     "pick-type-of-loans": {
       "not-allowed": "ej tillåtet"
