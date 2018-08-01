@@ -39,7 +39,7 @@ class Item
 
   def is_availible
     return false if reserved?
-    return false if due_date.present?
+    return false if checked_out?
     return false if not_in_place?
     return false if during_acquisition?
     return false if in_transit?
