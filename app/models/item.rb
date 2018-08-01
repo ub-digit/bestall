@@ -38,7 +38,7 @@ class Item
   end
 
   def is_availible
-    return false if is_reserved
+    return false if reserved?
     return false if due_date.present?
     return false if not_in_place?
     return false if during_acquisition?
