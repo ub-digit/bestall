@@ -143,7 +143,7 @@ export default {
       "message": "You are not allowed to borrow or place requests. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library</a>."
     },
     "CAN_NOT_BE_BORROWED": {
-      "message": "This material can't be requested or borrowed. For further assistance, please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library</a>."
+      "message": "This material can't be requested. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library</a> to get help."
     },
     "ITEM_NOT_FOUND": {
       "message": "Something went wrong. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library.</a>"
