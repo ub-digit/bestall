@@ -109,7 +109,7 @@ export default {
       },
       "warning": {
         "message": "You can place a request but you are not allowed to borrow anything, because of overdue loans or fines.",
-        "myloan-message": "<a class=\"alert-link\" href=\"https://koha-staging.ub.gu.se/\">Log in to My loans</a> to find out what you need to do."
+        "myloan-message": "<a class=\"alert-link\" href=\"https://minalan.ub.gu.se/\">Log in to My loans</a> to find out what you need to do."
       },
     },
     "login": {
