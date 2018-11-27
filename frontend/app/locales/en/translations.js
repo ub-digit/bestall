@@ -96,6 +96,7 @@ export default {
         "you-have-place": "You have place",
         "in-queue": "in the queue.",
         "message": "You will get a message when the request is available for pick-up at",
+        "pickup-info": "Library staff will place the material on open shelves with your name visible. <a href=\"http://www.ub.gu.se/kontakta/\">Contact the library</a> if you would like to pick up your reservations at the information desk instead.",
         "my-loans-link-text": "See your loans and requests in My loans."
       },
       "summary": {

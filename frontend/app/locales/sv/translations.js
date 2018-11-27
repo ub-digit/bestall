@@ -96,6 +96,7 @@ export default {
         "you-have-place": "Du har plats",
         "in-queue": "i kön.",
         "message": "Du får ett meddelande när materialet finns att hämta på",
+        "pickup-info": "Biblioteket kommer lägga materialet på en öppen avhämtningshylla med ditt namn synligt. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> om du istället vill hämta dina beställningar i informationsdisken.",
         "my-loans-link-text": "Du kan se dina lån och beställningar i Mina lån."
       },
       "summary": {
