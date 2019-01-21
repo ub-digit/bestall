@@ -15,7 +15,7 @@ export default DS.Model.extend({
   barcode: DS.attr('string'),
   status: DS.attr('string'),
   statusLimitation: DS.attr('string'),
-  dueDate: DS.attr('date'),
+  dueDate: DS.attr('string'),
   notForLoan: DS.attr('string'),
   isReserved: DS.attr('boolean'),
   isAvailible: DS.attr('boolean'),
@@ -52,7 +52,7 @@ export default DS.Model.extend({
     const dictionary = this.get('i18n');
 
     if (this.get('status') === 'LOANED') {
-      return dictionary.t('components.item-table.loaned') + ' ' + moment(this.get('dueDate')).format("YYYY-MM-DD");
+      return dictionary.t('components.item-table.loaned') + ' ' + this.get('dueDate').slice(0, -8);; // + moment(this.get('dueDate')).format("YYYY-MM-DD");
     } else if (this.get('status') === 'RESERVED') {
       return dictionary.t('components.item-table.reserved');
     } else if (this.get('status') === 'WAITING') {
