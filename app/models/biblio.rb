@@ -29,6 +29,11 @@ class Biblio
     return has_items_available_for_queue && !has_item_level_queue
   end
 
+  def has_available_kursbok
+    return @items.any? {|item| item.is_availible && item.item_type_kursbok?}
+  end
+
+
   def has_item_level_queue
     # Biblios wrongly cataloged as monographs should be considered as serials if subscriptions exist
     return true if !@subscriptiongroups.empty?
@@ -48,7 +53,7 @@ class Biblio
   end
 
   def as_json options = {}
-    super.merge(can_be_queued: can_be_queued, has_item_level_queue: has_item_level_queue)
+    super.merge(can_be_queued: can_be_queued, has_item_level_queue: has_item_level_queue, has_available_kursbok: has_available_kursbok)
   end
 
   def initialize id, bib_xml, items_data, reserves_data, subscriptions

@@ -60,6 +60,7 @@ export default {
       "header": "Your request",
       "items": {
         "items-are-available": "There are available items for you to request",
+        "kursbok-is-available": "There are available items that you can collect from the shelf",
         "next-button": "Continue",
         "select-button": "Select",
         "order-subscription-button": "Request",
