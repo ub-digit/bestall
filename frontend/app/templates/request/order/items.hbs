@@ -109,14 +109,20 @@
           {{#if hasItemAvailableForOrder}}
             <div class="panel-body center">
               <span>{{t "request.order.items.items-are-available"}}</span>
-            </div>  
-          {{else }}
+            </div>
+          {{else}}
+            {{#if request.model.biblio.hasAvailableKursbok}}
+              <div class="panel-body center">
+                <span>{{t "request.order.items.kursbok-is-available"}}</span>
+              </div>
+            {{else}}
               <div class="panel panel-default">
                 <div class="panel-body center">
                   <strong>{{request.model.biblio.noInQueue}} {{t "request.order.items.number-of-people-in-queue"}}</strong>
                   <button class="btn btn-primary btn-space-left" {{action 'setItemToOrder' null true}}>{{t "request.order.items.queue-up"}}</button>
-            </div>
-          </div>
+                </div>
+              </div>
+            {{/if}}          
           {{/if}}
         </div>
       </div>

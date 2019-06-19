@@ -60,6 +60,7 @@ export default {
       "header": "Din beställning",
       "items": {
         "items-are-available": "Det finns tillgängliga exemplar som du kan beställa",
+        "kursbok-is-available": "Det finns tillgängliga exemplar som du kan hämta själv från hyllan",
         "next-button": "Fortsätt",
         "select-button": "Välj",
         "order-subscription-button": "Beställ",
