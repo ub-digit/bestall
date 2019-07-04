@@ -1,4 +1,4 @@
-class ApplicationController < ActionController::Base
+class ApplicationController < ActionController::Base #::API?
   protect_from_forgery with: :exception
   before_action :setup
 

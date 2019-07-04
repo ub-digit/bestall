@@ -4,7 +4,7 @@ class Item
 
   attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number,
                 :copy_number, :public_notes, :due_date, :lost, :restricted, :not_for_loan, :is_reserved,
-                :withdrawn, :in_transit, :location_id, :location_name_sv,:sublocation_open_loc
+                :withdrawn, :in_transit, :location_id, :location_name_sv, :sublocation_open_loc
 
   attr_writer :found
 
@@ -34,71 +34,73 @@ class Item
 
   def can_be_borrowed
     # TODO Extend with more rules
-    !item_type_ref?
+    !item_type_ref? && !not_for_loan_reference_copy?
+    # TODO: restricted?
+    # TODO: not_for_loan??
   end
 
   def is_availible
-    return false if reserved?
-    return false if checked_out?
-    return false if not_in_place?
-    return false if during_acquisition?
-    return false if in_transit?
-    return true
+    #status == "AVAILABLE"
+    # andra lost statusar? in_transit statusar?
+    #!(reserved? || checked_out? || lost_not_in_place? || withdrawn_during_acquisition? || in_transit?)
+    !(reserved? || checked_out? || lost? || withdrawn_during_acquisition? || in_transit?)
   end
 
-
   def can_be_ordered
-    # TODO Extend with more rules
-
-    return false unless @item_type
-    return false if item_type_ref?
-    return false if item_type_kursbok?
-    return false if checked_out?
-    return false if reserved?
-    return false if lost?
-    return false if restricted?
-    return false if during_acquisition?
-    return false if not_in_place?
-    return false if in_transit?
-    return false unless sublocation_paging_loc?
-    return true
+    is_availible &&
+      can_be_borrowed &&
+      !restricted? &&
+      !item_type_kursbok? && #can_be_borrowed??
+      sublocation_paging_loc?
   end
 
   def can_be_queued
     @has_item_level_queue && is_available_for_queue
   end
 
+  # can_be_borrowed should also include not_for_loan?
   def is_available_for_queue
-    return false if item_type_ref?
-    return false if restricted?
-    return false unless checked_out? || reserved? || during_acquisition? || not_in_place? || in_transit?
-    return true
+    !is_available && can_be_borrowed && !restricted? # Ang: restricted se rules.pdf
   end
 
   def sublocation_paging_loc?
     Sublocation.find_by_id(@sublocation_id).is_paging_loc == '1'
   end
 
+  # TODO: This is not currently used I think
   def sublocation_open_loc?
     Sublocation.find_by_id(@sublocation_id).is_open_loc == '1'
   end
+
   def lost?
     @lost != '0'
   end
+  def lost_not_in_place?
+    @lost == '4'
+  end
+  def lost_missing?
+    @lost == '1'
+  end
+  def lost_to_invoicing?
+    @lost == '2'
+  end
 
+  # TODO: Not currently used?
   def checked_out?
     @due_date.present?
   end
 
   def reserved?
-    @is_reserved
+    @is_reserved.present?
   end
 
   def restricted?
     # ['1', '2', '5', '6'].include?(@restricted)
+    # return "LOAN_IN_HOUSE_ONLY" if ['3', '4', '5', '6'].include?(@restricted) ???
     !(@restricted == '0' || @restricted.nil?)
   end
 
+  # select count(*) from items where itype = 7 AND notforloan = 0\G
   def item_type_ref?
     @item_type == '7'
   end
@@ -108,14 +110,15 @@ class Item
   end
 
   def masked?
-    ['1', '2', '3'].include?(@withdrawn) || @lost == '1'
+    ['1', '2', '3'].include?(@withdrawn) || lost_missing?
   end
 
-  def not_in_place?
-    @lost == '4'
+  def is_valid?
+    #TODO: check for sublocation instead?
+    @item_type.present? && sublocation_id.present?
   end
 
-  def during_acquisition?
+  def withdrawn_during_acquisition?
     @withdrawn == '4'
   end
 
@@ -124,19 +127,52 @@ class Item
   end
 
   def status_limitation
-    return "NOT_FOR_HOME_LOAN" if item_type_ref?
-    return "READING_ROOM_ONLY" if @not_for_loan == '-3'
-    return "LOAN_IN_HOUSE_ONLY" if ['3', '4', '5', '6'].include?(@restricted)
+    # return nil if not_for_loan?
+    return "NOT_FOR_HOME_LOAN" if item_type_ref? # || not_for_loan_reference_copy? ?? TODO: red ut om kan ta bort det ena eller andra
+    return "READING_ROOM_ONLY" if not_for_loan_reading_room_only?
+    return "LOAN_IN_HOUSE_ONLY" if ['3', '4', '5', '6'].include?(@restricted) # is_restricted differance?? TOOD: change to is_restricted ?
   end
 
+  # if lost = 1 will have status available?
+  # TODO: Ga igenom alla statusar och se om makes sense och om saknas state
+  # Kanske loopa igenom alla items och se resultatstates
   def status
+    return "AVAILABLE" if is_availible
     return "LOANED" if @due_date.present? && Date.parse(@due_date) >= Date.today
-    return "RESERVED" if (@is_reserved && @due_date.blank?) || ['5', '6', '7', '8','9'].include?(@lost) || @found == "W" || @found == "T"
-    return "DELAYED" if (@due_date.present? && Date.parse(@due_date) < Date.today) || @lost == '2'
+    return "DELAYED" if (@due_date.present? && Date.parse(@due_date) < Date.today) || lost_to_invoicing?
+    # lost statuses 5, 6, 7... etc exists? can remove?
+    # found_in_transit vs in_transit, RESERVED or IN_TRANSIT
+    # Kan ha found status utan vara reserverad??
+    # @due_date.blank? behovs inte iom kollat ovan
+    return "RESERVED" if (reserved? && @due_date.blank?) # || ['5', '6', '7', '8','9'].include?(@lost) || found_waiting? || found_in_transit?
     return "IN_TRANSIT" if in_transit?
-    return "NOT_IN_PLACE" if not_in_place?
-    return "DURING_ACQUISITION" if during_acquisition?
-    return "AVAILABLE"
+    return "NOT_IN_PLACE" if lost_not_in_place? # lost_missing kollas i masked? !!
+    return "DURING_ACQUISITION" if withdrawn_during_acquisition?
+    return "AVAILABLE" # UNKNOWN!! ??
+  end
+
+  def not_for_loan?
+    @not_for_loan != '0' || item_type_ref? ###????
+  end
+  def not_for_loan_reading_room_only?
+    @not_for_loan == '-3'
+  end
+  def not_for_loan_reference_copy?
+    @not_for_loan == '-2'
+  end
+
+
+  # Tror kan skita i found? iom att felaktiga found states uppenbarligen uppkommer
+  # relativt ofta (verifierat via databasfragor i produktion)
+  # gar alltsa inte att lita pa
+  def found?
+    @found.present?
+  end
+  def found_waiting?
+    @found == "W"
+  end
+  def found_in_transit?
+    @found == "T"
   end
 
   def parse_rawdata rawdata
@@ -147,7 +183,7 @@ class Item
     rawdata["itemcallnumber"].present? ? @item_call_number = rawdata["itemcallnumber"] : @item_call_number = nil
     rawdata["enumchron"].present? ? @copy_number = rawdata["enumchron"] : @copy_number = nil
     rawdata["itemnotes"].present? ? @public_notes = rawdata["itemnotes"] : @public_notes = nil
-    rawdata["itemlost"].present? ? @lost = rawdata["itemlost"] : @lost = nil
+    rawdata["itemlost"].present? ? @lost = rawdata["itemlost"] : @lost = "0" # Better safe than sorry
     rawdata["restricted"].present? ? @restricted = rawdata["restricted"] : @restricted = nil
     rawdata["notforloan"].present? ? @not_for_loan = rawdata["notforloan"] : @not_for_loan = nil
     rawdata["withdrawn"].present? ? @withdrawn = rawdata["withdrawn"] : @withdrawn = nil
