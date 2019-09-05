@@ -19,6 +19,7 @@ export default DS.Model.extend({
   notForLoan: DS.attr('string'),
   isReserved: DS.attr('boolean'),
   isAvailible: DS.attr('boolean'),
+  publicNotes: DS.attr('string'),
 
   sublocationText: Ember.computed('sublocation.isOpenLoc', 'sublocation.name', 'itemCallNumber', function() {
     const dictionary = this.get('i18n');

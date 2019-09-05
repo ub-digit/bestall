@@ -18,9 +18,10 @@ export default {
       "collect": "Collect it from the shelf"
     },
     "item-table": {
-      "volume": "Item",
+      "volume": "Volume/part",
       "location": "Location",
       "status": "Status",
+      "public_note": "Note",
       "must_be_ordered": "Must be requested",
       "available": "Available",
       "not_for_home_loan": "Not for home loan",

@@ -3,6 +3,7 @@
     <table class="table">
       <thead>
         <tr>
+          <th></th>
           {{#if hasSubscription}}
             <th>{{t "components.item-table.volume"}}</th>
           {{/if}}
@@ -12,22 +13,37 @@
       </thead>
       <tbody>
         {{#each items as |item|}}
-        <tr>
-          {{#if hasSubscription}}
-            <td>{{item.copyNumber}}</td>
-          {{/if}}
-          <td>{{item.sublocation.location.name}}<br/><span class="sublocation-text">{{item.sublocationText}}</span></td>
-          <td class="status-container">{{item.statusText}}<br/><span class="status-text">{{item.statusLimitationText}}</span></td>
-          <td class="item-order-button-container">
-            {{item-order-button
-              isAvailible=item.isAvailible
-              canBeOrdered=item.canBeOrdered
-              canBeQueued=item.canBeQueued
-              isReservedClick=isReservedClick
-              onClick=(action 'setItemToOrder' item)
-            }}
-          </td>
-        </tr>
+          <tr>
+            {{#if item.publicNotes}}
+              <td><i class="fa fa-chevron-down ub-close" aria-hidden="true" {{action 'togglePublicNote' on='click'}}></i></td>
+            {{else}}
+              <td></td>
+            {{/if}}
+            {{#if hasSubscription}}
+              <td>{{item.copyNumber}}</td>
+            {{/if}}
+            <td>{{item.sublocation.location.name}}<br/><span class="sublocation-text">{{item.sublocationText}}</span></td>
+            <td class="status-container">{{item.statusText}}<br/><span class="status-text">{{item.statusLimitationText}}</span></td>
+            <td class="item-order-button-container">
+              {{item-order-button
+                isAvailible=item.isAvailible
+                canBeOrdered=item.canBeOrdered
+                canBeQueued=item.canBeQueued
+                isReservedClick=isReservedClick
+                onClick=(action 'setItemToOrder' item)
+              }}
+            </td>
+          </tr>
+        {{#if item.publicNotes}}
+          <tr>
+            <td colspan="4" style="border-top: none;">
+              <div class="public-note">
+                <div class="public-note-label"><b>{{t "components.item-table.public_note"}}</b></div>
+                <div class="public-note-info">{{item.publicNotes}}</div>
+              </div>
+            </td>
+          </tr>
+        {{/if}}
         {{/each}}
       </tbody>
     </table>

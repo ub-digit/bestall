@@ -291,3 +291,35 @@ select.form-control {
 
 
 }
+
+
+.ub-close {
+    transform: rotate(0deg);
+    transition-duration: .5s;
+    color: #c5c5c5;
+    cursor: pointer;
+}
+
+.ub-close.expanded {
+    transform: rotate(180deg);
+    transition-duration: .5s;
+}
+
+.public-note {
+	display: none;
+}
+
+.public-note-label {
+	display: table-cell;
+}
+
+.public-note-info {
+	display: table-cell;
+	padding-left: 20px;
+}
+
+@media screen and (max-width: 649px) {
+	.public-note-info{
+		max-width: 300px;
+	}
+}

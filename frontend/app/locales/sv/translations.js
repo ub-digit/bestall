@@ -18,9 +18,10 @@ export default {
       "collect": "Hämta själv från hyllan"
     },
     "item-table": {
-      "volume": "Exemplar",
+      "volume": "Volym/del",
       "location": "Placering",
       "status": "Status",
+      "public_note": "Anmärkning",
       "must_be_ordered": "Måste beställas",
       "available": "Tillgänglig",
       "not_for_home_loan": "Ej hemlån",
