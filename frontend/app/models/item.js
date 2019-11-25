@@ -71,7 +71,7 @@ export default DS.Model.extend({
       return dictionary.t('components.item-table.unknown');
     }
   }),
-
+  // actions?????
   actions: {
     setItemToOrder(item) {
       this.get('setItemToOrder')(item);

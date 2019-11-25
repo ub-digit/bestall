@@ -15,29 +15,21 @@ class Biblio
   ]
 
   def can_be_borrowed
-    return true if !@subscriptiongroups.empty?
-    @items.each do |item|
-      return true if item.can_be_borrowed
-    end
-    return false
+    !@subscriptiongroups.empty? || @items.any? {|item| item.can_be_borrowed}
   end
 
+  # TODO: !has_item_level_queue check redundant?
   def can_be_queued
-    has_items_available_for_queue = false
-    has_items_available_for_queue = @items.any? {|item| item.is_available_for_queue }
-
-    return has_items_available_for_queue && !has_item_level_queue
+    !has_item_level_queue && @items.any? {|item| item.is_available_for_queue}
   end
 
   def has_available_kursbok
-    return @items.any? {|item| item.is_availible && item.item_type_kursbok?}
+    @items.any? {|item| item.is_availible && item.item_type_kursbok?}
   end
-
 
   def has_item_level_queue
     # Biblios wrongly cataloged as monographs should be considered as serials if subscriptions exist
-    return true if !@subscriptiongroups.empty?
-    Biblio.queue_level(@record_type) == 'item'
+    !@subscriptiongroups.empty? || Biblio.queue_level(@record_type) == 'item'
   end
 
   def has_biblio_level_queue
@@ -218,9 +210,7 @@ class Biblio
     reserves = JSON.parse(reserves_data)["reserves"]
     JSON.parse(items_data)["items"].each do |item_data|
       item = Item.new(biblio_id: self.id, rawdata: item_data, has_item_level_queue: self.has_item_level_queue)
-      next if item.item_type.blank?
-      next if item.sublocation_id.blank?
-      next if item.masked?
+      next if !item.is_valid? || item.masked?
       item.is_reserved = false
       reserves.each do |reserve|
         if reserve["itemnumber"].present?
@@ -244,6 +234,7 @@ class Biblio
         @has_enum = true
       end
     end
+
     # Sort items
     @items = @items.sort_by { |a| [ a.location_id || "", a.sublocation_id || "", a.item_call_number || "" ] }
   end
