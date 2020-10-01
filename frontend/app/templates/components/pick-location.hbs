@@ -9,9 +9,13 @@
         {{#if loc.pickupLocationClosed}}
           ({{t "components.pick-location.library-closed"}})
         {{else}}
-          ({{t "components.pick-location.cannot-pickup-here"}})
-       {{/if}}
-       {{/if}}
+          {{#if loc.pickupTemporaryClosed}}
+            ({{t "components.pick-location.cannot-temporary-pickup-here"}})
+          {{else}}
+            ({{t "components.pick-location.cannot-pickup-here"}})
+          {{/if}}
+        {{/if}}
+      {{/if}}
     {{/item.option}}
   {{/each}}
 {{/x-select}}

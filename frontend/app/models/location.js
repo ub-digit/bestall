@@ -22,5 +22,10 @@ export default DS.Model.extend({
 
   pickupLocationClosed: Ember.computed('categories', function() {
     return this.get('categories').includes('CLOSED');
+  }),
+
+  pickupTemporaryClosed: Ember.computed('categories', function() {
+    return this.get('categories').includes('TMP_NO_PICKUP');
   })
+
 });
