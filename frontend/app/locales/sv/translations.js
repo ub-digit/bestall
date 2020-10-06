@@ -38,7 +38,7 @@ export default {
     "pick-location": {
       "cannot-pickup-here": "kan ej beställas hit",
       "library-closed": "stängt",
-      "cannot-temporary-pickup-here": "det går inte att beställa hit",
+      "cannot-temporary-pickup-here": "kan ej beställas hit",
     },
     "pick-type-of-loans": {
       "not-allowed": "ej tillåtet"
