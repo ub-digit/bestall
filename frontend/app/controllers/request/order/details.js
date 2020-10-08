@@ -53,7 +53,7 @@ export default Ember.Controller.extend({
 
     // If pickup location is closed, disable location in dropdown list
     locations.map((item) => {
-      if (item.get('pickupLocationClosed')) {
+      if (item.get('pickupLocationClosed') || item.get('pickupTemporaryClosed')) {
         item.set('disabled', true);
       }
     });

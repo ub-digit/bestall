@@ -37,7 +37,8 @@ export default {
     },
     "pick-location": {
       "cannot-pickup-here": "can't be picked up here",
-      "library-closed": "closed"
+      "library-closed": "closed",
+      "cannot-temporary-pickup-here": "can't be picked up here",
     },
     "pick-type-of-loans": {
       "not-allowed": "not allowed"
