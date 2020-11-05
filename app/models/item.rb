@@ -133,7 +133,7 @@ class Item
 
   def status
     return "LOANED" if @due_date.present? && Date.parse(@due_date) >= Date.today
-    return "RESERVED" if (@is_reserved && @due_date.blank?) || ['5', '6', '7', '8','9'].include?(@lost) || @found == "W" || @found == "T"
+    return "RESERVED" if (@is_reserved && @due_date.blank?) || @found == "W" || @found == "T"
     return "DELAYED" if (@due_date.present? && Date.parse(@due_date) < Date.today) || @lost == '2'
     return "IN_TRANSIT" if in_transit?
     return "NOT_IN_PLACE" if not_in_place?
