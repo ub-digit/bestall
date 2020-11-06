@@ -52,11 +52,13 @@ class Item
 
     return false unless @item_type
     return false if item_type_ref?
-    return false if item_type_kursbok?
+# CORONA: Make Kursbok orderable
+#    return false if item_type_kursbok?
     return false if checked_out?
     return false if reserved?
     return false if lost?
-    return false if restricted?
+# CORONA Accept orders for Ghdk, Gumu and Laslust
+#    return false if restricted?
     return false if during_acquisition?
     return false if not_in_place?
     return false if in_transit?
@@ -108,7 +110,7 @@ class Item
   end
 
   def masked?
-    ['1', '2', '3'].include?(@withdrawn) || @lost == '1'
+    ['1', '2', '3'].include?(@withdrawn) || ['1', '5'].include?(@lost)
   end
 
   def not_in_place?
@@ -131,8 +133,8 @@ class Item
 
   def status
     return "LOANED" if @due_date.present? && Date.parse(@due_date) >= Date.today
-    return "RESERVED" if (@is_reserved && @due_date.blank?) || ['5', '6', '7', '8','9'].include?(@lost) || @found == "W" || @found == "T"
-    return "DELAYED" if (@due_date.present? && Date.parse(@due_date) < Date.today) || @lost == '2'
+    return "RESERVED" if (@is_reserved && @due_date.blank?) || @found == "W" || @found == "T"
+    return "DELAYED" if (@due_date.present? && Date.parse(@due_date) < Date.today) || ['2', '3', '6'].include?(@lost)
     return "IN_TRANSIT" if in_transit?
     return "NOT_IN_PLACE" if not_in_place?
     return "DURING_ACQUISITION" if during_acquisition?
