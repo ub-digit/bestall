@@ -1,6 +1,7 @@
 export default {
   "home": {
     "title": "Beställ",
+    "closed-info": "Just nu är biblioteken stängda för allmänheten. Beställningar och hämtningar av material kan därför inte göras av allmänheten.",
     "headers": {
       "logoPrintUrl": '/gu_logo_sv_high.png',
       "level1": 'Göteborgs universitetsbibliotek',

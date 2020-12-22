@@ -1,6 +1,7 @@
 export default {
   "home": {
     "title": "Order",
+    "closed-info": "Right now, the libraries are closed to the public. Orders and pick ups of material can therefore not be made by the public.",
     "headers": {
       "logoPrintUrl": '/gu_logo_en_high.png',
       "level1": 'Gothenburg University Library',
