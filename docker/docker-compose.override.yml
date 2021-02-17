@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+  frontend:
+    image: docker.ub.gu.se/ember-dev:3.14.0
+    ports:
+      # server
+      - ${FRONTEND_HOST_PORT}:4200
+      # livereload
+      - 7020:7020
+      # Tests in browser
+      - 7357:7357
+    volumes:
+      - ../frontend/:/home/node/app
+  backend:
+    image: docker.ub.gu.se/rails:ruby-2.5.8
+    env_file:
+      - secrets.env
+    volumes:
+      - ../:/usr/src/app
+  db:
+    image: postgres:9.4
+    volumes:
+      - ./build/postgres/postgres.conf:/etc/postgresql/postgresql.conf
+# TODO: Requires some refactoring, storing casUrl in frontend config instead
+# of fetching from backend etc
+#  cas:
+#    image: soulwing/cas-mock-server
+#    ports:
+#      - 8383:8080
+#    networks:
+#      - backend

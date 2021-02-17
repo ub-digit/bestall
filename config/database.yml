@@ -1,0 +1,24 @@
+default: &default
+  host: <%= ENV["RAILS_DB_HOST"] %>
+  port: <%= ENV["RAILS_DB_PORT"] %>
+  pool: 10
+  timeout: 5000
+  adapter: postgresql
+  encoding: unicode
+  database: <%= ENV["RAILS_DB"] %>
+  template: template0
+  username: <%= ENV["RAILS_DB_USER"] %>
+  password: <%= ENV["RAILS_DB_PASSWORD"] %>
+
+development:
+  <<: *default
+
+staging:
+  <<: *default
+
+lab:
+  <<: *default
+
+production:
+  <<: *default
+  pool: 100

@@ -20,14 +20,11 @@
 # Ignore Byebug command history file.
 .byebug_history
 
-config/database.yml
-config/config_secret.yml
-config/deploy.yml
-
 .vscode/*
-
 
 
 *~
 .#*
 \#*#
+
+vendor/bundle

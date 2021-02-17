@@ -1,0 +1,47 @@
+version: '3.7'
+services:
+  frontend:
+    environment:
+      - EMBER_ENVIRONMENT=${ENVIRONMENT}
+      - BACKEND_SERVICE_HOSTNAME=${BACKEND_HOSTNAME}
+      - BACKEND_SERVICE_PORT=${BACKEND_SERVICE_PORT}
+    # Keep the stdin open, so we can attach to our app container's process
+    # and do things such as debugging, etc
+    stdin_open: true
+    # Enable sending signals (CTRL+C, CTRL+P + CTRL+Q) into the container
+    tty: true
+  backend:
+    env_file:
+      - secrets.env
+    environment:
+      - RAILS_ENV=${ENVIRONMENT}
+      - RAILS_PORT=${RAILS_PORT}
+      - RAILS_DB=${DB_NAME}
+      - RAILS_DB_HOST=${DB_HOST}
+      - RAILS_DB_USER=${DB_USER}
+      - RAILS_DB_PASSWORD=${DB_PASSWORD}
+      - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+      - BESTALL_CAS_URL=${CAS_URL}
+      - BESTALL_REGISTRATION_URL=${REGISTRATION_URL}
+      - BESTALL_MYLOANS_URL=${MYLOANS_URL}
+      - KOHA_USER=${KOHA_USER}
+      - KOHA_SVC_URL=${KOHA_SVC_URL}
+    command: ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+    networks:
+      - backend
+    ports:
+      - ${BACKEND_HOST_PORT}:${RAILS_PORT}
+  db:
+    restart: always
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    command: ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"]
+    volumes:
+      - ./postgres-initdb.d:/docker-entrypoint-initdb.d
+      - ./postgres-data:/var/lib/postgresql/data
+    networks:
+      - backend
+networks:
+  backend:
