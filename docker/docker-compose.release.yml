@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+  frontend:
+    image: docker.ub.gu.se/bestall-frontend:${GIT_REVISION}
+    ports:
+      - ${FRONTEND_HOST_PORT}:8080
+  backend:
+    image: docker.ub.gu.se/bestall-backend:${GIT_REVISION}
+  db:
+    image: docker.ub.gu.se/bestall-postgres:${GIT_REVISION}
+

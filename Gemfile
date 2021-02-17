@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-ruby "2.3.1"
-
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
@@ -16,10 +14,9 @@ gem 'puma', '~> 3.0'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'ember-cli-rails'
 gem 'pg'
 gem 'jquery-rails'
-gem 'rest-client'
+gem "rest-client", '~> 2.0.1'
 gem 'prawn'
 gem 'rack-cors'
 
@@ -41,9 +38,4 @@ group :test do
 end
 
 group :development do
-  gem 'capistrano',  '~> 3.4.0'
-  gem 'capistrano-rails', '~> 1.1'
-  gem 'capistrano-passenger'
-  gem 'capistrano-bundler', '~> 1.1.2'
-  gem 'capistrano-rvm'
 end

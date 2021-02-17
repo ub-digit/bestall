@@ -33,7 +33,6 @@
     "ember-cli-less": "^1.5.3",
     "ember-cli-moment-shim": "3.8.0",
     "ember-cli-qunit": "^4.0.1",
-    "ember-cli-rails-addon": "^0.8.0",
     "ember-cli-release": "^1.0.0-beta.2",
     "ember-cli-sri": "^2.1.0",
     "ember-cli-test-loader": "^2.2.0",

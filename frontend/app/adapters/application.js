@@ -1,10 +1,12 @@
 import ActiveModelAdapter from 'active-model-adapter';
 import Ember from 'ember';
+import ENV from '../config/environment';
 
 export default ActiveModelAdapter.extend({
   session: Ember.inject.service(),
   store: Ember.inject.service(),
-  namespace: '/api',
+  namespace: 'api',
+  host: ENV.APP.serviceURL,
 
   headers: Ember.computed(function() {
     var that = this;

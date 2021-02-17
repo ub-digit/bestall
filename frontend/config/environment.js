@@ -22,7 +22,10 @@ module.exports = function(environment) {
     }
   };
 
+  let backend_service_proto = 'https';
+
   if (environment === 'development') {
+    backend_service_proto = 'http';
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     ENV.APP.LOG_TRANSITIONS = true;
@@ -40,9 +43,11 @@ module.exports = function(environment) {
 
     ENV.APP.rootElement = '#ember-testing';
   }
-
-  if (environment === 'production') {
-
+  else {
+    ENV.APP.serviceURL = backend_service_proto + '://' + process.env.BACKEND_SERVICE_HOSTNAME;
+    if (process.env.BACKEND_SERVICE_PORT) {
+      ENV.APP.serviceURL = ENV.APP.serviceURL + ':' + process.env.BACKEND_SERVICE_PORT;
+    }
   }
 
   ENV.i18n = {
@@ -51,6 +56,15 @@ module.exports = function(environment) {
   ENV.error_codes = {
     NO_ID: "NO_ID"
   }
+
+   ENV.contentSecurityPolicy = {
+    'default-src': "'none'",
+    'font-src': "'self'",
+    'img-src': "'self'",
+    'style-src': "'self'",
+    'style-src': "'self' 'unsafe-inline'",
+    'report-uri': "/"
+  };
 
   return ENV;
 };
