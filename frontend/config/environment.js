@@ -22,10 +22,8 @@ module.exports = function(environment) {
     }
   };
 
-  let backend_service_proto = 'https';
 
   if (environment === 'development') {
-    backend_service_proto = 'http';
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     ENV.APP.LOG_TRANSITIONS = true;
@@ -44,7 +42,7 @@ module.exports = function(environment) {
     ENV.APP.rootElement = '#ember-testing';
   }
   else {
-    ENV.APP.serviceURL = backend_service_proto + '://' + process.env.BACKEND_SERVICE_HOSTNAME;
+    ENV.APP.serviceURL = process.env.BACKEND_SERVICE_PROTOCOL + '://' + process.env.BACKEND_SERVICE_HOSTNAME;
     if (process.env.BACKEND_SERVICE_PORT) {
       ENV.APP.serviceURL = ENV.APP.serviceURL + ':' + process.env.BACKEND_SERVICE_PORT;
     }

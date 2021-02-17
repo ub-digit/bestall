@@ -3,6 +3,7 @@ services:
   frontend:
     environment:
       - EMBER_ENVIRONMENT=${ENVIRONMENT}
+      - BACKEND_SERVICE_PROTOCOL=${BACKEND_SERVICE_PROTOCOL}
       - BACKEND_SERVICE_HOSTNAME=${BACKEND_HOSTNAME}
       - BACKEND_SERVICE_PORT=${BACKEND_SERVICE_PORT}
     # Keep the stdin open, so we can attach to our app container's process
