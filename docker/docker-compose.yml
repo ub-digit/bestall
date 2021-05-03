@@ -1,6 +1,7 @@
 version: '3.7'
 services:
   frontend:
+    restart: always
     environment:
       - EMBER_ENVIRONMENT=${ENVIRONMENT}
       - BACKEND_SERVICE_PROTOCOL=${BACKEND_SERVICE_PROTOCOL}
@@ -12,6 +13,7 @@ services:
     # Enable sending signals (CTRL+C, CTRL+P + CTRL+Q) into the container
     tty: true
   backend:
+    restart: always
     env_file:
       - secrets.env
     environment:
