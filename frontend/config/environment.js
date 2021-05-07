@@ -46,6 +46,7 @@ module.exports = function(environment) {
     if (process.env.BACKEND_SERVICE_PORT) {
       ENV.APP.serviceURL = ENV.APP.serviceURL + ':' + process.env.BACKEND_SERVICE_PORT;
     }
+    ENV.APP.authenticationBaseURL = ENV.APP.serviceURL + '/api/session';
   }
 
   ENV.i18n = {
