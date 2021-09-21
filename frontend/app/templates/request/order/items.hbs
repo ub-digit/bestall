@@ -1,55 +1,30 @@
-{{partial "request/order/warning"}}
-{{partial "request/order/bibliographic-info"}}
+{{partial 'request/order/warning'}}
+{{partial 'request/order/bibliographic-info'}}
 {{#if request.model.biblio.hasItemLevelQueue}}
   <nav>
     <ul class="nav nav-tabs" role="tablist">
       {{#if request.model.biblio.subscriptiongroups.length}}
-        <li role="presentation" class="{{is-active-tab "tab1" activeTab}}">
-          <a
-            href="#subscriptions"
-            class="left"
-            data-toggle="tab"
-            onclick={{action "setActiveTab" "tab1"}}
-          >
-            {{t "request.order.items.subscriptions"}}
-            ({{request.model.biblio.subscriptiongroups.length}})
-          </a>
-        </li>
+      <li role="presentation" class="{{is-active-tab 'tab1' activeTab}}">
+        <a href="#subscriptions" class="left" data-toggle="tab" onclick={{action "setActiveTab" "tab1"}}>
+          {{t "request.order.items.subscriptions"}} ({{request.model.biblio.subscriptiongroups.length}})
+        </a>
+      </li>
       {{/if}}
-      {{#if request.model.biblio.items}}
-        <li role="presentation" class="{{is-active-tab "tab2" activeTab}}">
-          <a
-            href="#items"
-            class="right"
-            data-toggle="tab"
-            onclick={{action "setActiveTab" "tab2"}}
-          >
-            {{t "request.order.items.items"}}
-            ({{request.model.biblio.items.length}})
-          </a>
-        </li>
+      {{#if request.model.biblio.items }}
+      <li role="presentation" class="{{is-active-tab 'tab2' activeTab}}">
+        <a href="#items" class="right" data-toggle="tab" onclick={{action "setActiveTab" "tab2"}}>
+          {{t "request.order.items.items"}} ({{request.model.biblio.items.length}})
+        </a>
+      </li>
       {{/if}}
     </ul>
   </nav>
   <!-- Tab panes -->
   <div class="tab-content">
-    <div
-      role="tabpanel"
-      class="tab-pane {{is-active-tab "tab2" activeTab}}"
-      id="items"
-    >
-      {{item-table
-        items=request.model.biblio.items
-        isReservedClick=isReservedClick
-        hasSubscription=true
-        setItemToOrder=(action "setItemToOrder")
-      }}
+    <div role="tabpanel" class="tab-pane {{is-active-tab 'tab2' activeTab}}" id="items" >
+      {{item-table items=request.model.biblio.items isReservedClick=isReservedClick hasSubscription=true setItemToOrder=(action "setItemToOrder")}}
     </div>
-    <div
-      role="tabpanel"
-      class="tab-pane {{is-active-tab "tab1" activeTab}}"
-      id="subscriptions"
-    >
+    <div role="tabpanel" class="tab-pane {{is-active-tab 'tab1' activeTab}}" id="subscriptions">
       <div class="row">
         <div class="col-xs-12">
           <div class="table-responsive">
@@ -61,56 +36,38 @@
                 </tr>
               </thead>
               <tbody>
-                {{#each
-                  request.model.biblio.subscriptiongroups
-                  as |subscriptiongroup|
-                }}
-                  <tr>
-                    <td class="border">{{subscriptiongroup.location.name}}</td>
-                    <td class="border">
-                      {{#if subscriptiongroup.shortInfo.length}}
-                        {{#each subscriptiongroup.shortInfo as |shortInfo|}}
-                          {{shortInfo}}<br />
-                        {{/each}}
+              {{#each request.model.biblio.subscriptiongroups as |subscriptiongroup|}}
+                <tr>
+                  <td class="border">{{subscriptiongroup.location.name}}</td>
+                  <td class="border">
+                    {{#if subscriptiongroup.shortInfo.length}}
+                      {{#each subscriptiongroup.shortInfo as |shortInfo|}}
+                        {{shortInfo}}<br>
+                      {{/each}}
+                    {{else}}
+                      {{t "request.order.items.unspecified-holdings"}}
+                    {{/if}}
+                  </td>
+                </tr>
+                {{#each subscriptiongroup.subscriptions as |subscription|}}
+                <tr>
+                  <td colspan="2" class="subscription-margin">{{subscription.sublocation.name}}, {{subscription.callNumber}}</td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="subscription-margin">
+                    <div class="subscription-note-wrapper">
+                      <textarea class="subscription-note" wrap=off readonly>{{subscription.publicNote}}</textarea>
+                    </div><div class="subscription-button-wrapper">
+                      {{#unless subscription.sublocation.isPagingLoc}}
+                        <span class="subscription-cant-be-ordered-text">{{t 'request.order.items.cant-be-ordered'}}</span>
                       {{else}}
-                        {{t "request.order.items.unspecified-holdings"}}
-                      {{/if}}
-                    </td>
-                  </tr>
-                  {{#each subscriptiongroup.subscriptions as |subscription|}}
-                    <tr>
-                      <td
-                        colspan="2"
-                        class="subscription-margin"
-                      >{{subscription.sublocation.name}},
-                        {{subscription.callNumber}}</td>
-                    </tr>
-                    <tr>
-                      <td colspan="2" class="subscription-margin">
-                        <div class="subscription-note-wrapper">
-                          <textarea
-                            class="subscription-note"
-                            wrap="off"
-                            readonly
-                          >{{subscription.publicNote}}</textarea>
-                        </div><div class="subscription-button-wrapper">
-                          {{#unless subscription.sublocation.isPagingLoc}}
-                            <span class="subscription-cant-be-ordered-text">{{t
-                                "request.order.items.cant-be-ordered"
-                              }}</span>
-                          {{else}}
-                            <button
-                              class="btn btn-primary"
-                              {{action "setSubscriptionToOrder" subscription}}
-                            >{{t
-                                "request.order.items.order-subscription-button"
-                              }}</button>
-                          {{/unless}}
-                        </div>
-                      </td>
-                    </tr>
-                  {{/each}}
+                        <button class="btn btn-primary" {{action 'setSubscriptionToOrder' subscription}}>{{t "request.order.items.order-subscription-button"}}</button>
+                      {{/unless}}
+                    </div>
+                  </td>
+                </tr>
                 {{/each}}
+              {{/each}}
               </tbody>
             </table>
           </div>
@@ -121,101 +78,63 @@
 {{else}}
   <nav>
     <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="{{is-active-tab "tab1" activeTab}}"><a
-          href="#items"
-          class="left"
-          data-toggle="tab"
-          onclick={{action "setActiveTab" "tab1"}}
-        >{{t "request.order.items.available"}}
-          ({{itemsAvailable.length}})</a></li>
-      <li role="presentation" class="{{is-active-tab "tab2" activeTab}}"><a
-          href="#item-queue"
-          class="right"
-          data-toggle="tab"
-          onclick={{action "setActiveTab" "tab2"}}
-        >{{t "request.order.items.not-available"}}
-          ({{itemsNotAvailable.length}})</a></li>
+      <li role="presentation" class="{{is-active-tab 'tab1' activeTab}}"><a href="#items" class="left" data-toggle="tab" onclick={{action "setActiveTab" "tab1"}}>{{t "request.order.items.available"}} ({{itemsAvailable.length}})</a></li>
+      <li role="presentation" class="{{is-active-tab 'tab2' activeTab}}"><a href="#item-queue" class="right" data-toggle="tab" onclick={{action "setActiveTab" "tab2"}}>{{t "request.order.items.not-available"}} ({{itemsNotAvailable.length}})</a></li>
     </ul>
   </nav>
   <!-- Tab panes -->
   <div class="tab-content">
-    <div
-      role="tabpanel"
-      class="tab-pane {{is-active-tab "tab1" activeTab}}"
-      id="items"
-    >
+    <div role="tabpanel" class="tab-pane {{is-active-tab 'tab1' activeTab}}" id="items" >
       {{#if itemsAvailable}}
-        {{item-table
-          items=itemsAvailable
-          hasSubscription=request.model.biblio.hasEnum
-          setItemToOrder=(action "setItemToOrder")
-        }}
+      {{item-table items=itemsAvailable hasSubscription=request.model.biblio.hasEnum setItemToOrder=(action "setItemToOrder")}}
       {{else}}
         <p class="center zero-state vertical-space-bottom-40">
           {{t "request.order.items.currently-no-available-items"}}
         </p>
         <div class="row">
           <div class="col-xs-12">
-            <div class="panel panel-default">
-              <div class="panel-body center">
-                <strong>{{request.model.biblio.noInQueue}}
-                  {{t "request.order.items.number-of-people-in-queue"}}</strong>
-                <button
-                  class="btn btn-primary"
-                  {{action "setItemToOrder" null true}}
-                >{{t "request.order.items.queue-up"}}</button>
-              </div>
+          <div class="panel panel-default">
+            <div class="panel-body center">
+              <strong>{{request.model.biblio.noInQueue}} {{t "request.order.items.number-of-people-in-queue"}}</strong> <button class="btn btn-primary" {{action 'setItemToOrder' null true}}>{{t "request.order.items.queue-up"}}</button>
             </div>
+          </div>
           </div>
         </div>
       {{/if}}
     </div>
-    <div
-      role="tabpanel"
-      class="tab-pane {{is-active-tab "tab2" activeTab}}"
-      id="item-queue"
-    >
+    <div role="tabpanel" class="tab-pane {{is-active-tab 'tab2' activeTab}}" id="item-queue">
       {{#if request.model.biblio.canBeQueued}}
-        <div class="row">
-          <div class="col-xs-12">
-            {{#if hasItemAvailableForOrder}}
+      <div class="row">
+        <div class="col-xs-12">
+          {{#if hasItemAvailableForOrder}}
+            <div class="panel-body center">
+              <span>{{t "request.order.items.items-are-available"}}</span>
+            </div>
+          {{else}}
+            {{#if request.model.biblio.hasAvailableKursbok}}
               <div class="panel-body center">
-                <span>{{t "request.order.items.items-are-available"}}</span>
+                <span>{{t "request.order.items.kursbok-is-available"}}</span>
               </div>
             {{else}}
-              {{#if request.model.biblio.hasAvailableKursbok}}
+              <div class="panel panel-default">
                 <div class="panel-body center">
-                  <span>{{t "request.order.items.kursbok-is-available"}}</span>
+                  <strong>{{request.model.biblio.noInQueue}} {{t "request.order.items.number-of-people-in-queue"}}</strong>
+                  <button class="btn btn-primary btn-space-left" {{action 'setItemToOrder' null true}}>{{t "request.order.items.queue-up"}}</button>
                 </div>
-              {{else}}
-                <div class="panel panel-default">
-                  <div class="panel-body center">
-                    <strong>{{request.model.biblio.noInQueue}}
-                      {{t
-                        "request.order.items.number-of-people-in-queue"
-                      }}</strong>
-                    <button
-                      class="btn btn-primary btn-space-left"
-                      {{action "setItemToOrder" null true}}
-                    >{{t "request.order.items.queue-up"}}</button>
-                  </div>
-                </div>
-              {{/if}}
-            {{/if}}
-          </div>
+              </div>
+            {{/if}}          
+          {{/if}}
         </div>
+      </div>
       {{/if}}
       <div class="row">
         <div class="col-xs-12">
           {{#if itemsNotAvailable}}
-            {{item-table
-              items=itemsNotAvailable
-              setItemToOrder=(action "setItemToOrder")
-            }}
+            {{item-table items=itemsNotAvailable setItemToOrder=(action "setItemToOrder")}}
           {{else}}
-            <p class="center zero-state">
-              {{t "request.order.items.all-items-are-available"}}
-            </p>
+              <p class="center zero-state ">
+                {{t "request.order.items.all-items-are-available"}}
+              </p>
           {{/if}}
         </div>
       </div>
