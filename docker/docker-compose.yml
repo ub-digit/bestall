@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 services:
   frontend:
     restart: always
@@ -28,8 +28,8 @@ services:
       - BESTALL_CAS_URL=${CAS_URL}
       - BESTALL_REGISTRATION_URL=${REGISTRATION_URL}
       - BESTALL_MYLOANS_URL=${MYLOANS_URL}
-      - KOHA_USER=${KOHA_USER}
-      - KOHA_SVC_URL=${KOHA_SVC_URL}
+      - BESTALL_KOHA_USER=${KOHA_USER}
+      - BESTALL_KOHA_SVC_URL=${KOHA_SVC_URL}
     command: ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
     networks:
       - backend
