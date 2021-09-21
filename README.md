@@ -2,9 +2,8 @@
 
 ## IMPORTANT FOR MAC M1
 
-- config/environments/development.rb
-- config.file_watcher = ActiveSupport::EventedFileUpdateChecker
-- # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+- Go to: config/environments/development.rb
+- Comment this line out: config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
 ## Allmänt
 
