@@ -10,7 +10,7 @@
         </a>
       </li>
       {{/if}}
-      {{#if request.model.biblio.items }}
+      {{#if request.model.biblio.items  }}
       <li role="presentation" class="{{is-active-tab 'tab2' activeTab}}">
         <a href="#items" class="right" data-toggle="tab" onclick={{action "setActiveTab" "tab2"}}>
           {{t "request.order.items.items"}} ({{request.model.biblio.items.length}})
