@@ -57,8 +57,6 @@ class Item
     return false if checked_out?
     return false if reserved?
     return false if lost?
-# CORONA Accept orders for Ghdk, Gumu and Laslust
-#    return false if restricted?
     return false if during_acquisition?
     return false if not_in_place?
     return false if in_transit?
