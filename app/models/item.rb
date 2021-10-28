@@ -142,15 +142,15 @@ class Item
   def parse_rawdata rawdata
     rawdata["itemnumber"].present? ? @id = rawdata["itemnumber"] : @id = nil
     rawdata["location"].present? ? @sublocation_id = rawdata["location"] : @sublocation_id = nil
-    rawdata["itype"].present? ? @item_type = rawdata["itype"] : @item_type = nil
+    rawdata["itype"].present? ? @item_type = rawdata["itype"].to_s : @item_type = nil
     rawdata["barcode"].present? ? @barcode = rawdata["barcode"] : @barcode = nil
     rawdata["itemcallnumber"].present? ? @item_call_number = rawdata["itemcallnumber"] : @item_call_number = nil
     rawdata["enumchron"].present? ? @copy_number = rawdata["enumchron"] : @copy_number = nil
     rawdata["itemnotes"].present? ? @public_notes = rawdata["itemnotes"] : @public_notes = nil
-    rawdata["itemlost"].present? ? @lost = rawdata["itemlost"] : @lost = nil
-    rawdata["restricted"].present? ? @restricted = rawdata["restricted"] : @restricted = nil
-    rawdata["notforloan"].present? ? @not_for_loan = rawdata["notforloan"] : @not_for_loan = nil
-    rawdata["withdrawn"].present? ? @withdrawn = rawdata["withdrawn"] : @withdrawn = nil
+    rawdata["itemlost"].present? ? @lost = rawdata["itemlost"].to_s : @lost = nil
+    rawdata["restricted"].present? ? @restricted = rawdata["restricted"].to_s : @restricted = nil
+    rawdata["notforloan"].present? ? @not_for_loan = rawdata["notforloan"].to_s : @not_for_loan = nil
+    rawdata["withdrawn"].present? ? @withdrawn = rawdata["withdrawn"].to_s : @withdrawn = nil
     rawdata["datedue"].present? ? @due_date = rawdata["datedue"] : @due_date = nil
     rawdata["in_transit"].present? ? @in_transit = rawdata["in_transit"] : @in_transit = nil
     rawdata["holdingbranch"].present? ? @currentlocation_id = rawdata["holdingbranch"] : @currentlocation_id = nil
