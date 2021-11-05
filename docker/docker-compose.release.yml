@@ -8,4 +8,31 @@ services:
     image: docker.ub.gu.se/bestall-backend:${GIT_REVISION}
   db:
     image: docker.ub.gu.se/bestall-postgres:${GIT_REVISION}
+  apache:
+    image: ${BESTALL_APACHE_RUNNING_IMAGE} 
+    restart: always
+    ports:
+      - ${BESTALL_APACHE_ACCESS_PORT}:80
+    volumes:
+      - "${BESTALL_APACHE_SITES_DIR}:/etc/apache2/sites-enabled"
+      - "${FILES_DIR}:/var/www/bestall/files"
+      - "${PRINT_BESTALL_DIR}:/var/www/bestall/print_bestall"
+      - "${BESTALL_APACHE_HTPASSWD_DIR}:/etc/htpasswd/bestall"
+  cupsd:
+    image: ${BESTALL_CUPSD_RUNNING_IMAGE} 
+    restart: always
+    environment:
+      - PRINTER_PR40_HOST=${PRINTER_PR40_HOST}
+      - PRINTER_PR42_HOST=${PRINTER_PR42_HOST}
+      - PRINTER_PR43_HOST=${PRINTER_PR43_HOST}
+      - PRINTER_PR44_HOST=${PRINTER_PR44_HOST}
+      - PRINTER_PR47_HOST=${PRINTER_PR47_HOST}
+      - PRINTER_PR48_HOST=${PRINTER_PR48_HOST}
+      - PRINTER_PR49_HOST=${PRINTER_PR49_HOST}
+      - PRINTER_PR50_HOST=${PRINTER_PR50_HOST}
+      - PRINTER_PR60_HOST=${PRINTER_PR60_HOST}
+      - PRINTER_PR62_HOST=${PRINTER_PR62_HOST}
+      - PRINTER_TEST_HOST=${PRINTER_TEST_HOST}
+    volumes:
+      - "${FILES_DIR}:/apps/bestall/files"
 
