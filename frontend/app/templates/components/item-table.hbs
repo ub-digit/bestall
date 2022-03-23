@@ -16,16 +16,29 @@
           {{#if hasSubscription}}
             <td>{{item.copyNumber}}</td>
           {{/if}}
-          <td>{{item.sublocation.location.name}}<br/><span class="sublocation-text">{{item.sublocationText}}</span></td>
+          <td>
+              <div>
+                {{item.sublocation.location.name}}<br/><span class="sublocation-text">{{item.sublocationText}}</span>
+              </div>        
+              <div class="visible-xs-12 visible-xs-inline-block" >
+                {{item-order-button
+                  isAvailible=item.isAvailible
+                  canBeOrdered=item.canBeOrdered
+                  canBeQueued=item.canBeQueued
+                  isReservedClick=isReservedClick
+                  onClick=(action 'setItemToOrder' item)
+                }}
+              </div>
+          </td>
           <td class="status-container">{{item.statusText}}<br/><span class="status-text">{{item.statusLimitationText}}</span></td>
-          <td class="item-order-button-container">
-            {{item-order-button
-              isAvailible=item.isAvailible
-              canBeOrdered=item.canBeOrdered
-              canBeQueued=item.canBeQueued
-              isReservedClick=isReservedClick
-              onClick=(action 'setItemToOrder' item)
-            }}
+          <td class="item-order-button-container hidden-xs">
+              {{item-order-button
+                  isAvailible=item.isAvailible
+                  canBeOrdered=item.canBeOrdered
+                  canBeQueued=item.canBeQueued
+                  isReservedClick=isReservedClick
+                  onClick=(action 'setItemToOrder' item)
+                }}
           </td>
         </tr>
         {{/each}}
