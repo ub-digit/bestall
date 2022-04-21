@@ -224,7 +224,7 @@ class Biblio
       item.is_reserved = false
       reserves.each do |reserve|
         if reserve["itemnumber"].present?
-          if reserve["itemnumber"] == item.id
+          if reserve["itemnumber"].to_s == item.id.to_s
             item.is_reserved = true
             if reserve["found"].present?
               item.found = reserve["found"]
