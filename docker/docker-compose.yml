@@ -30,6 +30,7 @@ services:
       - BESTALL_MYLOANS_URL=${MYLOANS_URL}
       - BESTALL_KOHA_USER=${KOHA_USER}
       - BESTALL_KOHA_SVC_URL=${KOHA_SVC_URL}
+      - BESTALL_CACHE_API_KEY=${CACHE_API_KEY}
     command: ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
     networks:
       - backend

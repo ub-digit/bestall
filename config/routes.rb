@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
     # Endpoint för Libris exemplarinfo
     get 'libris', to: 'libris#index'
+
+    get 'cache/clear', to: 'cache#clear'
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
