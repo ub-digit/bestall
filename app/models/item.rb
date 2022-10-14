@@ -126,7 +126,7 @@ class Item
   def status_limitation
     return "NOT_FOR_HOME_LOAN" if item_type_ref?
     return "READING_ROOM_ONLY" if @not_for_loan == '-3'
-    return "LOAN_IN_HOUSE_ONLY" if ['3', '4', '5', '6', '7'].include?(@restricted)
+    return "LOAN_IN_HOUSE_ONLY" if ['3', '4', '5', '6', '7', '8'].include?(@restricted)
   end
 
   def status
