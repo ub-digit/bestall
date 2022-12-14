@@ -37,6 +37,7 @@ export default Ember.Route.extend({
     },
 
     submitOrder() {
+      this.controllerFor('request.order.summary').set('btnSubmitOrderDisabled', true);
       this.controller.get('model.reserve').save().then(() => {
         this.transitionTo('request.order.confirmation');
       }, (error) => {
