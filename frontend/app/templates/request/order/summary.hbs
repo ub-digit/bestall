@@ -42,6 +42,6 @@
     <button class="btn btn-block btn-default" {{action 'goBack'}}>{{t "request.order.summary.goback-button"}}</button>
   </div>
   <div class="col-xs-6 col-sm-6">
-    <button class="btn btn-block btn-success" {{action 'submitOrder'}}>{{t "request.order.summary.submit-order-button"}}</button>
+    <button class="btn btn-block btn-success" disabled={{btnSubmitOrderDisabled}} {{action 'submitOrder'}}>{{t "request.order.summary.submit-order-button"}}</button>
   </div>
 </div>
