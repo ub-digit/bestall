@@ -109,7 +109,8 @@ export default {
         "reserve-notes": "Kommentar",
         "subscription-notes": "Detaljer",
         "goback-button": "Tillbaka",
-        "submit-order-button": "Beställ"
+        "submit-order-button": "Beställ",
+        "submitting-order-button": "Skickar..."
       },
       "warning": {
         "message": "Du kan beställa det här materialet, men kommer inte kunna låna det, eftersom du har förseningsavgifter eller försenade lån.",

@@ -109,7 +109,8 @@ export default {
         "reserve-notes": "Comment",
         "subscription-notes": "Details",
         "goback-button": "Go back",
-        "submit-order-button": "Request"
+        "submit-order-button": "Request",
+        "submitting-order-button": "Submitting..."
       },
       "warning": {
         "message": "You can place a request but you are not allowed to borrow anything, because of overdue loans or fines.",
