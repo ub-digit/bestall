@@ -1,18 +1,14 @@
-<label>
-  {{label}}
-</label>
-<span class="help-block">{{helptext}}</span>
-{{#if isTextarea}}
-  {{#if autoComplete}}
-    {{textarea value=value class="form-control" rows=3 maxlength=maxlength}}
-  {{else}}
-    {{textarea value=value class="form-control" rows=3 maxlength=maxlength autocomplete="off"}}
-  {{/if}}
+{{#if isHidden}}
+  {{input type="hidden" value=value}}
 {{else}}
-  {{#if autoComplete}}
-    {{input type="text" value=value class="form-control" maxlength=maxlength}}
-  {{else}}
-    {{input type="text" value=value class="form-control" maxlength=maxlength autocomplete="off"}}
-  {{/if}}
+  <label>
+    {{label}}
+  </label>
+  <span class="help-block">{{helptext}}</span>
+    {{#if autoComplete}}
+      {{input type="text" value=value class="form-control" maxlength=maxlength}}
+    {{else}}
+      {{input type="text" value=value class="form-control" maxlength=maxlength autocomplete="off"}}
+    {{/if}}
+  <span class="help-block">{{inputLength}} / {{maxlength}}</span>
 {{/if}}
-<span class="help-block">{{inputLength}} / {{maxlength}}</span>
