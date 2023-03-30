@@ -1,5 +1,5 @@
 class User
-  attr_accessor :id, :username, :first_name, :last_name, :denied, :warning, :fines_amount, :reserves, :loans, :attr_print
+  attr_accessor :id, :username, :cardnumber, :first_name, :last_name, :denied, :warning, :fines_amount, :reserves, :loans, :attr_print
   attr_reader :restriction_fines, :restriction_av, :restriction_or, :restriction_ori, :restriction_overdue, :user_category
 
   include ActiveModel::Model
@@ -76,6 +76,9 @@ class User
     end
     if xml.search('//response/borrower/borrowernumber').text.present?
       @id = xml.search('//response/borrower/borrowernumber').text.to_i
+    end
+    if xml.search('//response/borrower/cardnumber').text.present?
+      @cardnumber = xml.search('//response/borrower/cardnumber').text
     end
     if xml.search('//response/borrower/surname').text.present?
       @last_name = xml.search('//response/borrower/surname').text

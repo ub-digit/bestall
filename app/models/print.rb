@@ -13,6 +13,9 @@ class Print
 
     user_obj = User.find_by_username(username)
     obj[:name] = user_obj ? [user_obj.first_name, user_obj.last_name].compact.join(" ") : ''
+    obj[:firstname] = user_obj ? user_obj.first_name : ''
+    obj[:lastname] = user_obj ? user_obj.last_name : ''
+    obj[:cardnumber] = user_obj ? user_obj.cardnumber : ''
     obj[:extra_info] = user_obj ? user_obj.attr_print : ''
 
     loan_type_obj = LoanType.find_by_id(params[:reserve][:loan_type_id].to_i)
@@ -68,8 +71,12 @@ class Print
     end
     end_of_extra_info_line_cursor = pdf.cursor
     pdf.bounding_box([27.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
-      pdf.text "#{obj[:name]} ", size: size
-      pdf.text "#{obj[:borrowernumber]} ", size: size
+      if APP_CONFIG['show_pickup_code']
+        pdf.text "#{create_pickup_code(obj)} ", size: size
+      else
+        pdf.text "#{obj[:name]} ", size: size
+      end
+      pdf.text "#{obj[:cardnumber]} ", size: size
       pdf.text "#{obj[:pickup_location]} ", size: size
     end
     end_of_pickup_location_line_cursor = pdf.cursor
@@ -103,16 +110,15 @@ class Print
       pdf.text "SÄRSK.INFO:", size: size, :align=>:right
     end
     pdf.bounding_box([0, end_of_extra_info_line_cursor], :width => 25.send(:mm), font_size: size) do
-      pdf.text "NAMN:", size: size, :align=>:right
-      pdf.text "ID-NR:", size: size, :align=>:right
-      pdf.text "HÄMTAS PÅ:", size: size, :align=>:right
+      if APP_CONFIG['show_pickup_code']
+        pdf.text "ALIAS:", size: size, :align=>:right
+      else
+        pdf.text "NAMN:", size: size, :align=>:right
+      end
+      pdf.text "BIBL.KORT:", size: size, :align=>:right
+      pdf.text "TEST:", size: size, :align=>:right
     end
 
-    pdf.bounding_box([0, end_of_extra_info_line_cursor], :width => 25.send(:mm), font_size: size) do
-      pdf.text "NAMN:", size: size, :align=>:right
-      pdf.text "ID-NR:", size: size, :align=>:right
-      pdf.text "HÄMTAS PÅ:", size: size, :align=>:right
-    end
     if obj[:subscription_info_text]
       pdf.bounding_box([0, end_of_pickup_location_line_cursor], :width => 100.send(:mm), font_size: size) do
         pdf.text "Lägg till en reservation på exemplaret och återlämna.", size: size, :style=>:bold
@@ -138,5 +144,13 @@ class Print
     pdf.render_file "#{file_path}/#{sublocation_id}_pr#{location_id}_#{Time.now.strftime("%Y%m%d%H%M%S")}_#{SecureRandom.hex}#{suffix}.pdf"
 
     return pdf
+  end
+
+private
+  def self.create_pickup_code(obj)
+    code = ""
+    code = code + obj[:firstname][0,1] if obj[:firstname]
+    code = code + obj[:lastname][0,1] if obj[:lastname]
+    code = code + obj[:cardnumber][-4..-1]
   end
 end
