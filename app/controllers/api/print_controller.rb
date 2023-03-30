@@ -33,7 +33,10 @@ class Api::PrintController < ApplicationController
     obj[:loantype] = params[:loantype] if params[:loantype].present?
     obj[:extra_info] = params[:extra_info] if params[:extra_info].present?
     obj[:name] = params[:name] if params[:name].present?
+    obj[:firstname] = params[:firstname] if params[:firstname].present?
+    obj[:lastname] = params[:lastname] if params[:lastname].present?
     obj[:borrowernumber] = params[:borrowernumber] if params[:borrowernumber].present?
+    obj[:cardnumber] = params[:cardnumber] if params[:cardnumber].present?
     obj[:pickup_location] = params[:pickup_location] if params[:pickup_location].present?
     obj[:reserve_id] = params[:reserve_id] if params[:reserve_id].present?
 
