@@ -12,10 +12,10 @@ class Print
     obj[:description] = params[:reserve][:subscription_notes] if params[:reserve][:subscription_notes].present?
 
     user_obj = User.find_by_username(username)
-    obj[:name] = user_obj ? [user_obj.first_name, user_obj.last_name].compact.join(" ") : ''
     obj[:firstname] = user_obj ? user_obj.first_name : ''
     obj[:lastname] = user_obj ? user_obj.last_name : ''
     obj[:cardnumber] = user_obj ? user_obj.cardnumber : ''
+    obj[:categorycode] = user_obj ? user_obj.user_category : ''
     obj[:extra_info] = user_obj ? user_obj.attr_print : ''
 
     loan_type_obj = LoanType.find_by_id(params[:reserve][:loan_type_id].to_i)
@@ -74,7 +74,7 @@ class Print
       if APP_CONFIG['show_pickup_code']
         pdf.text "#{create_pickup_code(obj)} ", size: size
       else
-        pdf.text "#{obj[:name]} ", size: size
+        pdf.text "#{create_name(obj)} ", size: size
       end
       pdf.text "#{obj[:cardnumber]} ", size: size
       pdf.text "#{obj[:pickup_location]} ", size: size
@@ -152,5 +152,12 @@ private
     code = code + obj[:lastname][0,1] if obj[:lastname]
     code = code + obj[:firstname][0,1] if obj[:firstname]
     code = code + obj[:cardnumber][-4..-1]
+    code = code + " (" + obj[:categorycode] + ")"
   end
+
+  def self.create_name(obj)
+    name = [obj[:firstname], obj[:lastname]].compact.join(" ")
+    name = name + " (" + obj[:categorycode] + ")" if obj[:categorycode]
+  end
+
 end
