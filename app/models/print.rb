@@ -37,12 +37,12 @@ class Print
   def self.print_segment(pdf, obj, start_cursor)
     # Right column (data)
     size = 9
-    pdf.bounding_box([27.send(:mm), start_cursor], :width => 100.send(:mm)) do
+    pdf.bounding_box([33.send(:mm), start_cursor], :width => 100.send(:mm)) do
       pdf.text "#{Time.now.strftime("%Y-%m-%d %H:%M")}", size: size, :align=>:right
       pdf.text "#{obj[:location]} #{obj[:sublocation]} ", size: size
     end
     end_of_location_line_cursor = pdf.cursor
-    pdf.bounding_box([27.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
+    pdf.bounding_box([33.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
       pdf.text "#{obj[:call_number]} ", size: size
       pdf.text "#{obj[:barcode]} ", size: size
       pdf.text "#{obj[:bibid]} ", size: size
@@ -50,27 +50,27 @@ class Print
       pdf.text "#{obj[:title]} ", size: size
     end
     end_of_title_line_cursor = pdf.cursor
-    pdf.bounding_box([27.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
+    pdf.bounding_box([33.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
       pdf.text "#{obj[:alt_title]} ", size: size
     end
     end_of_alt_title_line_cursor = pdf.cursor
-    pdf.bounding_box([27.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
+    pdf.bounding_box([33.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
       pdf.text "#{obj[:volume]} ", size: size
       pdf.text "#{obj[:place]} ", size: size
     end
     end_of_place_line_cursor = pdf.cursor
-    pdf.bounding_box([27.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
+    pdf.bounding_box([33.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
       pdf.text "#{obj[:edition]} ", size: size
       pdf.text "#{obj[:serie]} ", size: size
       pdf.text "#{obj[:description]} ", size: size
     end
     end_of_desc_line_cursor = pdf.cursor
-    pdf.bounding_box([27.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
+    pdf.bounding_box([33.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
       pdf.text "#{obj[:loantype]} ", size: size
       pdf.text "#{obj[:extra_info]} ", size: size
     end
     end_of_extra_info_line_cursor = pdf.cursor
-    pdf.bounding_box([27.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
+    pdf.bounding_box([33.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
       if APP_CONFIG['show_pickup_code']
         pdf.text "#{create_pickup_code(obj)} ", size: size
       else
@@ -82,40 +82,40 @@ class Print
     end_of_pickup_location_line_cursor = pdf.cursor
 
     # Left column (labels)
-    pdf.bounding_box([0, start_cursor], :width => 25.send(:mm)) do
+    pdf.bounding_box([0, start_cursor], :width => 31.send(:mm)) do
       pdf.text " ", size: size, :align=>:right
       pdf.text "PLACERING:", size: size, :align=>:right
     end
-    pdf.bounding_box([0, end_of_location_line_cursor], :width => 25.send(:mm), font_size: size) do
+    pdf.bounding_box([0, end_of_location_line_cursor], :width => 31.send(:mm), font_size: size) do
       pdf.text "HYLLUPPST:", size: size, :align=>:right
       pdf.text "STRECKKOD:", size: size, :align=>:right
       pdf.text "BIBID:", size: size, :align=>:right
       pdf.text "FÖRF/INST:", size: size, :align=>:right
       pdf.text "TITEL:", size: size, :align=>:right
     end
-    pdf.bounding_box([0, end_of_title_line_cursor], :width => 25.send(:mm), font_size: size) do
+    pdf.bounding_box([0, end_of_title_line_cursor], :width => 31.send(:mm), font_size: size) do
       pdf.text "DELTITEL:", size: size, :align=>:right
     end
-    pdf.bounding_box([0, end_of_alt_title_line_cursor], :width => 25.send(:mm), font_size: size) do
+    pdf.bounding_box([0, end_of_alt_title_line_cursor], :width => 31.send(:mm), font_size: size) do
       pdf.text "VOLYM:", size: size, :align=>:right
       pdf.text "ORT/../ÅR:", size: size, :align=>:right
     end
-    pdf.bounding_box([0, end_of_place_line_cursor], :width => 25.send(:mm), font_size: size) do
+    pdf.bounding_box([0, end_of_place_line_cursor], :width => 31.send(:mm), font_size: size) do
       pdf.text "UPPLAGA:", size: size, :align=>:right
       pdf.text "SERIE:", size: size, :align=>:right
       pdf.text "BESKRIVNING:", size: size, :align=>:right
     end
-    pdf.bounding_box([0, end_of_desc_line_cursor], :width => 25.send(:mm), font_size: size) do
-      pdf.text "BEST.TYP:", size: size, :align=>:right
-      pdf.text "SÄRSK.INFO:", size: size, :align=>:right
+    pdf.bounding_box([0, end_of_desc_line_cursor], :width => 31.send(:mm), font_size: size) do
+      pdf.text "BESTÄLLNINGSTYP:", size: size, :align=>:right
+      pdf.text "SÄRSKILD INFO:", size: size, :align=>:right
     end
-    pdf.bounding_box([0, end_of_extra_info_line_cursor], :width => 25.send(:mm), font_size: size) do
+    pdf.bounding_box([0, end_of_extra_info_line_cursor], :width => 31.send(:mm), font_size: size) do
       if APP_CONFIG['show_pickup_code']
-        pdf.text "ALIAS:", size: size, :align=>:right
+        pdf.text "AVHÄMTNINGSKOD:", size: size, :align=>:right
       else
         pdf.text "NAMN:", size: size, :align=>:right
       end
-      pdf.text "BIBL.KORT:", size: size, :align=>:right
+      pdf.text "BIBLIOTEKSKORT:", size: size, :align=>:right
       pdf.text "HÄMTAS PÅ:", size: size, :align=>:right
     end
 
