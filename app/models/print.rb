@@ -151,7 +151,7 @@ private
     code = ""
     code = code + obj[:lastname][0,1] if obj[:lastname]
     code = code + obj[:firstname][0,1] if obj[:firstname]
-    code = code + obj[:cardnumber][-4..-1]
+    code = code + obj[:cardnumber].split(//).last(4).join
     code = code + " (" + obj[:categorycode] + ")" if obj[:categorycode] && !["SY", "FY"].include?(obj[:categorycode])
     return code
   end
