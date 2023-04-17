@@ -18,6 +18,6 @@ export default DS.Model.extend({
   deniedReasons: DS.attr(),
   warningReasons: DS.attr(),
 
-  userCategory: DS.attr('string') //@user_category
-
+  userCategory: DS.attr('string'),
+  pickupCode: DS.attr('string')
 });
