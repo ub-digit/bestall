@@ -99,7 +99,8 @@ export default {
         "you-have-place": "Du har plats",
         "in-queue": "i kön.",
         "message": "Du får ett meddelande när materialet finns att hämta på",
-        "pickup-info": "Biblioteket kommer lägga materialet på en öppen avhämtningshylla med ditt namn synligt. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> om du istället vill hämta dina beställningar i informationsdisken.",
+        "pickup-info-name": "Biblioteket kommer lägga materialet på en öppen avhämtningshylla med ditt namn synligt. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> om du istället vill hämta dina beställningar i informationsdisken.",
+        "pickup-info-code": "Du får ett meddelande till din e-post och/eller SMS när materialet finns att hämta. I meddelandet finns en kod för avhämtning som du behöver för att hitta materialet på bibliotekets hylla för beställda böcker.",
         "my-loans-link-text": "Du kan se dina lån och beställningar i Mina lån."
       },
       "summary": {

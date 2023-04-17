@@ -72,9 +72,9 @@ class Print
     end_of_extra_info_line_cursor = pdf.cursor
     pdf.bounding_box([33.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
       if APP_CONFIG['show_pickup_code']
-        pdf.text "#{create_pickup_code(obj)} ", size: size
+        pdf.text "#{User.create_pickup_code(obj)} ", size: size
       else
-        pdf.text "#{create_name(obj)} ", size: size
+        pdf.text "#{User.create_name(obj)} ", size: size
       end
       pdf.text "#{obj[:cardnumber]} ", size: size
       pdf.text "#{obj[:pickup_location]} ", size: size
@@ -144,22 +144,6 @@ class Print
     pdf.render_file "#{file_path}/#{sublocation_id}_pr#{location_id}_#{Time.now.strftime("%Y%m%d%H%M%S")}_#{SecureRandom.hex}#{suffix}.pdf"
 
     return pdf
-  end
-
-private
-  def self.create_pickup_code(obj)
-    code = ""
-    code = code + obj[:lastname][0,1] if obj[:lastname]
-    code = code + obj[:firstname][0,1] if obj[:firstname]
-    code = code + obj[:cardnumber].split(//).last(4).join
-    code = code + " (" + obj[:categorycode] + ")" if obj[:categorycode] && !["SY", "FY"].include?(obj[:categorycode])
-    return code
-  end
-
-  def self.create_name(obj)
-    name = [obj[:firstname], obj[:lastname]].compact.join(" ")
-    name = name + " (" + obj[:categorycode] + ")" if obj[:categorycode] && !["SY", "FY"].include?(obj[:categorycode])
-    return name
   end
 
 end
