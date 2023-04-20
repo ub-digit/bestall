@@ -73,10 +73,11 @@ class Print
     pdf.bounding_box([33.send(:mm), pdf.cursor], :width => 100.send(:mm)) do
       if APP_CONFIG['show_pickup_code']
         pdf.text "#{User.create_pickup_code(obj)} ", size: size
+        pdf.text "#{obj[:cardnumber]} ", size: size
       else
         pdf.text "#{User.create_name(obj)} ", size: size
+        pdf.text "#{obj[:borrowernumber]} ", size: size
       end
-      pdf.text "#{obj[:cardnumber]} ", size: size
       pdf.text "#{obj[:pickup_location]} ", size: size
     end
     end_of_pickup_location_line_cursor = pdf.cursor
@@ -112,10 +113,11 @@ class Print
     pdf.bounding_box([0, end_of_extra_info_line_cursor], :width => 31.send(:mm), font_size: size) do
       if APP_CONFIG['show_pickup_code']
         pdf.text "AVHÄMTNINGSKOD:", size: size, :align=>:right
+        pdf.text "BIBLIOTEKSKORT:", size: size, :align=>:right
       else
         pdf.text "NAMN:", size: size, :align=>:right
+        pdf.text "ID-NR:", size: size, :align=>:right
       end
-      pdf.text "BIBLIOTEKSKORT:", size: size, :align=>:right
       pdf.text "HÄMTAS PÅ:", size: size, :align=>:right
     end
 
