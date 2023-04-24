@@ -76,7 +76,7 @@ class Print
       else
         pdf.text "#{User.create_name(obj)} ", size: size
       end
-      pdf.text "#{obj[:cardnumber]} ", size: size
+      pdf.text "#{obj[:borrowernumber]} ", size: size
       pdf.text "#{obj[:pickup_location]} ", size: size
     end
     end_of_pickup_location_line_cursor = pdf.cursor
@@ -115,7 +115,7 @@ class Print
       else
         pdf.text "NAMN:", size: size, :align=>:right
       end
-      pdf.text "BIBLIOTEKSKORT:", size: size, :align=>:right
+      pdf.text "ID-NR:", size: size, :align=>:right
       pdf.text "HÄMTAS PÅ:", size: size, :align=>:right
     end
 
