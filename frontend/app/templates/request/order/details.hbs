@@ -55,8 +55,13 @@
   <div class="row">
     <div class="col-xs-12 col-sm-8">
       {{reserve-note-input
-        type="hidden"
+        type="textarea"
         value=order.model.reserve.reserveNotes
+        label=(t 'request.order.details.reserve-label')
+        helptext=(t 'request.order.details.reserve-helptext')
+        placeholder=(t 'request.order.details.reserve-placeholder')
+        maxlength=140
+        autoComplete=inputAutocomplete
       }}
     </div>
   </div>

@@ -6,6 +6,13 @@ export default Ember.Component.extend({
     return this.get('value.length') || 0;
   }),
 
+  isTextarea: Ember.computed('type', function() {
+    if (this.get("type") === "textarea") {
+      return true;
+    }
+    return false;
+  }),
+
   isHidden: Ember.computed('type', function() {
     if (this.get("type") === "hidden") {
       return true;
