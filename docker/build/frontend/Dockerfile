@@ -12,9 +12,9 @@ RUN set -ex \
 FROM docker.ub.gu.se/ember-deploy:3.14.0
 
 # ember-cli-shims#0.1.1 seems to require git!?
-USER root
-RUN  apt-get update && apt-get install -y git --no-install-recommends && rm -r /var/lib/apt/lists/*
-USER node
+#USER root
+#RUN  apt-get update && apt-get install -y git --no-install-recommends && rm -r /var/lib/apt/lists/*
+#USER node
 
 COPY --from=release --chown=node:node /root/release/frontend /home/node/app
 
