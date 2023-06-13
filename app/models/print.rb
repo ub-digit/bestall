@@ -115,7 +115,7 @@ class Print
       else
         pdf.text "NAMN:", size: size, :align=>:right
       end
-      pdf.text "ID-NR:", size: size, :align=>:right
+      pdf.text "LÅNTAGARNUMMER:", size: size, :align=>:right
       pdf.text "HÄMTAS PÅ:", size: size, :align=>:right
     end
 
