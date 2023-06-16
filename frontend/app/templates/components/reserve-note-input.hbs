@@ -6,11 +6,12 @@
   </label>
   {{#if isTextarea}}
     {{#if autoComplete}}
-      {{textarea placeholder=placeholder value=value class="form-control" rows=4 maxlength=maxlength}}
+      {{textarea placeholder=placeholder value=value class="form-control" rows=2 maxlength=maxlength}}
     {{else}}
-      {{textarea placeholder=placeholder value=value class="form-control" rows=4 maxlength=maxlength autocomplete="off"}}
+      {{textarea placeholder=placeholder value=value class="form-control" rows=2 maxlength=maxlength autocomplete="off"}}
     {{/if}}
-  <span class="help-block">{{helptext}}</span>
+    <span class="help-block">{{inputLength}} / {{maxlength}}</span>
+    <span class="help-block">{{helptext}}</span>
   {{else}}
   <span class="help-block">{{helptext}}</span>
     {{#if autoComplete}}
@@ -18,6 +19,6 @@
     {{else}}
       {{input type="text" value=value class="form-control" maxlength=maxlength autocomplete="off"}}
     {{/if}}
+    <span class="help-block">{{inputLength}} / {{maxlength}}</span>
   {{/if}}
-  <span class="help-block">{{inputLength}} / {{maxlength}}</span>
 {{/if}}

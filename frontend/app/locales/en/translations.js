@@ -90,8 +90,8 @@ export default {
         "subscription-reserve-helptext": "Enter the requested item's volume, year, issue or page number.",
         "subscription-note": "You can make requests for items from these holdings:",
         "reserve-label": "Any other information about the request",
-        "reserve-placeholder": "Such as\n • Volume\n • Issue\n • Print year",
-        "reserve-helptext": "The information in this field will be printed. Do not enter personal data here. <a href=\"https://www.ub.gu.se/en/contact-us\">Contact the library with questions regarding your request.</a>",
+        "reserve-placeholder": "Such as: volume, issue, print year",
+        "reserve-helptext": "The information in this field will be printed. Do not enter personal data here. <a href=\"https://www.ub.gu.se/en/contact-us\" target=\"blank\">Contact the library with questions regarding your request.</a>",
         "goback-button": "Go back"
       },
       "confirmation": {
