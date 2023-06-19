@@ -89,8 +89,9 @@ export default {
         "subscription-reserve-label": "Detaljer om beställningen (obligatoriskt)",
         "subscription-reserve-helptext": "Ange volym, år, nummer eller sidnummer för det exemplar du vill beställa.",
         "subscription-note": "Du kan beställa exemplar ur följande bestånd:",
-        "reserve-label": "Kommentar (valfri)",
-        "reserve-helptext": "Ange om det är något mer du vill meddela om din beställning.",
+        "reserve-label": "Eventuell övrig information om beställningen",
+        "reserve-placeholder": "Till exempel: volym, nummer, tryckår",
+        "reserve-helptext": "Informationen i detta fält skrivs ut. Skriv inte personuppgifter här. <a href=\"https://www.ub.gu.se/sv/kontakta-oss\" target=\"blank\">Kontakta biblioteket om du har frågor som rör din beställning.</a>",
         "goback-button": "Tillbaka"
       },
       "confirmation": {
