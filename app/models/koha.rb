@@ -1,5 +1,6 @@
 class Koha
   def self.send_statistics_from_subscription_object(obj, performer_borrowernumber: nil)
+    stat_type = 'hold_sub'
     pickup = obj[:pickup_location_id]
     categorycode = obj[:categorycode]
     performer_borrowernumber = performer_borrowernumber
@@ -9,15 +10,15 @@ class Koha
     callno = obj[:call_number]
     location = obj[:sublocation_id]
     homebranch = obj[:sublocation_id][0..1]
-    send_statistics(pickup: pickup, categorycode: categorycode, performer_borrowernumber: performer_borrowernumber, biblionumber: biblionumber, title: title, author: author, callno: callno, location: location, homebranch: homebranch)
+    send_statistics(stat_type: stat_type, pickup: pickup, categorycode: categorycode, performer_borrowernumber: performer_borrowernumber, biblionumber: biblionumber, title: title, author: author, callno: callno, location: location, homebranch: homebranch)
   end
 
-  def self.send_statistics(pickup:, categorycode:, performer_borrowernumber: nil, biblionumber:, title:, author: nil, callno: nil, location:, homebranch:)
+  def self.send_statistics(stat_type:, pickup:, categorycode:, performer_borrowernumber: nil, biblionumber:, title:, author: nil, callno: nil, location:, homebranch:)
     stat_obj = {
       userid: APP_CONFIG['koha']['user'],
       password: APP_CONFIG['koha']['password'],
       branch: pickup,
-      type: 'hold_sub',
+      type: stat_type,
       other: homebranch,
       location: location,
       biblionumber: biblionumber,
