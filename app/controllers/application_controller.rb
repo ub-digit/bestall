@@ -29,11 +29,27 @@ class ApplicationController < ActionController::Base
   end
 
 private
+  def validate_access_or_apikey
+    if !validate_apikey && !validate_token
+      error_msg(ErrorCodes::UNAUTHORIZED, "User not valid")
+      render_json
+    end
+  end
+
   # Sets user according to token or api_key, or authenication error if fail
   def validate_access
     if !validate_token
       error_msg(ErrorCodes::UNAUTHORIZED, "User not valid")
       render_json
+    end
+  end
+
+  def validate_apikey
+    apikey = params[:api_key]
+    if apikey && apikey == APP_CONFIG['api_key']
+      return true
+    else
+      return false
     end
   end
 

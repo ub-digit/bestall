@@ -23,6 +23,7 @@ class Print
 
     pickup_location_obj = Location.find_by_id(params[:reserve][:location_id].to_i)
     obj[:pickup_location] = pickup_location_obj ? pickup_location_obj.name_sv : ''
+    obj[:pickup_location_id] = params[:reserve][:location_id].to_i
 
     biblio_obj = Biblio.find_by_id(params[:reserve][:biblio_id])
     if biblio_obj

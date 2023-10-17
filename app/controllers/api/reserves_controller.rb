@@ -1,11 +1,14 @@
 class Api::ReservesController < ApplicationController
-  before_action :validate_access
+  before_action :validate_access_or_apikey
 
   def create
     # Just print order if this is subscription order
     if params[:reserve][:subscription_notes]
-      obj = Print.prepare_subscription_order(params, @current_username)
+      username = @current_username || params[:username]
+      performer_borrowernumber = params[:performer]
+      obj = Print.prepare_subscription_order(params, username)
       pdf = Print.create_pdf(obj)
+      Koha.send_statistics_from_subscription_object(obj, performer_borrowernumber: performer_borrowernumber)
       @response[:reserve] = {}
       render_json(201)
       return
