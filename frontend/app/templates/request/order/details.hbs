@@ -25,25 +25,13 @@
 {{/if}}
 
 
-  <div class="row">
-    <div class="col-xs-12 col-sm-8">
-      {{pick-location
-        locations=pickupLocations
-        selectedItem=order.model.reserve.location.id
-        userCategory=request.model.user.userCategory
-        item=order.model.reserve.item
-        onSelect=(action 'setLocation')
-        label=(t 'request.order.details.location-dropdown-label')
-      }}
-    </div>
-  </div>
-
   {{#if displayTypeOfLoan}}
     <div class="row">
       <div class="col-xs-12 col-sm-8">
         {{pick-type-of-loan
           loanTypes=order.model.loantypes
           selectedItem=order.model.reserve.loanType.id
+          userCategory=request.model.user.userCategory
           item=order.model.reserve.item
           onSelect=(action 'setLoanType')
           label=(t 'request.order.details.loantype-dropdown-label')
@@ -51,6 +39,22 @@
       </div>
     </div>
   {{/if}}
+
+  {{#if order.model.reserve.loanType.showPickupLocation}}
+    <div class="row">
+      <div class="col-xs-12 col-sm-8">
+        {{pick-location
+          locations=pickupLocations
+          selectedItem=order.model.reserve.location.id
+          userCategory=request.model.user.userCategory
+          item=order.model.reserve.item
+          onSelect=(action 'setLocation')
+          label=(t 'request.order.details.location-dropdown-label')
+        }}
+      </div>
+    </div>
+  {{/if}}
+
   {{#unless order.model.reserve.subscription}}
   <div class="row">
     <div class="col-xs-12 col-sm-8">

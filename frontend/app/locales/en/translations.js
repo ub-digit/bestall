@@ -99,7 +99,8 @@ export default {
         "error-header": "The request couldn't be placed.",
         "you-have-place": "You have place",
         "in-queue": "in the queue.",
-        "message": "You will get a message when the request is available for pick-up at",
+        "message-pickup": "You will get a message when the request is available for pick-up at",
+        "message-no-pickup": "You will be notified when the material is sent from the library.",
         "pickup-info-name": "Library staff will place the material on open shelves with your name visible. <a href=\"http://www.ub.gu.se/kontakta/\">Contact the library</a> if you would like to pick up your reservations at the information desk instead.",
         "pickup-info-code": "The message (that will be sent to your email and/or SMS) contains a code for pick-up that you need to find the material at the library’s shelves for requested books.",
         "my-loans-link-text": "See your loans and requests in My loans."

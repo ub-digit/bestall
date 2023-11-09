@@ -99,7 +99,8 @@ export default {
         "error-header": "Det gick inte att beställa.",
         "you-have-place": "Du har plats",
         "in-queue": "i kön.",
-        "message": "Du får ett meddelande när materialet finns att hämta på",
+        "message-pickup": "Du får ett meddelande när materialet finns att hämta på",
+        "message-no-pickup": "Du får ett meddelande när materialet skickas från biblioteket.",
         "pickup-info-name": "Biblioteket kommer lägga materialet på en öppen avhämtningshylla med ditt namn synligt. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> om du istället vill hämta dina beställningar i informationsdisken.",
         "pickup-info-code": "I meddelandet (som kommer till din e-post och/eller SMS) finns en kod för avhämtning som du behöver för att hitta materialet på bibliotekets hylla för beställda böcker.",
         "my-loans-link-text": "Du kan se dina lån och beställningar i Mina lån."

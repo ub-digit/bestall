@@ -3,9 +3,9 @@ class Sublocation
   include ActiveModel::Serialization
   include ActiveModel::Validations
 
-  attr_accessor :id, :location_id, :name_sv, :name_en, :is_open_loc, :is_open_pickup_loc, :is_paging_loc, :location
+  attr_accessor :id, :location_id, :name_sv, :name_en, :is_open_loc, :is_open_pickup_loc, :is_paging_loc, :is_kursbok_loc, :location
 
-  def initialize id:, name_sv:, name_en:, is_open_loc:, is_open_pickup_loc:, is_paging_loc:
+  def initialize id:, name_sv:, name_en:, is_open_loc:, is_open_pickup_loc:, is_paging_loc:, is_kursbok_loc:
     @id = id
     @location_id = id[0..1]
     @name_sv = name_sv
@@ -13,6 +13,7 @@ class Sublocation
     @is_open_loc = is_open_loc
     @is_paging_loc = is_paging_loc
     @is_open_pickup_loc = is_open_pickup_loc
+    @is_kursbok_loc = is_kursbok_loc
   end
 
 
@@ -33,7 +34,7 @@ class Sublocation
     res = all.find do |loc|
       id.to_s == loc.id.to_s
     end
-    return self.new(id: "1", name_sv: "", name_en: "", is_open_loc: false, is_open_pickup_loc: false, is_paging_loc: false) if res.blank?
+    return self.new(id: "1", name_sv: "", name_en: "", is_open_loc: false, is_open_pickup_loc: false, is_paging_loc: false, is_kursbok_loc: false) if res.blank?
     res
   end
 
@@ -57,8 +58,9 @@ class Sublocation
       is_open_pickup_loc = loc.xpath('open_pickup_loc').text
       is_open_loc = loc.xpath('open_loc').text
       is_paging_loc = loc.xpath('paging_loc').text
+      is_kursbok_loc = loc.xpath('kursbok_loc').text
 
-      locs << self.new(id: id, name_sv: name_sv, name_en: name_en, is_open_loc: (is_open_loc || is_open_pickup_loc), is_open_pickup_loc: is_open_pickup_loc, is_paging_loc: is_paging_loc)
+      locs << self.new(id: id, name_sv: name_sv, name_en: name_en, is_open_loc: (is_open_loc || is_open_pickup_loc), is_open_pickup_loc: is_open_pickup_loc, is_paging_loc: is_paging_loc, is_kursbok_loc: is_kursbok_loc)
     end
 
     return locs

@@ -6,7 +6,7 @@ export default Ember.Controller.extend({
   order: Ember.inject.controller('request.order'),
   activeTabName: null,
   isReservedClick: false,
-   isReservedClicked: Ember.observer('isReservedClick', function() {
+  isReservedClicked: Ember.observer('isReservedClick', function() {
     // deal with the change
     this.get('order.model.reserve').set('isReservedClicked', this.get('isReservedClick'));
   }),
