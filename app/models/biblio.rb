@@ -249,7 +249,8 @@ class Biblio
 
     # Get the library that have the highest number of items and set default queue library .
     location_list =  @items.map{|i|i.location_id}
-    @default_queue_location = location_list.max_by{|l| location_list.count(l)}
+    location_max_no_of_items = location_list.max_by{|l| location_list.count(l)}
+    @default_queue_location = Location.find_by_id(location_max_no_of_items).pickup_location_id
   end
 
   def self.parse_record_type leader

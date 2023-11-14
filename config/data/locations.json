@@ -1,0 +1,55 @@
+{
+  "locations": [
+    {
+      "id": "40",
+      "name_sv": "Biomedicinska biblioteket",
+      "name_en": "Biomedical Library"
+    },
+    {
+      "id": "42",
+      "name_sv": "Samhällsvetenskapliga biblioteket",
+      "name_en": "Social Sciences Library"
+    },
+    {
+      "id": "44",
+      "name_sv": "Humanistiska biblioteket",
+      "name_en": "Humanities Library"
+    },
+    {
+      "id": "47",
+      "name_sv": "Pedagogiska biblioteket",
+      "name_en": "Education Library"
+    },
+    {
+      "id": "48",
+      "name_sv": "Ekonomiska biblioteket",
+      "name_en": "Economics Library"
+    },
+    {
+      "id": "60",
+      "force_pickup_location_id": "44",
+      "name_sv": "Konstbiblioteket",
+      "name_en": "Art Library"
+    },
+    {
+      "id": "62",
+      "name_sv": "Biblioteket för musik och dramatik",
+      "name_en": "Music and Drama Library"
+    },
+    {
+      "id": "66",
+      "name_sv": "Hälsovetarbackens bibliotek",
+      "name_en": "Hälsovetarbacken Library"
+    },
+    {
+      "id": "70",
+      "name_sv": "Biomedicinska biblioteket, fjärrlån",
+      "name_en": "Biomedical Library, ILL"
+    },
+    {
+      "id": "74",
+      "name_sv": "Humanistiska biblioteket, fjärrlån",
+      "name_en": "Humanities Library, ILL"
+    }
+  ]
+}

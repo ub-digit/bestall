@@ -3,12 +3,13 @@ class Location
   include ActiveModel::Serialization
   include ActiveModel::Validations
 
-  attr_accessor :id, :name_sv, :name_en, :categories
+  attr_accessor :id, :name_sv, :name_en, :categories, :pickup_location_id
 
-  def initialize id:, name_sv:, name_en:, categories:
+  def initialize id:, name_sv:, name_en:, pickup_location_id:, categories:
     @id = id
     @name_sv = name_sv
     @name_en = name_en
+    @pickup_location_id = pickup_location_id
     @categories = categories
 
   end
@@ -27,7 +28,7 @@ class Location
 
       url = "#{base_url}/branches/list?userid=#{user}&password=#{password}"
       response = RestClient.get url
-      parse_xml(response).sort_by do |location|
+      parse_xml(APP_CONFIG['locations'], response).sort_by do |location|
         location.id.to_i
       end
     end
@@ -37,24 +38,30 @@ class Location
     res = all.find do |loc|
       id.to_s == loc.id.to_s
     end
-    return self.new(id: "1", name_sv: "", name_en: "", categories: []) if res.blank?
+    return self.new(id: "1", name_sv: "", name_en: "", pickup_location_id: "", categories: []) if res.blank?
     res
   end
 
-  def self.parse_xml xml
+  def self.parse_xml locations, xml
     parsed_xml = Nokogiri::XML(xml).remove_namespaces!
-
     branches = []
-    branches_en =  {"40" => "Biomedical Library", "42" => "Social Sciences Library", "43" => "Botanical and Environmental Library", "44" => "Humanities Library", "46" => "Department Library", "47" => "Education Library", "48" => "Economics Library", "49" => "Earth Sciences and Conservation Library", "50" => "Learning Centre Campus Linné", "60" => "Art Library", "62" => "Music and Drama Library", "66" => "Learning Centre Hälsovetarbacken"}
 
     parsed_xml.search('//response/branches').each do |branch|
       id = branch.xpath('branchcode').text
       next if id.blank?
-      name_sv = branch.xpath('branchname').text
-      name_en = branches_en[id]
+      location = locations.select{|l|l["id"].eql?(id)}.first
+      if location.present? # Normal case
+        name_sv = location["name_sv"] ? location["name_sv"] : ""
+        name_en = location["name_en"] ? location["name_en"] : ""
+        pickup_location_id = location["force_pickup_location_id"] ? location["force_pickup_location_id"] : id
+      else # If entry is missing in local configuration, use values from Koha
+        name_sv = branch.xpath('branchname').text
+        name_en = branch.xpath('branchname').text
+        pickup_location_id = id
+      end
       categories = branch.xpath('categories').map(&:text)
 
-      branches << self.new(id: id, name_sv: name_sv, name_en: name_en, categories: categories)
+      branches << self.new(id: id, name_sv: name_sv, name_en: name_en, pickup_location_id: pickup_location_id, categories: categories)
 
     end
 
