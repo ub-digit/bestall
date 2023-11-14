@@ -88,6 +88,12 @@ class User
     return name
   end
 
+  def self.get_category_code(username)
+    user = User.find_by_username(username)
+    return user.user_category if user
+    return nil
+  end
+
   def parse_xml
     xml = Nokogiri::XML(@xml).remove_namespaces!
 

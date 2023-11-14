@@ -130,7 +130,7 @@ export default Ember.Controller.extend({
       return false;
     }
 
-    if (this.get('order.model.reserve.location') && ((this.get('order.model.reserve.loanType')) || this.get("order.model.reserve.isReservedClicked")) && subscriptionNotesCheck()) {
+    if ((this.get('order.model.reserve.location') || !this.get('order.model.reserve.loanType.showPickupLocation')) && ((this.get('order.model.reserve.loanType')) || this.get("order.model.reserve.isReservedClicked")) && subscriptionNotesCheck()) {
       return false;
     }
     return true;
@@ -157,6 +157,18 @@ export default Ember.Controller.extend({
         this.get('order.model.reserve').set('subscriptionSublocation', this.get('order.model.reserve.subscription.sublocation.name'));
         this.get('order.model.reserve').set('subscriptionSublocationId', this.get('order.model.reserve.subscription.sublocation.id'));
         this.get('order.model.reserve').set('subscriptionCallNumber', this.get('order.model.reserve.subscription.callNumber'));
+      }
+
+      if (!this.get('order.model.reserve.loanType.showPickupLocation')) {
+        // If an item is selected, get the location from the item
+        if (this.get('order.model.reserve.item')) {
+          this.get('order.model.reserve').set('location', this.get('order.model.reserve.item.sublocation.location'));
+        }
+        else {
+        // If an item is not selected, get the location from the default queue location attribute in biblio model
+        let defaultQueueLocation = this.get('order.model.reserve.biblio.defaultQueueLocation');
+          this.get('order.model.reserve').set('location', this.get('store').peekRecord('location',defaultQueueLocation));
+        }
       }
       this.transitionToRoute('request.order.summary');
     }

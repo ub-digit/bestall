@@ -13,5 +13,6 @@ export default DS.Model.extend({
   subscriptiongroups: DS.hasMany('subscriptiongroup'),
   hasEnum: DS.attr('boolean'),
   biblioCallNumber: DS.attr('string'),
-  hasAvailableKursbok: DS.attr('boolean')
+  hasAvailableKursbok: DS.attr('boolean'),
+  defaultQueueLocation: DS.attr('string')
 });

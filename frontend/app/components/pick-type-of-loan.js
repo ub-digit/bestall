@@ -2,17 +2,23 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 
-  filteredLoanTypes: Ember.computed('loanTypes', 'item.{itemType,notForLoan}', function() {
+  filteredLoanTypes: Ember.computed('loanTypes', 'item.{itemType,notForLoan}', 'userCategory', function() {
 
     const itemType = this.get('item.itemType');
     const notForLoan = this.get('item.notForLoan');
     const loanTypes = this.get('loanTypes');
+    const userCategory = this.get('userCategory');
 
 
     loanTypes.map((type) => {
       type.set('disabled', false);
-      if (type.id == 1) {
+      if (type.id == 1) { // Home loan / pickup
         if (itemType == '8' || itemType == '17' || notForLoan == '-3') {
+          type.set('disabled', true);
+        }
+      }
+      if (type.id == 5) { // Send home
+        if (userCategory != "SD") {
           type.set('disabled', true);
         }
       }

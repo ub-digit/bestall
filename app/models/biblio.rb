@@ -1,5 +1,5 @@
 class Biblio
-  attr_accessor :id, :title, :origin, :isbn, :edition, :items, :record_type, :no_in_queue, :subscriptiongroups, :biblio_call_number
+  attr_accessor :id, :title, :origin, :isbn, :edition, :items, :record_type, :no_in_queue, :subscriptiongroups, :biblio_call_number, :default_queue_location
 
   include ActiveModel::Serialization
   include ActiveModel::Validations
@@ -53,7 +53,7 @@ class Biblio
   end
 
   def as_json options = {}
-    super.merge(can_be_queued: can_be_queued, has_item_level_queue: has_item_level_queue, has_available_kursbok: has_available_kursbok)
+    super.merge(can_be_queued: can_be_queued, has_item_level_queue: has_item_level_queue, has_available_kursbok: has_available_kursbok, default_queue_location: default_queue_location)
   end
 
   def initialize id, bib_xml, items_data, reserves_data, subscriptions
@@ -246,6 +246,11 @@ class Biblio
     end
     # Sort items
     @items = @items.sort_by { |a| [ a.location_id || "", a.sublocation_id || "", a.item_call_number || "" ] }
+
+    # Get the library that have the highest number of items and set default queue library .
+    location_list =  @items.map{|i|i.location_id}
+    location_max_no_of_items = location_list.max_by{|l| location_list.count(l)}
+    @default_queue_location = Location.find_by_id(location_max_no_of_items).pickup_location_id
   end
 
   def self.parse_record_type leader

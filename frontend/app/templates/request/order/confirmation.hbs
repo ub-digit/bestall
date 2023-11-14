@@ -27,14 +27,18 @@
         </p>
        {{/if}}
     {{/if}}
-    <p>{{t "request.order.confirmation.message"}}  {{order.model.reserve.location.name}}.</p>
-    <p>
-      {{#if order.model.reserve.user.pickupCode}}
-        {{t "request.order.confirmation.pickup-info-code"}}
-      {{else}}
-        {{t "request.order.confirmation.pickup-info-name"}}
-      {{/if}}
-    </p>
+    {{#if order.model.reserve.loanType.showPickupLocation}}
+      <p>{{t "request.order.confirmation.message-pickup"}}  {{order.model.reserve.location.name}}.</p>
+      <p>
+        {{#if order.model.reserve.user.pickupCode}}
+          {{t "request.order.confirmation.pickup-info-code"}}
+        {{else}}
+          {{t "request.order.confirmation.pickup-info-name"}}
+        {{/if}}
+      </p>
+    {{else}}
+      <p>{{t "request.order.confirmation.message-no-pickup"}}</p>
+    {{/if}}
     {{#unless order.model.reserve.subscriptionNotes}}
       {{#if showMyLoanUrl}}
         <i class="fa fa-angle-right" aria-hidden="true"></i>

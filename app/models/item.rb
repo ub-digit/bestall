@@ -24,7 +24,7 @@ class Item
   end
 
   def as_json options = {}
-    super(except: ["found"]).merge({can_be_ordered: can_be_ordered,
+    super(except: ["found"]).merge({can_be_ordered: can_be_ordered(options),
       can_be_queued: can_be_queued,
       status: status,
       status_limitation: status_limitation,
@@ -47,13 +47,10 @@ class Item
   end
 
 
-  def can_be_ordered
+  def can_be_ordered options = {}
     # TODO Extend with more rules
-
     return false unless @item_type
     return false if item_type_ref?
-# CORONA: Make Kursbok orderable
-#    return false if item_type_kursbok?
     return false if checked_out?
     return false if reserved?
     return false if lost?
@@ -61,7 +58,7 @@ class Item
     return false if during_acquisition?
     return false if not_in_place?
     return false if in_transit?
-    return false unless sublocation_paging_loc?
+    return false unless allowed_by_sublocation_properties?(options)
     return true
   end
 
@@ -76,6 +73,13 @@ class Item
     return true
   end
 
+  def allowed_by_sublocation_properties?(options)
+    return true if sublocation_paging_loc?
+    return true if sublocation_kursbok_loc? && options[:user_category_code].eql?("SD")
+    return false
+  end
+
+
   def sublocation_paging_loc?
     Sublocation.find_by_id(@sublocation_id).is_paging_loc == '1'
   end
@@ -83,6 +87,11 @@ class Item
   def sublocation_open_loc?
     Sublocation.find_by_id(@sublocation_id).is_open_loc == '1'
   end
+
+  def sublocation_kursbok_loc?
+    Sublocation.find_by_id(@sublocation_id).is_kursbok_loc == '1'
+  end
+
   def lost?
     @lost != '0'
   end

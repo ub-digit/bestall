@@ -18,10 +18,12 @@
       <span class="info-header">{{t "request.order.summary.loantype"}}</span>
       <span class="info">{{order.model.reserve.loanType.name}}</span>
     </div>
-    <div>
-      <span class="info-header">{{t "request.order.summary.pickup-location"}}</span>
-      <span class="info">{{order.model.reserve.location.name}}</span>
-    </div>
+    {{#if order.model.reserve.loanType.showPickupLocation}}
+      <div>
+        <span class="info-header">{{t "request.order.summary.pickup-location"}}</span>
+        <span class="info">{{order.model.reserve.location.name}}</span>
+      </div>
+    {{/if}}
     {{#if order.model.reserve.reserveNotes}}
       <div>
         <span class="info-header">{{t "request.order.summary.reserve-notes"}}</span>
