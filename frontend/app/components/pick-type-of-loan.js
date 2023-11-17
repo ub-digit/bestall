@@ -17,14 +17,11 @@ export default Ember.Component.extend({
           type.set('disabled', true);
         }
       }
-      if (type.id == 5) { // Send home
-        if (userCategory != "SD") {
-          type.set('disabled', true);
-        }
-      }
     });
 
-    return loanTypes;
+    return loanTypes.filter((type) => {
+      return ((type.id == 5) ? (userCategory == "SD") : true);
+    });
 
   }),
 
