@@ -1,17 +1,16 @@
 version: "3.7"
 services:
   frontend:
-    restart: always
+    env_file:
+      - secrets.env
     environment:
       - EMBER_ENVIRONMENT=${ENVIRONMENT}
-      - BACKEND_SERVICE_PROTOCOL=${BACKEND_SERVICE_PROTOCOL}
-      - BACKEND_SERVICE_HOSTNAME=${BACKEND_HOSTNAME}
-      - BACKEND_SERVICE_PORT=${BACKEND_SERVICE_PORT}
     # Keep the stdin open, so we can attach to our app container's process
     # and do things such as debugging, etc
     stdin_open: true
     # Enable sending signals (CTRL+C, CTRL+P + CTRL+Q) into the container
     tty: true
+    restart: always
   backend:
     restart: always
     env_file:

@@ -52,7 +52,7 @@ export default DS.Model.extend({
     const dictionary = this.get('i18n');
 
     if (this.get('status') === 'LOANED') {
-      return dictionary.t('components.item-table.loaned') + ' ' + this.get('dueDate').slice(0, -8);; // + moment(this.get('dueDate')).format("YYYY-MM-DD");
+      return dictionary.t('components.item-table.loaned') + ' ' + this.get('dueDate').slice(0, -8); // + moment(this.get('dueDate')).format("YYYY-MM-DD");
     } else if (this.get('status') === 'RESERVED') {
       return dictionary.t('components.item-table.reserved');
     } else if (this.get('status') === 'WAITING') {

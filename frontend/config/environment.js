@@ -17,11 +17,20 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-      authenticationBaseURL: '/api/session',
-      serviceURL: ''
+    },
+    torii: {
+      sessionServiceName: 'session',
+      providers: {
+        'gub-oauth2': {
+          apiKey: process.env.GUB_OAUTH2_CLIENT_ID,
+          scope: 'user'
+        }
+      }
     }
   };
 
+  let frontendBaseUrl = null;
+  let serviceBaseUrl = null;
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
@@ -29,24 +38,29 @@ module.exports = function(environment) {
     ENV.APP.LOG_TRANSITIONS = true;
     ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    serviceBaseUrl = `http://localhost:${process.env.BACKEND_SERVICE_PORT}`;
+    frontendBaseUrl = `http://localhost:${process.env.FRONTEND_PORT}`;
   }
-
-  if (environment === 'test') {
+  else if (environment === 'test') {
     // Testem prefers this...
     ENV.locationType = 'none';
-
     // keep test console output quieter
     ENV.APP.LOG_ACTIVE_GENERATION = false;
     ENV.APP.LOG_VIEW_LOOKUPS = false;
-
     ENV.APP.rootElement = '#ember-testing';
   }
   else {
-    ENV.APP.serviceURL = process.env.BACKEND_SERVICE_PROTOCOL + '://' + process.env.BACKEND_SERVICE_HOSTNAME;
-    if (process.env.BACKEND_SERVICE_PORT) {
-      ENV.APP.serviceURL = ENV.APP.serviceURL + ':' + process.env.BACKEND_SERVICE_PORT;
-    }
-    ENV.APP.authenticationBaseURL = ENV.APP.serviceURL + '/api/session';
+    serviceBaseUrl = `https://${process.env.BACKEND_SERVICE_HOSTNAME}`;
+    frontendBaseUrl = `https://${ process.env.FRONTEND_HOSTNAME}`;
+  }
+
+  if (environment !== 'test') {
+    // Don't need to append 'api' since namespace: 'api' in adapter
+    ENV.APP.serviceURL = serviceBaseUrl;
+    // Need to append it here though since simple auth don't go through adpater
+    ENV.APP.authenticationBaseURL = `${ENV.APP.serviceURL}/api/session`;
+    ENV.torii.providers['gub-oauth2'].tokenExchangeUri = ENV.APP.authenticationBaseURL;
+    ENV.torii.providers['gub-oauth2'].redirectUri = `${frontendBaseUrl}/torii/redirect.html`;
   }
 
   ENV.i18n = {
