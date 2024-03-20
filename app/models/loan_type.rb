@@ -9,7 +9,7 @@ class LoanType
                 {id: 2, position: 3, show_pickup_location: true, name_sv: 'Läs materialet i biblioteket (läsesalslån)', name_en: 'Read the material in the library (reading room loan)'},
                 {id: 3, position: 4, show_pickup_location: true, name_sv: 'Forskarskåp (tillstånd krävs)', name_en: 'Loan to researcher’s locker (permit required)'},
                 {id: 4, position: 5, show_pickup_location: true, name_sv: 'Institutionslån (tillstånd krävs)', name_en: 'Loan to department (permit required)'},
-                {id: 5, position: 1, show_pickup_location: false, name_sv: 'Skicka hem materialet till mig (tillstånd krävs)', name_en: 'Send the material to my home (permit required)'}]
+                {id: 5, position: 1, show_pickup_location: false, name_sv: 'Skicka materialet till mig', name_en: 'Send the material to me'}]
 
   def initialize id:, name_sv:, name_en:, show_pickup_location:
     @id = id
