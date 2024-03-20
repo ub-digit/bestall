@@ -40,6 +40,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.7)
     arel (7.1.4)
+    barby (0.6.9)
     builder (3.2.3)
     byebug (9.0.6)
     concurrent-ruby (1.0.4)
@@ -175,6 +176,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  barby
   byebug
   database_cleaner
   factory_girl_rails

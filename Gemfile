@@ -18,6 +18,7 @@ gem 'pg'
 gem 'jquery-rails'
 gem "rest-client", '~> 2.0.1'
 gem 'prawn'
+gem 'barby'
 gem 'rack-cors'
 
 group :development, :test do
