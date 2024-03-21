@@ -20,7 +20,7 @@ export default Ember.Component.extend({
     });
 
     return loanTypes.filter((type) => {
-      return ((type.id == 5) ? (userCategory == "SD") : true);
+      return ((type.id == 5) ? (['SD', 'FT'].includes(userCategory)) : true);
     });
 
   }),
