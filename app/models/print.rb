@@ -151,8 +151,8 @@ class Print
 
     if obj[:barcode]
       barcode  = Barby::Code128B.new("#{obj[:barcode]}")
-      barcode.annotate_pdf(pdf, {:x => 70.send(:mm), :y => start_cursor - 93.send(:mm), :height => 8.send(:mm)})
-      pdf.bounding_box([70.send(:mm), start_cursor - 93.send(:mm)], :width => 30.send(:mm),  height: 5.send(:mm), :align=>:right) do
+      barcode.annotate_pdf(pdf, {:x => 55.send(:mm), :y => start_cursor - 93.send(:mm), :height => 8.send(:mm)})
+      pdf.bounding_box([55.send(:mm), start_cursor - 93.send(:mm)], :width => 30.send(:mm),  height: 5.send(:mm), :align=>:right) do
         pdf.text obj[:barcode], size: 7
       end
     end
