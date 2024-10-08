@@ -85,8 +85,8 @@ export default Ember.Controller.extend({
       return locations;
     }
     if (isOpenLoc) {
-      // Only FI, SY, FY, FC users can pickup items at its home/current location, thus return all locations
-      if (['FI', 'SY', 'FY', 'FC'].includes(userCategory)) {
+      // Only FI, SY, FY, FC and FT users can pickup items at its home/current location, thus return all locations
+      if (['FI', 'SY', 'FY', 'FC', 'FT'].includes(userCategory)) {
         //console.log('DEBUG: isOpenLoc was TRUE and user is FI, SI or FY!');
         return locations;
       } else {

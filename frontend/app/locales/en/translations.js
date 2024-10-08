@@ -25,7 +25,7 @@ export default {
       "must_be_ordered": "Must be requested",
       "available": "Available",
       "not_for_home_loan": "Not for home loan",
-      "reading_room_only": "Request to reading room",
+      "reading_room_only": "Reading room loan. Not for home loan",
       "loan_in_house_only": "Borrow on location",
       "loaned": "On loan until",
       "reserved": "Reserved",

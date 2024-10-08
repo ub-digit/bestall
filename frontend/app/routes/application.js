@@ -13,6 +13,19 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     }
 
   	var lang = transition.queryParams.lang;
+
+		if (!lang) {
+      // Depending on configuration settings, Primo may deliver language info in the 'language' parameter
+			lang = transition.queryParams.language;
+    }
+		// Normalise lang values as Primo will use 'swe' / 'eng'
+    if (lang == 'swe') {
+      lang = 'sv';
+    }
+    if (lang == 'eng') {
+      lang = 'en';
+    }
+
     if (!lang) {
       lang = localStorage.getItem('lang');
     }
