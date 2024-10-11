@@ -1,6 +1,9 @@
 version: '3.7'
 services:
   frontend:
+    environment:
+      - BACKEND_SERVICE_HOSTNAME=${BACKEND_HOSTNAME}
+      - FRONTEND_HOSTNAME=${FRONTEND_HOSTNAME}
     image: docker.ub.gu.se/bestall-frontend:${GIT_REVISION}
     ports:
       - ${FRONTEND_HOST_PORT}:8080
@@ -9,7 +12,7 @@ services:
   db:
     image: docker.ub.gu.se/bestall-postgres:${GIT_REVISION}
   apache:
-    image: ${BESTALL_APACHE_RUNNING_IMAGE} 
+    image: ${BESTALL_APACHE_RUNNING_IMAGE}
     restart: always
     ports:
       - ${BESTALL_APACHE_ACCESS_PORT}:80
@@ -19,7 +22,7 @@ services:
       - "${PRINT_BESTALL_DIR}:/var/www/bestall/print_bestall"
       - "${BESTALL_APACHE_HTPASSWD_DIR}:/etc/htpasswd/bestall"
   cupsd:
-    image: ${BESTALL_CUPSD_RUNNING_IMAGE} 
+    image: ${BESTALL_CUPSD_RUNNING_IMAGE}
     restart: always
     environment:
       - PRINTER_PR40_URI=${PRINTER_PR40_URI}
@@ -35,4 +38,3 @@ services:
       - PRINTER_TEST_URI=${PRINTER_TEST_URI}
     volumes:
       - "${FILES_DIR}:/apps/bestall/files"
-

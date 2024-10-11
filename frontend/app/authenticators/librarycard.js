@@ -8,14 +8,10 @@ export default Base.extend({
   authenticate: function(credentials) {
     var authCredentials = {};
     var that = this;
-    if(credentials.cas_ticket && credentials.cas_service) {
-      authCredentials = credentials;
-    } else {
-      authCredentials = {
-        username: credentials.username,
-        password: credentials.password
-      };
-    }
+    authCredentials = {
+      username: credentials.username,
+      password: credentials.password
+    };
     return new Ember.RSVP.Promise(function(resolve, reject) {
       Ember.$.ajax({
         type: 'POST',

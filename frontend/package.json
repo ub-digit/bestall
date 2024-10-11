@@ -47,7 +47,8 @@
     "ember-simple-auth": "1.4.0",
     "ember-welcome-page": "^3.1.1",
     "emberx-select": "^3.0.0",
-    "loader.js": "^4.0.1"
+    "loader.js": "^4.0.1",
+    "torii": "^0.10.1"
   },
   "dependencies": {}
 }
