@@ -5,7 +5,7 @@ import config from 'frontend/config/environment';
 export default ToriiAuthenticator.extend({
   torii: Ember.inject.service(),
   ajax: Ember.inject.service(),
-  store: Ember.inject.service(),
+  //store: Ember.inject.service(), //WTF?
 
   authenticate() {
     const ajax = this.get('ajax');
@@ -22,7 +22,7 @@ export default ToriiAuthenticator.extend({
         })
       }).then((response) => {
         var token = response.access_token;
-        this.get('store').createRecord('token', {id: 1, token: token});
+        //this.get('store').createRecord('token', {id: 1, token: token}); //WTF?
         return {
           authenticated: true,
           token: token,
