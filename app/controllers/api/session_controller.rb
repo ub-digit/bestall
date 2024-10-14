@@ -118,7 +118,7 @@ class Api::SessionController < ApplicationController
             error_msg(ErrorCodes::UNAUTHORIZED, "User request failed")
           end
       else
-        error = json_response["error"] ? json_response["error"] : "Unknown error"
+        error = json_response["error_description"] ? json_response["error_description"] : "Unknown error"
         error_msg(ErrorCodes::UNAUTHORIZED, error)
       end
     else
