@@ -16,7 +16,6 @@ services:
       - ../frontend/:/home/node/app
   backend:
     image: docker.ub.gu.se/rails:ruby-3.2.2
-    #image: docker.ub.gu.se/rails:ruby-2.5.8-002
     env_file:
       - secrets.env
     volumes:
