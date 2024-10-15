@@ -51,7 +51,7 @@ module.exports = function(environment) {
   }
   else {
     serviceBaseUrl = `https://${process.env.BACKEND_SERVICE_HOSTNAME}`;
-    frontendBaseUrl = `https://${ process.env.FRONTEND_HOSTNAME}`;
+    frontendBaseUrl = `https://${process.env.FRONTEND_HOSTNAME}`;
   }
 
   if (environment !== 'test') {
