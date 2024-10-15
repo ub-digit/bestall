@@ -23,7 +23,7 @@ module.exports = function(environment) {
       providers: {
         'gub-oauth2': {
           apiKey: process.env.GUB_OAUTH2_CLIENT_ID,
-          scope: 'user'
+          scope: 'openid profile email',
         }
       }
     }
@@ -61,6 +61,7 @@ module.exports = function(environment) {
     ENV.APP.authenticationBaseURL = `${ENV.APP.serviceURL}/api/session`;
     ENV.torii.providers['gub-oauth2'].tokenExchangeUri = ENV.APP.authenticationBaseURL;
     ENV.torii.providers['gub-oauth2'].redirectUri = `${frontendBaseUrl}/torii/redirect.html`;
+    ENV.APP.gubOAuth2AuthorizeUri = process.env.GUB_OAUTH2_AUTHORIZE_ENDPOINT;
   }
 
   ENV.i18n = {
