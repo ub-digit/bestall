@@ -46,7 +46,5 @@ export default Ember.Route.extend({
     } else {
       this.replaceWith('request.order.items');
     }
-    controller.set('forceSSO', null);
-    controller.set('SSOscanner', null);
   },
  });
