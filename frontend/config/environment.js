@@ -18,6 +18,11 @@ module.exports = function(environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     },
+    'ember-simple-auth': {
+      authenticationRoute: 'request.login', //Currenty not used since not using authenticated route mixin
+      routeAfterAuthentication: 'request.order.items',
+      routeIfAlreadyAuthenticated: 'request.order.items'
+    },
     torii: {
       sessionServiceName: 'session',
       providers: {

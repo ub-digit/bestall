@@ -12,16 +12,19 @@ export default Ember.Controller.extend({
   actions: {
     login() {
       let { username, password } = this.getProperties('username', 'password');
-      this.get('session').authenticate('authenticator:librarycard', { username: username, password: password }).catch((reason) => {
-        this.set('errorMessage', reason.error || reason);
-      });
+      this.get('session')
+        .authenticate('authenticator:librarycard', { username: username, password: password })
+        .catch((reason) => {
+          this.set('errorMessage', reason.error || reason);
+        });
     },
     loginOAuth2() {
-      return this.get('session').authenticate('authenticator:torii', 'gub')
-      .catch((reason) => {
-        //let message = typeof reason === 'string' ? reason : 'Unknown server error';
-        this.set('errorMessage', true);
-      });
+      return this.get('session')
+        .authenticate('authenticator:torii', 'gub')
+        .catch((reason) => {
+          //let message = typeof reason === 'string' ? reason : 'Unknown server error';
+          this.set('errorMessage', true);
+        });
     },
   },
   inputAutocomplete: Ember.computed(function() {

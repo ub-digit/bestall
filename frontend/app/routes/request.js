@@ -11,6 +11,12 @@ export default Ember.Route.extend({
         reject({errors: {errors: [{"code": 'NO_ID', "detail": "loreum"}]}});
       });
     }
+    if (!this.get('session.isAuthenticated')) {
+      this.replaceWith('request.login');
+    }
+    else {
+      this.replaceWith('request.order.items');
+    }
   },
 
   model(params) {
@@ -28,23 +34,7 @@ export default Ember.Route.extend({
 
   },
 
-  afterModel(model, transition) {
-    let token = this.get('session.data.authenticated.token');
-    if (!token) {
-      this.controllerFor('request').set('goToLogin', true);
-    }
-  },
-
   setupController(controller, model) {
     controller.set('model', model);
-
-    if(controller.get('goToLogin')) {
-      Ember.run.later(() => {
-        controller.set('goToLogin', false);
-      });
-      this.transitionTo('request.login');
-    } else {
-      this.replaceWith('request.order.items');
-    }
   },
  });
