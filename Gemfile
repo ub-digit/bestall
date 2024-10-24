@@ -17,7 +17,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'pg'
 gem 'jquery-rails'
 gem "rest-client", '~> 2.0.1'
-gem 'prawn'
+# Specify latest known working version for prawn because there was an issue with showing diacritic characters in Roboto Bold font in version 2.5.0 
+gem 'prawn', '~> 1.3.0'
 gem 'barby'
 gem 'rack-cors'
 gem 'jwt'
