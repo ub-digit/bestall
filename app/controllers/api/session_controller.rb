@@ -127,7 +127,6 @@ class Api::SessionController < ApplicationController
   end
 
   def authenticated_user_response(username)
-    username = 'xgudav'
     user = User.find_by_username(username)
     if user
       access_token = AccessToken.generate_token(user)
