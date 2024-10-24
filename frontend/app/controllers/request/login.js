@@ -11,19 +11,22 @@ export default Ember.Controller.extend({
 
   actions: {
     login() {
+      this.set('oauth2ErrorMessage', false);
+      this.set('usernamePasswordErrorMessage', false);
       let { username, password } = this.getProperties('username', 'password');
       this.get('session')
         .authenticate('authenticator:librarycard', { username: username, password: password })
         .catch((reason) => {
-          this.set('errorMessage', reason.error || reason);
+          this.set('usernamePasswordErrorMessage', this.get('i18n').t('request.login.username-password-error'));
         });
     },
     loginOAuth2() {
+      this.set('oauth2ErrorMessage', false);
+      this.set('usernamePasswordErrorMessage', false);
       return this.get('session')
         .authenticate('authenticator:torii', 'gub')
         .catch((reason) => {
-          //let message = typeof reason === 'string' ? reason : 'Unknown server error';
-          this.set('errorMessage', true);
+          this.set('oauth2ErrorMessage', this.get('i18n').t('request.login.oauth2-error'));
         });
     },
   },

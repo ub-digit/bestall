@@ -130,7 +130,8 @@ export default {
       "personal-number-label": "Personnummer",
       "login-button": "Logga in",
       "library-card-link-text": "Skaffa bibliotekskonto",
-      "loginError": "Fel användarnamn eller lösenord. Vänligen försök igen.",
+      "username-password-error": "Fel användarnamn eller lösenord. Vänligen försök igen.",
+      "oauth2-error": "Inloggningen avbröts. Vänligen försök igen.",
       "or": "Eller"
     }
   },
