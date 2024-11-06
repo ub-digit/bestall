@@ -3,6 +3,7 @@
     <div class="login-wrapper">
       <div class="row">
         <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+          {{#if showGULogin}}
           <div class="gu-account-login">
             <a href="javascript:void()" {{action "loginOAuth2"}} id="gu-account-login-link">
               <div class="panel panel-default">
@@ -32,6 +33,7 @@
               </div>
             </a>
           </div>
+          {{/if}}
           <div class="alternative-wrapper">
             {{#if oauth2ErrorMessage}}
               <div class="alert alert-danger col-xs-12">{{oauth2ErrorMessage}}</div>
@@ -40,7 +42,9 @@
               <span class="word">{{t 'request.login.or'}}</span>
             </div>
             <div class="gu-login-account-heading">{{t 'request.login.login-account-heading'}}</div>
+            {{#if showGULogin}}
             <span class="gu-login-account-body">{{t 'request.login.login-account-body'}}</span>
+            {{/if}}
             {{#if usernamePasswordErrorMessage}}
               <div class="alert alert-danger col-xs-12">{{usernamePasswordErrorMessage}}</div>
             {{/if}}

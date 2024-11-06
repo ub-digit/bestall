@@ -33,6 +33,9 @@ export default Ember.Controller.extend({
   inputAutocomplete: Ember.computed(function() {
     return (this.get('request.view') !== '46GUB_KOHA');
   }),
+  showGULogin: Ember.computed(function() {
+    return (this.get('request.view') === '46GUB_KOHA');
+  }),
   libraryCardUrl: Ember.computed(function() {
     var lang = this.get('getLocale');
     return this.get('store').peekRecord('config', 1).get('registrationurl') + '?lang=' + lang;
