@@ -2,23 +2,23 @@ import Ember from 'ember';
 import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 
 export default Ember.Route.extend(ApplicationRouteMixin, {
-	i18n: Ember.inject.service(),
-	session: Ember.inject.service(),
+  i18n: Ember.inject.service(),
+  session: Ember.inject.service(),
 
-	beforeModel(transition) {
+  beforeModel(transition) {
     if(!transition.params.request){
       //  console.log('no request in params');
-        //this.replaceWith('error', {error:'error_msg'});
-        this.transitionTo('request','error');
+      //this.replaceWith('error', {error:'error_msg'});
+      this.transitionTo('request','error');
     }
 
-  	var lang = transition.queryParams.lang;
+    var lang = transition.queryParams.lang;
 
-		if (!lang) {
+    if (!lang) {
       // Depending on configuration settings, Primo may deliver language info in the 'language' parameter
-			lang = transition.queryParams.language;
+      lang = transition.queryParams.language;
     }
-		// Normalise lang values as Primo will use 'swe' / 'eng'
+    // Normalise lang values as Primo will use 'swe' / 'eng'
     if (lang == 'swe') {
       lang = 'sv';
     }
@@ -29,14 +29,14 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     if (!lang) {
       lang = localStorage.getItem('lang');
     }
-	    if(lang) {
-	    	localStorage.setItem('lang', lang);
-	    	this.set('i18n.locale', lang);
-	    }
-	},
+    if(lang) {
+      localStorage.setItem('lang', lang);
+      this.set('i18n.locale', lang);
+    }
+  },
 
-	model() {
-		return this.store.find('config', 1);
-	}
+  model() {
+    return this.store.find('config', 1);
+  }
 
 });

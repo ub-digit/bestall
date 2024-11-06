@@ -1,17 +1,18 @@
 version: "3.7"
 services:
   frontend:
-    restart: always
+    env_file:
+      - secrets.env
     environment:
       - EMBER_ENVIRONMENT=${ENVIRONMENT}
-      - BACKEND_SERVICE_PROTOCOL=${BACKEND_SERVICE_PROTOCOL}
-      - BACKEND_SERVICE_HOSTNAME=${BACKEND_HOSTNAME}
-      - BACKEND_SERVICE_PORT=${BACKEND_SERVICE_PORT}
+      - GUB_OAUTH2_CLIENT_ID=${GUB_OAUTH2_CLIENT_ID}
+      - GUB_OAUTH2_AUTHORIZE_ENDPOINT=${GUB_OAUTH2_AUTHORIZE_ENDPOINT}
     # Keep the stdin open, so we can attach to our app container's process
     # and do things such as debugging, etc
     stdin_open: true
     # Enable sending signals (CTRL+C, CTRL+P + CTRL+Q) into the container
     tty: true
+    restart: always
   backend:
     restart: always
     env_file:
@@ -32,6 +33,10 @@ services:
       - BESTALL_KOHA_SVC_URL=${KOHA_SVC_URL}
       - BESTALL_CACHE_API_KEY=${CACHE_API_KEY}
       - SHOW_PICKUP_CODE=${SHOW_PICKUP_CODE}
+      - GUB_OAUTH2_PROVIDER=${GUB_OAUTH2_PROVIDER}
+      - GUB_OAUTH2_CLIENT_ID=${GUB_OAUTH2_CLIENT_ID}
+      - GUB_OAUTH2_TOKEN_ENDPOINT=${GUB_OAUTH2_TOKEN_ENDPOINT}
+      - GUB_OAUTH2_USER_ENDPOINT=${GUB_OAUTH2_USER_ENDPOINT}
     command: ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
     networks:
       - backend

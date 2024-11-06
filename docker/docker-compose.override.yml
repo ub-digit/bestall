@@ -2,6 +2,9 @@ version: '3.7'
 services:
   frontend:
     image: docker.ub.gu.se/ember-dev:3.14.0
+    environment:
+      - BACKEND_SERVICE_PORT=${BACKEND_HOST_PORT}
+      - FRONTEND_PORT=${FRONTEND_HOST_PORT}
     ports:
       # server
       - ${FRONTEND_HOST_PORT}:4200
@@ -12,7 +15,7 @@ services:
     volumes:
       - ../frontend/:/home/node/app
   backend:
-    image: docker.ub.gu.se/rails:ruby-2.5.8-002
+    image: docker.ub.gu.se/rails:ruby-3.2.2
     env_file:
       - secrets.env
     volumes:

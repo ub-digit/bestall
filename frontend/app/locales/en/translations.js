@@ -129,7 +129,8 @@ export default {
       "personal-number-label": "Personal identity number",
       "login-button": "Log in",
       "library-card-link-text": "Sign up for an account",
-      "loginError": "Wrong username or password. Please try again.",
+      "username-password-error": "Wrong username or password. Please try again.",
+      "oauth2-error": "The login process was interrupted. Please try again.",
       "or": "Or"
     }
   },

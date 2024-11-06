@@ -11,49 +11,30 @@ export default Ember.Controller.extend({
 
   actions: {
     login() {
+      this.set('oauth2ErrorMessage', false);
+      this.set('usernamePasswordErrorMessage', false);
       let { username, password } = this.getProperties('username', 'password');
-      this.get('session').authenticate('authenticator:cas', { username: username, password: password }).catch((reason) => {
-        this.set('errorMessage', reason.error || reason);
-      });
-    }
+      this.get('session')
+        .authenticate('authenticator:librarycard', { username: username, password: password })
+        .catch((reason) => {
+          this.set('usernamePasswordErrorMessage', this.get('i18n').t('request.login.username-password-error'));
+        });
+    },
+    loginOAuth2() {
+      this.set('oauth2ErrorMessage', false);
+      this.set('usernamePasswordErrorMessage', false);
+      return this.get('session')
+        .authenticate('authenticator:torii', 'gub')
+        .catch((reason) => {
+          this.set('oauth2ErrorMessage', this.get('i18n').t('request.login.oauth2-error'));
+        });
+    },
   },
-
   inputAutocomplete: Ember.computed(function() {
-    return (this.get('request.view') !== '46GUB_KOHA');
-  }),
-  showCasLogin: Ember.computed(function() {
     return (this.get('request.view') !== '46GUB_KOHA');
   }),
   libraryCardUrl: Ember.computed(function() {
     var lang = this.get('getLocale');
     return this.get('store').peekRecord('config', 1).get('registrationurl') + '?lang=' + lang;
-  }),
-  casLoginUrl: Ember.computed(function() {
-    return this.get('store').peekRecord('config', 1).get('casurl') + '/login';
-  }),
-  returnUrl: Ember.computed('request.model.biblio.id', function() {
-    let id = this.get('request.model.biblio.id');
-    let baseUrl = window.location.origin;
-    let routeUrl = this.target.router.generate('request', { id: id }, { queryParams: { SSOscanner: null } });
-    return baseUrl + routeUrl;
-  }),
-  scannerReturnUrl: Ember.computed('request.model.biblio.id', function() {
-    let id = this.get('request.model.biblio.id');
-    let baseUrl = window.location.origin;
-    let routeUrl = this.target.router.generate('request', { id: id }, { queryParams: { SSOscanner: true } });
-    return baseUrl + routeUrl;
-  }),
-  casUrl: Ember.computed('casLoginUrl', 'returnUrl', function() {
-    let url = this.get('casLoginUrl') +
-      '?' +
-      Ember.$.param({ service: this.get('returnUrl') });
-    return url;
-  }),
-  scannerCasUrl: Ember.computed('casLoginUrl', 'scannerReturnUrl', function() {
-    let url = this.get('casLoginUrl') +
-      '?' +
-      Ember.$.param({ service: this.get('scannerReturnUrl') });
-    return url;
   })
-
 });

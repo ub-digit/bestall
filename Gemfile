@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.1'
+gem 'rails', '7.2.1'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
@@ -17,9 +17,11 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'pg'
 gem 'jquery-rails'
 gem "rest-client", '~> 2.0.1'
-gem 'prawn'
+# Specify latest known working version for prawn because there was an issue with showing diacritic characters in Roboto Bold font in version 2.5.0 
+gem 'prawn', '~> 1.3.0'
 gem 'barby'
 gem 'rack-cors'
+gem 'jwt'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -29,7 +31,7 @@ group :development, :test do
   #gem 'spring'
   #gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rspec-rails', '~> 3.5'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'database_cleaner'
 end
 
