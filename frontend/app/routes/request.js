@@ -7,7 +7,7 @@ export default Ember.Route.extend({
 
     // Special fix when the user is authenticated with CAS and the session is not valid anymore.
     // Check if there is as session storage object with a authenticated property with authenticator: "authenticator:cas",then remove/reset the session object and make a "hard" window reload.
-    if sessionStorage.getItem('ember_simple_auth-session') !== null) {
+    if (sessionStorage.getItem('ember_simple_auth-session') !== null) {
       let session = JSON.parse(sessionStorage.getItem('ember_simple_auth-session'));
       if (session.authenticated.authenticator === "authenticator:cas") {
         sessionStorage.removeItem('ember_simple_auth-session');
