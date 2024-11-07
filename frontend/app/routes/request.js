@@ -4,6 +4,17 @@ export default Ember.Route.extend({
   session: Ember.inject.service(),
 
   beforeModel(transition) {
+
+    // Special fix when the user is authenticated with CAS and the session is not valid anymore.
+    // Check if there is as session object with a authenticated property with authenticator: "authenticator:cas",then remove/reset the session object and make a "hard" window reload.
+    if (this.get('session.isAuthenticated') && this.get('session.data.authenticated.authenticator') === "authenticator:cas") {
+      console.log("CAS session is not valid anymore, reloading the page.");
+      console.log("Session: ", this.get('session'));
+      this.get('session').invalidate();
+      window.location.reload(true);
+    }
+    console.log("Session: ", this.get('session'));
+
     let biblioId = transition.params.request.id;
 
     if (biblioId === "error") {
