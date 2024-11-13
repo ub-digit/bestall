@@ -2,7 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
-  request: Ember.inject.controller(),
   order: Ember.inject.controller('request.order'),
   activeTabName: null,
   isReservedClick: false,
@@ -10,19 +9,19 @@ export default Ember.Controller.extend({
     // deal with the change
     this.get('order.model.reserve').set('isReservedClicked', this.get('isReservedClick'));
   }),
-  numSubscriptions: Ember.computed('request.model.biblio.subscriptiongroups', function() {
+  numSubscriptions: Ember.computed('order.model.biblio.subscriptiongroups', function() {
     let res = 0;
-    var grps = this.get('request.model.biblio.subscriptiongroups');
+    var grps = this.get('order.model.biblio.subscriptiongroups');
     grps.map((obj) => {
       res += obj.get('subscriptions.length');
     });
     return res;
   }),
 
-  activeTab: Ember.computed('request.model.biblio.subscriptiongroups', {
+  activeTab: Ember.computed('order.model.biblio.subscriptiongroups', {
     get() {
-      if (this.get("request.model.biblio.hasItemLevelQueue")) {
-        if (this.get("request.model.biblio.subscriptiongroups.length")) {
+      if (this.get("order.model.biblio.hasItemLevelQueue")) {
+        if (this.get("order.model.biblio.subscriptiongroups.length")) {
           this.set("activeTabName", "tab1");
         } else {
           this.set("activeTabName", "tab2");
@@ -43,23 +42,23 @@ export default Ember.Controller.extend({
     return (this.get('request.view') !== '46GUB_KOHA');
   }),
 
-  hasItemAvailableForOrder: Ember.computed('request.model.biblio.items', function() {
+  hasItemAvailableForOrder: Ember.computed('order.model.biblio.items', function() {
     if (this.get("itemsAvailableForOrder.length") > 0) {
       return true;
     }
     return false;
   }),
 
-  itemsAvailable: Ember.computed('request.model.biblio.items', function() {
-    return this.get("request.model.biblio.items").filter((item) => item.get("isAvailible"));
+  itemsAvailable: Ember.computed('order.model.biblio.items', function() {
+    return this.get("order.model.biblio.items").filter((item) => item.get("isAvailible"));
   }),
 
-  itemsAvailableForOrder: Ember.computed('request.model.biblio.items', function() {
-    return this.get("request.model.biblio.items").filter((item) => item.get("canBeOrdered"));
+  itemsAvailableForOrder: Ember.computed('order.model.biblio.items', function() {
+    return this.get("order.model.biblio.items").filter((item) => item.get("canBeOrdered"));
   }),
 
-  itemsNotAvailable: Ember.computed('request.model.biblio.items', function() {
-    return this.get("request.model.biblio.items").filter((item) => !item.get("isAvailible"));
+  itemsNotAvailable: Ember.computed('order.model.biblio.items', function() {
+    return this.get("order.model.biblio.items").filter((item) => !item.get("isAvailible"));
   }),
   actions: {
     setItemToOrder(item, isReservedClicked) {
