@@ -38,9 +38,11 @@
             {{#if oauth2ErrorMessage}}
               <div class="alert alert-danger col-xs-12">{{oauth2ErrorMessage}}</div>
             {{/if}}
+            {{#if showGULogin}}
             <div class="lines">
               <span class="word">{{t 'request.login.or'}}</span>
             </div>
+            {{/if}}
             <div class="gu-login-account-heading">{{t 'request.login.login-account-heading'}}</div>
             {{#if showGULogin}}
             <span class="gu-login-account-body">{{t 'request.login.login-account-body'}}</span>

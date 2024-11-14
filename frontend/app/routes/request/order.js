@@ -11,18 +11,23 @@ export default Ember.Route.extend({
       replace: true
     }
   },
-  
-  model() {
-    let biblio = this.modelFor('request').biblio;
-    let user = this.modelFor('request').user;
 
+  model() {
+    let id = this.modelFor('request').id;
     return Ember.RSVP.hash({
-      locations: this.get('store').findAll('location'),
-      loantypes: this.get('store').findAll('loanType'),
-      reserve: this.get('store').createRecord('reserve', {
-        biblio: biblio,
-        user: user
-      })
+      biblio: this.store.findRecord('biblio', id, {adapterOptions: {items_on_subscriptions: "true"}}),
+      user: this.store.queryRecord('user', {biblio: id})
+    }).then((result) => {
+        return Ember.RSVP.hash({
+          locations: this.get('store').findAll('location'),
+          loantypes: this.get('store').findAll('loanType'),
+          biblio: Ember.RSVP.resolve(result.biblio),
+          user: Ember.RSVP.resolve(result.user),
+          reserve: this.get('store').createRecord('reserve', {
+            biblio: result.biblio,
+            user: result.user
+          })
+        });
     });
   },
 

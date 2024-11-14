@@ -34,7 +34,7 @@ export default Ember.Controller.extend({
     return (this.get('request.view') !== '46GUB_KOHA');
   }),
   showGULogin: Ember.computed(function() {
-    return (this.get('request.view') === '46GUB_KOHA');
+    return (this.get('request.view') !== '46GUB_KOHA');
   }),
   libraryCardUrl: Ember.computed(function() {
     var lang = this.get('getLocale');
