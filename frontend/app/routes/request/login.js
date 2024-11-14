@@ -9,5 +9,6 @@ export default Ember.Route.extend(UnAuthenticatedRouteMixin, {
   },
   setupController: function(controller) {
     controller.set('showForm', true);
+    controller.set('showSpinner', false);
   }
 });

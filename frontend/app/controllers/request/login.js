@@ -23,10 +23,12 @@ export default Ember.Controller.extend({
     loginOAuth2() {
       this.set('oauth2ErrorMessage', false);
       this.set('usernamePasswordErrorMessage', false);
+      this.set('showSpinner', true);
       return this.get('session')
         .authenticate('authenticator:torii', 'gub')
         .catch((reason) => {
           this.set('oauth2ErrorMessage', this.get('i18n').t('request.login.oauth2-error'));
+          this.set('showSpinner', false);
         });
     },
   },
