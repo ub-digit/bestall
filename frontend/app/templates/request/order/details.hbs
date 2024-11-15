@@ -31,7 +31,7 @@
         {{pick-type-of-loan
           loanTypes=order.model.loantypes
           selectedItem=order.model.reserve.loanType.id
-          userCategory=request.model.user.userCategory
+          userCategory=order.model.user.userCategory
           item=order.model.reserve.item
           onSelect=(action 'setLoanType')
           label=(t 'request.order.details.loantype-dropdown-label')
@@ -46,7 +46,7 @@
         {{pick-location
           locations=pickupLocations
           selectedItem=order.model.reserve.location.id
-          userCategory=request.model.user.userCategory
+          userCategory=order.model.user.userCategory
           item=order.model.reserve.item
           onSelect=(action 'setLocation')
           label=(t 'request.order.details.location-dropdown-label')

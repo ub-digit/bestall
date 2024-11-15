@@ -1,19 +1,19 @@
 <div class="row vertical-space-bottom-20">
   <div class="col-xs-12">
-    <div class="bibliographic-title">{{request.model.biblio.title}}</div>
+    <div class="bibliographic-title">{{order.model.biblio.title}}</div>
     <div class="field">
-      {{#if request.model.biblio.isbn}}
-        ISBN: {{request.model.biblio.isbn}}<br/>
+      {{#if order.model.biblio.isbn}}
+        ISBN: {{order.model.biblio.isbn}}<br/>
       {{/if}}
     </div>
     <div class="field">
-      {{#if request.model.biblio.edition}}
-        {{request.model.biblio.edition}}<br/>
+      {{#if order.model.biblio.edition}}
+        {{order.model.biblio.edition}}<br/>
       {{/if}}
     </div>
     <div class="field">
-      {{#if request.model.biblio.origin}}
-        {{request.model.biblio.origin}}<br/>
+      {{#if order.model.biblio.origin}}
+        {{order.model.biblio.origin}}<br/>
       {{/if}}
     </div>
   </div>

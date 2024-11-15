@@ -1,19 +1,19 @@
 {{partial 'request/order/warning'}}
 {{partial 'request/order/bibliographic-info'}}
-{{#if request.model.biblio.hasItemLevelQueue}}
+{{#if order.model.biblio.hasItemLevelQueue}}
   <nav>
     <ul class="nav nav-tabs" role="tablist">
-      {{#if request.model.biblio.subscriptiongroups.length}}
+      {{#if order.model.biblio.subscriptiongroups.length}}
       <li role="presentation" class="{{is-active-tab 'tab1' activeTab}}">
         <a href="#subscriptions" class="left" data-toggle="tab" onclick={{action "setActiveTab" "tab1"}}>
-          {{t "request.order.items.subscriptions"}} ({{request.model.biblio.subscriptiongroups.length}})
+          {{t "request.order.items.subscriptions"}} ({{order.model.biblio.subscriptiongroups.length}})
         </a>
       </li>
       {{/if}}
-      {{#if request.model.biblio.items  }}
+      {{#if order.model.biblio.items  }}
       <li role="presentation" class="{{is-active-tab 'tab2' activeTab}}">
         <a href="#items" class="right" data-toggle="tab" onclick={{action "setActiveTab" "tab2"}}>
-          {{t "request.order.items.items"}} ({{request.model.biblio.items.length}})
+          {{t "request.order.items.items"}} ({{order.model.biblio.items.length}})
         </a>
       </li>
       {{/if}}
@@ -22,7 +22,7 @@
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane {{is-active-tab 'tab2' activeTab}}" id="items" >
-      {{item-table items=request.model.biblio.items isReservedClick=isReservedClick hasSubscription=true setItemToOrder=(action "setItemToOrder")}}
+      {{item-table items=order.model.biblio.items isReservedClick=isReservedClick hasSubscription=true setItemToOrder=(action "setItemToOrder")}}
     </div>
     <div role="tabpanel" class="tab-pane {{is-active-tab 'tab1' activeTab}}" id="subscriptions">
       <div class="row">
@@ -36,7 +36,7 @@
                 </tr>
               </thead>
               <tbody>
-              {{#each request.model.biblio.subscriptiongroups as |subscriptiongroup|}}
+              {{#each order.model.biblio.subscriptiongroups as |subscriptiongroup|}}
                 <tr>
                   <td class="border">{{subscriptiongroup.location.name}}</td>
                   <td class="border">
@@ -86,7 +86,7 @@
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane {{is-active-tab 'tab1' activeTab}}" id="items" >
       {{#if itemsAvailable}}
-      {{item-table items=itemsAvailable hasSubscription=request.model.biblio.hasEnum setItemToOrder=(action "setItemToOrder")}}
+      {{item-table items=itemsAvailable hasSubscription=order.model.biblio.hasEnum setItemToOrder=(action "setItemToOrder")}}
       {{else}}
         <p class="center zero-state vertical-space-bottom-40">
           {{t "request.order.items.currently-no-available-items"}}
@@ -95,7 +95,7 @@
           <div class="col-xs-12">
           <div class="panel panel-default">
             <div class="panel-body center">
-              <strong>{{request.model.biblio.noInQueue}} {{t "request.order.items.number-of-people-in-queue"}}</strong> <button class="btn btn-primary" {{action 'setItemToOrder' null true}}>{{t "request.order.items.queue-up"}}</button>
+              <strong>{{order.model.biblio.noInQueue}} {{t "request.order.items.number-of-people-in-queue"}}</strong> <button class="btn btn-primary" {{action 'setItemToOrder' null true}}>{{t "request.order.items.queue-up"}}</button>
             </div>
           </div>
           </div>
@@ -103,7 +103,7 @@
       {{/if}}
     </div>
     <div role="tabpanel" class="tab-pane {{is-active-tab 'tab2' activeTab}}" id="item-queue">
-      {{#if request.model.biblio.canBeQueued}}
+      {{#if order.model.biblio.canBeQueued}}
       <div class="row">
         <div class="col-xs-12">
           {{#if hasItemAvailableForOrder}}
@@ -111,14 +111,14 @@
               <span>{{t "request.order.items.items-are-available"}}</span>
             </div>
           {{else}}
-            {{#if request.model.biblio.hasAvailableKursbok}}
+            {{#if order.model.biblio.hasAvailableKursbok}}
               <div class="panel-body center">
                 <span>{{t "request.order.items.kursbok-is-available"}}</span>
               </div>
             {{else}}
               <div class="panel panel-default">
                 <div class="panel-body center">
-                  <strong>{{request.model.biblio.noInQueue}} {{t "request.order.items.number-of-people-in-queue"}}</strong>
+                  <strong>{{order.model.biblio.noInQueue}} {{t "request.order.items.number-of-people-in-queue"}}</strong>
                   <button class="btn btn-primary btn-space-left" {{action 'setItemToOrder' null true}}>{{t "request.order.items.queue-up"}}</button>
                 </div>
               </div>
