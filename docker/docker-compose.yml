@@ -2,8 +2,7 @@ version: "3.7"
 name: bestall
 services:
   frontend:
-    env_file:
-      - secrets.env
+    restart: always
     environment:
       - EMBER_ENVIRONMENT=${ENVIRONMENT}
       - GUB_OAUTH2_CLIENT_ID=${GUB_OAUTH2_CLIENT_ID}
@@ -16,7 +15,6 @@ services:
     stdin_open: true
     # Enable sending signals (CTRL+C, CTRL+P + CTRL+Q) into the container
     tty: true
-    restart: always
   backend:
     restart: always
     env_file:
