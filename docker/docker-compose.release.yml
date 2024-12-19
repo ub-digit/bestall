@@ -13,7 +13,7 @@ services:
       - FRONTEND_HOSTNAME=${FRONTEND_HOSTNAME}
     volumes:
       - "${BACKEND_DATA_HOST_DIR}:/usr/src/app/config/data"
-      - ${FILES_DIR}:/opt/bestall-files
+      - ${FILES_HOST_DIR}:/opt/bestall-files
   db:
     image: docker.ub.gu.se/bestall-postgres:${GIT_REVISION}
   apache:
