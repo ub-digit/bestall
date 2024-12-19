@@ -1,0 +1,33 @@
+---
+GIT_REVISION: "{{ git_revision }}"
+CUPSD_GIT_REVISION: "{{ cupsd_git_revision }}"
+OMUTSKRIFT_GIT_REVISION: "{{ omutskrift_git_revision }}"
+ENVIRONMENT: production
+
+FRONTEND_HOST_PORT: '127.0.0.1:{{ frontend_host_port }}'
+BACKEND_HOST_PORT: '127.0.0.1:{{ backend_host_port}}'
+OMUTSKRIFT_HOST_PORT: '127.0.0.1:{{ omutskrift_host_port}}'
+APACHE_HOST_PORT: '127.0.0.1:{{ apache_host_port }}'
+BACKEND_HOSTNAME: '{{ backend_hostname }}'
+FRONTEND_HOSTNAME: '{{ frontend_hostname }}'
+
+OMUTSKRIFT_DOWNLOAD_ADDRESS: "https://{{ frontend_hostname }}"
+OMUTSKRIFT_DOWNLOAD_PATH: /files/done/
+OMUTSKRIFT_PRINT_DIR: /data/files/
+OMUTSKRIFT_PRINTED_DIR: /data/files/done/
+
+BACKEND_DATA_HOST_DIR: "{{ backend_data_dir }}"
+DB_HOST_DIR: "{{ db_dir }}"
+APACHE_SITES_HOST_DIR: "{{ apache_sites_dir }}"
+
+KOHA_USER: bestalluser
+KOHA_SVC_URL: https;//koha-intra-lab.ub.gu.se/cgi-bin/koha/svc
+
+REGISTRATION_URL: https://bibliotekskort-lab.ub.gu.se
+MYLOANS_URL: https://minalan-lab.ub.gu.se
+
+GUB_OAUTH2_PROVIDER: gu
+GUB_OAUTH2_AUTHORIZE_ENDPOINT: https://idp.auth.gu.se/adfs/oauth2/authorize/
+GUB_OAUTH2_TOKEN_ENDPOINT: https://idp.auth.gu.se/adfs/oauth2/token/
+GUB_OAUTH2_USER_ENDPOINT: https://idp.auth.gu.se/adfs/userinfo
+
