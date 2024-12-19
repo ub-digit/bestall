@@ -41,6 +41,17 @@
       - "{{ omutskrift_print_dir }}"
       - "{{ omutskrift_printed_dir }}"
 
+  - name: Ensure bestall apache configuration
+    become: true
+    ansible.builtin.template:
+      src: 'bestall-apache.conf.j2'
+      dest: "{{ [apache_sites_dir, 'default.conf'] | path_join }}"
+
+  - name: Copy locations.json to backend data directory
+    ansible.builtin.copy:
+      src: ../config/data/locations.json
+      dest: "{{ backend_data_dir }}"
+
   - name: Deploy app
     include_role:
       name: ub-ansible-deploy
