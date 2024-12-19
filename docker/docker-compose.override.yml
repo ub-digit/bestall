@@ -24,11 +24,4 @@ services:
     image: postgres:9.4
     volumes:
       - ./build/postgres/postgres.conf:/etc/postgresql/postgresql.conf
-# TODO: Requires some refactoring, storing casUrl in frontend config instead
-# of fetching from backend etc
-#  cas:
-#    image: soulwing/cas-mock-server
-#    ports:
-#      - 8383:8080
-#    networks:
-#      - backend
+      - ./postgres-data:/var/lib/postgresql/data
