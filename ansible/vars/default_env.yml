@@ -19,6 +19,7 @@ OMUTSKRIFT_PRINTED_DIR: /data/files/done/
 BACKEND_DATA_HOST_DIR: "{{ backend_data_dir }}"
 DB_HOST_DIR: "{{ db_dir }}"
 APACHE_SITES_HOST_DIR: "{{ apache_sites_dir }}"
+FILES_HOST_DIR: "{{ files_dir }}"
 
 KOHA_USER: bestalluser
 
