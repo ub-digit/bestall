@@ -41,7 +41,7 @@ services:
     volumes:
       - "${FILES_HOST_DIR}:/apps/bestall/files"
   omutskrift:
-    image: ${OMUTSKRIFT_RUNNING_IMAGE}
+    image: docker.ub.gu.se/bestall-omutskrift:${GIT_REVISION}
     restart: always
     ports:
       - ${OMUTSKRIFT_HOST_PORT}:4000
