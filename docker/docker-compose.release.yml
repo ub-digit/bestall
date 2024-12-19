@@ -16,7 +16,7 @@ services:
   db:
     image: docker.ub.gu.se/bestall-postgres:${GIT_REVISION}
   apache:
-    image: $docker.ub.gu.se/bestall-apache:${APACHE_GIT_REVISION}
+    image: docker.ub.gu.se/bestall-apache:${APACHE_GIT_REVISION}
     restart: always
     ports:
       - ${APACHE_HOST_PORT}:80
@@ -24,7 +24,7 @@ services:
       - "${APACHE_SITES_HOST_DIR}:/etc/apache2/sites-enabled"
       - "${FILES_HOST_DIR}:/var/www/bestall/files"
   cupsd:
-    image: $docker.ub.gu.se/bestall-cupsd:${CUPSD_GIT_REVISION}
+    image: docker.ub.gu.se/bestall-cupsd:${CUPSD_GIT_REVISION}
     restart: always
     environment:
       - PRINTER_PR40_URI=${PRINTER_PR40_URI}
