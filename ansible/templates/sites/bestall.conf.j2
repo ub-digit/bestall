@@ -1,0 +1,54 @@
+<VirtualHost *:80>
+    ServerName {{ frontend_hostname }}
+    Redirect permanent / https://{{ frontend_hostname }}/
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName {{ frontend_hostname }}
+    FallbackResource /index.html
+
+    <Location /files>
+      AuthUserFile /data/print_bestall/.htpasswd
+      AuthName reprint_bestall_files
+      AuthType Basic
+      <Limit GET>
+        require valid-user
+      </Limit>
+    </Location>
+
+    <Location /print_bestall>
+      AuthUserFile /data/print_bestall/.htpasswd
+      AuthName reprint_bestall_files
+      AuthType Basic
+      <Limit GET>
+        require valid-user
+      </Limit>
+    </Location>
+
+    ProxyPreserveHost Off
+
+    ProxyPass        /files http://localhost:{{ apache_host_port }}/files
+    ProxyPassReverse /files http://localhost:{{ apache_host_port }}/files
+
+    ProxyPass        /print_bestall http://localhost:{{ omutskrift_host_port }}/
+    ProxyPassReverse /print_bestall http://localhost:{{ omutskrift_host_port }}/
+    ProxyPass        /print_bestall/selection http://localhost:{{ omutskrift_host_port }}/selection
+    ProxyPassReverse /print_bestall/selection http://localhost:{{ omutskrift_host_port }}/selection
+    ProxyPass        /print_bestall/print http://localhost:{{ omutskrift_host_port }}/print
+    ProxyPassReverse /print_bestall/print http://localhost:{{ omutskrift_host_port }}/print
+    ProxyPass        /print_bestall/assets http://localhost:{{ omutskrift_host_port }}/assets
+    ProxyPassReverse /print_bestall/assets http://localhost:{{ omutskrift_host_port }}/assets
+    ProxyPass        /print_bestall/images http://localhost:{{ omutskrift_host_port }}/images
+    ProxyPassReverse /print_bestall/images http://localhost:{{ omutskrift_host_port }}/images
+
+    ProxyPass        /api http://localhost:{{ backend_host_port }}/api
+    ProxyPassReverse /api http://localhost:{{ backend_host_port }}/api
+
+    ProxyPass        / http://localhost:{{ frontend_host_port }}/
+    ProxyPassReverse / http://localhost:{{ frontend_host_port }}/
+
+    SSLEngine on
+    SSLCertificateFile /etc/ssl/apache2/certs/ub-gu-se.pem
+    SSLCertificateKeyFile /etc/ssl/apache2/private/ub-gu-se.key
+    SSLCertificateChainFile /etc/ssl/apache2/certs/interm_geant.pem
+</VirtualHost>
