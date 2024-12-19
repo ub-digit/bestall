@@ -1,15 +1,15 @@
 <VirtualHost *:80>
-    ServerName {{ bestall_backend_hostname }}
-    Redirect permanent / https://{{ bestall_backend_hostname }}/
+    ServerName {{ backend_hostname }}
+    Redirect permanent / https://{{ backend_hostname }}/
 </VirtualHost>
 
 <VirtualHost *:443>
-    ServerName {{ bestall_backend_hostname }}
+    ServerName {{ backend_hostname }}
     FallbackResource /index.html
 
     ProxyPreserveHost Off
-    ProxyPass        / http://localhost:{{ bestall_backend_host_port }}/
-    ProxyPassReverse / http://localhost:{{ bestall_backend_host_port }}/
+    ProxyPass        / http://localhost:{{ backend_host_port }}/
+    ProxyPassReverse / http://localhost:{{ backend_host_port }}/
 
     SSLEngine on
     SSLCertificateFile /etc/ssl/apache2/certs/ub-gu-se.pem
