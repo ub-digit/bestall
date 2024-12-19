@@ -1,0 +1,6 @@
+.password
+.vault_password
+/roles
+/data
+!/data/.gitkeep
+*.swp
