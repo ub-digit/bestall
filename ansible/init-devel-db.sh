@@ -18,6 +18,6 @@ if [[ ! " $targets " =~ " $target " ]]; then
 fi
 
 ./run-playbook.sh $target export-db
-cp ./data/database.sql ../postgres-initdb.d/database.sql
+cp ./data/database.sql ../docker/postgres-initdb.d/database.sql
 
 echo "Database dump has been copied to postgres-initdb.d directory"
