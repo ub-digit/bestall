@@ -18,7 +18,7 @@ if [[ ! " $targets " =~ " $target " ]]; then
 fi
 
 ./run-playbook.sh $target export-db
-cd ..
+cd ../docker
 
 RUNNING=$(docker compose ps db -q)
 if [[ -z "$RUNNING" ]]; then
@@ -27,6 +27,6 @@ if [[ -z "$RUNNING" ]]; then
 fi
 docker compose exec db bash -c 'psql -d postgres -U $POSTGRES_USER -c "DROP DATABASE IF EXISTS $POSTGRES_DB;"'
 docker compose exec db bash -c 'psql -d postgres -U $POSTGRES_USER -c "CREATE DATABASE $POSTGRES_DB;"'
-docker compose exec -T db bash -c 'psql -d $POSTGRES_DB $POSTGRES_USER' < ./ansible/data/database.sql
+docker compose exec -T db bash -c 'psql -d $POSTGRES_DB $POSTGRES_USER' < ../ansible/data/database.sql
 
 echo "Database has been imported"
