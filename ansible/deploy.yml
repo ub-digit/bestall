@@ -9,7 +9,7 @@
 
   - name: Include environment variables
     ansible.builtin.include_vars:
-      file: '{{ inventory_hostname }}/env.yml'
+      file: "{{ inventory_hostname }}/env.yml"
       name: env_variables
       hash_behaviour: merge
 
@@ -20,20 +20,28 @@
 
   - name: Include secret environment variables
     ansible.builtin.include_vars:
-      file: '{{ inventory_hostname }}/secret_env.yml'
+      file: "{{ inventory_hostname }}/secret_env.yml"
       name: secret_env_variables
       hash_behaviour: merge
+
+  - name: Ensure data directory
+    become: yes
+    ansible.builtin.file:
+      path: "{{ data_dir }}"
+      state: directory
+      owner: "{{ ansible_user }}"
+      group: "{{ ansible_user }}"
+      mode: '755'
 
   - name: Ensure data directories
     become: yes
     ansible.builtin.file:
-      path: '/data/bestall/{{ item }}'
+      path: "{{ item }}"
       state: directory
       owner: "{{ ansible_user }}"
       group: "{{ ansible_user }}"
       mode: '755'
     loop:
-      - "{{ data_dir }}"
       - "{{ backend_data_dir }}"
       - "{{ files_dir }}"
       - "{{ db_dir }}"
@@ -47,10 +55,15 @@
       src: 'bestall-apache.conf.j2'
       dest: "{{ [apache_sites_dir, 'default.conf'] | path_join }}"
 
-  - name: Copy locations.json to backend data directory
+  - name: Ensure backend data directory locations.json
     ansible.builtin.copy:
       src: ../config/data/locations.json
       dest: "{{ backend_data_dir }}"
+
+  - name: Ensure print bestall .htpasswd
+    ansible.builtin.copy:
+      content: "{{ apache_htpasswd }}"
+      dest: "{{ [data_dir, '.htpasswd'] | path_join }}"
 
   - name: Deploy app
     include_role:
