@@ -1,7 +1,7 @@
 ---
 docker_git_repo_url: https://github.com/ub-digit/bestall.git
 docker_directory: './docker'
-apache_htpasswd: "{{ apache_htpasswd }}"
+apache_htpasswd: "{{ vault_apache_htpasswd }}"
 
 data_dir: /data/bestall
 files_dir: /data/bestall/files
