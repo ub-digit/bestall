@@ -7,6 +7,9 @@ services:
       - EMBER_ENVIRONMENT=${ENVIRONMENT}
       - GUB_OAUTH2_CLIENT_ID=${GUB_OAUTH2_CLIENT_ID}
       - GUB_OAUTH2_AUTHORIZE_ENDPOINT=${GUB_OAUTH2_AUTHORIZE_ENDPOINT}
+      - PIN_CODE_ACTIVE=${PIN_CODE_ACTIVE}
+      - PIN_CODE_FORGOT_LINK_SV=${PIN_CODE_FORGOT_LINK_SV}
+      - PIN_CODE_FORGOT_LINK_EN=${PIN_CODE_FORGOT_LINK_EN}
     # Keep the stdin open, so we can attach to our app container's process
     # and do things such as debugging, etc
     stdin_open: true
@@ -31,6 +34,7 @@ services:
       - BESTALL_MYLOANS_URL=${MYLOANS_URL}
       - BESTALL_KOHA_USER=${KOHA_USER}
       - BESTALL_KOHA_SVC_URL=${KOHA_SVC_URL}
+      - BESTALL_KOHA_SVC_AUTH_URL=${KOHA_SVC_AUTH_URL}
       - BESTALL_CACHE_API_KEY=${CACHE_API_KEY}
       - SHOW_PICKUP_CODE=${SHOW_PICKUP_CODE}
       - GUB_OAUTH2_PROVIDER=${GUB_OAUTH2_PROVIDER}

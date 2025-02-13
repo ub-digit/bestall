@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ENV from 'frontend/config/environment';
 
 export default Ember.Controller.extend({
   i18n: Ember.inject.service(),
@@ -41,5 +42,12 @@ export default Ember.Controller.extend({
   libraryCardUrl: Ember.computed(function() {
     var lang = this.get('getLocale');
     return this.get('store').peekRecord('config', 1).get('registrationurl') + '?lang=' + lang;
+  }),
+  pinCodeActive: Ember.computed(function() {
+    return (ENV.pinCodeActive === 'true');
+  }),
+  pinCodeForgotLink: Ember.computed(function() {
+    var lang = this.get('getLocale');
+    return (lang === 'sv') ? ENV.pinCodeForgotLinkSv : ENV.pinCodeForgotLinkEn;
   })
 });
