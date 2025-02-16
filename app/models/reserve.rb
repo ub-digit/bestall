@@ -50,13 +50,16 @@ class Reserve
     user =  APP_CONFIG['koha']['user']
     password =  APP_CONFIG['koha']['password']
 
+    # Location and pickup location may differ, get pickup location from the Location object
+    pickup_location_id = Location.find_by_id(branchcode).pickup_location_id
+
     params = {
       userid: user,
       password: password,
       borrowernumber: borrowernumber,
       biblionumber: biblionumber,
       itemnumber: itemnumber,
-      branchcode: branchcode,
+      branchcode: pickup_location_id,
       reservenotes: reservenotes
     }.to_query
 
