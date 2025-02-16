@@ -51,8 +51,8 @@ class Reserve
     password =  APP_CONFIG['koha']['password']
 
     params = {
-      userid: user,
-      password: password,
+      login_userid: user,
+      login_password: password,
       borrowernumber: borrowernumber,
       biblionumber: biblionumber,
       itemnumber: itemnumber,

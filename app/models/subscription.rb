@@ -26,7 +26,7 @@ class Subscription
     user =  APP_CONFIG['koha']['user']
     password =  APP_CONFIG['koha']['password']
 
-    url = "#{base_url}/subscriptions/list?biblionumber=#{biblio_id}&userid=#{user}&password=#{password}"
+    url = "#{base_url}/subscriptions/list?biblionumber=#{biblio_id}&login_userid=#{user}&login_password=#{password}"
     response = RestClient.get url
 
     xml = Subscription.process_xml(response)
