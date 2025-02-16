@@ -54,8 +54,8 @@ class Reserve
     pickup_location_id = Location.find_by_id(branchcode).pickup_location_id
 
     params = {
-      userid: user,
-      password: password,
+      login_userid: user,
+      login_password: password,
       borrowernumber: borrowernumber,
       biblionumber: biblionumber,
       itemnumber: itemnumber,
