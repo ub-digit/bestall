@@ -39,15 +39,15 @@ export default Ember.Controller.extend({
   showGULogin: Ember.computed(function() {
     return (this.get('request.view') !== '46GUB_KOHA');
   }),
-  libraryCardUrl: Ember.computed(function() {
+  libraryCardUrl: Ember.computed('i18n.locale', 'i18n.locales', function() {
     var lang = this.get('getLocale');
     return this.get('store').peekRecord('config', 1).get('registrationurl') + '?lang=' + lang;
   }),
   pinCodeActive: Ember.computed(function() {
     return (ENV.pinCodeActive === 'true');
   }),
-  pinCodeForgotLink: Ember.computed(function() {
+  pinCodeForgotLink: Ember.computed('i18n.locale', 'i18n.locales', function() {
     var lang = this.get('getLocale');
-    return (lang === 'sv') ? ENV.pinCodeForgotLinkSv : ENV.pinCodeForgotLinkEn;
+    return (lang === 'en') ? ENV.pinCodeForgotLinkEn : ENV.pinCodeForgotLinkSv;
   })
 });
