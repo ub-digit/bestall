@@ -65,9 +65,9 @@ class Api::LibrisController < ApplicationController
       return "Heml&#229;n"
     when 8
       return "Ej heml&#229;n"
-    when 2, 19, 21
+    when 2, 18, 19, 21
       return "Ej fj&#228;rrl&#229;n"
-    when 4, 5, 6, 9, 10, 11, 18, 20, 22, 23
+    when 4, 5, 6, 9, 10, 11, 20, 22, 23
       return "Tidskrift"
     when 7, 12, 13, 14, 15, 16
       return "Utl&#229;nas ej"
