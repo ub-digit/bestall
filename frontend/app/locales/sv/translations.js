@@ -159,7 +159,7 @@ export default {
       "message": "Du får inte låna eller beställa. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
     },
     "CAN_NOT_BE_BORROWED": {
-      "message": "Det går inte att beställa det här materialet. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
+      "message": "Du kan inte beställa det här materialet själv. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
     },
     "ITEM_NOT_FOUND": {
       "message": "Något gick fel. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp."
