@@ -56,7 +56,13 @@
               <div class="alert alert-danger col-xs-12">{{usernamePasswordErrorMessage}}</div>
             {{/if}}
             <div class="form-group">
-              <label>{{t "request.login.card-number-label"}}</label>
+              <label>
+                {{#if showGULogin}}
+                  {{t "request.login.card-number-label"}}
+                {{else}}
+                  {{t "request.login.card-number-label-extra-info"}}
+                {{/if}}
+                </label>
               {{#if inputAutocomplete}}
                {{input value=username class="form-control"}}
               {{else}}
@@ -64,7 +70,13 @@
               {{/if}}
             </div>
             <div class="form-group">
-              <label>{{t "request.login.personal-number-label"}}</label>
+              <label>
+                {{#if pinCodeActive}}
+                  {{t "request.login.pin-code-label"}}
+                {{else}}
+                  {{t "request.login.personal-number-label"}}
+                {{/if}}
+              </label>
               {{#if inputAutocomplete}}
                 {{input type='password' value=password class="form-control"}}
               {{else}}
@@ -75,6 +87,19 @@
             <div class="library-card-link">
               <a href="{{libraryCardUrl}}" class="small">{{t "request.login.library-card-link-text"}}</a>
             </div>
+            {{#if pinCodeActive}}
+              {{#if showGULogin}}
+                <div class="pin-code-forgot-link">
+                  <a href="{{pinCodeForgotLink}}" class="small">{{t "request.login.pin-code-forgot-link-text"}}</a>
+                </div>
+              {{else}}
+                <div class="pin-code-text">
+                  <p class="pin-code-forgot-info-text-header">{{t "request.login.pin-code-forgot-info-text-header"}}</p>
+                  <p class="pin-code-forgot-info-text-body1">{{t "request.login.pin-code-forgot-info-text-body1"}}</p>
+                  <p class="pin-code-forgot-info-text-body2">{{t "request.login.pin-code-forgot-info-text-body2"}}</p>
+                </div>
+              {{/if}}
+            {{/if}}
           </div>
         </div>
       </div>

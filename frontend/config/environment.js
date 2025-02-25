@@ -31,7 +31,10 @@ module.exports = function(environment) {
           scope: 'openid profile email',
         }
       }
-    }
+    },
+    pinCodeActive: process.env.PIN_CODE_ACTIVE,
+    pinCodeForgotLinkSv: process.env.PIN_CODE_FORGOT_LINK_SV,
+    pinCodeForgotLinkEn: process.env.PIN_CODE_FORGOT_LINK_EN
   };
 
   let frontendBaseUrl = null;
