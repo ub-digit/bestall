@@ -25,9 +25,10 @@ class Print
     loan_type_obj = LoanType.find_by_id(params[:reserve][:loan_type_id].to_i)
     obj[:loantype] = loan_type_obj ? loan_type_obj.name_sv : ''
 
-    pickup_location_obj = Location.find_by_id(params[:reserve][:location_id].to_i)
-    obj[:pickup_location] = pickup_location_obj ? pickup_location_obj.name_sv : ''
-    obj[:pickup_location_id] = params[:reserve][:location_id].to_i
+    # Location and pickup location may differ, get pickup location from the Location object
+    pickup_location_id = Location.find_by_id(params[:reserve][:location_id].to_i).pickup_location_id
+    obj[:pickup_location] = Location.find_by_id(pickup_location_id).name_sv
+    obj[:pickup_location_id] = pickup_location_id
 
     biblio_obj = Biblio.find_by_id(params[:reserve][:biblio_id])
     if biblio_obj
