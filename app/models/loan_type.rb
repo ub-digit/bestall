@@ -5,11 +5,16 @@ class LoanType
 
   attr_accessor :id, :name_sv, :name_en, :show_pickup_location
 
-  LOAN_TYPES = [{id: 1, position: 2, show_pickup_location: true, name_sv: 'Hämta materialet i biblioteket (hemlån)', name_en: 'Pick up the material at the library (home loan)'},
-                {id: 2, position: 3, show_pickup_location: true, name_sv: 'Läs materialet i biblioteket (läsesalslån)', name_en: 'Read the material in the library (reading room loan)'},
-                {id: 3, position: 4, show_pickup_location: true, name_sv: 'Forskarskåp (tillstånd krävs)', name_en: 'Loan to researcher’s locker (permit required)'},
-                {id: 4, position: 5, show_pickup_location: true, name_sv: 'Institutionslån (tillstånd krävs)', name_en: 'Loan to department (permit required)'},
-                {id: 5, position: 1, show_pickup_location: false, name_sv: 'Skicka materialet till mig', name_en: 'Send the material to me'}]
+  LOAN_TYPE_HOME_LOAN = 1
+  LOAN_TYPE_READING_ROOM_LOAN = 2
+  LOAN_TYPE_RESEARCHER_LOCKER = 3
+  LOAN_TYPE_DEPARTMENT = 4
+  LOAN_TYPE_SEND_MATERIAL = 5
+  LOAN_TYPES = [{id: LOAN_TYPE_HOME_LOAN, position: 2, show_pickup_location: true, name_sv: 'Hämta materialet i biblioteket (hemlån)', name_en: 'Pick up the material at the library (home loan)'},
+                {id: LOAN_TYPE_READING_ROOM_LOAN, position: 3, show_pickup_location: true, name_sv: 'Läs materialet i biblioteket (läsesalslån)', name_en: 'Read the material in the library (reading room loan)'},
+                {id: LOAN_TYPE_RESEARCHER_LOCKER, position: 4, show_pickup_location: true, name_sv: 'Forskarskåp (tillstånd krävs)', name_en: 'Loan to researcher’s locker (permit required)'},
+                {id: LOAN_TYPE_DEPARTMENT, position: 5, show_pickup_location: true, name_sv: 'Institutionslån (tillstånd krävs)', name_en: 'Loan to department (permit required)'},
+                {id: LOAN_TYPE_SEND_MATERIAL, position: 1, show_pickup_location: false, name_sv: 'Skicka materialet till mig', name_en: 'Send the material to me'}]
 
   def initialize id:, name_sv:, name_en:, show_pickup_location:
     @id = id
@@ -35,4 +40,7 @@ class LoanType
     end
   end
 
+  def send_material?
+    @id == LOAN_TYPE_SEND_MATERIAL
+  end
 end

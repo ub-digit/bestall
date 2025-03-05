@@ -53,7 +53,7 @@ class Api::ReservesController < ApplicationController
 
     # If no validation errors were stored in response connect to Koha
     if @response[:errors].nil?
-      result = Reserve.add(borrowernumber: borrowernumber, branchcode: branchcode, biblionumber: biblionumber, itemnumber: itemnumber, reservenotes: reservenotes)
+      result = Reserve.add(borrowernumber: borrowernumber, branchcode: branchcode, biblionumber: biblionumber, itemnumber: itemnumber, reservenotes: reservenotes, loan_type_obj: loan_type_obj)
       if result.class == Reserve
         @response[:reserve] = result.as_json
         render_json(201)
