@@ -45,13 +45,18 @@ class Reserve
       'UNRECOGNIZED_ERROR')
   end
 
-  def self.add(borrowernumber:, branchcode:, biblionumber:, itemnumber: nil, reservenotes:)
+  def self.add(borrowernumber:, branchcode:, biblionumber:, itemnumber: nil, reservenotes:, loan_type_obj:)
     base_url = APP_CONFIG['koha']['base_url']
     user =  APP_CONFIG['koha']['user']
     password =  APP_CONFIG['koha']['password']
 
-    # Location and pickup location may differ, get pickup location from the Location object
-    pickup_location_id = Location.find_by_id(branchcode).pickup_location_id
+    if loan_type_obj.send_material?
+      # Get pickup location from the Location object
+      pickup_location_id = Location.find_by_id(branchcode).pickup_location_id
+    else
+      # Use homebranch as pickup location
+      pickup_location_id = branchcode
+    end
 
     params = {
       userid: user,
