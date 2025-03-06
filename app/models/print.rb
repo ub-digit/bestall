@@ -26,7 +26,7 @@ class Print
     obj[:loantype] = loan_type_obj ? loan_type_obj.name_sv : ''
 
 
-    if loan_type_obj.send_material?
+    if loan_type_obj && loan_type_obj.send_material?
       # Get pickup location from the Location object
       pickup_location_id = Location.find_by_id(params[:reserve][:location_id].to_i).pickup_location_id
     else
