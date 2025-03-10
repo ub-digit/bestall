@@ -1,8 +1,9 @@
 ---
 docker_git_revision: ansible-deploy
-git_revision: release-2024.11.007
+git_revision: koha-release-2025-001
 omutskrift_git_revision: release-2024.01.001
 cupsd_git_revision: release-2024.04.001
+apache_git_revision: release-2021.10.001
 
 frontend_hostname: bestall-lab.ub.gu.se
 backend_hostname: bestall-server-lab.ub.gu.se
