@@ -2,6 +2,7 @@
 GIT_REVISION: "{{ git_revision }}"
 CUPSD_GIT_REVISION: "{{ cupsd_git_revision }}"
 OMUTSKRIFT_GIT_REVISION: "{{ omutskrift_git_revision }}"
+APACHE_GIT_REVISION: "{{ apache_git_revision }}"
 ENVIRONMENT: production
 
 FRONTEND_HOST_PORT: '127.0.0.1:{{ frontend_host_port }}'
