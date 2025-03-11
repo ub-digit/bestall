@@ -15,8 +15,8 @@ class Koha
 
   def self.send_statistics(stat_type:, pickup:, categorycode:, performer_borrowernumber: nil, biblionumber:, title:, author: nil, callno: nil, location:, homebranch:)
     stat_obj = {
-      userid: APP_CONFIG['koha']['user'],
-      password: APP_CONFIG['koha']['password'],
+      login_userid: APP_CONFIG['koha']['user'],
+      login_password: APP_CONFIG['koha']['password'],
       branch: pickup,
       type: stat_type,
       other: homebranch,

@@ -131,7 +131,7 @@ class Biblio
     user =  APP_CONFIG['koha']['user']
     password =  APP_CONFIG['koha']['password']
 
-    bib_url = "#{base_url}/bib/#{id}?userid=#{user}&password=#{password}"
+    bib_url = "#{base_url}/bib/#{id}?login_userid=#{user}&login_password=#{password}"
     bib_response = RestClient.get bib_url
     bib_response_body = bib_response.body
 
@@ -142,10 +142,10 @@ class Biblio
       items_response_body = "{\"items\": []}"
       reserves_response_body = "{\"reserves\": []}"
     else
-      items_url = "#{base_url}/items/list?biblionumber=#{id}&userid=#{user}&password=#{password}"
+      items_url = "#{base_url}/items/list?biblionumber=#{id}&login_userid=#{user}&login_password=#{password}"
       items_response = RestClient.get items_url
       items_response_body = items_response.body
-      reserves_url = "#{base_url}/reserves/list?biblionumber=#{id}&userid=#{user}&password=#{password}"
+      reserves_url = "#{base_url}/reserves/list?biblionumber=#{id}&login_userid=#{user}&login_password=#{password}"
       reserves_response = RestClient.get reserves_url
       reserves_response_body = reserves_response.body
     end
