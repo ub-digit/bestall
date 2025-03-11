@@ -16,6 +16,8 @@ services:
       - ${FILES_HOST_DIR}:/opt/bestall-files
   db:
     image: docker.ub.gu.se/bestall-postgres:${GIT_REVISION}
+    volumes:
+      - "${DB_HOST_DIR}:/var/lib/postgresql/data"
   apache:
     image: docker.ub.gu.se/bestall-apache:${APACHE_GIT_REVISION}
     restart: always
