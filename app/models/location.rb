@@ -26,7 +26,7 @@ class Location
       user =  APP_CONFIG['koha']['user']
       password =  APP_CONFIG['koha']['password']
 
-      url = "#{base_url}/branches/list?userid=#{user}&password=#{password}"
+      url = "#{base_url}/branches/list?login_userid=#{user}&login_password=#{password}"
       response = RestClient.get url
       parse_xml(APP_CONFIG['locations'], response).sort_by do |location|
         location.id.to_i

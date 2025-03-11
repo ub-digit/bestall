@@ -26,7 +26,7 @@ class Api::LibrisController < ApplicationController
       base_url = APP_CONFIG['koha']['base_url']
       user =  APP_CONFIG['koha']['user']
       password =  APP_CONFIG['koha']['password']
-      url = "#{base_url}/librisid2bibid/?librisid=#{librisid}&userid=#{user}&password=#{password}"
+      url = "#{base_url}/librisid2bibid/?librisid=#{librisid}&login_userid=#{user}&login_password=#{password}"
       response = RestClient.get url
       bibid = JSON.parse(response.body)["bibid"]
       return nil if bibid.blank?
