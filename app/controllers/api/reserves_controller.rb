@@ -8,7 +8,7 @@ class Api::ReservesController < ApplicationController
       performer_borrowernumber = params[:performer]
       obj = Print.prepare_subscription_order(params, username)
       pdf = Print.create_pdf(obj)
-      Koha.send_statistics_from_subscription_object(obj, performer_borrowernumber: performer_borrowernumber)
+      Koha.send_subscription_reserve(obj, subscription_id: params[:reserve][:subscription_id], filename: pdf, performer_borrowernumber: performer_borrowernumber)
       @response[:reserve] = {}
       render_json(201)
       return
