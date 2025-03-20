@@ -175,9 +175,10 @@ class Print
     suffix = ""
     suffix = "_#{obj[:reserve_id]}" if obj[:reserve_id]
 
-    pdf.render_file "#{file_path}/#{sublocation_id}_pr#{location_id}_#{Time.now.strftime("%Y%m%d%H%M%S")}_#{SecureRandom.hex}#{suffix}.pdf"
+    filename = "#{sublocation_id}_pr#{location_id}_#{Time.now.strftime("%Y%m%d%H%M%S")}_#{SecureRandom.hex}#{suffix}.pdf"
+    pdf.render_file "#{file_path}/#{filename}"
 
-    return pdf
+    return filename
   end
 
   def self.truncate text, maxlength
