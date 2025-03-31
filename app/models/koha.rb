@@ -8,7 +8,7 @@ class Koha
       biblionumber: obj[:bibid],
       subscriptionid: subscription_id,
       branchcode: obj[:pickup_location_id],
-      reservenotes: obj[:description],
+      reservenotes: self.reserve_notes(obj[:description], obj[:loantype], obj[:extra_info]),
       performer_borrowernumber: performer_borrowernumber
     }
 
@@ -17,5 +17,13 @@ class Koha
       url = "#{APP_CONFIG['koha']['base_url']}/reserves/store-subscription"
       response = RestClient.post url, reserve_obj
     end
+  end
+
+  def self.reserve_notes(description, loantype, extra_info)
+    reservenotes_arr = []
+    reservenotes_arr.push(description) if description.present?
+    reservenotes_arr.push("Lånetyp: #{loantype}") if loantype.present?
+    reservenotes_arr.push(extra_info) if extra_info.present? # Not used for subscription reserves ?
+    return reservenotes_arr.compact.join("\n")
   end
 end
