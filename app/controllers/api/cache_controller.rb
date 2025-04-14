@@ -6,6 +6,6 @@ class Api::CacheController < ApplicationController
       return
     end
     Rails.cache.clear
-    render text: "Cache cleared"
+    render plain: "Cache cleared"
   end
 end
