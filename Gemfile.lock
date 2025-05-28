@@ -193,6 +193,10 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
+    rails_semantic_logger (4.17.0)
+      rack
+      railties (>= 5.1)
+      semantic_logger (~> 4.16)
     railties (7.2.1)
       actionpack (= 7.2.1)
       activesupport (= 7.2.1)
@@ -232,6 +236,8 @@ GEM
       rspec-support (~> 3.9.0)
     rspec-support (3.9.4)
     securerandom (0.3.1)
+    semantic_logger (4.16.1)
+      concurrent-ruby (~> 1.0)
     shoulda (4.0.0)
       shoulda-context (~> 2.0)
       shoulda-matchers (~> 4.0)
@@ -271,6 +277,7 @@ DEPENDENCIES
   puma (~> 3.0)
   rack-cors
   rails (= 7.2.1)
+  rails_semantic_logger
   rest-client (~> 2.0.1)
   rspec-rails (~> 3.5)
   shoulda
