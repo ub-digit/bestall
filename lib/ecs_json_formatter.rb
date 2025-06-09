@@ -3,7 +3,7 @@ require 'socket'
 require 'json'
 require_relative '../lib/ecs_json_formatter'
 
-class ECSJsonFormatter < SemanticLogger::Formatters::Base
+class EcsJsonFormatter < SemanticLogger::Formatters::Base
   def call(log, logger)
     {
       '@timestamp' => log.time.utc.iso8601(3),
