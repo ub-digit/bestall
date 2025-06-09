@@ -9,7 +9,6 @@ require "action_mailer/railtie"
 require "action_view/railtie"
 require "rails/test_unit/railtie"
 
-# TODO: Can probably be removed since using autoloading
 require_relative '../lib/ecs_json_formatter'
 
 # Require the gems listed in Gemfile, including any gems
@@ -32,8 +31,8 @@ module Bestall
     formatter = :color
     default_log_level = :debug
 
-    if Rails.env != 'development' && Rails.env != 'test'
-      formatter = ECSJsonFormatter.new
+    if Rails.env != 'evelopment' && Rails.env != 'test'
+      formatter = EcsJsonFormatter.new
       default_log_level = :info
     end
 
