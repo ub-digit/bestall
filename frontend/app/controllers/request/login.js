@@ -13,17 +13,21 @@ export default Ember.Controller.extend({
   actions: {
     login() {
       this.set('oauth2ErrorMessage', false);
-      this.set('usernamePasswordErrorMessage', false);
+      this.set('loginErrorMessage', false);
       let { username, password } = this.getProperties('username', 'password');
       this.get('session')
         .authenticate('authenticator:librarycard', { username: username, password: password })
         .catch((reason) => {
-          this.set('usernamePasswordErrorMessage', this.get('i18n').t('request.login.username-password-error'));
+          if (ENV.pinCodeActive === 'true') {
+            this.set('loginErrorMessage', this.get('i18n').t('request.login.library-card-number-pin-code-login-error'));
+          } else {
+            this.set('loginErrorMessage', this.get('i18n').t('request.login.library-card-number-password-login-error'));
+          }
         });
     },
     loginOAuth2() {
       this.set('oauth2ErrorMessage', false);
-      this.set('usernamePasswordErrorMessage', false);
+      this.set('loginErrorMessage', false);
       this.set('showSpinner', true);
       return this.get('session')
         .authenticate('authenticator:torii', 'gub')

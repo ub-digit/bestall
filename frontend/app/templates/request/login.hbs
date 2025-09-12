@@ -52,8 +52,8 @@
             {{#if showGULogin}}
             <span class="gu-login-account-body">{{t 'request.login.login-account-body'}}</span>
             {{/if}}
-            {{#if usernamePasswordErrorMessage}}
-              <div class="alert alert-danger col-xs-12">{{usernamePasswordErrorMessage}}</div>
+            {{#if loginErrorMessage}}
+              <div class="alert alert-danger col-xs-12">{{loginErrorMessage}}</div>
             {{/if}}
             <div class="form-group">
               <label>
@@ -77,10 +77,18 @@
                   {{t "request.login.personal-number-label"}}
                 {{/if}}
               </label>
-              {{#if inputAutocomplete}}
-                {{input type='password' value=password class="form-control"}}
+              {{#if pinCodeActive}}
+                {{#if inputAutocomplete}}
+                  {{input type='password' value=password maxlength="4" class="form-control"}}
+                {{else}}
+                  {{input type='password' value=password maxlength="4" class="form-control" autocomplete="new-password"}}
+                {{/if}}
               {{else}}
-                {{input type='password' value=password class="form-control" autocomplete="new-password"}}
+                {{#if inputAutocomplete}}
+                  {{input type='password' value=password class="form-control"}}
+                {{else}}
+                  {{input type='password' value=password class="form-control" autocomplete="new-password"}}
+                {{/if}}
               {{/if}}
             </div>
             <button class="btn btn-primary btn-block" id="alternative-login-button" {{action 'login' username password}}>{{t "request.login.login-button"}}</button>
