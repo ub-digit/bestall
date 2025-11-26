@@ -2,27 +2,6 @@
 - name: Deploy
   hosts: all
   tasks:
-  - name: Include default environment variables
-    ansible.builtin.include_vars:
-      file: default_env.yml
-      name: env_variables
-
-  - name: Include environment variables
-    ansible.builtin.include_vars:
-      file: "{{ inventory_hostname }}/env.yml"
-      name: env_variables
-      hash_behaviour: merge
-
-  - name: Include default secret environment variables
-    ansible.builtin.include_vars:
-      file: default_secret_env.yml
-      name: secret_env_variables
-
-  - name: Include secret environment variables
-    ansible.builtin.include_vars:
-      file: "{{ inventory_hostname }}/secret_env.yml"
-      name: secret_env_variables
-      hash_behaviour: merge
 
   - name: Ensure data directory
     become: yes
