@@ -17,10 +17,10 @@ OMUTSKRIFT_DOWNLOAD_PATH: /files/done/
 OMUTSKRIFT_PRINT_DIR: /data/files/
 OMUTSKRIFT_PRINTED_DIR: /data/files/done/
 
-BACKEND_DATA_HOST_DIR: "{{ backend_data_dir }}"
-DB_HOST_DIR: "{{ db_dir }}"
-APACHE_SITES_HOST_DIR: "{{ apache_sites_dir }}"
-FILES_HOST_DIR: "{{ files_dir }}"
+BACKEND_DATA_HOST_DIR: "{{ data_dirs.backend.path }}"
+DB_HOST_DIR: "{{ data_dirs.db.path }}"
+APACHE_SITES_HOST_DIR: "{{ data_dirs.apache_sites.path }}"
+FILES_HOST_DIR: "{{ data_dirs.files.path }}"
 
 KOHA_USER: bestalluser
 

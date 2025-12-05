@@ -1,6 +1,7 @@
 .password
 todo
 .vault_password
+/repo
 /roles
 /data
 !/data/.gitkeep

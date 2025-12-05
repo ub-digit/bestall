@@ -1,7 +1,7 @@
 ---
 docker_git_revision: ansible-deploy
-git_revision: koha-release-2025-001
-omutskrift_git_revision: release-2024.01.001
+git_revision: release-2026.03.004
+omutskrift_git_revision: release-2025.01.001
 cupsd_git_revision: release-2024.04.001
 apache_git_revision: release-2021.10.001
 
