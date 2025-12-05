@@ -4,9 +4,14 @@ docker_directory: './docker'
 apache_htpasswd: "{{ vault_apache_htpasswd }}"
 
 data_dir: /data/bestall
-files_dir: /data/bestall/files
-backend_data_dir: /data/bestall/data
-db_dir: /data/bestall/database/
-apache_sites_dir: /data/bestall/apache-sites
-omutskrift_printed_dir: /data/files/done/
-omutskrift_print_dir: /data/files/
+data_dirs:
+  files:
+    path: /data/bestall/files
+  backend:
+    path: /data/bestall/data
+  db:
+    path: /data/bestall/database
+    owner: 999
+    group: 999
+  apache_sites:
+    path: /data/bestall/apache-sites

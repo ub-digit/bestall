@@ -2,35 +2,13 @@
 - name: Deploy
   hosts: all
   tasks:
-
-  - name: Ensure data directory
-    become: yes
-    ansible.builtin.file:
-      path: "{{ data_dir }}"
-      state: directory
-      owner: "{{ ansible_user }}"
-      group: "{{ ansible_user }}"
-      mode: '755'
-
-  - name: Ensure data directories
-    become: yes
-    ansible.builtin.file:
-      path: "{{ item }}"
-      state: directory
-      owner: "{{ ansible_user }}"
-      group: "{{ ansible_user }}"
-      mode: '755'
-    loop:
-      - "{{ backend_data_dir }}"
-      - "{{ files_dir }}"
-      - "{{ db_dir }}"
-      - "{{ apache_sites_dir }}"
-      - "{{ omutskrift_print_dir }}"
-      - "{{ omutskrift_printed_dir }}"
+  - name: Deploy app
+    include_role:
+      name: ub-ansible-deploy
 
   - name: Ensure bestall apache configuration
-    become: true
     ansible.builtin.template:
+    become: true
       src: 'bestall-apache.conf.j2'
       dest: "{{ [apache_sites_dir, 'default.conf'] | path_join }}"
 
@@ -43,7 +21,3 @@
     ansible.builtin.copy:
       content: "{{ apache_htpasswd }}"
       dest: "{{ [data_dir, '.htpasswd'] | path_join }}"
-
-  - name: Deploy app
-    include_role:
-      name: ub-ansible-deploy
