@@ -41,8 +41,6 @@ export default DS.Model.extend({
       return dictionary.t('components.item-table.not_for_home_loan');
     } else if (this.get('statusLimitation') === 'READING_ROOM_ONLY') {
       return dictionary.t('components.item-table.reading_room_only');
-    } else if (this.get('statusLimitation') === 'LOAN_IN_HOUSE_ONLY') {
-      return dictionary.t('components.item-table.loan_in_house_only');
     } else {
       return '';
     }

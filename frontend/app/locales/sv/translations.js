@@ -26,7 +26,6 @@ export default {
       "available": "Tillgänglig",
       "not_for_home_loan": "Ej hemlån",
       "reading_room_only": "Läsesalslån, ej hemlån",
-      "loan_in_house_only": "Endast utlån på plats",
       "loaned": "Utlånad till",
       "reserved": "Reserverad",
       "waiting": "Väntar på avhämtning",
