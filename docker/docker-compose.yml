@@ -1,8 +1,8 @@
 version: "3.7"
+name: bestall
 services:
   frontend:
-    env_file:
-      - secrets.env
+    restart: always
     environment:
       - EMBER_ENVIRONMENT=${ENVIRONMENT}
       - GUB_OAUTH2_CLIENT_ID=${GUB_OAUTH2_CLIENT_ID}
@@ -15,7 +15,6 @@ services:
     stdin_open: true
     # Enable sending signals (CTRL+C, CTRL+P + CTRL+Q) into the container
     tty: true
-    restart: always
   backend:
     restart: always
     env_file:
@@ -28,14 +27,11 @@ services:
       - RAILS_DB_HOST=${DB_HOST}
       - RAILS_DB_USER=${DB_USER}
       - RAILS_DB_PASSWORD=${DB_PASSWORD}
-      - SECRET_KEY_BASE=${SECRET_KEY_BASE}
-      - BESTALL_CAS_URL=${CAS_URL}
       - BESTALL_REGISTRATION_URL=${REGISTRATION_URL}
       - BESTALL_MYLOANS_URL=${MYLOANS_URL}
       - BESTALL_KOHA_USER=${KOHA_USER}
       - BESTALL_KOHA_SVC_URL=${KOHA_SVC_URL}
       - BESTALL_KOHA_SVC_AUTH_URL=${KOHA_SVC_AUTH_URL}
-      - BESTALL_CACHE_API_KEY=${CACHE_API_KEY}
       - SHOW_PICKUP_CODE=${SHOW_PICKUP_CODE}
       - GUB_OAUTH2_PROVIDER=${GUB_OAUTH2_PROVIDER}
       - GUB_OAUTH2_CLIENT_ID=${GUB_OAUTH2_CLIENT_ID}
@@ -55,7 +51,6 @@ services:
     command: ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"]
     volumes:
       - ./postgres-initdb.d:/docker-entrypoint-initdb.d
-      - ./postgres-data:/var/lib/postgresql/data
     networks:
       - backend
 networks:
