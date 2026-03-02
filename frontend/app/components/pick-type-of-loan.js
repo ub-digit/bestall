@@ -12,7 +12,7 @@ export default Ember.Component.extend({
 
     loanTypes.map((type) => {
       type.set('disabled', false);
-      if (type.id == 1) { // Home loan / pickup
+      if ([1,5].includes(type.id)) { // Home loan / pickup
         if (itemType == '8' || itemType == '17' || notForLoan == '-3') {
           type.set('disabled', true);
         }
