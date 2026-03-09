@@ -1,5 +1,5 @@
 class Subscription
-  attr_accessor :id, :biblio_id, :sublocation_id, :call_number, :public_note, :location_id
+  attr_accessor :id, :biblio_id, :sublocation_id, :can_be_ordered, :call_number, :public_note, :location_id
 
   include ActiveModel::Serialization
   include ActiveModel::Validations
@@ -15,6 +15,7 @@ class Subscription
     sublocation = Sublocation.find_by_id(sublocation_id)
     @sublocation_name_sv = sublocation.name_sv
     @sublocation_name_en = sublocation.name_en
+    @can_be_ordered = can_be_ordered(sublocation)
     location = Location.find_by_id(sublocation.location_id)
     @location_name_sv = location.name_sv
     @location_name_en = location.name_en
@@ -43,6 +44,10 @@ class Subscription
       end
     end
     return subscriptions
+  end
+
+  def can_be_ordered(sublocation)
+    return sublocation.is_paging_loc == "1"
   end
 
   def self.process_xml xml
