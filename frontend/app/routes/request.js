@@ -4,18 +4,13 @@ export default Ember.Route.extend({
   session: Ember.inject.service(),
 
   beforeModel(transition) {
+    console.log("Transitioning to request route with params:", transition.params.request);
     let biblioId = transition.params.request.id;
 
     if (biblioId === "error") {
       return new Ember.RSVP.Promise((resolve, reject) => {
         reject({errors: {errors: [{"code": 'NO_ID', "detail": "loreum"}]}});
       });
-    }
-    if (!this.get('session.isAuthenticated')) {
-      this.replaceWith('request.login');
-    }
-    else {
-      this.replaceWith('request.order.items');
     }
   },
 
@@ -24,6 +19,20 @@ export default Ember.Route.extend({
       id: Ember.RSVP.resolve(params.id),
       biblio: this.store.find('biblio', params.id)
     });
+  },
+
+  afterModel(model) {
+    if (Ember.get(model, 'biblio.redirectUrl')) {
+      // Redirect to the URL specified
+      window.location.href = Ember.get(model, 'biblio.redirectUrl');
+    } else {
+      if (!this.get('session.isAuthenticated')) {
+        this.replaceWith('request.login');
+      }
+      else {
+        this.replaceWith('request.order.items');
+      }
+    }
   },
 
   setupController(controller, model) {

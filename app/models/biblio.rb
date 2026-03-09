@@ -52,8 +52,26 @@ class Biblio
     return type_obj[:queue_level]
   end
 
+  def redirect_url
+    # If there are items, return nil (do not redirect)
+    return nil if @items.any?
+
+    # If there are no items but there are subscription groups, return nil (do not redirect)
+    return nil if !@subscriptiongroups.empty?
+
+    # If there are no items and no subscription groups, return the redirect URL (if any)
+    return @redirect_url
+  end
+
   def as_json options = {}
-    super.merge(can_be_queued: can_be_queued, has_item_level_queue: has_item_level_queue, has_available_kursbok: has_available_kursbok, default_queue_location: default_queue_location)
+    bib_json = {
+      can_be_queued: can_be_queued,
+      has_item_level_queue: has_item_level_queue,
+      has_available_kursbok: has_available_kursbok,
+      default_queue_location: default_queue_location,
+      redirect_url: redirect_url()
+    }
+    super.merge(bib_json)
   end
 
   def initialize id, bib_xml, items_data, reserves_data, subscriptions
@@ -209,6 +227,11 @@ class Biblio
 
       @edition = bib_xml.search('//record/datafield[@tag="250"]/subfield[@code="a"]').text if bib_xml.search('//record/datafield[@tag="250"]/subfield[@code="a"]').text.present?
       @isbn = bib_xml.search('//record/datafield[@tag="020"]/subfield[@code="a"]').map(&:text).join("; ") if bib_xml.search('//record/datafield[@tag="020"]/subfield[@code="a"]').text.present?
+    end
+    
+    link_urls = bib_xml.search('//record/datafield[@tag="856"]/subfield[@code="u"]').map(&:text)
+    if link_urls.any? {|url| url.include?("urn:nbn:se:gu:ub:kat57-") }
+      @redirect_url = link_urls.find {|url| url.include?("urn:nbn:se:gu:ub:kat57-") }
     end
 
     @items = []

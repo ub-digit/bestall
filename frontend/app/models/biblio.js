@@ -14,5 +14,6 @@ export default DS.Model.extend({
   hasEnum: DS.attr('boolean'),
   biblioCallNumber: DS.attr('string'),
   hasAvailableKursbok: DS.attr('boolean'),
-  defaultQueueLocation: DS.attr('string')
+  defaultQueueLocation: DS.attr('string'),
+  redirectUrl: DS.attr('string'),
 });
