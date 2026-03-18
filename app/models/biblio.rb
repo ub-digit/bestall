@@ -54,7 +54,7 @@ class Biblio
 
   def redirect_url
     # If there are items, return nil (do not redirect)
-    return nil if @items.any?
+    return nil if @complete_item_count > 0
 
     # If there are no items but there are subscription groups, return nil (do not redirect)
     return nil if !@subscriptiongroups.empty?
@@ -239,7 +239,9 @@ class Biblio
     borrowers = [];
 
     reserves = JSON.parse(reserves_data)["reserves"]
-    JSON.parse(items_data)["items"].each do |item_data|
+    item_list = JSON.parse(items_data)["items"]
+    @complete_item_count = item_list.length
+    item_list.each do |item_data|
       item = Item.new(biblio_id: self.id, rawdata: item_data, has_item_level_queue: self.has_item_level_queue)
       next if item.item_type.blank?
       next if item.sublocation_id.blank?
