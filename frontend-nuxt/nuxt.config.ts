@@ -87,5 +87,10 @@ export default defineNuxtConfig({
   },
   auth: {
     globalAppMiddleware: false,
+    originEnvKey: "AUTH_ORIGIN",
+    provider: {
+      type: "authjs",
+    },
+    baseURL: process.env.NUXT_AUTH_BASE_URL || "",
   },
 });
