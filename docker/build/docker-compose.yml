@@ -1,5 +1,12 @@
-version: '3.7'
+version: "3.7"
 services:
+  frontend-nuxt:
+    image: docker.ub.gu.se/bestall-frontend-nuxt:${GIT_REVISION}
+    build:
+      context: ./frontend-nuxt
+      args:
+        - GIT_REPO_URL=${GIT_REPO_URL}
+        - GIT_REVISION=${GIT_REVISION}
   frontend:
     image: docker.ub.gu.se/bestall-frontend:${GIT_REVISION}
     build:

@@ -1,0 +1,122 @@
+/* Hero layout */
+.hero {
+  --hero-bg: var(--brand-base);
+  --hero-fg: var(--light-light);
+  --hero-border-color: var(--brand-light);
+  --hero-border-radius: 4px;
+  --hero-box-shadow: 0px 2px 4px oklch(from var(--dark-dark) l c h / 0.1);
+  --hero-focus-outline-color: var(--light-light);
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(4, auto);
+  grid-template-areas:
+    "header"
+    "main"
+    "aside"
+    "footer";
+  gap: 1.5rem;
+  @media (min-width: 48rem) {
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: repeat(2, auto);
+    grid-template-areas:
+      "header header"
+      "main aside"
+      "footer footer";
+  }
+  header {
+    grid-area: header;
+  }
+  main {
+    grid-area: main;
+  }
+  aside {
+    grid-area: aside;
+    @media (min-width: 48rem) {
+      padding: 0 1rem;
+    }
+  }
+  footer {
+    grid-area: footer;
+  }
+}
+
+/* Hero component styles */
+.hero {
+  border-radius: var(--hero-border-radius);
+  border: 1px solid var(--hero-border-color);
+  box-shadow: var(--hero-box-shadow);
+  padding: 2rem;
+  min-height: 20rem;
+  background: var(--hero-bg);
+  color: var(--hero-fg);
+  header {
+    .hero-header {
+      margin: 0;
+      padding: 0;
+      @media (min-width: 48rem) {
+      }
+    }
+  }
+  footer {
+    button {
+      /* border: 1px solid var(--brand-color-text);*/
+      color: var(--hero-fg);
+      &:focus-visible {
+        outline: 2px solid var(--hero-focus-outline-color);
+        outline-offset: 2px;
+      }
+    }
+  }
+  main {
+    > p {
+      margin-top: 0;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  aside {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .hero-sidebar-heading {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin: 0 0 0.5rem 0;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      li {
+        margin-bottom: 0.5rem;
+        &:last-child {
+          margin-bottom: 0;
+        }
+        a {
+          white-space: nowrap;
+          color: var(--hero-fg);
+          &::after {
+            content: " »";
+            margin-left: 0.25rem;
+            text-decoration: none;
+            display: inline-block;
+          }
+          &:visited {
+            color: var(--brand-on-background);
+          }
+          &:active {
+            color: var(--brand-on-background);
+          }
+
+          &:focus-visible {
+            outline: 2px solid var(--hero-focus-outline-color);
+            outline-offset: 2px;
+          }
+        }
+      }
+    }
+  }
+}

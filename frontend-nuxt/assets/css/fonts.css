@@ -1,0 +1,170 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap");
+
+:root {
+  --link-color: var(--brand-base);
+  --link-hover: var(--brand-light);
+  --link-outline: var(--dark-base);
+  --base-font-family: "open sans", Arial, sans-serif;
+}
+/* ##### FONT STYLES ##### */
+body {
+  font-family: var(--base-font-family);
+  font-weight: 400;
+}
+
+/* Font utility classes */
+.open-sans-regular {
+  font-family: "Open Sans", Arial, sans-serif;
+}
+.open-sans-italic {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-style: italic;
+}
+.open-sans-bold {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-weight: 700;
+}
+
+.tex-gyre-heros-bold {
+  font-family: "tex_gyre_herosbold", "Arial Narrow", sans-serif;
+}
+
+.tex-gyre-heros-cn-regular {
+  font-family: "tex_gyre_heros_cnregular", "Arial Narrow", sans-serif;
+}
+
+.tex-gyre-heros-cn-bold {
+  font-family: "tex_gyre_heros_cnbold", "Arial Narrow", sans-serif;
+}
+
+.tex-gyre-heros-cn-italic {
+  font-family: "tex_gyre_heros_cnitalic", "Arial Narrow", sans-serif;
+}
+
+.tex-gyre-heros-cn-bold-italic {
+  font-family: "tex_gyre_heros_cnbold_italic", "Arial Narrow", sans-serif;
+}
+
+.tex-gyre-heros-regular {
+  font-family: "tex_gyre_herosregular", "Arial Narrow", sans-serif;
+}
+
+.tex-gyre-heros-italic {
+  font-family: "tex_gyre_herositalic", "Arial Narrow", sans-serif;
+}
+
+.tex-gyre-heros-bold-italic {
+  font-family: "tex_gyre_herosbold_italic", "Arial Narrow", sans-serif;
+}
+
+/* ### Headings #### */
+h1,
+.h1 {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 0;
+}
+h2,
+.h2 {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 1.625rem;
+  font-weight: 700;
+  margin-top: 0;
+}
+
+h3,
+.h3 {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 1.375rem;
+  font-weight: 700;
+  margin-top: 0;
+}
+h4,
+.h4 {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-top: 0;
+}
+h5,
+.h5 {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-top: 0;
+}
+h6,
+.h6 {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-top: 0;
+}
+
+@media (min-width: 48rem) {
+  h1,
+  .h1 {
+    font-size: 2.5rem;
+  }
+  h2,
+  .h2 {
+    font-size: 2rem;
+  }
+  h3,
+  .h3 {
+    font-size: 1.5rem;
+  }
+  h4,
+  .h4 {
+    font-size: 1.125rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  h1,
+  .h1 {
+    font-size: 3rem;
+  }
+  h2,
+  .h2 {
+    font-size: 2.25rem;
+  }
+  h3,
+  .h3 {
+    font-size: 1.75rem;
+  }
+  h4,
+  .h4 {
+    font-size: 1.125rem;
+  }
+}
+
+/* ### LINKS ### */
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+
+  &:visited {
+    color: var(--link-color);
+  }
+  &:active {
+    color: var(--link-color);
+  }
+  &:hover {
+    text-decoration: underline;
+    color: var(--link-hover) !important;
+  }
+  &:focus-visible {
+    outline: 2px solid var(--link-outline);
+    outline-offset: 2px;
+  }
+  &.arrow-after::after {
+    content: "→";
+    margin-left: 0.25rem;
+    display: inline-block; /* fixes underline bleed */
+    text-decoration: none; /* removes underline */
+    color: var(--link-color);
+  }
+}

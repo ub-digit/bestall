@@ -1,0 +1,95 @@
+/* Generic color utility classes using the above variables */
+.dark-base {
+  background-color: var(--dark-base);
+}
+.dark-dark {
+  background-color: var(--dark-dark);
+}
+.dark-light {
+  background-color: var(--dark-light);
+}
+
+.light-base {
+  background-color: var(--light-base);
+}
+.light-dark {
+  background-color: var(--light-dark);
+}
+.light-light {
+  background-color: var(--light-light);
+}
+
+/* Brand color utility classes */
+.brand-base {
+  background-color: var(--brand-base);
+}
+.brand-light {
+  background-color: var(--brand-light);
+}
+.brand-dark {
+  background-color: var(--brand-dark);
+}
+
+.success-base {
+  background-color: var(--success-base);
+}
+.success-light {
+  background-color: var(--success-light);
+}
+.success-dark {
+  background-color: var(--success-dark);
+}
+
+/* Warning color utility classes */
+.warning-base {
+  background-color: var(--warning-base);
+}
+.warning-dark {
+  background-color: var(--warning-dark);
+}
+.warning-light {
+  background-color: var(--warning-light);
+}
+
+/* Danger color utility classes */
+.danger-base {
+  background-color: var(--danger-base);
+}
+.danger-base-text {
+  color: var(--danger-base);
+}
+.danger-dark {
+  background-color: var(--danger-dark);
+}
+.danger-light {
+  background-color: var(--danger-light);
+}
+
+/* Info color utility classes */
+.info-base {
+  background-color: var(--info-base);
+}
+.info-light {
+  background-color: var(--info-light);
+}
+.info-dark {
+  background-color: var(--info-dark);
+}
+
+.link-reset {
+  all: unset !important;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.muted {
+  opacity: 0.6;
+}
+
+.list-unstyled {
+  list-style: none;
+  padding-left: 0;
+}

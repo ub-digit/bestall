@@ -1,0 +1,205 @@
+{
+  "site": {
+    "title": "Beställ - Göteborgs universitetsbibliotek",
+    "description": "Beställ och köa på material från Göteborgs universitetsbibliotek.",
+    "closed": {
+      "title": "Beställningstjänsten är tillfälligt stängd",
+      "description": "Vi beklagar besväret, men vår beställningstjänst är för närvarande otillgänglig. Vi arbetar på att lösa problemet så snabbt som möjligt. Vänligen försök igen senare eller <a href='https://www.ub.gu.se/kontakt'>Kontakta biblioteket</a> för att få hjälp."
+    }
+  },
+  "app": {
+    "skipToMainContent": "Hoppa till huvudinnehåll"
+  },
+  "header": {
+    "logo": {
+      "src": "/img/logo/sv/5114_LO_GU_CMYK_flag_sv.png",
+      "alt": "Göteborgs universitets logotyp",
+      "url": "https://www.gu.se/"
+    },
+
+    "mainTitle": {
+      "title": "Göteborgs universitetsbibliotek",
+      "label": "Universitetsbiblioteket vid Göteborgs universitet",
+      "url": "https://www.ub.gu.se/"
+    },
+    "subTitle": "Beställ och köa på material"
+  },
+
+  "footer": {
+    "logo": {
+      "src": "/img/logo/en/5068_LO_GU_cen2rNEG.png",
+      "alt": "Göteborgs universitets logotyp",
+      "url": "https://www.gu.se/"
+    },
+    "contact": {
+      "header": "Kontakt",
+      "address": "Göteborgs universitetsbibliotek <br/> Box 100 <br/> 405 30 Göteborg",
+      "visitingAddress": "Västra Hamngatan 16, Göteborg",
+      "phone": "031-786 00 00",
+      "email": "{'info@ub.gu.se'}",
+      "orgNr": "Org.nr: 202100-3073"
+    },
+    "links": {
+      "header": "Länkar",
+      "items": [
+        {
+          "label": "Hemsida",
+          "url": "https://www.ub.gu.se/"
+        },
+        {
+          "label": "Kontakta oss",
+          "url": "https://www.ub.gu.se/kontakt"
+        },
+        {
+          "label": "Tillgänglighet",
+          "url": "https://www.ub.gu.se/tillganglighet"
+        }
+      ]
+    }
+  },
+
+  "authStatus": {
+    "signedInAs": "{name}",
+    "signOut": "Logga ut"
+  },
+
+  "localeSwitcher": {
+    "label": "In {currentLocale}"
+  },
+
+  "login": {
+    "or": "eller",
+    "guAuth": {
+      "logo": {
+        "src": "/img/logo/sv/5065_GU_logo_on_left_text_right_eng_RGB.png",
+        "alt": "Göteborgs universitets logotyp"
+      },
+      "title": "Logga in med ditt GU-konto",
+      "description": "För studenter och anställda vid GU med ett gus-konto eller x-konto.",
+      "button": "Logga in med GU-konto"
+    },
+    "githubAuth": {
+      "title": "Logga in med GitHub",
+      "description": "För att beställa material behöver du logga in med ditt GitHub-konto.",
+      "button": "Logga in med GitHub"
+    },
+    "kohaAuth": {
+      "title": "Logga in med bibliotekskonto",
+      "description": "För användare som inte har något GU-konto.",
+      "labelCardnumber": "Bibliotekskortnummer",
+      "labelPin": "Pin-kod (4 siffror)",
+      "button": "Logga in med bibliotekskonto",
+      "invalidCredentials": "Ogiltiga inloggningsuppgifter. Försök igen.",
+
+      "links": {
+        "forgotPin": {
+          "label": "Glömt pin-kod?",
+          "url": "https://www.ub.gu.se/"
+        },
+        "register": {
+          "label": "Skaffa bibliotekskonto",
+          "url": "https://www.gu.se/"
+        }
+      }
+    }
+  },
+
+  "orderDenied": {
+    "title": "Det går inte att beställa",
+    "description": "Något gick fel. <a href='https://www.ub.gu.se/kontakt'>Kontakta biblioteket</a> för att få hjälp.",
+    "descriptionWithMissingId": "Sök efter något att beställa på <a href='https://www.ub.gu.se/'>bibliotekets webbplats</a>.",
+    "errorCode": "Felkod: {code}",
+    "errorDetail": "Detaljer: {detail}",
+    "errors": {
+      "ITEM_NOT_FOUND": "Det gick inte att hitta det material du försöker beställa.",
+      "FORBIDDEN": "Detta material får inte lånas ut.",
+      "CAN_NOT_BE_BORROWED": "Detta material kan inte lånas ut."
+    }
+  },
+
+  "table": {
+    "header": {
+      "copy": "Exemplar",
+      "location": "Placering",
+      "status": "Status",
+      "action": "",
+      "holdings": "Bestånd"
+    }
+  },
+
+  "orderForm": {
+    "labels": {
+      "location": "Var vill du hämta?",
+      "loanType": "Hur vill du låna?",
+      "reserveNotes": "Eventuell övrig information om beställningen",
+      "subscriptionNotes": "Detaljer om beställningen (obligatoriskt)",
+      "publicNote": "Du kan beställa exemplar ur följande bestånd:"
+    },
+    "placeholders": {
+      "selectLocation": "Välj en plats",
+      "selectLoanType": "Välj en lånetyp",
+      "reserveNotes": "Till exempel: volym, nummer, tryckår",
+      "subscriptionNotes": "Ange volym, år, nummer eller sidnummer för det exemplar du vill beställa."
+    },
+    "messages": {
+      "privacyWarning": "Informationen i detta fält skrivs ut. Skriv inte personuppgifter här. <a href='https://www.ub.gu.se/sv/kontakta-oss'>Kontakta biblioteket</a> om du har frågor som rör din beställning."
+    }
+  },
+
+  "message": {
+    "errorLoadingData": "Det gick inte att ladda all nödvändig data för att visa beställningsdetaljerna. Försök igen senare eller kontakta biblioteket.",
+    "needsToBeOrdered": "Behöver beställas",
+    "noAvailableItems": "Det finns inga tillgängliga exemplar just nu.",
+    "noNotAvailableItems": "Det finns inga utlånade exemplar just nu.",
+    "infoAboutAvailableItems": "Det finns tillgängliga exemplar som du kan <a href='#items-available'>beställa</a>",
+    "hasAvaillableCourseBook": "Det finns tillgängliga exemplar som du kan <a href='#items-available'>hämta själv från hyllan</a>",
+    "allItemsAreAvailable": "Alla exemplar är <a href='#items-available'>tillgängliga</a>",
+    "numberOfPeopleInQueueOnNotAvailable": "{numberOfPeople} i kö på utlånade exemplar",
+    "unsupportedViewType": "Denna typ av material ({viewType}) har inte stöd för att visa beställningsdetaljer. Kontakta biblioteket.",
+    "cannotPickUpHere": "kan ej beställas hit",
+    "libraryClosed": "stängt",
+    "cannotTemporaryPickUpHere": "kan ej beställas hit"
+  },
+  "status": {
+    "loaned": "Utlånad till {loanedTo}",
+    "notInPlace": "Ej på plats",
+    "reserved": "Reserverad",
+    "delayed": "Försenad",
+    "inTransit": "Under transport",
+    "duringAcquisition": "Under förvärv",
+    "available": "Tillgänglig",
+    "loanedDateUnknown": "okänt lånedatum",
+    "unknown": "Okänd status",
+    "statusLimitation": {
+      "NOT_FOR_HOME_LOAN": "Ej hemlån",
+      "READING_ROOM_ONLY": "Läsesalslån, ej hemlån"
+    }
+  },
+  "actions": {
+    "queue": "Köa",
+    "order": "Beställ",
+    "collect": "Hämta själv från hyllan",
+    "joinQueue": "Ställ dig i kö",
+    "submit": "Nästa →",
+    "back": "← Tillbaka"
+  },
+
+  "biblio": {
+    "title": "Din beställning",
+    "isbn": "ISBN: {isbn}",
+    "errorLoadingData": "Det gick inte att ladda all nödvändig data för att visa beställningsdetaljerna. Försök igen senare eller kontakta biblioteket."
+  },
+
+  "viewType": {
+    "book": {
+      "available": "Tillgängliga ({numberOfAvailable})",
+      "notAvailable": "Utlånade ({numberOfNotAvailable})"
+    },
+    "subscription": {
+      "holdings": "Bestånd ({numberOfAvailable})",
+      "copies": "Exemplar ({numberOfAvailable})"
+    }
+  },
+
+  "orderDetails": {}
+}
