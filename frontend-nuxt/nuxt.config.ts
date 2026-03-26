@@ -3,7 +3,7 @@
 export default defineNuxtConfig({
   runtimeConfig: {
     apiSecret: process.env.NUXT_API_SECRET || "NOT_A_SECRET",
-    authBase: process.env.NUXT_AUTH_BASE_URL || "https://auth.not-an-auth.com",
+    authOrigin: "",
     githubClientId:
       process.env.NUXT_GITHUB_CLIENT_ID || "not_your_github_client_id",
     xaccountMapToGithub:
@@ -91,6 +91,5 @@ export default defineNuxtConfig({
     provider: {
       type: "authjs",
     },
-    baseURL: process.env.NUXT_AUTH_BASE_URL || "",
   },
 });
