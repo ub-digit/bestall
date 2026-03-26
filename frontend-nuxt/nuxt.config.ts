@@ -67,7 +67,6 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.css"],
 
   ssr: true,
-  experimental: { appManifest: false },
 
   compatibilityDate: "2025-07-15",
   devtools: { enabled: false },
@@ -86,7 +85,10 @@ export default defineNuxtConfig({
     },
   },
   auth: {
-    globalAppMiddleware: false,
     originEnvKey: "AUTH_ORIGIN",
+    provider: {
+      type: "authjs",
+    },
+    globalAppMiddleware: false,
   },
 });
