@@ -1,0 +1,21 @@
+{
+  "name": "bestall-nuxt",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@nuxtjs/i18n": "10.2.1",
+    "@sidebase/nuxt-auth": "^1.2.0",
+    "next-auth": "~4.21.1",
+    "nuxt": "^3.21.1",
+    "vue": "^3.5.28",
+    "vue-router": "^4.6.4",
+    "xml2js": "^0.6.2"
+  }
+}

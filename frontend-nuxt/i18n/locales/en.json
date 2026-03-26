@@ -1,0 +1,192 @@
+{
+  "site": {
+    "title": "Order - Gothenburg University Library",
+    "description": "Order and queue for materials from Gothenburg University Library.",
+    "closed": {
+      "title": "The ordering service is temporarily closed",
+      "description": "We apologize for the inconvenience, but our ordering service is currently unavailable. We are working to resolve the issue as quickly as possible. Please try again later or <a href='https://www.ub.gu.se/kontakt'>Contact the library</a> for assistance."
+    }
+  },
+  "app": {
+    "skipToMainContent": "Skip to main content"
+  },
+  "header": {
+    "logo": {
+      "src": "/img/logo/sv/5114_LO_GU_CMYK_flag_sv.png",
+      "alt": "Gothenburg University logo",
+      "url": "https://www.gu.se/"
+    },
+    "mainTitle": {
+      "title": "Gothenburg University Library",
+      "label": "University Library at Gothenburg University",
+      "url": "https://www.ub.gu.se/"
+    },
+    "subTitle": "Order and queue for materials"
+  },
+  "footer": {
+    "logo": {
+      "src": "/img/logo/en/5068_LO_GU_cen2rNEG.png",
+      "alt": "Gothenburg University logo",
+      "url": "https://www.gu.se/"
+    },
+    "contact": {
+      "header": "Contact",
+      "address": "Gothenburg University Library <br/> Box 100 <br/> 405 30 Gothenburg",
+      "visitingAddress": "Västra Hamngatan 16, Gothenburg",
+      "phone": "031-786 00 00",
+      "email": "{'info@ub.gu.se'}",
+      "orgNr": "Org.nr: 202100-3073"
+    },
+    "links": {
+      "header": "Links",
+      "items": [
+        {
+          "label": "Website",
+          "url": "https://www.ub.gu.se/"
+        },
+        {
+          "label": "Contact us",
+          "url": "https://www.ub.gu.se/kontakt"
+        },
+        {
+          "label": "Accessibility",
+          "url": "https://www.ub.gu.se/tillganglighet"
+        }
+      ]
+    }
+  },
+  "authStatus": {
+    "signedInAs": "{name}",
+    "signOut": "Sign out"
+  },
+  "localeSwitcher": {
+    "label": "In {currentLocale}"
+  },
+  "login": {
+    "or": "or",
+    "guAuth": {
+      "logo": {
+        "src": "/img/logo/sv/5065_GU_logo_on_left_text_right_eng_RGB.png",
+        "alt": "Gothenburg University logo"
+      },
+      "title": "Sign in with your GU account",
+      "description": "For students and employees at GU with a gus account or x-account.",
+      "button": "Sign in with GU account"
+    },
+    "githubAuth": {
+      "title": "Sign in with GitHub",
+      "description": "To order materials, you need to sign in with your GitHub account.",
+      "button": "Sign in with GitHub"
+    },
+    "kohaAuth": {
+      "title": "Sign in with library account",
+      "description": "For users who do not have a GU account.",
+      "labelCardnumber": "Library card number",
+      "labelPin": "PIN code (4 digits)",
+      "button": "Sign in with library account",
+      "invalidCredentials": "Invalid credentials. Please try again.",
+      "links": {
+        "forgotPin": {
+          "label": "Forgot PIN code?",
+          "url": "https://www.ub.gu.se/"
+        },
+        "register": {
+          "label": "Get a library account",
+          "url": "https://www.gu.se/"
+        }
+      }
+    }
+  },
+  "orderDenied": {
+    "title": "Cannot place order",
+    "description": "Something went wrong. <a href='https://www.ub.gu.se/kontakt'>Contact the library</a> for assistance.",
+    "descriptionWithMissingId": "Search for something to order on the <a href='https://www.ub.gu.se/'>library's website</a>.",
+    "errorCode": "Error code: {code}",
+    "errorDetail": "Details: {detail}",
+    "errors": {
+      "ITEM_NOT_FOUND": "Could not find the material you are trying to order.",
+      "FORBIDDEN": "This material cannot be borrowed.",
+      "CAN_NOT_BE_BORROWED": "This material cannot be borrowed."
+    }
+  },
+  "table": {
+    "header": {
+      "copy": "Copy",
+      "location": "Location",
+      "status": "Status",
+      "action": "",
+      "holdings": "Holdings"
+    }
+  },
+  "orderForm": {
+    "labels": {
+      "location": "Where do you want to pick it up?",
+      "loanType": "How do you want to borrow?",
+      "reserveNotes": "Any additional information about the order",
+      "subscriptionNotes": "Order details (required)",
+      "publicNote": "You can order copies from the following holdings:"
+    },
+    "placeholders": {
+      "selectLocation": "Select a location",
+      "selectLoanType": "Select a loan type",
+      "reserveNotes": "For example: volume, issue, year of publication",
+      "subscriptionNotes": "Specify volume, year, issue or page number of the copy you want to order."
+    },
+    "messages": {
+      "privacyWarning": "Information in this field will be printed. Do not enter personal data here. <a href='https://www.ub.gu.se/sv/kontakta-oss'>Contact the library</a> if you have questions about your order."
+    }
+  },
+  "message": {
+    "errorLoadingData": "Could not load all necessary data to display order details. Try again later or contact the library.",
+    "needsToBeOrdered": "Needs to be ordered",
+    "noAvailableItems": "There are no available copies right now.",
+    "noNotAvailableItems": "There are no loaned copies right now.",
+    "infoAboutAvailableItems": "There are available copies that you can <a href='#items-available'>order</a>",
+    "hasAvaillableCourseBook": "There are available copies that you can <a href='#items-available'>pick up yourself from the shelf</a>",
+    "allItemsAreAvailable": "All copies are <a href='#items-available'>available</a>",
+    "numberOfPeopleInQueueOnNotAvailable": "{numberOfPeople} in queue for loaned copies",
+    "unsupportedViewType": "This type of material ({viewType}) does not support displaying order details. Contact the library.",
+    "cannotPickUpHere": "cannot be ordered here",
+    "libraryClosed": "closed",
+    "cannotTemporaryPickUpHere": "cannot be ordered here"
+  },
+  "status": {
+    "loaned": "Loaned to {loanedTo}",
+    "notInPlace": "Not in place",
+    "reserved": "Reserved",
+    "delayed": "Delayed",
+    "inTransit": "In transit",
+    "duringAcquisition": "During acquisition",
+    "available": "Available",
+    "loanedDateUnknown": "unknown loan date",
+    "unknown": "Unknown status",
+    "statusLimitation": {
+      "NOT_FOR_HOME_LOAN": "Not for home loan",
+      "READING_ROOM_ONLY": "Reading room loan only, not for home loan"
+    }
+  },
+  "actions": {
+    "queue": "Queue",
+    "order": "Order",
+    "collect": "Pick up yourself from the shelf",
+    "joinQueue": "Join the queue",
+    "submit": "Next →",
+    "back": "← Back"
+  },
+  "biblio": {
+    "title": "Your order",
+    "isbn": "ISBN: {isbn}",
+    "errorLoadingData": "Could not load all necessary data to display order details. Try again later or contact the library."
+  },
+  "viewType": {
+    "book": {
+      "available": "Available ({numberOfAvailable})",
+      "notAvailable": "Loaned ({numberOfNotAvailable})"
+    },
+    "subscription": {
+      "holdings": "Holdings ({numberOfAvailable})",
+      "copies": "Copies ({numberOfAvailable})"
+    }
+  },
+  "orderDetails": {}
+}

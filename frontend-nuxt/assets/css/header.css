@@ -1,0 +1,93 @@
+header {
+  --header-font-family:
+    "tex_gyre_heros_cnbold", "Arial Narrow", Arial, sans-serif;
+  --header-height: 7rem;
+  @media (min-width: 48rem) {
+    --header-height: 9rem;
+  }
+
+  height: var(--header-height);
+  border-bottom: 1px solid var(--dark-light);
+  .header-content-wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    .header-left {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+
+      .header-logo {
+        a:focus-visible img {
+          outline: 2px solid var(--dark-dark);
+          outline-offset: 2px;
+        }
+        a {
+          &:hover {
+            cursor: pointer !important;
+            img {
+              filter: brightness(0.9);
+            }
+          }
+        }
+
+        img {
+          height: 100%;
+        }
+        align-self: flex-start;
+        height: 5.375rem;
+        width: 5.25rem;
+        flex-shrink: 0;
+        @media (min-width: 48rem) {
+          height: 6.875rem;
+          width: 6.75rem;
+        }
+      }
+
+      .header-site-description {
+        margin: 0;
+        .header-title {
+          font-family: var(--header-font-family);
+          font-size: 1rem;
+          margin: 0 0 0.5rem 0;
+          text-transform: uppercase;
+          font-weight: 700;
+          a {
+            color: var(--dark-dark);
+            text-decoration: none;
+          }
+          a:hover {
+            color: var(--dark-base) !important;
+            text-decoration: underline;
+          }
+          @media (min-width: 48rem) {
+            font-size: 1.5rem;
+          }
+        }
+        .header-description {
+          font-size: 0.875rem;
+          color: var(--dark-base);
+          @media (min-width: 48rem) {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+    .header-right {
+      margin-top: var(--spacer-16);
+      .lang {
+        font-weight: 700;
+      }
+
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2rem;
+      @media (min-width: 48rem) {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+    }
+  }
+}

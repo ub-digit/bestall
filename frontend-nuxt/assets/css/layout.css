@@ -1,0 +1,100 @@
+section {
+  margin-bottom: var(--spacer-48);
+  h2 {
+    margin-top: 0;
+  }
+}
+
+/* #### Breakpoint demonstration styles #### */
+#breakpoint-section.breakpoint-section .breakpoint-info > ul li.active {
+  font-weight: bold;
+}
+
+#breakpoint-section.breakpoint-section .breakpoint-info > ul li.active:after {
+  content: " ← active breakpoint";
+}
+
+/* #### Color palette demonstration styles #### */
+#color-palette-section .color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-auto-rows: 150px;
+  gap: 1rem;
+}
+
+#color-palette-section .box {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: bold;
+  p {
+    background-color: rgb(255, 255, 255, 0.7);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+  }
+}
+
+/* #### Typography demonstration styles #### */
+
+#typography-section {
+  .font-samples {
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacer-16);
+    .font-family-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacer-8);
+      .font-sample {
+        border: 1px solid var(--dark-light);
+        border-radius: 4px;
+        padding: var(--spacer-8);
+      }
+    }
+  }
+  .link-samples {
+    ul {
+      list-style: none;
+      padding: 0;
+      li {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+}
+
+#logotype-section .logotype-samples {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 48rem) {
+  #logotype-section .logotype-samples {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+#logotype-section .logotype-samples .logotype-sample {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--secondary-lighter);
+}
+
+#logotype-section .logotype-samples .logotype-sample img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+#buttons-section .button-samples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}

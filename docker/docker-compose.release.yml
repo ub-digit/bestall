@@ -1,5 +1,7 @@
-version: '3.7'
+version: "3.7"
 services:
+  frontend-nuxt:
+    - image: docker.ub.gu.se/bestall-frontend-nuxt:${GIT_REVISION}
   frontend:
     environment:
       - BACKEND_SERVICE_HOSTNAME=${BACKEND_HOSTNAME}

@@ -1,0 +1,73 @@
+:root {
+  @supports ((color: oklch(0% 0 0))) {
+    --hue: 0; /* 0=red, 120=green, 240=blue */
+    --chroma: 0;
+    --dark-base: oklch(50% var(--chroma) var(--hue));
+    --dark-dark: oklch(from var(--dark-base) 24% c h);
+    --dark-light: oklch(from var(--dark-base) 80% c h);
+
+    --light-base: oklch(90% var(--chroma) var(--hue));
+    --light-dark: oklch(from var(--light-base) 80% c h);
+    --light-light: oklch(from var(--light-base) 98% c h);
+
+    @media (prefers-color-scheme: dark) {
+      --dark-base: oklch(90% var(--chroma) var(--hue));
+      --dark-dark: oklch(from var(--dark-base) 80% c h);
+      --dark-light: oklch(from var(--dark-base) 98% c h);
+
+      --light-base: oklch(50% var(--chroma) var(--hue));
+      --light-dark: oklch(from var(--light-base) 5% c h);
+      --light-light: oklch(from var(--light-base) 80% c h);
+    }
+
+    --hue-brand: 251.36; /* 0=red, 120=green, 240=blue */
+    --chroma-brand: 0.14;
+    --brand-base: oklch(47% var(--chroma-brand) var(--hue-brand));
+    --brand-dark: oklch(from var(--brand-base) 25% c h);
+    --brand-light: oklch(from var(--brand-base) 85% c h);
+
+    --hue-success: 139.37;
+    --chroma-success: 0.19;
+    --success-base: oklch(60% var(--chroma-success) var(--hue-success));
+    --success-dark: oklch(from var(--success-base) 40% c h);
+    --success-light: oklch(from var(--success-base) 80% c h);
+
+    --hue-warning: 99.5;
+    --chroma-warning: 0.16;
+    --warning-base: oklch(90% var(--chroma-warning) var(--hue-warning));
+    --warning-dark: oklch(from var(--warning-base) 80% c h);
+    --warning-light: oklch(from var(--warning-base) 99% c h);
+
+    --hue-danger: 27.22;
+    --chroma-danger: 0.23;
+    --danger-base: oklch(62% var(--chroma-danger) var(--hue-danger));
+    --danger-dark: oklch(from var(--danger-base) 50% c h);
+    --danger-light: oklch(from var(--danger-base) 80% c h);
+
+    --hue-info: 227.83;
+    --chroma-info: 0.11;
+    --info-base: oklch(68% var(--chroma-info) var(--hue-info));
+    --info-dark: oklch(from var(--info-base) 60% c h);
+    --info-light: oklch(from var(--info-base) 80% c h);
+  }
+
+  /* ##### spacers ##### */
+  --spacer-4: 0.25rem;
+  --spacer-8: 0.5rem;
+  --spacer-12: 0.75rem;
+  --spacer-16: 1rem;
+  --spacer-20: 1.25rem;
+  --spacer-24: 1.5rem;
+  --spacer-32: 2rem;
+  --spacer-40: 2.5rem;
+  --spacer-48: 3rem;
+  --spacer-56: 3.5rem;
+  --spacer-64: 4rem;
+
+  --reading-width: 65ch;
+
+  /* ##### breakpoints ##### */
+  /* default is mobile-first */
+  --breakpoint-medium: 48rem;
+  --breakpoint-large: 64rem;
+}

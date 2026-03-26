@@ -1,0 +1,33 @@
+@import url("modern-normalize.css");
+@import url("https://assets.ub.gu.se/fonts/tex_gyre_heros/fonts.css");
+@import url("vars.css");
+@import url("fonts.css");
+@import url("utility.css");
+@import url("buttons.css");
+@import url("forms.css");
+
+:root {
+  --max-width-of-content: 75rem;
+  --footer-height: 10rem;
+  --header-height: 9rem;
+}
+
+html {
+  overflow-y: scroll; /* always show scrollbar to avoid layout shift */
+}
+
+body {
+  color: var(--dark-dark);
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    @media (min-width: 48rem) {
+    }
+    max-width: var(--max-width-of-content); /* max width of content */
+    margin: 0 auto;
+  }
+}
+
+.fix-viewport-height {
+  min-height: calc(80vh); /*TODO: NEEDS FIX and research how to achieve this */
+}
