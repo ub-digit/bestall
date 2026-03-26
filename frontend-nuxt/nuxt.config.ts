@@ -86,6 +86,7 @@ export default defineNuxtConfig({
     },
   },
   auth: {
+    baseURL: runtimeConfig.authBase,
     globalAppMiddleware: false,
   },
 });
