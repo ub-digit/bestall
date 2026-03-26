@@ -1,3 +1,4 @@
 secrets.env
 postgres-initdb.d/*
 !postgres-initdb.d/.gitkeep
+postgres-data/
