@@ -30,7 +30,7 @@ useHead({
 
 #content {
   padding-top: var(--spacer-32);
-  padding-bottom: var(--spacer-32);
+  padding-bottom: var(--spacer-64);
 }
 
 a.skip-link {
