@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     apiSecret: "NOT_A_SECRET",
     authOrigin: "",
+    baseUrl: "",
     xaccountMapToGithub: "not_your_xaccount",
     githubClientSecret: "not_your_github_client_secret",
     guClientSecret: "not_your_gu_client_secret",
@@ -72,5 +73,6 @@ export default defineNuxtConfig({
       type: "authjs",
     },
     globalAppMiddleware: false,
+    baseURL: "",
   },
 });
