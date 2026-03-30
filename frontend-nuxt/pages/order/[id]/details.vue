@@ -95,8 +95,6 @@
         </button>
       </div>
     </form>
-
-    <pre>{{ order }}</pre>
   </div>
 </template>
 
