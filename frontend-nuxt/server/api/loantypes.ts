@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
   const userParsed = user ? JSON.parse(user) : null; // Parse the user data from the query parameter, if it exists
   const runtimeConfig = useRuntimeConfig();
 
-  const data: any = await $fetch(`${runtimeConfig.public.apiBase}/loan_types`);
+  const data: any = await $fetch(`${runtimeConfig.apiBase}/loan_types`);
 
   const isLoantypeDisabled = (loanType: LoanType) => {
     const disableLoantypeHomeAndPickupForNotForLoan = runtimeConfig.public

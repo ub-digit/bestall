@@ -99,7 +99,7 @@ export default defineEventHandler(async (event) => {
   try {
     if (id) {
       const data: any = await $fetch(
-        `${runtimeConfig.public.apiBase}/biblios/${id}?items_on_subscriptions=true`,
+        `${runtimeConfig.apiBase}/biblios/${id}?items_on_subscriptions=true`,
       );
       return transformBiblio(data?.biblio);
     }
