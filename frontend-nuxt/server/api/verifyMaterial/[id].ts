@@ -4,7 +4,7 @@ import { FetchError } from "ofetch";
 export default defineEventHandler(async (event) => {
   const runtimeConfig = useRuntimeConfig();
   const { id } = event.context.params as { id: string };
-  console.log(`baseurl`, runtimeConfig.public.apiBase);
+  console.log(`baseurl`, runtimeConfig.apiBase);
   const errorCodes = [
     { code: "NOT_FOUND", httpcode: 404 },
     { code: "FORBIDDEN", httpcode: 403 },
@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
   ];
   try {
     const response = await $fetch(
-      `${runtimeConfig.public.apiBase}/biblios/${id}?items_on_subscriptions=true`,
+      `${runtimeConfig.apiBase}/biblios/${id}?items_on_subscriptions=true`,
     );
     if (response) {
       return "success";

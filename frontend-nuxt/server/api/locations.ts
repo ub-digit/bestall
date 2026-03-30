@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
   console.log(`Fetching locations with locale param: ${locale}`);
 
   const runtimeConfig = useRuntimeConfig();
-  const data: any = await $fetch(`${runtimeConfig.public.apiBase}/locations`);
+  const data: any = await $fetch(`${runtimeConfig.apiBase}/locations`);
 
   // Extend the original locations with localized names based on the locale query parameter
   const extendedLocations = data.locations.map((location: Location) => ({
