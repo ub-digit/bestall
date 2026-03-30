@@ -2,52 +2,34 @@
 
 export default defineNuxtConfig({
   runtimeConfig: {
-    apiSecret: process.env.NUXT_API_SECRET || "NOT_A_SECRET",
+    apiSecret: "NOT_A_SECRET",
     authOrigin: "",
-    githubClientId:
-      process.env.NUXT_GITHUB_CLIENT_ID || "not_your_github_client_id",
-    xaccountMapToGithub:
-      process.env.NUXT_XACCOUNT_MAP_TO_GITHUB || "not_your_xaccount",
-    githubClientSecret:
-      process.env.NUXT_GITHUB_CLIENT_SECRET || "not_your_github_client_secret",
-    guClientId: process.env.NUXT_GU_CLIENT_ID || "not_your_gu_client_id",
-    guClientSecret:
-      process.env.NUXT_GU_CLIENT_SECRET || "not_your_gu_client_secret",
-
-    kohaUser: process.env.NUXT_KOHA_USER || "not_a_user",
-    kohaPwd: process.env.NUXT_KOHA_PWD || "not_a_pwd",
+    githubClientId: "not_your_github_client_id",
+    xaccountMapToGithub: "not_your_xaccount",
+    githubClientSecret: "not_your_github_client_secret",
+    guClientId: "not_your_gu_client_id",
+    guClientSecret: "not_your_gu_client_secret",
+    kohaUser: "not_a_user",
+    kohaPwd: "not_a_pwd",
+    kohaAuthUrl: "https://koha-auth.not-an-auth.com/auth",
+    apiBase: "https://api.not-an-api.com",
 
     public: {
-      debugInfo: process.env.NUXT_PUBLIC_DEBUG_INFO === "true" || false,
+      debugInfo: false,
       reserveNoteMaxLength: parseInt(
-        process.env.NUXT_PUBLIC_RESERVE_NOTE_MAX_LENGTH || "140",
+        "140",
         10,
-      ),
-      disableLoantypeHomeAndPickupForItemTypes:
-        process.env
-          .NUXT_PUBLIC_DISABLE_LOANTYPE_HOME_AND_PICKUP_FOR_ITEMTYPES || "",
-      disableLoantypeHomeAndPickupForNotForLoan:
-        process.env
-          .NUXT_PUBLIC_DISABLE_LOANTYPE_HOME_AND_PICKUP_FOR_NOTFORLOAN || "",
-      includeLoantypeSDForUserCategories:
-        process.env.NUXT_PUBLIC_INCLUDE_LOANTYPE_SD_FOR_USER_CATEGORIES || "",
-      enabledAuth: process.env.NUXT_PUBLIC_ENABLED_AUTH || "github",
-      kohaAuthUrl:
-        process.env.NUXT_PUBLIC_KOHA_AUTH_URL ||
-        "https://koha-auth.not-an-auth.com/auth",
-      apiBase: process.env.NUXT_PUBLIC_API_BASE || "https://api.not-an-api.com",
-      hideGUAuthParamName:
-        process.env.NUXT_PUBLIC_HIDE_GU_AUTH_PARAM_NAME || "hideGUAuthParam",
-      hideGUAuthParamValue:
-        process.env.NUXT_PUBLIC_HIDE_GU_AUTH_PARAM_VALUE || "hideGUAuthValue",
-      localeParamName: process.env.NUXT_PUBLIC_LOCALE_PARAM_NAME || "language",
-      myLoansUrl:
-        process.env.NUXT_PUBLIC_MYLOANS_URL ||
-        "https://not-myloans.example.com",
-      applicationIsClosed:
-        process.env.NUXT_PUBLIC_APPLICATION_IS_CLOSED === "true" ||
-        false /* default to false if not set, since it's a new feature and we don't want to accidentally break things for users who haven't set it up yet. */,
-      dateFormat: process.env.NUXT_PUBLIC_DATE_FORMAT || "sv-SE",
+      ) /* default to 140 if not set or set to an invalid value */,
+      disableLoantypeHomeAndPickupForItemTypes: "",
+      disableLoantypeHomeAndPickupForNotForLoan: "",
+      includeLoantypeSDForUserCategories: "",
+      enabledAuth: "github",
+      hideGUAuthParamName: "hideGUAuthParam",
+      hideGUAuthParamValue: "hideGUAuthValue",
+      localeParamName: "language",
+      myLoansUrl: "https://not-myloans.example.com",
+      applicationIsClosed: false /* default to false if not set, since it's a new feature and we don't want to accidentally break things for users who haven't set it up yet. */,
+      dateFormat: "sv-SE",
     },
   },
   app: {
