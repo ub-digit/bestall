@@ -48,7 +48,7 @@ footer {
     .footer-links {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.8rem;
       h3 {
         margin-top: 1rem;
         margin-bottom: 0.5rem;
