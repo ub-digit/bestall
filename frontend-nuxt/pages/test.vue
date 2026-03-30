@@ -50,6 +50,10 @@
 const runtimeConfig = useRuntimeConfig();
 const localePath = useLocalePath();
 
+useHead({
+  title: "Bestall-nuxt - Simulerar primo",
+});
+
 const languages = ["swe", "eng"];
 const views = ["46GUB_KOHA", "46GUB_VU1"];
 const data = [
