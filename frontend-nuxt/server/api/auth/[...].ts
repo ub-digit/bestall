@@ -87,7 +87,7 @@ export default NuxtAuthHandler({
   providers: [
     // @ts-expect-error Use .default here for it to work during SSR.
     GithubProvider.default({
-      clientId: runtimeConfig.githubClientId,
+      clientId: runtimeConfig.public.githubClientId,
       clientSecret: runtimeConfig.githubClientSecret,
       async profile(profile: any) {
         return {

@@ -4,10 +4,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     apiSecret: "NOT_A_SECRET",
     authOrigin: "",
-    githubClientId: "not_your_github_client_id",
     xaccountMapToGithub: "not_your_xaccount",
     githubClientSecret: "not_your_github_client_secret",
-    guClientId: "not_your_gu_client_id",
     guClientSecret: "not_your_gu_client_secret",
     kohaUser: "not_a_user",
     kohaPwd: "not_a_pwd",
@@ -30,6 +28,8 @@ export default defineNuxtConfig({
       myLoansUrl: "https://not-myloans.example.com",
       applicationIsClosed: false /* default to false if not set, since it's a new feature and we don't want to accidentally break things for users who haven't set it up yet. */,
       dateFormat: "sv-SE",
+      githubClientId: "not_your_github_client_id",
+      guClientId: "not_your_gu_client_id",
     },
   },
   app: {
