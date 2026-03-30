@@ -18,7 +18,7 @@ RUN set -ex \
 FROM node:22-bullseye
 ENV TZ=Europe/Stockholm
 WORKDIR /app
-COPY --from=build /app/release/frontend-nuxt ./
+COPY --from=build /app/release/frontend-nuxt/.output ./.output
 ENV NUXT_HOST=0.0.0.0
 # set app port
 ENV NUXT_PORT=5000
