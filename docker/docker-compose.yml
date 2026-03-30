@@ -4,6 +4,7 @@ services:
     env_file:
       - secrets.env
     environment:
+      - NUXT_AUTH_ORIGIN=${NUXT_AUTH_ORIGIN}
       - NUXT_PUBLIC_API_BASE=${NUXT_PUBLIC_API_BASE}
       - NUXT_PUBLIC_KOHA_AUTH_URL=${NUXT_PUBLIC_KOHA_AUTH_URL}
       - NUXT_PUBLIC_ENABLED_AUTH=${NUXT_PUBLIC_ENABLED_AUTH}
