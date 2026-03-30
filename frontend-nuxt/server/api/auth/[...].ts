@@ -58,7 +58,7 @@ export default NuxtAuthHandler({
             xaccount,
           );
           const userdata = await fetch(
-            runtimeConfig.public.kohaAuthUrl +
+            runtimeConfig.kohaAuthUrl +
               `/cgi-bin/koha/svc/members/get?&login_userid=${runtimeConfig.kohaUser}&login_password=${runtimeConfig.kohaPwd}&borrower=${xaccount}`,
             {
               method: "GET",
@@ -144,7 +144,7 @@ export default NuxtAuthHandler({
         // check if the XML response indicates a successful authentication
         if (xml.includes("true")) {
           const userdata = await fetch(
-            runtimeConfig.public.kohaAuthUrl +
+            runtimeConfig.kohaAuthUrl +
               `/cgi-bin/koha/svc/members/get?&login_userid=${runtimeConfig.kohaUser}&login_password=${runtimeConfig.kohaPwd}&borrower=${credentials.username}`,
             {
               method: "GET",
