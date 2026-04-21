@@ -18,11 +18,7 @@ export default Ember.Controller.extend({
       this.get('session')
         .authenticate('authenticator:librarycard', { username: username, password: password })
         .catch((reason) => {
-          if (ENV.pinCodeActive === 'true') {
-            this.set('loginErrorMessage', this.get('i18n').t('request.login.library-card-number-pin-code-login-error'));
-          } else {
-            this.set('loginErrorMessage', this.get('i18n').t('request.login.library-card-number-password-login-error'));
-          }
+          this.set('loginErrorMessage', this.get('i18n').t('request.login.library-card-number-pin-code-login-error'));
         });
     },
     loginOAuth2() {
@@ -46,9 +42,6 @@ export default Ember.Controller.extend({
   libraryCardUrl: Ember.computed('i18n.locale', 'i18n.locales', function() {
     var lang = this.get('getLocale');
     return this.get('store').peekRecord('config', 1).get('registrationurl') + '?lang=' + lang;
-  }),
-  pinCodeActive: Ember.computed(function() {
-    return (ENV.pinCodeActive === 'true');
   }),
   pinCodeForgotLink: Ember.computed('i18n.locale', 'i18n.locales', function() {
     var lang = this.get('getLocale');
