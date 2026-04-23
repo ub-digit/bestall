@@ -34,20 +34,22 @@
                       </g>
                     </svg>
                   </div>
+                  {{#if oauth2ErrorMessage}}
+                    <div class="alert alert-danger col-xs-12">{{oauth2ErrorMessage}}</div>
+                  {{/if}}
                 </div>
               </div>
             </a>
           </div>
           {{/if}}
           <div class="alternative-wrapper">
-            {{#if oauth2ErrorMessage}}
-              <div class="alert alert-danger col-xs-12">{{oauth2ErrorMessage}}</div>
-            {{/if}}
             {{#if showGULogin}}
             <div class="lines">
               <span class="word">{{t 'request.login.or'}}</span>
             </div>
             {{/if}}
+            <div class="panel panel-default">
+            <div class="panel-body">
             <div class="gu-login-account-heading">{{t 'request.login.login-account-heading'}}</div>
             {{#if showGULogin}}
             <span class="gu-login-account-body">{{t 'request.login.login-account-body'}}</span>
@@ -63,6 +65,13 @@
                   {{t "request.login.card-number-label-extra-info"}}
                 {{/if}}
               </label>
+              <span class="help-block">
+                {{#if showGULogin}}
+                  {{t "request.login.card-number-label-placeholder"}}
+                {{else}}
+                  {{t "request.login.card-number-label-extra-info-placeholder"}}
+                {{/if}}
+              </span>
               {{#if inputAutocomplete}}
                {{input value=username class="form-control"}}
               {{else}}
@@ -94,6 +103,8 @@
                 <p class="pin-code-forgot-info-text-body2">{{t "request.login.pin-code-forgot-info-text-body2"}}</p>
               </div>
             {{/if}}
+          </div>
+          </div>
           </div>
         </div>
       </div>

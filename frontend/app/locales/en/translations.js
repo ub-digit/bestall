@@ -124,8 +124,10 @@ export default {
       "login-body": "For students and employees at GU with a gus-account or an x-account.",
       "login-account-heading": "Log in with library account",
       "login-account-body": "For users without a GU account.",
-      "card-number-label": "Library card number",
-      "card-number-label-extra-info": "Number on your GU-card or library card",
+      "card-number-label": "Personal identity number or library card number",
+      "card-number-label-placeholder": "YYYYMMDDXXXX or ten digits on your library card",
+      "card-number-label-extra-info": "Personal identity number or number on your GU-card or library card",
+      "card-number-label-extra-info-placeholder": "YYYYMMDDXXXX or ten digits on your GU-card or library card",
       "personal-number-label": "Personal identity number",
       "pin-code-label": "PIN code (4 digits)",
       "pin-code-forgot-link-text": "Forgot your PIN code?",
@@ -134,7 +136,7 @@ export default {
       "pin-code-forgot-info-text-body2": "Change your PIN code in My Loans if you don't have an affiliation with the University of Gothenburg:<br/>minalan.ub.gu.se",
       "login-button": "Log in",
       "library-card-link-text": "Sign up for an account",
-      "library-card-number-pin-code-login-error": "Wrong library card number or PIN code. Please try again.",
+      "library-card-number-pin-code-login-error": "Wrong personal identity number / library card number or PIN code. Please try again.",
       "oauth2-error": "The login process was interrupted. Please try again.",
       "or": "Or"
     }
