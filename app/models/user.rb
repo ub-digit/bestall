@@ -30,6 +30,8 @@ class User
     @username = username
     @xml = xml
     parse_xml if @xml
+    # Set username to cardnumber if exists (It should always exist and be unique)
+    @username = @cardnumber if @cardnumber.present?
   end
 
   def self.find id
