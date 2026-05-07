@@ -52,8 +52,26 @@ class Biblio
     return type_obj[:queue_level]
   end
 
+  def redirect_url
+    # If there are items, return nil (do not redirect)
+    return nil if @complete_item_count > 0
+
+    # If there are no items but there are subscription groups, return nil (do not redirect)
+    return nil if !@subscriptiongroups.empty?
+
+    # If there are no items and no subscription groups, return the redirect URL (if any)
+    return @redirect_url
+  end
+
   def as_json options = {}
-    super.merge(can_be_queued: can_be_queued, has_item_level_queue: has_item_level_queue, has_available_kursbok: has_available_kursbok, default_queue_location: default_queue_location)
+    bib_json = {
+      can_be_queued: can_be_queued,
+      has_item_level_queue: has_item_level_queue,
+      has_available_kursbok: has_available_kursbok,
+      default_queue_location: default_queue_location,
+      redirect_url: redirect_url()
+    }
+    super.merge(bib_json)
   end
 
   def initialize id, bib_xml, items_data, reserves_data, subscriptions
@@ -210,13 +228,20 @@ class Biblio
       @edition = bib_xml.search('//record/datafield[@tag="250"]/subfield[@code="a"]').text if bib_xml.search('//record/datafield[@tag="250"]/subfield[@code="a"]').text.present?
       @isbn = bib_xml.search('//record/datafield[@tag="020"]/subfield[@code="a"]').map(&:text).join("; ") if bib_xml.search('//record/datafield[@tag="020"]/subfield[@code="a"]').text.present?
     end
+    
+    link_urls = bib_xml.search('//record/datafield[@tag="856"]/subfield[@code="u"]').map(&:text)
+    if link_urls.any? {|url| url.include?("urn:nbn:se:gu:ub:kat57-") }
+      @redirect_url = link_urls.find {|url| url.include?("urn:nbn:se:gu:ub:kat57-") }
+    end
 
     @items = []
     @no_in_queue = 0
     borrowers = [];
 
     reserves = JSON.parse(reserves_data)["reserves"]
-    JSON.parse(items_data)["items"].each do |item_data|
+    item_list = JSON.parse(items_data)["items"]
+    @complete_item_count = item_list.length
+    item_list.each do |item_data|
       item = Item.new(biblio_id: self.id, rawdata: item_data, has_item_level_queue: self.has_item_level_queue)
       next if item.item_type.blank?
       next if item.sublocation_id.blank?
