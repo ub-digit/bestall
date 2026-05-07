@@ -125,8 +125,10 @@ export default {
       "header": "Logga in",
       "login-account-heading": "Logga in med bibliotekskonto",
       "login-account-body": "För användare som inte har något GU-konto.",
-      "card-number-label": "Nummer på bibliotekskort",
-      "card-number-label-extra-info": "Nummer på GU-kort eller bibliotekskort",
+      "card-number-label": "Personnummer eller nummer på bibliotekskort",
+      "card-number-label-placeholder": "ÅÅÅÅMMDDXXXX eller tio siffror på bibliotekskort",
+      "card-number-label-extra-info": "Personnummer eller nummer på GU-kort eller bibliotekskort",
+      "card-number-label-extra-info-placeholder": "ÅÅÅÅMMDDXXXX eller tio siffror på GU-kort eller bibliotekskort",
       "personal-number-label": "Personnummer",
       "pin-code-label": "PIN-kod (4 siffror)",
       "pin-code-forgot-link-text": "Glömt din PIN-kod?",
@@ -135,8 +137,7 @@ export default {
       "pin-code-forgot-info-text-body2": "Byt din PIN-kod i Mina lån om du inte är student eller medarbetare vid Göteborgs universitet:<br/>minalan.ub.gu.se",
       "login-button": "Logga in",
       "library-card-link-text": "Skaffa bibliotekskonto",
-      "library-card-number-password-login-error": "Fel bibliotekskortsnummer eller lösenord. Vänligen försök igen.",
-      "library-card-number-pin-code-login-error": "Fel bibliotekskortsnummer eller PIN-kod. Vänligen försök igen.",
+      "library-card-number-pin-code-login-error": "Fel personnummer / bibliotekskortsnummer eller PIN-kod. Vänligen försök igen.",
       "oauth2-error": "Inloggningen avbröts. Vänligen försök igen.",
       "or": "Eller"
     }

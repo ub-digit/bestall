@@ -34,20 +34,22 @@
                       </g>
                     </svg>
                   </div>
+                  {{#if oauth2ErrorMessage}}
+                    <div class="alert alert-danger col-xs-12">{{oauth2ErrorMessage}}</div>
+                  {{/if}}
                 </div>
               </div>
             </a>
           </div>
           {{/if}}
           <div class="alternative-wrapper">
-            {{#if oauth2ErrorMessage}}
-              <div class="alert alert-danger col-xs-12">{{oauth2ErrorMessage}}</div>
-            {{/if}}
             {{#if showGULogin}}
             <div class="lines">
               <span class="word">{{t 'request.login.or'}}</span>
             </div>
             {{/if}}
+            <div class="panel panel-default">
+            <div class="panel-body">
             <div class="gu-login-account-heading">{{t 'request.login.login-account-heading'}}</div>
             {{#if showGULogin}}
             <span class="gu-login-account-body">{{t 'request.login.login-account-body'}}</span>
@@ -62,7 +64,14 @@
                 {{else}}
                   {{t "request.login.card-number-label-extra-info"}}
                 {{/if}}
-                </label>
+              </label>
+              <span class="help-block">
+                {{#if showGULogin}}
+                  {{t "request.login.card-number-label-placeholder"}}
+                {{else}}
+                  {{t "request.login.card-number-label-extra-info-placeholder"}}
+                {{/if}}
+              </span>
               {{#if inputAutocomplete}}
                {{input value=username class="form-control"}}
               {{else}}
@@ -71,43 +80,31 @@
             </div>
             <div class="form-group">
               <label>
-                {{#if pinCodeActive}}
-                  {{t "request.login.pin-code-label"}}
-                {{else}}
-                  {{t "request.login.personal-number-label"}}
-                {{/if}}
+                {{t "request.login.pin-code-label"}}
               </label>
-              {{#if pinCodeActive}}
-                {{#if inputAutocomplete}}
-                  {{input type='password' value=password maxlength="4" class="form-control"}}
-                {{else}}
-                  {{input type='password' value=password maxlength="4" class="form-control" autocomplete="new-password"}}
-                {{/if}}
+              {{#if inputAutocomplete}}
+                {{input type='password' value=password maxlength="4" class="form-control"}}
               {{else}}
-                {{#if inputAutocomplete}}
-                  {{input type='password' value=password class="form-control"}}
-                {{else}}
-                  {{input type='password' value=password class="form-control" autocomplete="new-password"}}
-                {{/if}}
+                {{input type='password' value=password maxlength="4" class="form-control" autocomplete="new-password"}}
               {{/if}}
             </div>
             <button class="btn btn-primary btn-block" id="alternative-login-button" {{action 'login' username password}}>{{t "request.login.login-button"}}</button>
             <div class="library-card-link">
               <a href="{{libraryCardUrl}}" class="small">{{t "request.login.library-card-link-text"}}</a>
             </div>
-            {{#if pinCodeActive}}
-              {{#if showGULogin}}
-                <div class="pin-code-forgot-link">
-                  <a href="{{pinCodeForgotLink}}" class="small">{{t "request.login.pin-code-forgot-link-text"}}</a>
-                </div>
-              {{else}}
-                <div class="pin-code-text">
-                  <p class="pin-code-forgot-info-text-header">{{t "request.login.pin-code-forgot-info-text-header"}}</p>
-                  <p class="pin-code-forgot-info-text-body1">{{t "request.login.pin-code-forgot-info-text-body1"}}</p>
-                  <p class="pin-code-forgot-info-text-body2">{{t "request.login.pin-code-forgot-info-text-body2"}}</p>
-                </div>
-              {{/if}}
+            {{#if showGULogin}}
+              <div class="pin-code-forgot-link">
+                <a href="{{pinCodeForgotLink}}" class="small">{{t "request.login.pin-code-forgot-link-text"}}</a>
+              </div>
+            {{else}}
+              <div class="pin-code-text">
+                <p class="pin-code-forgot-info-text-header">{{t "request.login.pin-code-forgot-info-text-header"}}</p>
+                <p class="pin-code-forgot-info-text-body1">{{t "request.login.pin-code-forgot-info-text-body1"}}</p>
+                <p class="pin-code-forgot-info-text-body2">{{t "request.login.pin-code-forgot-info-text-body2"}}</p>
+              </div>
             {{/if}}
+          </div>
+          </div>
           </div>
         </div>
       </div>
