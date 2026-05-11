@@ -1,6 +1,5 @@
 services:
   frontend-nuxt:
-    container_name: nuxt-dev
     build:
       context: ..
       dockerfile: docker/build/frontend-nuxt/Dockerfile.dev
