@@ -80,20 +80,20 @@ const handleEvent = (payload: EventPayload) => {
 </script>
 <template>
   <div>
+    <!-- this info is same for all view types, should look similar to Primo -->
     <BiblioInfo v-if="biblio" :biblio="biblio" />
 
+    <!-- the actual view type component, which is different based on the biblio.viewType -->
     <ViewBook
       v-if="biblio?.viewType === 'book'"
       :biblio="biblio"
       @handleEvent="(payload) => handleEvent(payload)"
     />
-
     <ViewSubscription
       v-else-if="biblio?.viewType === 'subscription'"
       :biblio="biblio"
       @handleEvent="(payload) => handleEvent(payload)"
     />
-
     <ViewCollection
       v-else-if="biblio?.viewType === 'collection'"
       :biblio="biblio"
