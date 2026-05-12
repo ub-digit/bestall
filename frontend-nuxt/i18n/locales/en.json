@@ -60,7 +60,7 @@
     "signOut": "Sign out"
   },
   "localeSwitcher": {
-    "label": "In {currentLocale}"
+    "label": "På {currentLocale}"
   },
   "login": {
     "or": "or",
