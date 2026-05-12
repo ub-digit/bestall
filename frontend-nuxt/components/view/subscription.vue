@@ -16,10 +16,7 @@ defineProps<{
 }>();
 </script>
 <template>
-  <div
-    class="view-type-subscription"
-    v-if="biblio?.viewType === 'subscription'"
-  >
+  <div class="view-type-subscription">
     <div class="holdings">
       <div id="holdings-available" class="holdings">
         <ViewHoldings
@@ -63,9 +60,6 @@ defineProps<{
         </template>
       </ViewItemsTable>
     </div>
-  </div>
-  <div v-else>
-    {{ $t("message.unsupportedViewType", { viewType: biblio?.viewType }) }}
   </div>
 </template>
 

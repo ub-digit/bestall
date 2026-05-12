@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="view-type-book" v-if="biblio?.viewType === 'book'">
+    <div class="view-type-book">
       <div id="items-available" class="items-available">
         <ViewItemsTable
           v-if="biblio?.itemsAvailable"
@@ -70,9 +70,6 @@
           </template>
         </ViewItemsTable>
       </div>
-    </div>
-    <div v-else>
-      {{ $t("message.unsupportedViewType", { viewType: biblio?.viewType }) }}
     </div>
   </div>
 </template>
