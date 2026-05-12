@@ -29,7 +29,7 @@
           <div class="lang">
             <LocaleSwitcher />
           </div>
-          <div class="auth-status">
+          <div class="auth-status" v-if="$config.public.showAuthStatus">
             <AuthStatus />
           </div>
         </div>

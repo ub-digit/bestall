@@ -1,35 +1,35 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
+import { p } from "vue-router/dist/router-CWoNjPRp.mjs";
+
 export default defineNuxtConfig({
   runtimeConfig: {
-    apiSecret: "NOT_A_SECRET",
+    apiSecret: "",
     authOrigin: "",
-    xaccountMapToGithub: "not_your_xaccount",
-    githubClientSecret: "not_your_github_client_secret",
-    guClientSecret: "not_your_gu_client_secret",
-    kohaUser: "not_a_user",
-    kohaPwd: "not_a_pwd",
-    kohaAuthUrl: "https://koha-auth.not-an-auth.com/auth",
-    apiBase: "https://api.not-an-api.com",
+    xaccountMapToGithub: "",
+    githubClientSecret: "",
+    guClientSecret: "",
+    kohaUser: "",
+    kohaPwd: "",
+    kohaAuthUrl: "",
+    apiBase: "",
 
     public: {
       debugInfo: false,
-      reserveNoteMaxLength: parseInt(
-        "140",
-        10,
-      ) /* default to 140 if not set or set to an invalid value */,
-      disableLoantypeHomeAndPickupForItemTypes: "",
-      disableLoantypeHomeAndPickupForNotForLoan: "",
+      reserveNoteMaxLength: "",
+      disableLoantypeHomeAndPickupForItemtypes: "",
+      disableLoantypeHomeAndPickupForNotforloan: "",
       includeLoantypeSDForUserCategories: "",
-      enabledAuth: "github",
-      hideGUAuthParamName: "hideGUAuthParam",
-      hideGUAuthParamValue: "hideGUAuthValue",
-      localeParamName: "language",
-      myLoansUrl: "https://not-myloans.example.com",
+      enabledAuth: "",
+      showAuthStatus: false,
+      hideGUAuthParamName: "",
+      hideGUAuthParamValue: "",
+      localeParamName: "",
+      myLoansUrl: "",
       applicationIsClosed: false /* default to false if not set, since it's a new feature and we don't want to accidentally break things for users who haven't set it up yet. */,
       dateFormat: "sv-SE",
-      githubClientId: "not_your_github_client_id",
-      guClientId: "not_your_gu_client_id",
+      githubClientId: "",
+      guClientId: "",
     },
   },
   app: {
@@ -63,11 +63,12 @@ export default defineNuxtConfig({
     ],
     compilation: {
       strictMessage: false /* allows html in translations */,
-      escapeHtml: false,
+      escapeHtml: false, // how to make it secure ask Stefan
     },
   },
   auth: {
     originEnvKey: "AUTH_ORIGIN",
+    //baseURL: "http://localhost:3000/api/auth",
     provider: {
       type: "authjs",
     },
