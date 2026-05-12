@@ -4,7 +4,6 @@ import { FetchError } from "ofetch";
 export default defineEventHandler(async (event) => {
   const runtimeConfig = useRuntimeConfig();
   const { id } = event.context.params as { id: string };
-  console.log(`baseurl`, runtimeConfig.apiBase);
   const errorCodes = [
     { code: "NOT_FOUND", httpcode: 404 },
     { code: "FORBIDDEN", httpcode: 403 },
