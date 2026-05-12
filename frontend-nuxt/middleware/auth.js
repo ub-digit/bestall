@@ -16,7 +16,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
         path: "/login",
         query: {
           redirect: to.fullPath,
-          [hideGUAuthParamName]: to.query[hideGUAuthParamName] || null, // pa ss the hideGUAuth param if it exists in the original route
+          [hideGUAuthParamName]: to.query[hideGUAuthParamName] || null, // pass the hideGUAuth param if it exists in the original route
         }, // 👈 store original route
       }),
     );
