@@ -10,6 +10,7 @@
         <textarea
           id="subscriptionNotes"
           v-model="order.subscriptionNotes"
+          autofocus
           :placeholder="$t('orderForm.placeholders.subscriptionNotes')"
         />
       </div>
