@@ -51,16 +51,13 @@ export default defineNuxtConfig({
     viteEnvironmentApi: true,
   },
   ssr: true,
-  compatibilityDate: '2025-07-15',
+  compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
-  modules: ['@nuxtjs/i18n', '@sidebase/nuxt-auth'],
+  modules: ["@nuxtjs/i18n", "@sidebase/nuxt-auth"],
   vite: {
     optimizeDeps: {
-      include: [
-        '@vue/devtools-core',
-        '@vue/devtools-kit',
-      ]
-    }
+      include: ["@vue/devtools-core", "@vue/devtools-kit"],
+    },
   },
   i18n: {
     strategy: "prefix_except_default",
@@ -82,5 +79,4 @@ export default defineNuxtConfig({
     },
     globalAppMiddleware: false,
   },
-
-})
+});
