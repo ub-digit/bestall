@@ -1,4 +1,4 @@
-import type { VerifyError } from "~/types/verifyError";
+import type { VerifyError } from "#shared/types/verifyError";
 import { FetchError } from "ofetch";
 
 export default defineEventHandler(async (event) => {

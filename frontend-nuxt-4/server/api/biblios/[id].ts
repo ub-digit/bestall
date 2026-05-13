@@ -1,7 +1,7 @@
-import { Biblio } from "~/types/Biblio";
-import { Item } from "~/types/Biblio";
-import { SubscriptionGroup } from "~/types/Biblio";
-import { Subscription } from "~/types/Biblio";
+import { Biblio } from "#shared/types/Biblio";
+import { Item } from "#shared/types/Biblio";
+import { SubscriptionGroup } from "#shared/types/Biblio";
+import { Subscription } from "#shared/types/Biblio";
 export default defineEventHandler(async (event) => {
   const runtimeConfig = useRuntimeConfig();
 

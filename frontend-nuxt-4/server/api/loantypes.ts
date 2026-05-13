@@ -1,4 +1,4 @@
-import { LoanType } from "~/types/LoanType";
+import type { LoanType } from "#shared/types/LoanType";
 
 export default defineEventHandler(async (event) => {
   let { locale, user, itemType, NotForLoan } = getQuery(event) as {

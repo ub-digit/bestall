@@ -1,4 +1,4 @@
-import type { Location } from "~/types/Location";
+import type { Location } from "#shared/types/Location";
 export default defineEventHandler(async (event) => {
   let { locale } = getQuery(event) as { locale?: string };
 
