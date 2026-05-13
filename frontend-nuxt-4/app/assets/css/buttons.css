@@ -1,0 +1,90 @@
+:root {
+  /* ### BUTTONS ### */
+  --btn-border-color: var(--dark-light);
+  --btn-focus-outline-color: var(--dark-base);
+  --btn-border-radius: 4px;
+
+  --btn-primary-bg: var(--brand-base);
+  --btn-primary-hover-bg: var(--brand-dark);
+  --btn-primary-border: var(--brand-light);
+  --btn-primary-text: var(--light-light);
+
+  --btn-secondary-bg: var(--dark-dark);
+  --btn-secondary-hover-bg: var(--dark-base);
+  --btn-secondary-border: var(--dark-light);
+  --btn-secondary-text: var(--light-light);
+
+  --btn-light-bg: var(--light-light);
+  --btn-light-text: var(--dark-dark);
+  --btn-light-hover-bg: var(--dark-light);
+  --btn-light-border: var(--dark-light);
+
+  --btn-link-color: var(--brand-base);
+  --btn-link-hover-color: var(--brand-light);
+}
+
+[class|="btn"] {
+  /* weird selector learn more https://www.youtube.com/watch?v=TWqpa-hfIdw */
+  display: inline-block;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--btn-border-radius);
+  border: 1px solid var(--btn-border-color);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover {
+    filter: brightness(0.9);
+  }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--btn-focus-outline-color);
+    outline-offset: 2px;
+  }
+  &:active {
+    filter: brightness(0.8);
+  }
+}
+
+.btn-primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border-color: var(--btn-primary-border);
+}
+
+.btn-secondary {
+  background: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  border-color: var(--btn-secondary-border);
+}
+
+.btn-light {
+  background: var(--btn-light-bg);
+  color: var(--btn-light-text);
+  border-color: var(--btn-light-border);
+}
+
+/* ### LINKS ### */
+.btn-link {
+  background: none;
+  border: none;
+  color: var(--btn-link-color);
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  &:hover {
+    color: var(--btn-link-hover-color);
+  }
+  &:active {
+  }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
