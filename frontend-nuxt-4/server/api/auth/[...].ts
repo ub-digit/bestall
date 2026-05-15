@@ -5,6 +5,24 @@ import { parseStringPromise } from "xml2js";
 
 const runtimeConfig = useRuntimeConfig();
 
+const getUserData = async (xaccount: string) => {
+  const userdata = await fetch(
+    runtimeConfig.kohaAuthUrl +
+      `/cgi-bin/koha/svc/members/get?&login_userid=${runtimeConfig.kohaUser}&login_password=${runtimeConfig.kohaPwd}&borrower=${xaccount}`,
+    {
+      method: "GET",
+      headers: { "Content-Type": "text/xml" },
+    },
+  );
+  const userdataXml = await userdata.text();
+  const userdataJson = await parseStringPromise(userdataXml, {
+    explicitArray: false,
+    mergeAttrs: true,
+  });
+  console.log("Koha user data JSON:", userdataJson);
+  return userdataJson.response.borrower;
+};
+
 export default NuxtAuthHandler({
   pages: {
     // Change the default behavior to use `/login` as the path for the sign-in page
@@ -19,6 +37,7 @@ export default NuxtAuthHandler({
       //console.log("signed out:", message);
     },
   },
+
   callbacks: {
     /* on before signin */
     async signIn({ user, account, profile, email, credentials }) {
@@ -57,21 +76,7 @@ export default NuxtAuthHandler({
             "Fetching user data from Koha for GitHub user:",
             xaccount,
           );
-          const userdata = await fetch(
-            runtimeConfig.kohaAuthUrl +
-              `/cgi-bin/koha/svc/members/get?&login_userid=${runtimeConfig.kohaUser}&login_password=${runtimeConfig.kohaPwd}&borrower=${xaccount}`,
-            {
-              method: "GET",
-              headers: { "Content-Type": "text/xml" },
-            },
-          );
-          const userdataXml = await userdata.text();
-          const userdataJson = await parseStringPromise(userdataXml, {
-            explicitArray: false,
-            mergeAttrs: true,
-          });
-          console.log("Koha user data JSON:", userdataJson);
-          token.userData = userdataJson.response.borrower; // Store the entire borrower object in the token for later use
+          token.userData = await getUserData(xaccount); // Store the entire borrower object in the token for later use
           return token;
         }
       } else if (account?.provider === "GU") {
