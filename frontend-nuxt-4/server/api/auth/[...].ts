@@ -41,6 +41,40 @@ export default NuxtAuthHandler({
   callbacks: {
     /* on before signin */
     async signIn({ user, account, profile, email, credentials }) {
+      console.log("SignIn callback called with user:", user);
+      console.log("SignIn callback called with account:", account);
+      console.log("SignIn callback called with profile:", profile);
+      console.log("SignIn callback called with email:", email);
+      console.log("SignIn callback called with credentials:", credentials);
+
+      if (account?.provider === "credentials") {
+        /* ### URL should point to bestall-server and have it return json to avoid this xml-to-json conversion ### */
+        const kohaMemberUrl =
+          runtimeConfig.kohaAuthUrl +
+          `/cgi-bin/koha/svc/members/get?&login_userid=${runtimeConfig.kohaUser}&login_password=${runtimeConfig.kohaPwd}&borrower=${credentials?.username}`;
+        console.log("Fetching user data from Koha at URL:", kohaMemberUrl);
+        const userdata = await fetch(kohaMemberUrl, {
+          method: "GET",
+          headers: {
+            Accept: "text/xml",
+            "current-username": credentials?.username || "",
+          },
+        });
+        const userdataXml = await userdata.text();
+        const userdataJson = await parseStringPromise(userdataXml, {
+          explicitArray: false,
+          mergeAttrs: true,
+        });
+        console.log("Koha user data XML:", userdataXml);
+        console.log("Koha user data JSON:", userdataJson.response.borrower);
+        user.name =
+          userdataJson.response.borrower.firstname +
+          " " +
+          userdataJson.response.borrower.surname;
+
+        // fetch user details from Koha and add to the user object here if needed
+        console.log("Authenticated user:", user);
+      }
       return true;
     },
     /* on redirect to another url */
@@ -68,6 +102,11 @@ export default NuxtAuthHandler({
     },
     /* on JWT token creation or mutation */
     async jwt({ token, user, account, profile, isNewUser }) {
+      console.log("JWT callback called with token:", token);
+      console.log("JWT callback called with user:", user);
+      console.log("JWT callback called with account:", account);
+      console.log("JWT callback called with profile:", profile); //?.login
+      ("");
       if (account?.provider === "github") {
         const xaccount = runtimeConfig.xaccountMapToGithub;
         token.provider = "github";
@@ -125,56 +164,21 @@ export default NuxtAuthHandler({
       // The name to display on the sign in form (e.g. 'Sign in with...')
       name: "Credentials",
       async authorize(credentials: any) {
-        // You need to provide your own logic here that takes the credentials
-        // submitted and returns either a object representing a user or value
-        // that is false/null if the credentials are invalid.
-        // NOTE: THE BELOW LOGIC IS NOT SAFE OR PROPER FOR AUTHENTICATION!
-
-        /*       const res = await fetch("http://localhost:3000/api/authmock", {
-          method: "POST",
-          body: JSON.stringify(credentials),
-          headers: { "Content-Type": "application/json" },
-        });
-        const user = await res.json(); */
+        console.log("Authorize with credentials:", credentials);
         const url =
-          runtimeConfig.public.kohaAuthUrl +
+          runtimeConfig.kohaAuthUrl +
           `cgi-bin/koha/svc/members/auth_pin?login_userid=${runtimeConfig.kohaUser}&login_password=${runtimeConfig.kohaPwd}&cardnumber=${credentials.username}&pin=${credentials.password}`;
+        console.log("Authenticating user with Koha at URL:", url);
         const res = await fetch(url, {
           method: "GET",
           headers: { "Content-Type": "text/xml" },
         });
+        console.log("Koha auth url:", url);
         const xml = await res.text();
-        const user = { id: null, name: "" };
-        console.log("Koha auth response XML:", xml);
-        // check if the XML response indicates a successful authentication
         if (xml.includes("true")) {
-          const userdata = await fetch(
-            runtimeConfig.kohaAuthUrl +
-              `/cgi-bin/koha/svc/members/get?&login_userid=${runtimeConfig.kohaUser}&login_password=${runtimeConfig.kohaPwd}&borrower=${credentials.username}`,
-            {
-              method: "GET",
-              headers: { "Content-Type": "text/xml" },
-            },
-          );
-
-          const userdataXml = await userdata.text();
-          //console.log("Koha user data XML:", userdataXml);
-
-          const userdataJson = await parseStringPromise(userdataXml, {
-            explicitArray: false,
-            mergeAttrs: true,
-          });
-          console.log("Koha user data JSON:", userdataJson.response.borrower);
-          user.name =
-            userdataJson.response.borrower.firstname +
-            " " +
-            userdataJson.response.borrower.surname;
-
-          // fetch user details from Koha and add to the user object here if needed
-          console.log("Authenticated user:", user);
-          return user || null;
+          return { id: credentials.username, name: credentials.username };
         }
-        // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+        return false; // or null
       },
     }),
   ],
