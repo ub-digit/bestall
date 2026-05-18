@@ -1,6 +1,12 @@
 import type { LoanType } from "#shared/types/LoanType";
+import { getServerSession } from "#auth";
 
 export default defineEventHandler(async (event) => {
+  const session = await getServerSession(event);
+  if (!session) {
+    throw createError({ statusCode: 401, statusMessage: "Unauthorized" });
+  }
+
   let { locale, user, itemType, NotForLoan } = getQuery(event) as {
     locale?: string; // used to determine which localized name property to use for the loan types, defaults to "sv" if missing
     user?: any; // needs to be parsed to json before use, since it's passed as a query parameter. It contains the user data from the session, which is needed to filter loan types based on user category.

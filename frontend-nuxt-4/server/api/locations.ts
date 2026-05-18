@@ -1,5 +1,11 @@
 import type { Location } from "#shared/types/Location";
+import { getServerSession } from "#auth";
+
 export default defineEventHandler(async (event) => {
+  const session = await getServerSession(event);
+  if (!session) {
+    throw createError({ statusCode: 401, statusMessage: "Unauthorized" });
+  }
   let { locale } = getQuery(event) as { locale?: string };
 
   if (!locale) {

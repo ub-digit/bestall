@@ -2,9 +2,14 @@ import { Biblio } from "#shared/types/Biblio";
 import { Item } from "#shared/types/Biblio";
 import { SubscriptionGroup } from "#shared/types/Biblio";
 import { Subscription } from "#shared/types/Biblio";
-export default defineEventHandler(async (event) => {
-  const runtimeConfig = useRuntimeConfig();
+import { getServerSession } from "#auth";
 
+export default defineEventHandler(async (event) => {
+  const session = await getServerSession(event);
+  if (!session) {
+    throw createError({ statusCode: 401, statusMessage: "Unauthorized" });
+  }
+  const runtimeConfig = useRuntimeConfig();
   const { id } = event.context.params as { id: string };
   let { locale } = getQuery(event) as { locale?: string };
 
