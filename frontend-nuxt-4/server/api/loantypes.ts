@@ -23,7 +23,9 @@ export default defineEventHandler(async (event) => {
     method: "POST", // Use POST method to send user data in the request body, which is more secure than sending it as query parameters
     body: {
       current_user: userParsed, // Pass the entire user object from the session to the API for potential user-specific filtering. This is more secure and reliable than passing user data through query parameters.
-      current_item: current_item, // Pass current item-type for potential item-specific filtering in the API
+      current_item: current_item
+        ? JSON.parse(JSON.stringify(current_item))
+        : null, // Pass current item-type for potential item-specific filtering in the API
     },
     headers: {
       current_username: userParsed?.cardnumber || "", // Pass the username from the session to the API for potential user-specific filtering
@@ -58,7 +60,6 @@ export default defineEventHandler(async (event) => {
   const extendedLoanTypes = data.loan_types.map((loanType: LoanType) => ({
     ...loanType,
     name: locale === "sv" ? loanType.name_sv : loanType.name_en,
-    isDisabled: isLoantypeDisabled(loanType), // Disable SD loan type for all users by default. It will be enabled later based on user category .
   }));
 
   // filter ExtendedLoanTypes based on user_category if loanType.id is 5. Only show SD loan type for user categories SD and FT.
@@ -83,7 +84,7 @@ export default defineEventHandler(async (event) => {
   );
 
   try {
-    return filteredExtendedLoanTypes;
+    return extendedLoanTypes;
   } catch (error) {
     console.error("Error fetching loan types:", error);
     return error;
