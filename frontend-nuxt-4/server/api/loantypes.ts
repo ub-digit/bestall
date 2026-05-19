@@ -23,9 +23,7 @@ export default defineEventHandler(async (event) => {
     method: "POST", // Use POST method to send user data in the request body, which is more secure than sending it as query parameters
     body: {
       current_user: userParsed, // Pass the entire user object from the session to the API for potential user-specific filtering. This is more secure and reliable than passing user data through query parameters.
-      current_item: current_item
-        ? JSON.parse(JSON.stringify(current_item))
-        : null, // Pass current item-type for potential item-specific filtering in the API
+      current_item: current_item ? JSON.stringify(current_item) : null, // Pass current item-type for potential item-specific filtering in the API
     },
     headers: {
       current_username: userParsed?.cardnumber || "", // Pass the username from the session to the API for potential user-specific filtering
