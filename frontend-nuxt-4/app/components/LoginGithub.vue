@@ -2,7 +2,6 @@
 const { signIn } = useAuth();
 const route = useRoute();
 const callbackUrl = (route.query.redirect as string) || useLocalePath()("/");
-
 const localePath = useLocalePath();
 
 const loginWithGithub = async () => {
