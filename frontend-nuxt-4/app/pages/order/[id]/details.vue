@@ -237,9 +237,7 @@ const { data: loanTypes, error: loanTypesError } = await useFetch<LoanType[]>(
   {
     query: {
       locale: locale.value,
-      user: JSON.stringify(authData.value?.user), // Pass auth data to the API for potential user-specific filtering
-      itemType: currentItemOnOrder?.value?.item_type, // Pass current item-type for potential item-specific filtering
-      NotForLoan: currentItemOnOrder?.value?.not_for_loan, // Pass not_for_loan status for potential filtering
+      current_item: currentItemOnOrder?.value, // Pass current item-type for potential item-specific filtering
     },
   },
 );
