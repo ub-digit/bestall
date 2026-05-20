@@ -6,7 +6,10 @@ Rails.application.routes.draw do
     resources :reserves
 
     get 'locations', to: 'locations#index'
+    post 'locations', to: 'locations#index'
+
     get 'loan_types', to: 'loan_types#index'
+    post 'loan_types', to: 'loan_types#index'
 
     get 'users/current', to: 'users#current_user'
 
