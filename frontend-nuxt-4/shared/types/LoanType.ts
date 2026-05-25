@@ -6,5 +6,5 @@ type LoanType = {
   name_sv: string;
   name_en: string;
   name: string;
-  isDisabled: boolean;
+  is_disabled: boolean;
 };

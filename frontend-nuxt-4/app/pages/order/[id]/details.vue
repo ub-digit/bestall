@@ -31,7 +31,7 @@
             v-for="lt in loanTypes"
             :key="lt.id"
             :value="lt.id"
-            :disabled="lt.isDisabled"
+            :disabled="lt.is_disabled"
           >
             {{ lt.name }}
           </option>
@@ -129,12 +129,7 @@ watch(
 );
 
 const { locale } = useI18n();
-const { data: locations, error: locationsError } = await useFetch<Location[]>(
-  "/api/locations",
-  {
-    query: { locale: locale.value },
-  },
-);
+
 const possiblePickupLocations = computed<Location[]>(() => {
   const categoriesToIncludePickup = ["PICKUP"]; // maybe move to .env if it needs to be configurable
   if (!locations.value) return [];
@@ -242,6 +237,12 @@ const { data: loanTypes, error: loanTypesError } = await useFetch<LoanType[]>(
   },
 );
 
+const { data: locations, error: locationsError } = await useFetch<Location[]>(
+  "/api/locations",
+  {
+    query: { locale: locale.value, current_item: currentItemOnOrder?.value },
+  },
+);
 const submitOrder = () => {
   // For demonstration, we'll just log the order data. In a real application, you'd send this to your backend API.
   console.log("Submitting order:", order.value);
@@ -253,7 +254,7 @@ const goBack = () => {
 };
 
 setOrder({
-  loanType: loanTypes.value?.filter((lt) => !lt.isDisabled)?.[0]?.id,
+  loanType: loanTypes.value?.filter((lt) => !lt.is_disabled)?.[0]?.id,
   location: "",
 });
 </script>
