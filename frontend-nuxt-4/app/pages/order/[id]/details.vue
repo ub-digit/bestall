@@ -91,7 +91,14 @@
         <button class="btn-light" type="button" @click="goBack()">
           {{ $t("actions.back") }}
         </button>
-        <button class="btn-primary" type="submit">
+        <button
+          class="btn-primary"
+          type="submit"
+          :disabled="
+            !order.loanType ||
+            (currentLoanTypeOnOrder?.show_pickup_location && !order.location)
+          "
+        >
           {{ $t("actions.submit") }}
         </button>
       </div>
