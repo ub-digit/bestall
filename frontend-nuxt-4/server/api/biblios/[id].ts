@@ -17,7 +17,10 @@ export default defineEventHandler(async (event) => {
     locale = "sv"; // if missing add default locale
   }
 
-  console.log(`Fetching biblio with ID: ${id} for locale: ${locale}`);
+  const userParsed = session.user;
+  console.log(
+    `Fetching biblio with ID: ${id} for locale: ${locale} by user: ${userParsed?.cardnumber || "unknown"}`,
+  );
 
   const getSublocationName = (biblio: Biblio, item: Item, locale: string) => {
     // get current sublocation_name based on locale
@@ -105,6 +108,15 @@ export default defineEventHandler(async (event) => {
     if (id) {
       const data: any = await $fetch(
         `${runtimeConfig.apiBase}/biblios/${id}?items_on_subscriptions=true`,
+        {
+          method: "GET",
+          /*body: {
+            current_user: userParsed, // Pass the entire user object from the session to the API for potential user-specific filtering. This is more secure and reliable than passing user data through query parameters.
+          },*/
+          headers: {
+            current_username: userParsed?.cardnumber || "", // Pass the username from the session to the API for potential user-specific filtering
+          },
+        },
       );
       return transformBiblio(data?.biblio);
     }
