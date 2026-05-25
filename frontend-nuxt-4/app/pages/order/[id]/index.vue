@@ -11,20 +11,6 @@ import type { LoanType } from "~/types/LoanType";
 import type { Order } from "~/types/Order";
 import type { EventPayload } from "~/types/EventPayload";
 
-const { data: locations, error: locationsError } = await useFetch<Location[]>(
-  "/api/locations",
-  {
-    query: { locale: locale.value },
-  },
-);
-
-const { data: loanTypes, error: loanTypesError } = await useFetch<LoanType[]>(
-  "/api/loantypes",
-  {
-    query: { locale: locale.value },
-  },
-);
-
 const { data: biblio, error: biblioError } = await useFetch<any>(
   `/api/biblios/${route.params.id}`,
   { query: { locale: locale.value } },
