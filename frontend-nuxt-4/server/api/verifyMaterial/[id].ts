@@ -1,16 +1,11 @@
 import type { VerifyError } from "#shared/types/verifyError";
 import { FetchError } from "ofetch";
+import { useErrorCodes } from "~/composables/useErrorCodes";
 
 export default defineEventHandler(async (event) => {
   const runtimeConfig = useRuntimeConfig();
   const { id } = event.context.params as { id: string };
-  const errorCodes = [
-    { code: "NOT_FOUND", httpcode: 404 },
-    { code: "FORBIDDEN", httpcode: 403 },
-    { code: "UNAUTHORIZED", httpcode: 401 },
-    { code: "INVALID_DATA", httpcode: 400 },
-    { code: "SERVER_ERROR", httpcode: 500 },
-  ];
+  const errorCodes = useErrorCodes();
   try {
     const response = await $fetch(
       `${runtimeConfig.apiBase}/biblios/${id}?items_on_subscriptions=true`,
