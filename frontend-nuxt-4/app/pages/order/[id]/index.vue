@@ -89,8 +89,6 @@ const handleEvent = (payload: EventPayload) => {
     <div v-else>
       {{ $t("message.unsupportedViewType", { viewType: biblio?.viewType }) }}
     </div>
-
-    <Debug v-if="$config.public.debugInfo" :order="order" :biblio="biblio" />
   </div>
 </template>
 <style scoped></style>
