@@ -4,7 +4,7 @@
     <div class="biblio-card" :data-id="biblio?.id">
       <div class="biblio-card-common">
         <h4>{{ biblio?.title }}</h4>
-        <div v-if="biblio?.isbn" class="isbn">
+        <div v-if="biblio?.isbn" class="isbn" style="display: none">
           {{ $t("biblio.isbn", { isbn: biblio?.isbn }) }}
         </div>
         <div v-if="biblio?.edition">
