@@ -248,7 +248,11 @@ const { data: loanTypes, error: loanTypesError } = await useFetch<LoanType[]>(
 const { data: locations, error: locationsError } = await useFetch<Location[]>(
   "/api/locations",
   {
-    query: { locale: locale.value, current_item: currentItemOnOrder?.value },
+    query: {
+      locale: locale.value,
+      current_item: currentItemOnOrder?.value,
+      record_type: order.value?.fullBiblio?.record_type,
+    }, // Pass current item-type for potential item-specific filtering
   },
 );
 const submitOrder = () => {

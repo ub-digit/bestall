@@ -7,9 +7,10 @@ export default defineEventHandler(async (event) => {
   if (!session) {
     throw createError({ statusCode: 401, statusMessage: "Unauthorized" });
   }
-  let { locale, current_item } = getQuery(event) as {
+  let { locale, current_item, record_type } = getQuery(event) as {
     locale?: string;
     current_item?: Item;
+    record_type?: string;
   };
 
   if (!locale) {
@@ -26,6 +27,7 @@ export default defineEventHandler(async (event) => {
     body: {
       current_user: userParsed, // Pass the entire user object from the session to the API for potential user-specific filtering. This is more secure and reliable than passing user data through query parameters.
       current_item: current_item ? JSON.parse(current_item) : null, // Pass current item-type for potential item-specific filtering in the API
+      record_type: record_type || null, // Pass record type for potential item-specific filtering in the API
     },
     headers: {
       current_username: userParsed?.cardnumber || "", // Pass the username from the session to the API for potential user-specific filtering
