@@ -1,4 +1,4 @@
-import type { Order } from "~/types/Order";
+import type { Order } from "#shared/types/Order";
 
 export const useOrder = () => {
   const emptyOrder: Order = {
