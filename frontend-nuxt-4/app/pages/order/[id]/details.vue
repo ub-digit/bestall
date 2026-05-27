@@ -104,6 +104,7 @@
       </div>
     </form>
   </div>
+  <Debug v-if="$config.public.debugInfo" :order="order" :biblio="biblio" />
 </template>
 
 <script setup lang="ts">
