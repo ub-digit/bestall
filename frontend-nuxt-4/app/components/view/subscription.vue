@@ -63,4 +63,8 @@ defineProps<{
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.holdings {
+  margin-bottom: 2rem;
+}
+</style>
