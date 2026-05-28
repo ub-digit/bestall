@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     get 'locations', to: 'locations#index'
     post 'locations', to: 'locations#index'
 
+    get 'pickup_locations', to: 'pickup_locations#index'
+    post 'pickup_locations', to: 'pickup_locations#index'
+
     get 'loan_types', to: 'loan_types#index'
     post 'loan_types', to: 'loan_types#index'
 
