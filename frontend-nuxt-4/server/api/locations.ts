@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
   const userParsed = session.user; // Use the user data from the session, which is more secure and reliable than the one passed as a query parameter. The query parameter is only used as a fallback if the session user data is not available for some reason.
   console.log("User fetched from session on server:", userParsed);
   const runtimeConfig = useRuntimeConfig();
-  const data: any = await $fetch(`${runtimeConfig.apiBase}/locations`, {
+  const data: any = await $fetch(`${runtimeConfig.apiBase}/pickup_locations`, {
     method: "POST", // Use POST method to send user data in the request body, which is more secure than sending it as query parameters
     body: {
       current_user: userParsed, // Pass the entire user object from the session to the API for potential user-specific filtering. This is more secure and reliable than passing user data through query parameters.
@@ -44,10 +44,6 @@ export default defineEventHandler(async (event) => {
   const extendedLocations = data.locations.map((location: Location) => ({
     ...location,
     name: locale === "en" ? location.name_en : location.name_sv,
-    sublocations: location.sublocations.map((sublocation: Location) => ({
-      ...sublocation,
-      name: locale === "en" ? sublocation.name_en : sublocation.name_sv,
-    })),
   }));
 
   try {
