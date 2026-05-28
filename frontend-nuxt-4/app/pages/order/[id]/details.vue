@@ -4,7 +4,8 @@
 
     <form @submit.prevent="submitOrder">
       <div v-if="order.subscription" class="form-component subscriptionNotes">
-        <label for="subscriptionNotes">
+        <label for="subscriptionNotes"
+          >''
           {{ $t("orderForm.labels.subscriptionNotes") }}
         </label>
         <textarea
@@ -251,6 +252,7 @@ const { data: locations, error: locationsError } = await useFetch<Location[]>(
     query: {
       locale: locale.value,
       current_item: currentItemOnOrder?.value,
+      current_subscription: currentSubscriptionOnOrder.value, // Pass current subscription-type for potential subscription-specific filtering
       record_type: order.value?.fullBiblio?.record_type,
     }, // Pass current item-type for potential item-specific filtering
   },
