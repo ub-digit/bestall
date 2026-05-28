@@ -4,8 +4,7 @@
 
     <form @submit.prevent="submitOrder">
       <div v-if="order.subscription" class="form-component subscriptionNotes">
-        <label for="subscriptionNotes"
-          >''
+        <label for="subscriptionNotes">
           {{ $t("orderForm.labels.subscriptionNotes") }}
         </label>
         <textarea
@@ -55,17 +54,6 @@
             :disabled="loc.disabled"
           >
             {{ loc.name }}
-            <span v-if="loc.disabled && loc.categories.includes('CLOSED')">
-              ({{ $t("message.libraryClosed") }})
-            </span>
-            <span
-              v-else-if="loc.disabled && loc.categories.includes('NO_PICKUP')"
-            >
-              ({{ $t("message.cannotPickUpHere") }})
-            </span>
-            <span v-else-if="loc.disabled">
-              ({{ $t("message.cannotTemporaryPickUpHere") }})
-            </span>
           </option>
         </select>
       </div>
