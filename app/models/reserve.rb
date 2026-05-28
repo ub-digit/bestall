@@ -1,6 +1,6 @@
 class Reserve
   require "prawn/measurement_extensions"
-  attr_accessor :id, :borrowernumber, :biblionumber, :itemnumber, :branchcode, :reservedate, :timestamp, :reservenotes, :queue_position
+  attr_accessor :id, :borrowernumber, :biblionumber, :itemnumber, :branchcode, :reservedate, :timestamp, :reservenotes, :queue_position, :item_referenced
 
   include ActiveModel::Model
   include ActiveModel::Serialization
@@ -131,6 +131,11 @@ class Reserve
       @queue_position = xml.search('//response/queue_position').text
     else
       @queue_position = nil
+    end
+    if xml.search('//response/item_referenced').text.present?
+      @item_referenced = (xml.search('//response/item_referenced').text == "true") ? true : false
+    else
+      @item_referenced = false
     end
   end
 
