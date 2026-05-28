@@ -73,6 +73,12 @@ const data = [
     ],
     subscription: [
       {
+        id: 2828119,
+        title:
+          "Idun : tidning för utländsk novell- och romanlitteratur i svensk öfversättning",
+        desc: "Kan beställas (can_be_ordered === true)",
+      },
+      {
         id: 189763,
         title:
           "Befolkningsförändringar. Del 1, Församlingar, kommuner och A-regioner",
