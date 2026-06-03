@@ -1,6 +1,6 @@
 class User
   attr_accessor :id, :username, :cardnumber, :first_name, :last_name, :denied, :warning, :fines_amount, :reserves, :loans, :attr_print
-  attr_reader :restriction_fines, :restriction_av, :restriction_or, :restriction_ori, :restriction_overdue, :user_category
+  attr_reader :restriction_fines, :restriction_av, :restriction_overdue, :user_category
 
   include ActiveModel::Model
   include ActiveModel::Serialization
@@ -8,16 +8,6 @@ class User
 
   def as_json options = {}
     result = super(except: ['xml'])
-    if @denied
-      result[:denied_reasons] = {restriction_av: @restriction_av, restriction_ori: @restriction_ori}
-    else
-      result[:denied_reasons] = nil
-    end
-    if @warning
-      result[:warning_reasons] = {restriction_fines: @restriction_fines, restriction_or: @restriction_or, restriction_overdue: @restriction_overdue}
-    else
-      result[:warning_reasons] = nil
-    end
     if APP_CONFIG['show_pickup_code']
       result[:pickup_code] = User.create_pickup_code({lastname: @last_name, firstname: first_name, cardnumber: cardnumber, categorycode: user_category})
     else
@@ -121,11 +111,8 @@ class User
     @fines_amount = nil # bötesbelopp
     @restriction_fines = false # böter mer än 69 kr
     @restriction_av = false # avstängd
-    @restriction_or = false # obetald räkning
-    @restriction_ori = false # obetald räkning inkasso
     @restriction_overdue = false # 2a krav
 
-    # TBD remove this, when AV is moved from patron category
     if xml.search('//response/borrower/categorycode').text.present? && xml.search('//response/borrower/categorycode').text == 'AV'
       @restriction_av = true
       @denied = true
@@ -134,14 +121,6 @@ class User
     xml.xpath('//response/debarments').each do |debarment|
       if debarment.xpath('comment').text.starts_with?('AV, ')
         @restriction_av = true
-        @denied = true
-      end
-      if debarment.xpath('comment').text.starts_with?('OR, ')
-        @restriction_or = true
-        @warning = true
-      end
-      if debarment.xpath('comment').text.starts_with?('ORI, ')
-        @restriction_ori = true
         @denied = true
       end
       if debarment.xpath('comment').text.starts_with?('OVERDUES_PROCESS ')
