@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     post 'loan_types', to: 'loan_types#index'
 
     get 'users/current', to: 'users#current_user'
+    get 'users/authenticate', to: 'users#authenticate'
 
     post 'print', to: 'print#create'
 

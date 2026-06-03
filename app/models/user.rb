@@ -52,13 +52,13 @@ class User
     return nil
   end
 
-  def self.authenticate cardnumber, personalnumber
+  def self.authenticate cardnumber, pin
     base_url = APP_CONFIG['koha']['base_url']
     auth_url = APP_CONFIG['koha']['auth_url']
     user =  APP_CONFIG['koha']['user']
     password =  APP_CONFIG['koha']['password']
 
-    url = "#{auth_url}?cardnumber=#{cardnumber}&personalnumber=#{personalnumber}&login_userid=#{user}&login_password=#{password}"
+    url = "#{auth_url}?cardnumber=#{cardnumber}&pin=#{pin}&login_userid=#{user}&login_password=#{password}"
     response = RestClient.get url
     xml = Nokogiri::XML(response.body).remove_namespaces!
     if xml.search('//response/match').text.present?
