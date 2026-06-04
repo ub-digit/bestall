@@ -108,12 +108,15 @@
     "title": "Det går inte att beställa",
     "description": "Något gick fel. <a href='https://www.ub.gu.se/kontakt'>Kontakta biblioteket</a> för att få hjälp.",
     "descriptionWithMissingId": "Sök efter något att beställa på <a href='https://www.ub.gu.se/'>bibliotekets webbplats</a>.",
+    "descriptionWithUserRestrictionsOnCurrentBiblio": "Restriktioner på materialet för denna användare",
     "errorCode": "Felkod: {code}",
     "errorDetail": "Detaljer: {detail}",
     "errors": {
       "ITEM_NOT_FOUND": "Det gick inte att hitta det material du försöker beställa.",
       "FORBIDDEN": "Detta material får inte lånas ut.",
-      "CAN_NOT_BE_BORROWED": "Detta material kan inte lånas ut."
+      "CAN_NOT_BE_BORROWED": "Detta material kan inte lånas ut.",
+      "ALREADY_BORROWED": "Du har redan lånat detta material.",
+      "ALREADY_RESERVED": "Du står redan beställt eller köar på detta materialet."
     }
   },
 
@@ -158,7 +161,11 @@
     "unsupportedViewType": "Denna typ av material ({viewType}) har inte stöd för att visa beställningsdetaljer. Kontakta biblioteket.",
     "cannotPickUpHere": "kan ej beställas hit",
     "libraryClosed": "stängt",
-    "cannotTemporaryPickUpHere": "kan ej beställas hit"
+    "cannotTemporaryPickUpHere": "kan ej beställas hit",
+    "userWarning": {
+      "message": "Du kan beställa det här materialet, men kommer inte kunna låna det, eftersom du har förseningsavgifter eller försenade lån.",
+      "action": "Logga in i <a href='https://minalan.ub.gu.se/'>Mina lån</a> för att se vad du behöver göra."
+    }
   },
   "status": {
     "loaned": "Utlånad till {loanedTo}",
@@ -199,6 +206,16 @@
       "holdings": "Bestånd ({numberOfAvailable})",
       "copies": "Exemplar ({numberOfAvailable})"
     }
+  },
+
+  "confirmation": {
+    "header": "Tack för din beställning!",
+    "youHavePlaceInQueue": "Du har plats {positionInQueue} i kön på detta material.",
+    "messagePickup": "Du får ett meddelande när materialet finns att hämta på {pickupLocation}.",
+    "messageNoPickup": "Du får ett meddelande när materialet skickas från biblioteket.",
+    "pickupInfoName": "Biblioteket kommer lägga materialet på en öppen avhämtningshylla med ditt namn synligt. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> om du istället vill hämta dina beställningar i informationsdisken.",
+    "pickupInfoCode": "I meddelandet (som kommer till din e-post och/eller SMS) finns en kod för avhämtning som du behöver för att hitta materialet på bibliotekets hylla för beställda böcker.",
+    "myLoansLink": "Du kan se dina lån och beställningar i <a href='http://www.ub.gu.se/minalan'>Mina lån</a>."
   },
 
   "orderDetails": {}
