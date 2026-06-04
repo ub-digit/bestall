@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
   const errorCodes = useErrorCodes();
   try {
     const response = await $fetch(
-      `${runtimeConfig.apiBase}/biblios/${id}?items_on_subscriptions=true`,
+      `${runtimeConfig.apiBase}/biblios/${id}?items_on_subscriptions=false`,
     );
     if (response) {
       return "success";
