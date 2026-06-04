@@ -2,6 +2,8 @@
   <div class="order-details">
     <BiblioInfo v-if="order.biblio" :biblio="order.fullBiblio" />
 
+    <UserWarning />
+
     <form @submit.prevent="submitOrder">
       <div v-if="order.subscription" class="form-component subscriptionNotes">
         <label for="subscriptionNotes">
@@ -48,7 +50,7 @@
             {{ $t("orderForm.placeholders.selectLocation") }}
           </option>
           <option
-            v-for="loc in pickupLocations"
+            v-for="loc in locations"
             :key="loc.id"
             :value="loc.id"
             :disabled="loc.disabled"
@@ -108,6 +110,7 @@ const maxReserveNotesLength =
   useRuntimeConfig().public.reserveNoteMaxLength || 140;
 const currentReserveNotesLength = ref(0);
 const { status, data: authData } = useAuth();
+const route = useRoute();
 const router = useRouter();
 const { order, setOrder, resetOrder } = useOrder();
 
@@ -126,82 +129,6 @@ watch(
 );
 
 const { locale } = useI18n();
-
-const possiblePickupLocations = computed<Location[]>(() => {
-  const categoriesToIncludePickup = ["PICKUP"]; // maybe move to .env if it needs to be configurable
-  if (!locations.value) return [];
-  return locations.value.filter((loc) =>
-    loc.categories.some((category) =>
-      categoriesToIncludePickup.includes(category),
-    ),
-  );
-});
-
-const doApplyFilter = computed<boolean>(() => {
-  if (
-    order?.value?.fullBiblio?.record_type === "monograph" &&
-    order?.value?.item
-  ) {
-    return true;
-  }
-  if (
-    order?.value?.fullBiblio?.record_type === "serial" &&
-    order?.value?.item &&
-    order?.value?.fullBiblio?.items?.find(
-      (item: Item) => item.id === order.value.item,
-    )?.can_be_ordered
-  ) {
-    return true;
-  }
-  return false;
-});
-
-const pickupLocations = computed<Location[]>(() => {
-  possiblePickupLocations.value.forEach((loc) => {
-    loc.disabled = false; // reset disabled state before applying filter
-  });
-
-  possiblePickupLocations.value.forEach((loc) => {
-    if (
-      loc.categories.includes("CLOSED") ||
-      loc.categories.includes("NO_PICKUP")
-    ) {
-      loc.disabled = true;
-    }
-  });
-  if (!doApplyFilter.value) return possiblePickupLocations.value;
-
-  let entity: any = null;
-  if (order?.value?.item) {
-    entity = order.value.fullBiblio?.items?.find(
-      (item: any) => item.id === order.value.item,
-    );
-  } else if (order?.value?.subscription) {
-    entity = order.value.fullBiblio?.subscriptiongroups
-      ?.flatMap((sg: any) => sg.subscriptions)
-      .find((sub: any) => sub.id === order.value.subscription);
-  }
-
-  if (!entity) return possiblePickupLocations.value;
-  if (entity.sublocation_open_pickup_loc) return possiblePickupLocations.value;
-  if (entity.sublocation_open_loc) {
-    const userCategories = ["FI", "SY", "FY", "FC", "FT"]; // maybe move to .env if it needs to be configurable
-    if (userCategories.includes(authData.value?.user?.categorycode)) {
-      return possiblePickupLocations.value;
-    } else {
-      const homeLocation = entity.location_id;
-      const filteredPossiblePickupLocations: Location[] =
-        possiblePickupLocations.value.map((item) => {
-          if (item.id == homeLocation) {
-            item.disabled = true;
-          }
-          return item;
-        });
-      return filteredPossiblePickupLocations;
-    }
-  }
-  return possiblePickupLocations.value;
-});
 
 const currentSubscriptionOnOrder = computed(() => {
   if (!order.value || !order.value.subscription) return null;
@@ -224,31 +151,57 @@ const currentLoanTypeOnOrder = computed(() => {
   );
 });
 
-const { data: loanTypes, error: loanTypesError } = await useFetch<LoanType[]>(
-  "/api/loantypes",
-  {
-    query: {
-      locale: locale.value,
-      current_item: currentItemOnOrder?.value, // Pass current item-type for potential item-specific filtering
-    },
+const { data: loanTypesPayload, error: loanTypesError } = await useFetch<
+  LoanType[]
+>("/api/loantypes", {
+  query: {
+    locale: locale.value,
+    current_item: currentItemOnOrder?.value, // Pass current item-type for potential item-specific filtering
   },
-);
+});
 
-const { data: locations, error: locationsError } = await useFetch<Location[]>(
-  "/api/locations",
-  {
-    query: {
-      locale: locale.value,
-      current_item: currentItemOnOrder?.value,
-      current_subscription: currentSubscriptionOnOrder.value, // Pass current subscription-type for potential subscription-specific filtering
-      record_type: order.value?.fullBiblio?.record_type,
-    }, // Pass current item-type for potential item-specific filtering
-  },
-);
-const submitOrder = () => {
-  // For demonstration, we'll just log the order data. In a real application, you'd send this to your backend API.
-  console.log("Submitting order:", order.value);
-  alert(JSON.stringify(order.value, null, 2));
+const { loanTypes, setLoanTypes, resetLoanTypes } = useLoanTypes();
+resetLoanTypes(); // Clear loan types before setting new ones to avoid showing stale data during loading
+setLoanTypes(loanTypesPayload.value || []);
+
+const { data: locationsPayload, error: locationsError } = await useFetch<
+  Location[]
+>("/api/locations", {
+  query: {
+    locale: locale.value,
+    current_item: currentItemOnOrder?.value,
+    current_subscription: currentSubscriptionOnOrder.value, // Pass current subscription-type for potential subscription-specific filtering
+    record_type: order.value?.fullBiblio?.record_type,
+  }, // Pass current item-type for potential item-specific filtering
+});
+const { locations, setLocations, resetLocations } = useLocations();
+resetLocations(); // Clear locations before setting new ones to avoid showing stale data during loading
+setLocations(locationsPayload.value || []);
+
+const submitOrder = async () => {
+  const { data, error } = await useFetch(
+    `/api/order/${route.params.id}?locale=${locale.value}`,
+    {
+      method: "POST",
+      body: {
+        order: order.value, // Pass the current order data to the API for confirmation
+      },
+    },
+  );
+  if (error.value) {
+    // Handle error case, e.g. show an error message or redirect to an error page
+    console.error("Error submitting order:", error.value);
+  } else {
+    setOrder({
+      ...data.value,
+    });
+    navigateTo(
+      useLocalePath()({
+        path: `/order/${route.params.id}/confirm`,
+        query: route.query,
+      }),
+    );
+  }
 };
 
 const goBack = () => {
@@ -267,7 +220,6 @@ setOrder({
   justify-content: space-between;
 }
 .order-details {
-  max-width: var(--reading-width);
 }
 .form-component {
   margin-bottom: var(--spacer-24);
