@@ -21,7 +21,7 @@ const props = defineProps<{
       <h2>{{ $t("orderDenied.title") }}</h2>
 
       <slot name="description">
-        <p class="description" v-html="$t('orderDenied.description')"></p>
+        <div class="description" v-html="$t('orderDenied.description')"></div>
       </slot>
 
       <ul v-if="error?.data?.data?.length" class="error-list">
