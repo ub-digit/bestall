@@ -49,6 +49,7 @@
     --info-base: oklch(68% var(--chroma-info) var(--hue-info));
     --info-dark: oklch(from var(--info-base) 60% c h);
     --info-light: oklch(from var(--info-base) 80% c h);
+    --info-lighter: oklch(from var(--info-base) 95% c h);
   }
 
   /* ##### spacers ##### */
@@ -65,6 +66,8 @@
   --spacer-64: 4rem;
 
   --reading-width: 65ch;
+  --max-content-width: calc(var(--reading-width) * 1.5);
+  --border-radius: 4px;
 
   /* ##### breakpoints ##### */
   /* default is mobile-first */
