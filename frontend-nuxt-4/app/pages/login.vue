@@ -60,7 +60,7 @@ const isAuthServiceEnabled = (service: string) => {
       width: 100%;
     }
     .github-auth {
-      margin-top: 5rem;
+      margin-top: var(--spacer-32);
     }
 
     .divider {
