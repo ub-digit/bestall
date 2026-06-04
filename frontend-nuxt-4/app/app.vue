@@ -29,6 +29,7 @@ useHead({
 @import url("~/assets/css/progress.css");
 
 #content {
+  max-width: var(--max-content-width);
   padding-top: var(--spacer-32);
   padding-bottom: var(--spacer-64);
 }
