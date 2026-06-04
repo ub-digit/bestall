@@ -1,25 +1,17 @@
 import { NuxtAuthHandler } from "#auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { parseStringPromise } from "xml2js";
 
 const runtimeConfig = useRuntimeConfig();
 
 const getUserData = async (userid: string) => {
-  const userdata = await fetch(
-    runtimeConfig.kohaAuthUrl +
-      `/cgi-bin/koha/svc/members/get?&login_userid=${runtimeConfig.kohaUser}&login_password=${runtimeConfig.kohaPwd}&borrower=${userid}`,
-    {
-      method: "GET",
-      headers: { "Content-Type": "text/xml" },
-    },
-  );
-  const userdataXml = await userdata.text();
-  const userdataJson = await parseStringPromise(userdataXml, {
-    explicitArray: false,
-    mergeAttrs: true,
+  // users/current
+  const data = await fetch(runtimeConfig.apiBase + `/users/current`, {
+    method: "GET",
+    headers: { "current-username": userid },
   });
-  return userdataJson.response.borrower;
+  const userdataJson = await data.json();
+  return userdataJson;
 };
 
 export default NuxtAuthHandler({
@@ -45,12 +37,6 @@ export default NuxtAuthHandler({
       console.log("SignIn callback called with profile:", profile);
       console.log("SignIn callback called with email:", email);
       console.log("SignIn callback called with credentials:", credentials);
-
-      if (account?.provider === "credentials") {
-        //user = await getUserData(credentials?.username || ""); // Fetch user data from Koha using the username from the credentials.
-        // fetch user details from Koha and add to the user object here if needed
-        // console.log("Authenticated user:", user);
-      }
       return true;
     },
     /* on redirect to another url */
@@ -60,16 +46,14 @@ export default NuxtAuthHandler({
     },
     /* on session retrival */
     async session({ session, user, token }) {
-      /*       console.log("Session callback called with session:", session);
-      console.log("Session callback called with user:", user);
-      console.log("Session callback called with token:", token); */
-      // extend session object
-      session.user.categorycode = token.userData.categorycode;
-      session.user.borrowernumber = token.userData.borrowernumber;
+      console.log("Session callback called with session:", session);
+      session.user.categorycode = token.userData.user_category;
       session.user.cardnumber = token.userData.cardnumber;
       session.user.fullname =
-        token.userData.firstname + " " + token.userData.surname;
-      session.user.userid = token.userData.userid;
+        token.userData.first_name + " " + token.userData.last_name;
+      session.user.userid = token.userData.id;
+      session.user.warning = token.userData.warning;
+      session.user.pickupCode = token.userData.pickup_code;
 
       // provider specific session handling can be done here
       switch (token.provider) {
@@ -97,7 +81,8 @@ export default NuxtAuthHandler({
             "Fetching user data from Koha for GitHub user:",
             xaccount,
           );
-          token.userData = await getUserData(xaccount); // Store the entire borrower object in the token for later use
+          const data = await getUserData(xaccount); // Store the entire borrower object in the token for later use
+          token.userData = data.user;
           return token;
         }
         case "GU":
@@ -150,18 +135,15 @@ export default NuxtAuthHandler({
       // The name to display on the sign in form (e.g. 'Sign in with...')
       name: "Credentials",
       async authorize(credentials: any) {
-        console.log("Authorize with credentials:", credentials);
-        const url =
-          runtimeConfig.kohaAuthUrl +
-          `cgi-bin/koha/svc/members/auth_pin?login_userid=${runtimeConfig.kohaUser}&login_password=${runtimeConfig.kohaPwd}&cardnumber=${credentials.username}&pin=${credentials.password}`;
-        console.log("Authenticating user with Koha at URL:", url);
+        const url = `${runtimeConfig.apiBase}/users/authenticate?username=${credentials.username}&password=${credentials.password}`;
         const res = await fetch(url, {
           method: "GET",
-          headers: { "Content-Type": "text/xml" },
         });
-        const xml = await res.text();
-        if (xml.includes("true")) {
-          return { id: credentials.username, name: credentials.username };
+        console.log("Koha authentication response status:", res);
+        const data = await res.json();
+        console.log("Koha authentication response data:", data);
+        if (data.authenticated) {
+          return { id: credentials.username, name: credentials.username }; // ends up as user in the session callback, and as user in the jwt callback, where you can fetch additional user data from Koha and add it to the token for use in the session callback later on.
         }
         return false; // or null
       },
