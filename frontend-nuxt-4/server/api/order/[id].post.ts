@@ -40,7 +40,7 @@ export default defineEventHandler(async (event) => {
     }
 
     let orderSuccessResponse: OrderSuccessResponse = $fetch(
-      `${useRuntimeConfig().apiBase}/reserves/create`,
+      `${useRuntimeConfig().apiBase}/reserves/`,
       {
         method: "POST",
         body: {
