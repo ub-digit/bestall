@@ -39,8 +39,8 @@ export default defineEventHandler(async (event) => {
       orderToSubmit.fullBiblio.itemsNotAvailable = []; // remove
     }
 
-    let orderSuccessResponse: OrderSuccessResponse = null;
-    /* $fetch(
+    let orderSuccessResponse: OrderSuccessResponse = await
+    $fetch(
       `${useRuntimeConfig().apiBase}/reserves/`,
       {
         method: "POST",
@@ -51,17 +51,17 @@ export default defineEventHandler(async (event) => {
           "current-username": user?.cardnumber || "",
         },
       },
-    ); */
+    );
 
-    orderSuccessResponse = {
-      showQueuePosition: true,
-      positionInQueue: "2",
-      showPickupLocation: true,
-      pickupLocation_sv: "Pickuplocation string sv", // Placeholder value, replace with actual logic to determine pickup location name in Swedish
-      pickupLocation_en: "Pickuplocation string en", // Placeholder value, replace with actual logic to determine pickup location name in English
-      showRequiredPickupCode: true,
-      showMyLoansLink: true,
-    };
+    // orderSuccessResponse = {
+    //   showQueuePosition: true,
+    //   positionInQueue: "2",
+    //   showPickupLocation: true,
+    //   pickupLocation_sv: "Pickuplocation string sv", // Placeholder value, replace with actual logic to determine pickup location name in Swedish
+    //   pickupLocation_en: "Pickuplocation string en", // Placeholder value, replace with actual logic to determine pickup location name in English
+    //   showRequiredPickupCode: true,
+    //   showMyLoansLink: true,
+    // };
 
     const extendedOrderSuccessResponse = (
       orderSuccessResponse: OrderSuccessResponse,

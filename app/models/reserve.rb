@@ -1,6 +1,7 @@
 class Reserve
   require "prawn/measurement_extensions"
-  attr_accessor :id, :borrowernumber, :biblionumber, :itemnumber, :branchcode, :reservedate, :timestamp, :reservenotes, :queue_position, :item_referenced
+  attr_accessor :id, :cardnumber, :biblionumber, :itemnumber, :branchcode, :reservedate, :timestamp,
+    :reservenotes, :showQueuePosition, :positionInQueue, :item_referenced, :pickupLocation_en, :pickupLocation_sv, :showPickupLocation, :showMyLoansLink
 
   include ActiveModel::Model
   include ActiveModel::Serialization
@@ -45,7 +46,7 @@ class Reserve
       'UNRECOGNIZED_ERROR')
   end
 
-  def self.add(borrowernumber:, branchcode:, biblionumber:, itemnumber: nil, reservenotes:, loan_type_obj:)
+  def self.add(cardnumber:, branchcode:, biblionumber:, itemnumber: nil, reservenotes:, loan_type_obj:, has_item_level_queue: false)
     base_url = APP_CONFIG['koha']['base_url']
     user =  APP_CONFIG['koha']['user']
     password =  APP_CONFIG['koha']['password']
@@ -53,20 +54,26 @@ class Reserve
     if loan_type_obj.send_material?
       # Get pickup location from the Location object
       pickup_location_id = Location.find_by_id(branchcode).pickup_location_id
+      showPickupLocation = false
     else
       # Use homebranch as pickup location
       pickup_location_id = branchcode
+      showPickupLocation = true
     end
 
     params = {
       login_userid: user,
       login_password: password,
-      borrowernumber: borrowernumber,
+      cardnumber: cardnumber,
       biblionumber: biblionumber,
       itemnumber: itemnumber,
       branchcode: pickup_location_id,
       reservenotes: reservenotes
     }.to_query
+
+    showQueuePosition = !has_item_level_queue
+    # Check this
+    showMyLoansLink = true
 
     url = "#{base_url}/reserves/create?#{params}"
     response = RestClient.get url
@@ -74,6 +81,10 @@ class Reserve
       if response.code == 201
         obj = Reserve.new
         obj.parse_xml(response.body)
+        obj.showQueuePosition = showQueuePosition
+        obj.showPickupLocation = showPickupLocation
+        obj.showMyLoansLink = showMyLoansLink
+        pp obj
         return obj
       else
         error_list = self.parse_error(response.body)
@@ -116,6 +127,10 @@ class Reserve
       @itemnumber = xml.search('//response/reserve/itemnumber').text
     end
     if xml.search('//response/reserve/branchcode').text.present?
+      location = Location.find_by_id(xml.search('//response/reserve/branchcode').text)
+      pp location
+      @pickupLocation_en = location.name_en
+      @pickupLocation_sv = location.name_sv
       @branchcode = xml.search('//response/reserve/branchcode').text
     end
     if xml.search('//response/reserve/reservedate').text.present?
@@ -128,9 +143,9 @@ class Reserve
       @reservenotes = xml.search('//response/reserve/reservenotes').text
     end
     if xml.search('//response/queue_position').text.present?
-      @queue_position = xml.search('//response/queue_position').text
+      @positionInQueue = xml.search('//response/queue_position').text
     else
-      @queue_position = nil
+      @positionInQueue = nil
     end
     if xml.search('//response/item_referenced').text.present?
       @item_referenced = (xml.search('//response/item_referenced').text == "true") ? true : false

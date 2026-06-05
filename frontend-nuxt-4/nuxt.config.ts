@@ -50,7 +50,7 @@ export default defineNuxtConfig({
     // "No entry found in rollupOptions.input" — see nuxt/nuxt#35033 (fix in #35037, awaiting release)
     viteEnvironmentApi: true,
   },
-  ssr: true,
+  ssr: false,
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   modules: ["@nuxtjs/i18n", "@sidebase/nuxt-auth"],

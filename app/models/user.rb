@@ -8,11 +8,7 @@ class User
 
   def as_json options = {}
     result = super(except: ['xml'])
-    if APP_CONFIG['show_pickup_code']
-      result[:pickup_code] = User.create_pickup_code({lastname: @last_name, firstname: first_name, cardnumber: cardnumber, categorycode: user_category})
-    else
-      result[:pickup_code] = nil
-    end
+    result[:pickup_code] = User.create_pickup_code({lastname: @last_name, firstname: first_name, cardnumber: cardnumber, categorycode: user_category})
     return result
   end
 
