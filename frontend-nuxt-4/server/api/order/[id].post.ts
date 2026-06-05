@@ -39,42 +39,25 @@ export default defineEventHandler(async (event) => {
       orderToSubmit.fullBiblio.itemsNotAvailable = []; // remove
     }
 
-    let orderSuccessResponse: OrderSuccessResponse = await
-    $fetch(
-      `${useRuntimeConfig().apiBase}/reserves/`,
-      {
-        method: "POST",
-        body: {
-          orderToSubmit,
-        },
-        headers: {
-          "current-username": user?.cardnumber || "",
-        },
+    const data: any = await $fetch(`${useRuntimeConfig().apiBase}/reserves/`, {
+      method: "POST",
+      body: {
+        orderToSubmit,
       },
-    );
-
-    // orderSuccessResponse = {
-    //   showQueuePosition: true,
-    //   positionInQueue: "2",
-    //   showPickupLocation: true,
-    //   pickupLocation_sv: "Pickuplocation string sv", // Placeholder value, replace with actual logic to determine pickup location name in Swedish
-    //   pickupLocation_en: "Pickuplocation string en", // Placeholder value, replace with actual logic to determine pickup location name in English
-    //   showRequiredPickupCode: true,
-    //   showMyLoansLink: true,
-    // };
-
-    const extendedOrderSuccessResponse = (
-      orderSuccessResponse: OrderSuccessResponse,
-    ) => ({
-      ...orderSuccessResponse,
+      headers: {
+        "current-username": user?.cardnumber || "",
+      },
+    });
+    const extendedResponse = {
+      ...data.reserve,
       pickupLocation:
         locale === "en"
-          ? orderSuccessResponse.pickupLocation_en
-          : orderSuccessResponse.pickupLocation_sv,
-    });
+          ? data.reserve.pickupLocation_en
+          : data.reserve.pickupLocation_sv,
+    };
 
     return {
-      orderSuccess: extendedOrderSuccessResponse(orderSuccessResponse),
+      data: extendedResponse,
       statusCode: 200,
       message: "Order created successfully",
     };

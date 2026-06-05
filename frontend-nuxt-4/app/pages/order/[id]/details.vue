@@ -196,7 +196,7 @@ const submitOrder = async () => {
       },
     );
     setOrderSuccessResponse({
-      ...data.orderSuccess,
+      ...data.data,
     });
     navigateTo(
       useLocalePath()({
