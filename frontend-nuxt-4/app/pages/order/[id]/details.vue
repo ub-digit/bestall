@@ -53,7 +53,7 @@
             v-for="loc in locations"
             :key="loc.id"
             :value="loc.id"
-            :disabled="loc.disabled"
+            :disabled="loc.is_disabled"
           >
             {{ loc.name }}
           </option>
