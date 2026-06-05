@@ -183,9 +183,7 @@ const submitOrder = async () => {
     `/api/order/${route.params.id}?locale=${locale.value}`,
     {
       method: "POST",
-      body: {
-        order: order.value, // Pass the current order data to the API for confirmation
-      },
+      body: order.value,
     },
   );
   if (error.value) {

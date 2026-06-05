@@ -5,29 +5,21 @@ type OrderSuccessResponse = {
   showPickupLocation: boolean;
   showMyLoansLink: boolean;
   showRequiredPickupCode: boolean;
-  positionInQueue: string;
-  pickupLocation_en: string;
-  pickupLocation_sv: string;
-  pickupLocation: string;
+  positionInQueue: string | null;
+  pickupLocation_en: string | null;
+  pickupLocation_sv: string | null;
+  pickupLocation?: string | null;
 };
 
 type Order = {
-  user: string;
   location: string | null;
-  loanType: number | null;
+  loanType: string | null;
   biblio: string;
   fullBiblio: Biblio | null;
   item: string;
   reserveNotes: string;
-  queuePosition: string;
-  isReservedClicked: boolean;
   subscription: string;
   subscriptionNotes: string;
-  subscriptionLocation: string;
-  subscriptionSublocationId: string;
-  subscriptionSublocation: string;
-  subscriptionCallNumber: string;
-  orderSuccessResponse?: OrderSuccessResponse | null;
 };
 
-export type { Order };
+export type { Order, OrderSuccessResponse };

@@ -1,6 +1,7 @@
-import { Order } from "#shared/types/Order";
+import { Order, OrderSuccessResponse } from "#shared/types/Order";
 import { Location } from "#shared/types/Location";
 import { LoanType } from "#shared/types/LoanType";
+import { Biblio, Item } from "~~/shared/types/Biblio";
 import { getServerSession } from "#auth";
 
 export default defineEventHandler(async (event) => {
@@ -11,8 +12,8 @@ export default defineEventHandler(async (event) => {
     if (!session) {
       throw createError({ statusCode: 401, statusMessage: "Unauthorized" });
     }
-    let { locale } = getQuery(event) as { locale?: string };
 
+    let { locale } = getQuery(event) as { locale?: string };
     if (!locale) {
       locale = "sv"; // if missing add default locale
     }
@@ -25,53 +26,50 @@ export default defineEventHandler(async (event) => {
         statusMessage: "Request body is required",
       });
     }
-    const runtimeConfig = useRuntimeConfig();
 
-    const loantypes: LoanType[] = await $fetch("/api/loantypes");
-    const locations: Location[] = await $fetch("/api/locations");
+    const orderToSumbit: Order = {
+      ...order,
+    };
 
-    const currentLoanType: LoanType = loantypes.find(
-      (lt: LoanType) => lt.id === order.loanType,
-    ) as LoanType;
-    const currentLocation: Location = locations.find(
-      (loc: Location) => loc.id === order.location,
-    ) as Location;
-
-    order.orderSuccessResponse = {} as Order["orderSuccessResponse"]; // initialize orderSuccessResponse to an empty object to avoid undefined errors when setting properties on it later
-
-    if (order?.fullBiblio?.has_item_level_queue || order.subscription) {
-      order.orderSuccessResponse!.showQueuePosition = true;
-    }
-    order.orderSuccessResponse!.positionInQueue = "55"; // from Koha
-
-    if (currentLoanType?.show_pickup_location) {
-      order.orderSuccessResponse!.showPickupLocation = true;
-      order.orderSuccessResponse!.pickupLocation_en = currentLocation?.name_en;
-      order.orderSuccessResponse!.pickupLocation_sv = currentLocation?.name_sv;
-      order.orderSuccessResponse!.pickupLocation =
-        locale === "en" ? currentLocation?.name_en : currentLocation?.name_sv;
-
-      order.orderSuccessResponse!.showRequiredPickupCode = !!user?.pickupCode;
+    /* remove unnecessary data from the order payload to 
+    make it smaller, since the API only needs the biblio id, item id, location id and loan type id to be able to create the order. The full biblio data is not needed for the order and can be fetched separately if needed based on the biblio id. */
+    if (orderToSumbit.fullBiblio) {
+      orderToSumbit.fullBiblio.items = []; // remove items from full biblio to make the order payload smaller, since the items are not needed for the order and can be fetched separately if needed based on the biblio id.
+      orderToSumbit.fullBiblio.itemsAvailable = []; // remove
+      orderToSumbit.fullBiblio.itemsNotAvailable = []; // remove
     }
 
-    order.orderSuccessResponse!.showMyLoansLink = order.subscriptionNotes
-      ? false
-      : true;
+    let orderSuccessResponse: OrderSuccessResponse = $fetch(
+      `${useRuntimeConfig().apiBase}/reserves/create`,
+      {
+        method: "POST",
+        body: {
+          orderToSumbit,
+          current_user: user,
+        },
+      },
+    );
 
-    console.log("Received order data:", order);
-    console.log("Fetched loantypes:", loantypes);
-    console.log("Fetched locations:", locations);
+    orderSuccessResponse = {
+      showQueuePosition: true,
+      positionInQueue: "2",
+      showPickupLocation: true,
+      pickupLocation_sv: "Pickuplocation string sv", // Placeholder value, replace with actual logic to determine pickup location name in Swedish
+      pickupLocation_en: "Pickuplocation string en", // Placeholder value, replace with actual logic to determine pickup location name in English
+      showRequiredPickupCode: true,
+      showMyLoansLink: true,
+    };
 
-    // determine if showQueuePosition should be true or false (hasItemLevelQueuePosition or hasSubscription on order object)
-    // add queue position
-    // determine if showPickupLocation should be true or false (has showPickupLocation set to true on loantype)
-    // add pickup location as pickupLocation_sv and pickupLocation_en
-    // determine if showRequiredPickupCode should be true or false (user.pickupCode))
-    // determine if showMyLoansLink should be true or false (if subscriptionNotes is empty on order object, then showMyLoansLink should be true, otherwise false. In short if ends up in Koha/MyLoans show it)
-    // add to orderSuccessResponse on order object
+    const extendedOrderSuccessResponse = {
+      ...orderSuccessResponse,
+      pickupLocation:
+        locale === "en"
+          ? orderSuccessResponse.pickupLocation_en
+          : orderSuccessResponse.pickupLocation_sv,
+    };
 
     return {
-      ...order,
+      ...extendedOrderSuccessResponse,
       statusCode: 200,
       message: "Order created successfully",
     };
