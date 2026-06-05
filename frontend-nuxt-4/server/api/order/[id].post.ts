@@ -45,7 +45,9 @@ export default defineEventHandler(async (event) => {
         method: "POST",
         body: {
           orderToSumbit,
-          current_user: user,
+        },
+        headers: {
+          current_username: user?.cardnumber || "",
         },
       },
     );
