@@ -39,7 +39,8 @@ export default defineEventHandler(async (event) => {
       orderToSubmit.fullBiblio.itemsNotAvailable = []; // remove
     }
 
-    let orderSuccessResponse: OrderSuccessResponse = $fetch(
+    let orderSuccessResponse: OrderSuccessResponse = null;
+    /* $fetch(
       `${useRuntimeConfig().apiBase}/reserves/`,
       {
         method: "POST",
@@ -50,7 +51,7 @@ export default defineEventHandler(async (event) => {
           "current-username": user?.cardnumber || "",
         },
       },
-    );
+    ); */
 
     orderSuccessResponse = {
       showQueuePosition: true,
@@ -62,16 +63,18 @@ export default defineEventHandler(async (event) => {
       showMyLoansLink: true,
     };
 
-    const extendedOrderSuccessResponse = {
+    const extendedOrderSuccessResponse = (
+      orderSuccessResponse: OrderSuccessResponse,
+    ) => ({
       ...orderSuccessResponse,
       pickupLocation:
         locale === "en"
           ? orderSuccessResponse.pickupLocation_en
           : orderSuccessResponse.pickupLocation_sv,
-    };
+    });
 
     return {
-      ...extendedOrderSuccessResponse,
+      orderSuccess: extendedOrderSuccessResponse(orderSuccessResponse),
       statusCode: 200,
       message: "Order created successfully",
     };
