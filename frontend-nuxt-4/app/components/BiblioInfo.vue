@@ -4,15 +4,12 @@
     <div class="biblio-card" :data-id="biblio?.id">
       <div class="biblio-card-common">
         <h4>{{ biblio?.title }}</h4>
-        <div v-if="biblio?.isbn" class="isbn" style="display: none">
-          {{ $t("biblio.isbn", { isbn: biblio?.isbn }) }}
-        </div>
-        <div v-if="biblio?.edition">
-          {{ biblio?.edition }}
-        </div>
-        <div v-if="biblio?.origin" class="origin">
-          {{ biblio?.origin }}
-        </div>
+        <ul
+          class="display-info list-unstyled"
+          v-if="biblio?.display_info && biblio.display_info.length"
+        >
+          <li v-for="info in biblio?.display_info" :key="info">{{ info }}</li>
+        </ul>
       </div>
     </div>
   </div>
