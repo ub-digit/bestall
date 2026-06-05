@@ -26,17 +26,9 @@
           "
         ></div>
 
-        <div
-          v-if="orderSuccessResponse?.showRequiredPickupCode"
-          class="pickup-code-info"
-        >
+        <div class="pickup-code-info">
           {{ $t("confirmation.pickupInfoCode") }}
         </div>
-        <div
-          v-else-if="!orderSuccessResponse?.showRequiredPickupCode"
-          class="pickup-info-name"
-          v-html="$t('confirmation.pickupInfoName')"
-        ></div>
       </div>
       <div v-else class="no-pickup-info">
         {{ $t("confirmation.messageNoPickup") }}
