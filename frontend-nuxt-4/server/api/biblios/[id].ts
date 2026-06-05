@@ -119,7 +119,7 @@ export default defineEventHandler(async (event) => {
             current_user: userParsed, // Pass the entire user object from the session to the API for potential user-specific filtering. This is more secure and reliable than passing user data through query parameters.
           },*/
           headers: {
-            current_username: userParsed?.cardnumber || "", // Pass the username from the session to the API for potential user-specific filtering
+            "current-username": userParsed?.cardnumber || "", // Pass the username from the session to the API for potential user-specific filtering
           },
         },
       );

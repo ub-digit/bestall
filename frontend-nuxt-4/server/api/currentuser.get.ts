@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
       {
         method: "GET",
         headers: {
-          current_username: current_username || "",
+          "current-username": current_username || "",
         },
       },
     );

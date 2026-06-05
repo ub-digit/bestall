@@ -47,7 +47,7 @@ export default defineEventHandler(async (event) => {
           orderToSumbit,
         },
         headers: {
-          current_username: user?.cardnumber || "",
+          "current-username": user?.cardnumber || "",
         },
       },
     );

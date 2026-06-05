@@ -36,7 +36,7 @@ export default defineEventHandler(async (event) => {
       record_type: record_type || null, // Pass record type for potential item-specific filtering in the API
     },
     headers: {
-      current_username: userParsed?.cardnumber || "", // Pass the username from the session to the API for potential user-specific filtering
+      "current-username": userParsed?.cardnumber || "", // Pass the username from the session to the API for potential user-specific filtering
     },
   });
 

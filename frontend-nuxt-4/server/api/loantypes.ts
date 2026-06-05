@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
       current_item: current_item ? JSON.parse(current_item) : null, // Pass current item-type for potential item-specific filtering in the API
     },
     headers: {
-      current_username: userParsed?.cardnumber || "", // Pass the username from the session to the API for potential user-specific filtering
+      "current-username": userParsed?.cardnumber || "", // Pass the username from the session to the API for potential user-specific filtering
     },
   });
 
