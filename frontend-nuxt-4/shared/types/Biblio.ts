@@ -65,6 +65,7 @@ export interface Biblio {
   subscriptiongroups: SubscriptionGroup[];
   record_type: string;
   title: string;
+  display_info?: string[] | null;
   origin: null;
   isbn: string;
   edition: string;
