@@ -64,7 +64,7 @@ class Api::ReservesController < ApplicationController
       result = Reserve.add(cardnumber: @current_username, branchcode: branchcode, biblionumber: biblionumber, itemnumber: itemnumber, reservenotes: reservenotes, loan_type_obj: loan_type_obj, has_item_level_queue:)
       if result.class == Reserve
         # Change back to :reserve ? TBD
-        @response[:OrderSuccessResponse] = result.as_json
+        @response[:reserve] = result.as_json
         render_json(201)
         return
       elsif result.class == Hash
