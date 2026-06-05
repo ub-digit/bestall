@@ -4,7 +4,6 @@ type OrderSuccessResponse = {
   showQueuePosition: boolean;
   showPickupLocation: boolean;
   showMyLoansLink: boolean;
-  showRequiredPickupCode: boolean;
   positionInQueue: string | null;
   pickupLocation_en: string | null;
   pickupLocation_sv: string | null;
