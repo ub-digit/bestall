@@ -2,7 +2,6 @@ import type { Order } from "#shared/types/Order";
 
 export const useOrder = () => {
   const emptyOrder: Order = {
-    user: "",
     location: "",
     loanType: null,
     biblio: "",
@@ -10,13 +9,37 @@ export const useOrder = () => {
     item: "",
     subscription: "",
     reserveNotes: "",
-    queuePosition: "",
-    isReservedClicked: false,
     subscriptionNotes: "",
-    subscriptionLocation: "",
-    subscriptionSublocationId: "",
-    subscriptionSublocation: "",
-    subscriptionCallNumber: "",
+  };
+
+  const orderSuccessResponse = useState<OrderSuccessResponse>(
+    "orderSuccessResponse",
+    () =>
+      ({
+        showQueuePosition: false,
+        positionInQueue: null,
+        showPickupLocation: false,
+        pickupLocation_en: null,
+        pickupLocation_sv: null,
+        showRequiredPickupCode: false,
+        showMyLoansLink: false,
+      }) as OrderSuccessResponse,
+  );
+
+  const setOrderSuccessResponse = (data: Partial<OrderSuccessResponse>) => {
+    Object.assign(orderSuccessResponse.value, data);
+  };
+
+  const resetOrderSuccessResponse = () => {
+    Object.assign(orderSuccessResponse.value, {
+      showQueuePosition: false,
+      positionInQueue: null,
+      showPickupLocation: false,
+      pickupLocation_en: null,
+      pickupLocation_sv: null,
+      showRequiredPickupCode: false,
+      showMyLoansLink: false,
+    } as OrderSuccessResponse);
   };
 
   const order = useState<Order>("order", () => ({}) as Order);
@@ -37,5 +60,8 @@ export const useOrder = () => {
     order,
     setOrder,
     resetOrder,
+    orderSuccessResponse,
+    setOrderSuccessResponse,
+    resetOrderSuccessResponse,
   };
 };
