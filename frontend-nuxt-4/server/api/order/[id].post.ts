@@ -27,16 +27,16 @@ export default defineEventHandler(async (event) => {
       });
     }
 
-    const orderToSumbit: Order = {
+    const orderToSubmit: Order = {
       ...order,
     };
 
     /* remove unnecessary data from the order payload to 
     make it smaller, since the API only needs the biblio id, item id, location id and loan type id to be able to create the order. The full biblio data is not needed for the order and can be fetched separately if needed based on the biblio id. */
-    if (orderToSumbit.fullBiblio) {
-      orderToSumbit.fullBiblio.items = []; // remove items from full biblio to make the order payload smaller, since the items are not needed for the order and can be fetched separately if needed based on the biblio id.
-      orderToSumbit.fullBiblio.itemsAvailable = []; // remove
-      orderToSumbit.fullBiblio.itemsNotAvailable = []; // remove
+    if (orderToSubmit.fullBiblio) {
+      orderToSubmit.fullBiblio.items = []; // remove items from full biblio to make the order payload smaller, since the items are not needed for the order and can be fetched separately if needed based on the biblio id.
+      orderToSubmit.fullBiblio.itemsAvailable = []; // remove
+      orderToSubmit.fullBiblio.itemsNotAvailable = []; // remove
     }
 
     let orderSuccessResponse: OrderSuccessResponse = $fetch(
@@ -44,7 +44,7 @@ export default defineEventHandler(async (event) => {
       {
         method: "POST",
         body: {
-          orderToSumbit,
+          orderToSubmit,
         },
         headers: {
           "current-username": user?.cardnumber || "",
