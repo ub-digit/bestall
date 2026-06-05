@@ -105,6 +105,7 @@ definePageMeta({
 import type { Location } from "~/types/Location";
 import type { LoanType } from "~/types/LoanType";
 import type { Item } from "~/types/Biblio";
+import type { Order, OrderSuccessResponse } from "~/types/Order";
 
 const maxReserveNotesLength =
   useRuntimeConfig().public.reserveNoteMaxLength || 140;
@@ -112,7 +113,14 @@ const currentReserveNotesLength = ref(0);
 const { status, data: authData } = useAuth();
 const route = useRoute();
 const router = useRouter();
-const { order, setOrder, resetOrder } = useOrder();
+const {
+  order,
+  setOrder,
+  resetOrder,
+  orderSuccessResponse,
+  setOrderSuccessResponse,
+  resetOrderSuccessResponse,
+} = useOrder();
 
 if (!order.value?.biblio) {
   // if there's no biblio data in the order, we can't show the details page, so we redirect back to the search page
@@ -179,19 +187,16 @@ resetLocations(); // Clear locations before setting new ones to avoid showing st
 setLocations(locationsPayload.value || []);
 
 const submitOrder = async () => {
-  const { data, error } = await useFetch(
-    `/api/order/${route.params.id}?locale=${locale.value}`,
-    {
-      method: "POST",
-      body: order.value,
-    },
-  );
-  if (error.value) {
-    // Handle error case, e.g. show an error message or redirect to an error page
-    console.error("Error submitting order:", error.value);
-  } else {
-    setOrder({
-      ...data.value,
+  try {
+    const data: OrderSuccessResponse = await $fetch(
+      "/api/order/" + route.params.id,
+      {
+        method: "POST",
+        body: order.value,
+      },
+    );
+    setOrderSuccessResponse({
+      ...data.orderSuccess,
     });
     navigateTo(
       useLocalePath()({
@@ -199,6 +204,10 @@ const submitOrder = async () => {
         query: route.query,
       }),
     );
+  } catch (error) {
+    console.error("Error submitting order:", error);
+    // Handle error case, e.g. show an error message or redirect to an error page
+    return;
   }
 };
 
