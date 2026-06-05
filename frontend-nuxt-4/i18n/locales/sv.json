@@ -193,7 +193,6 @@
 
   "biblio": {
     "title": "Din beställning",
-    "isbn": "ISBN: {isbn}",
     "errorLoadingData": "Det gick inte att ladda all nödvändig data för att visa beställningsdetaljerna. Försök igen senare eller kontakta biblioteket."
   },
 
