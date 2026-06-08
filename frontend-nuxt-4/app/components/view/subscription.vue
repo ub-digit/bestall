@@ -18,47 +18,54 @@ defineProps<{
 <template>
   <div class="view-type-subscription">
     <div class="holdings">
-      <div id="holdings-available" class="holdings">
-        <ViewHoldings
-          v-if="biblio?.subscriptiongroups.length"
-          :subscriptionGroups="biblio.subscriptiongroups"
-          @handleEvent="(payload) => handleEvent(payload)"
-          :header="
-            $t('viewType.subscription.holdings', {
-              numberOfAvailable: biblio?.subscriptiongroups.length,
-            })
-          "
-        />
-      </div>
-    </div>
-
-    <br />
-
-    <div id="items-available" class="items" v-if="biblio?.items.length">
-      <ViewItemsTable
-        v-if="biblio?.items"
-        :items="biblio.items"
-        @handleEvent="(payload) => handleEvent(payload)"
-        :hasActions="true"
-        :hasSubscriptions="true"
-        :header="
-          $t('viewType.subscription.copies', {
-            numberOfAvailable: biblio?.items.length,
-          })
-        "
-      >
-        <template #info>
-          <div v-if="!biblio?.items.length">
-            <p class="muted">
-              {{ $t("message.noAvailableItems") }}
-            </p>
-            <ViewQueuePane
-              :biblio="biblio"
+      <tabbed>
+        <template #tabbedNav>
+          <a href="#holdings-available">
+            {{
+              $t("viewType.subscription.holdings", {
+                numberOfAvailable: biblio?.subscriptiongroups.length,
+              })
+            }}
+          </a>
+          <a href="#items-available">
+            {{
+              $t("viewType.subscription.copies", {
+                numberOfAvailable: biblio?.items.length,
+              })
+            }}
+          </a>
+        </template>
+        <template #tabbedContent>
+          <div id="holdings-available" class="holdings">
+            <ViewHoldings
+              v-if="biblio?.subscriptiongroups.length"
+              :subscriptionGroups="biblio.subscriptiongroups"
               @handleEvent="(payload) => handleEvent(payload)"
             />
           </div>
+          <div id="items-available" class="items" v-if="biblio?.items.length">
+            <ViewItemsTable
+              v-if="biblio?.items"
+              :items="biblio.items"
+              @handleEvent="(payload) => handleEvent(payload)"
+              :hasActions="true"
+              :hasSubscriptions="true"
+            >
+              <template #info>
+                <div v-if="!biblio?.items.length">
+                  <p class="muted">
+                    {{ $t("message.noAvailableItems") }}
+                  </p>
+                  <ViewQueuePane
+                    :biblio="biblio"
+                    @handleEvent="(payload) => handleEvent(payload)"
+                  />
+                </div>
+              </template>
+            </ViewItemsTable>
+          </div>
         </template>
-      </ViewItemsTable>
+      </tabbed>
     </div>
   </div>
 </template>
