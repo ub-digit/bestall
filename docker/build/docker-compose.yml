@@ -3,7 +3,7 @@ services:
   frontend-nuxt:
     image: docker.ub.gu.se/bestall-frontend-nuxt:${GIT_REVISION}
     build:
-      context: ./frontend-nuxt
+      context: ./frontend-nuxt-4
       args:
         - GIT_REPO_URL=${GIT_REPO_URL}
         - GIT_REVISION=${GIT_REVISION}
