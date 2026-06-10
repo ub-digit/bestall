@@ -1,5 +1,5 @@
 # build environment
-FROM node:22-bullseye AS build
+FROM node:24-bullseye AS build
 
 ARG GIT_REVISION
 ARG GIT_REPO_URL
@@ -9,16 +9,16 @@ WORKDIR /app
 RUN set -ex \
   && git clone $GIT_REPO_URL release -b $GIT_REVISION --depth 1
 
-WORKDIR /app/release/frontend-nuxt
+WORKDIR /app/release/frontend-nuxt-4
 
 RUN set -ex \
- && yarn install && yarn build
+ && npm install && npm run build
 
 # production environment
 FROM node:22-bullseye
 ENV TZ=Europe/Stockholm
 WORKDIR /app
-COPY --from=build /app/release/frontend-nuxt/.output ./.output
+COPY --from=build /app/release/frontend-nuxt-4/.output ./.output
 ENV NUXT_HOST=0.0.0.0
 # set app port
 ENV NUXT_PORT=5000
