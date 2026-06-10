@@ -6,9 +6,6 @@ export default defineNuxtConfig({
     xaccountMapToGithub: "",
     githubClientSecret: "",
     guClientSecret: "",
-    kohaUser: "",
-    kohaPwd: "",
-    kohaAuthUrl: "",
     apiBase: "",
 
     public: {
@@ -52,7 +49,7 @@ export default defineNuxtConfig({
   },
   ssr: false,
   compatibilityDate: "2025-07-15",
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   modules: ["@nuxtjs/i18n", "@sidebase/nuxt-auth"],
   vite: {
     optimizeDeps: {
