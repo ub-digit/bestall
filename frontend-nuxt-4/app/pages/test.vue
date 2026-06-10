@@ -30,7 +30,6 @@
                 $localePath({
                   path: `/${link.id}`,
                   query: link.query,
-                  replace: true,
                 })
               "
               >{{ link.id }}</NuxtLink
