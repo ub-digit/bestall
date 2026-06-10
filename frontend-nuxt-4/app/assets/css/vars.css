@@ -9,7 +9,7 @@
     --light-base: oklch(90% var(--chroma) var(--hue));
     --light-dark: oklch(from var(--light-base) 80% c h);
     --light-light: oklch(from var(--light-base) 98% c h);
-
+    /* 
     @media (prefers-color-scheme: dark) {
       --dark-base: oklch(90% var(--chroma) var(--hue));
       --dark-dark: oklch(from var(--dark-base) 80% c h);
@@ -19,7 +19,7 @@
       --light-dark: oklch(from var(--light-base) 5% c h);
       --light-light: oklch(from var(--light-base) 80% c h);
     }
-
+ */
     --hue-brand: 251.36; /* 0=red, 120=green, 240=blue */
     --chroma-brand: 0.14;
     --brand-base: oklch(47% var(--chroma-brand) var(--hue-brand));
