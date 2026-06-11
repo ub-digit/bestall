@@ -1,5 +1,11 @@
 <script setup lang="ts">
 const { signIn } = useAuth();
+const loginWithGU = async () => {
+  const callbackUrl =
+    window.location.origin +
+    localePath((route.query.redirect as string) || localePath("/"));
+  await signIn("GU", { callbackUrl: callbackUrl });
+};
 </script>
 <template>
   <div class="gu-auth">
@@ -9,7 +15,7 @@ const { signIn } = useAuth();
     />
     <header>{{ $t("login.guAuth.title") }}</header>
     <p class="description">{{ $t("login.guAuth.description") }}</p>
-    <button class="btn-primary" @click="signIn('gu')">
+    <button class="btn-primary" @click="loginWithGU()">
       {{ $t("login.guAuth.button") }}
     </button>
   </div>
