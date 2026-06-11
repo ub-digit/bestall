@@ -5,6 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 const runtimeConfig = useRuntimeConfig();
 
 const getUserData = async (userid: string) => {
+  console.log("Fetching user data for user ID:", userid);
   // users/current
   const data = await fetch(runtimeConfig.apiBase + `/users/current`, {
     method: "GET",
@@ -46,7 +47,7 @@ export default NuxtAuthHandler({
     },
     /* on session retrival */
     async session({ session, user, token }) {
-      console.log("Session callback called with session:", session);
+      console.log("Session callback called with session:", token);
       session.user.categorycode = token.userData.user_category;
       session.user.cardnumber = token.userData.cardnumber;
       session.user.fullname =
@@ -68,11 +69,10 @@ export default NuxtAuthHandler({
     },
     /* on JWT token creation or mutation */
     async jwt({ token, user, account, profile, isNewUser }) {
-      /*       console.log("JWT callback called with token:", token);
+      console.log("JWT callback called with token:", token);
       console.log("JWT callback called with user:", user);
       console.log("JWT callback called with account:", account);
-      console.log("JWT callback called with profile:", profile); //?.login */
-      ("");
+      console.log("JWT callback called with profile:", profile);
       switch (account?.provider) {
         case "github": {
           const xaccount = runtimeConfig.xaccountMapToGithub;
@@ -98,7 +98,8 @@ export default NuxtAuthHandler({
         case "credentials":
           token.provider = "credentials";
           console.log("User ID from credentials provider:", user.id);
-          token.userData = await getUserData(user.id);
+          const data_cred = await getUserData(user.id); // Store the entire borrower object in the token for later use
+          token.userData = data_cred.user;
           break;
       }
       return token;
