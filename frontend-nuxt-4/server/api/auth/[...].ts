@@ -128,7 +128,7 @@ export default NuxtAuthHandler({
       wellKnown: "https://idp.auth.gu.se/adfs/.well-known/openid-configuration",
       authorization: { params: { scope: "openid email profile" } },
       idToken: true,
-      clientId: runtimeConfig.guClientId,
+      clientId: runtimeConfig.public.guClientId,
       clientSecret: runtimeConfig.guClientSecret,
       async profile(profile) {
         return {
