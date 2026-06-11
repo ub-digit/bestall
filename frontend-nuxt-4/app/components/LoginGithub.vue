@@ -1,13 +1,12 @@
 <script setup lang="ts">
 const { signIn, session } = useAuth();
 const route = useRoute();
-const callbackUrl = (route.query.redirect as string) || useLocalePath()("/");
 const localePath = useLocalePath();
 
 const loginWithGithub = async () => {
   const callbackUrl =
     window.location.origin +
-    localePath((route.query.redirect as string) || "/");
+    localePath((route.query.redirect as string) || localePath("/"));
   await signIn("github", { callbackUrl: callbackUrl });
 };
 </script>
