@@ -27,7 +27,7 @@ console.log("Content slot content:", content.value);
 watch(
   activeTab,
   (newVal) => {
-    //reset all content to hidden
+    if (!import.meta.client) return; // ssr guard
     document.querySelectorAll(".tabbed-content > *").forEach((item, index) => {
       (item as HTMLElement).style.display = "none";
     });
