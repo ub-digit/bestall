@@ -22,12 +22,9 @@ useHead({
     <NuxtPage />
   </main>
   <Footer />
-  <div class="hidden" id="progress"></div>
 </template>
 
 <style scoped>
-@import url("~/assets/css/progress.css");
-
 #content {
   max-width: var(--max-content-width);
   padding-top: var(--spacer-32);
