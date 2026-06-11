@@ -1,5 +1,7 @@
 <script setup lang="ts">
 const { signIn } = useAuth();
+const route = useRoute();
+const localePath = useLocalePath();
 const loginWithGU = async () => {
   const callbackUrl =
     window.location.origin +
