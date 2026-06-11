@@ -7,40 +7,39 @@ class Print
   def self.prepare_subscription_order(params, username)
     obj = {}
     obj[:subscription_info_text] = true
-    obj[:borrowernumber] = params[:reserve][:user_id] if params[:reserve][:user_id].present?
-    obj[:bibid] = params[:reserve][:biblio_id] if params[:reserve][:biblio_id].present?
-    obj[:location] = params[:reserve][:subscription_location] if params[:reserve][:subscription_location].present?
-    obj[:sublocation] = params[:reserve][:subscription_sublocation] if params[:reserve][:subscription_sublocation].present?
-    obj[:sublocation_id] = params[:reserve][:subscription_sublocation_id] if params[:reserve][:subscription_sublocation_id].present?
-    obj[:call_number] = params[:reserve][:subscription_call_number] if params[:reserve][:subscription_call_number].present?
-    obj[:description] = params[:reserve][:subscription_notes] if params[:reserve][:subscription_notes].present?
+    obj[:bibid] = params[:orderToSubmit][:biblio] if params[:orderToSubmit][:biblio].present?
+    obj[:location] = params[:orderToSubmit][:subscriptionLocation] if params[:orderToSubmit][:subscriptionLocation].present?
+    obj[:sublocation] = params[:orderToSubmit][:subscriptionSublocation] if params[:orderToSubmit][:subscriptionSublocation].present?
+    obj[:sublocation_id] = params[:orderToSubmit][:subscriptionSublocationId] if params[:orderToSubmit][:subscriptionSublocationId].present?
+    obj[:call_number] = params[:orderToSubmit][:subscriptionCallNumber] if params[:orderToSubmit][:subscriptionCallNumber].present?
+    obj[:description] = params[:orderToSubmit][:subscriptionNotes] if params[:orderToSubmit][:subscriptionNotes].present?
 
     user_obj = User.find_by_username(username)
+    obj[:borrowernumber] = user_obj ? user_obj.id : ''
     obj[:firstname] = user_obj ? user_obj.first_name : ''
     obj[:lastname] = user_obj ? user_obj.last_name : ''
     obj[:cardnumber] = user_obj ? user_obj.cardnumber : ''
     obj[:categorycode] = user_obj ? user_obj.user_category : ''
     obj[:extra_info] = user_obj ? user_obj.attr_print : ''
 
-    loan_type_obj = LoanType.find_by_id(params[:reserve][:loan_type_id].to_i)
+    loan_type_obj = LoanType.find_by_id(params[:orderToSubmit][:loanType].to_i)
     obj[:loantype] = loan_type_obj ? loan_type_obj.name_sv : ''
 
 
     if loan_type_obj && loan_type_obj.send_material?
       # Get pickup location from the Location object
-      pickup_location_id = Location.find_by_id(params[:reserve][:location_id].to_i).pickup_location_id
+      pickup_location_id = Location.find_by_id(params[:orderToSubmit][:location].to_i).pickup_location_id
     else
       # Use incoming location as pickup location
-      pickup_location_id = params[:reserve][:location_id].to_i
+      pickup_location_id = params[:orderToSubmit][:location].to_i
     end
     obj[:pickup_location] = Location.find_by_id(pickup_location_id).name_sv
     obj[:pickup_location_id] = pickup_location_id
 
-    biblio_obj = Biblio.find_by_id(params[:reserve][:biblio_id])
-    if biblio_obj
-      obj[:title] = biblio_obj.title.squish if biblio_obj.title.present?
-      obj[:place] = biblio_obj.origin if biblio_obj.origin.present?
-      obj[:edition] = biblio_obj.edition if biblio_obj.edition.present?
+    if params[:orderToSubmit][:fullBiblio].present?
+      obj[:title] = params[:orderToSubmit][:fullBiblio][:title].squish if params[:orderToSubmit][:fullBiblio][:title].present?
+      obj[:place] = params[:orderToSubmit][:fullBiblio][:origin] if params[:orderToSubmit][:fullBiblio][:origin].present?
+      obj[:edition] = params[:orderToSubmit][:fullBiblio][:edition] if params[:orderToSubmit][:fullBiblio][:edition].present?
     end
 
     obj
