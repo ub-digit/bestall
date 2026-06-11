@@ -1,5 +1,5 @@
 class Biblio
-  attr_accessor :id, :title, :origin, :isbn, :edition, :items, :record_type, :no_in_queue, :subscriptiongroups, :biblio_call_number, :default_queue_location
+  attr_accessor :id, :title, :origin, :edition, :items, :display_info, :record_type, :no_in_queue, :subscriptiongroups, :biblio_call_number, :default_queue_location
 
   include ActiveModel::Serialization
   include ActiveModel::Validations
@@ -188,7 +188,7 @@ class Biblio
 
     @title = nil
     @origin = nil
-    @isbn =  nil
+    @display_info = []
     @edition = nil
     @has_enum = nil
     @biblio_call_number = nil
@@ -197,19 +197,25 @@ class Biblio
       @biblio_call_number = bib_xml.search('//record/datafield[@tag="095"]/subfield[@code="a"]').text
     end
 
-    if bib_xml.search('//record/datafield[@tag="260"]').text.present?
-      tmp_arr = []
-      data = bib_xml.search('//record/datafield[@tag="260"]').first
-      tmp_arr = tmp_arr + [data.search('subfield[@code="a"]').text, data.search('subfield[@code="b"]').text, data.search('subfield[@code="c"]').text]
-
-      @origin = tmp_arr.join(" ").strip
-    elsif bib_xml.search('//record/datafield[@tag="264" and @ind="1"]').text.present?
-      tmp_arr = []
-      bib_xml.search('//record/datafield[@tag="264" and @ind="1"]').each do |data|
-        tmp_arr = tmp_arr + [data.search('subfield[@code="a"]').text, data.search('subfield[@code="b"]').text, data.search('subfield[@code="c"]').text]
-      end
-      @origin = tmp_arr.join(" ").strip
+    # Create an author string, based on 100 and 700 fields and add it to display_info
+    authors = []
+    bib_xml.search('//record/datafield[@tag="100" or @tag="700"]').each do |author_field|
+      author_name = create_author_name(author_field)
+      authors << author_name if author_name.present?
     end
+    @display_info[0] = authors.join(" ") if authors.any?
+
+    # Create a string with place, edition and publication year, save it as orgin and add it to display_info.
+    # First try with 260 field, if not available try with 264 field.
+
+    if bib_xml.search('//record/datafield[@tag="260"]').text.present?
+      field = bib_xml.search('//record/datafield[@tag="260"]').first
+      @origin = create_origin(field)
+    elsif bib_xml.search('//record/datafield[@tag="264" and @ind2="1"]').text.present?
+      field = bib_xml.search('//record/datafield[@tag="264" and @ind2="1"]').first
+      @origin = create_origin(field)
+    end
+    @display_info[1] = @origin if @origin.present?
 
     if @record_type.eql?("serial") || @record_type.eql?("collection")
       if bib_xml.search('//record/datafield[@tag="222"]').text.present?
@@ -222,13 +228,11 @@ class Biblio
       @title = [bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="a"]').text,
                 bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="b"]').text,
                 bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="n"]').text,
-                bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="p"]').text,
-                bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="c"]').text].join(" ").strip
+                bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="p"]').text].join(" ").strip
 
       @edition = bib_xml.search('//record/datafield[@tag="250"]/subfield[@code="a"]').text if bib_xml.search('//record/datafield[@tag="250"]/subfield[@code="a"]').text.present?
-      @isbn = bib_xml.search('//record/datafield[@tag="020"]/subfield[@code="a"]').map(&:text).join("; ") if bib_xml.search('//record/datafield[@tag="020"]/subfield[@code="a"]').text.present?
     end
-    
+
     link_urls = bib_xml.search('//record/datafield[@tag="856"]/subfield[@code="u"]').map(&:text)
     if link_urls.any? {|url| url.include?("urn:nbn:se:gu:ub:kat57-") }
       @redirect_url = link_urls.find {|url| url.include?("urn:nbn:se:gu:ub:kat57-") }
@@ -276,6 +280,63 @@ class Biblio
     location_list =  @items.map{|i|i.location_id}
     location_max_no_of_items = location_list.max_by{|l| location_list.count(l)}
     @default_queue_location = Location.find_by_id(location_max_no_of_items).pickup_location_id
+  end
+
+  def create_author_name author_field
+  # Exclude the entries with ind2 eq to 2
+    return nil if author_field['ind2'] == '2'
+    name_parts = []
+    name = author_field.search('subfield[@code="a"]').text if author_field.search('subfield[@code="a"]').text.present?
+    # The name is in the form "Lastname, Firstname," split and rearrange to "Firstname Lastname"
+    if name && name.include?(",")
+      name_split = name.split(",").map(&:strip)
+      name = "#{name_split[1]} #{name_split[0]}"
+    end
+    year = author_field.search('subfield[@code="d"]').text if author_field.search('subfield[@code="d"]').text.present?
+    role_code = author_field.search('subfield[@code="4"]').text if author_field.search('subfield[@code="4"]').text.present?
+    # Get role from marc relator code mapping
+    role = Biblio.marc_relator_mapping(role_code) if role_code.present?
+    name_parts << name if name.present?
+    name_parts << year if year.present?
+    name_parts << role if role.present?
+    return name_parts.join(" ")
+  end
+
+  def self.marc_relator_mapping code
+    mapping = {
+      'ill' => 'illustratör',
+      'pbl' => 'utgivare',
+      'arr' => 'arrangör',
+      'lyr' => 'sångtextförfattare',
+      'cmp' => 'kompositör',
+      'ctb' => 'bidragsgivare',
+      'aui' => 'förordsförfattare',
+      'art' => 'konstnär',
+      'pht' => 'fotograf',
+      'aut' => 'författare',
+      'trl' => 'översättare',
+      'edt' => 'redaktör',
+      'hnr' => 'festskriftsföremål',
+      'cov' => 'omslagsformgivare'
+    }
+    # If no mapping found, return empty string
+    return mapping[code] || ''
+  end
+
+  def create_origin field
+      a_field = field.search('subfield[@code="a"]').text if field.search('subfield[@code="a"]').text.present?
+      b_field = []
+      field.search('subfield[@code="b"]').each do |b|
+        b_field << b.text if b.text.present?
+      end
+      c_field = field.search('subfield[@code="c"]').text if field.search('subfield[@code="c"]').text.present?
+      # Remove any leading "[" and trailing "]" from c_field entries
+      c_field = c_field.gsub(/^\[|\]$/, '') if c_field.present?
+      origin_parts = []
+      origin_parts << a_field if a_field.present?
+      origin_parts << b_field.join(" ") if b_field.any?
+      origin_parts << c_field if c_field.present?
+      origin_parts.join(" ").strip
   end
 
   def self.parse_record_type leader
