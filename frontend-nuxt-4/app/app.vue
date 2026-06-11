@@ -22,7 +22,7 @@ useHead({
     <NuxtPage />
   </main>
   <Footer />
-  <div id="progress"></div>
+  <div class="hidden" id="progress"></div>
 </template>
 
 <style scoped>
