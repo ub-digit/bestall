@@ -87,6 +87,13 @@ export default NuxtAuthHandler({
         }
         case "GU":
           token.provider = "GU";
+          console.log(
+            "Fetching user data from Koha for GU user:",
+            profile.account,
+          );
+          const data = await getUserData(profile.account); // Store the entire borrower object in the token for later use
+          token.userData = data.user;
+          return token;
           break;
         case "credentials":
           token.provider = "credentials";
