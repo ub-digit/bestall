@@ -93,8 +93,6 @@
         >
           {{ $t("actions.submit") }}
         </button>
-        <!-- Debugging line to show current order state -->}}
-        <!-- Debugging line to show current order state -->
       </div>
     </form>
   </div>
