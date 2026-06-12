@@ -87,11 +87,14 @@
           type="submit"
           :disabled="
             !order.loanType ||
-            (currentLoanTypeOnOrder?.show_pickup_location && !order.location)
+            (currentLoanTypeOnOrder?.show_pickup_location && !order.location) ||
+            (order.subscription.length && order.subscriptionNotes.length === 0)
           "
         >
           {{ $t("actions.submit") }}
         </button>
+        <!-- Debugging line to show current order state -->}}
+        <!-- Debugging line to show current order state -->
       </div>
     </form>
   </div>
