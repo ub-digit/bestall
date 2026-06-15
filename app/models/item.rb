@@ -2,7 +2,7 @@ class Item
   include ActiveModel::Serialization
   include ActiveModel::Validations
 
-  attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number,
+  attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number, :ccode,
                 :copy_number, :public_notes, :due_date, :lost, :restricted, :not_for_loan, :is_reserved,
                 :withdrawn, :in_transit, :location_id, :location_name_sv,:sublocation_open_loc
 
@@ -79,6 +79,10 @@ class Item
     return false
   end
 
+  def in_special_collection?
+    return true if ccode.present? && !ccode.eql?("MoD")
+    return false
+  end
 
   def sublocation_paging_loc?
     Sublocation.find_by_id(@sublocation_id).is_paging_loc == '1'
@@ -154,6 +158,7 @@ class Item
     rawdata["itype"].present? ? @item_type = rawdata["itype"].to_s : @item_type = nil
     rawdata["barcode"].present? ? @barcode = rawdata["barcode"] : @barcode = nil
     rawdata["itemcallnumber"].present? ? @item_call_number = rawdata["itemcallnumber"] : @item_call_number = nil
+    rawdata["ccode"].present? ? @ccode = rawdata["ccode"] : @ccode = nil
     rawdata["enumchron"].present? ? @copy_number = rawdata["enumchron"] : @copy_number = nil
     rawdata["itemnotes"].present? ? @public_notes = rawdata["itemnotes"] : @public_notes = nil
     rawdata["itemlost"].present? ? @lost = rawdata["itemlost"].to_s : @lost = nil

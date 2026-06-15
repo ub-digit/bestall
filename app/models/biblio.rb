@@ -273,8 +273,16 @@ class Biblio
         @has_enum = true
       end
     end
-    # Sort items
-    @items = @items.sort_by { |a| [ a.location_id || "", a.sublocation_id || "", a.item_call_number || "" ] }
+
+    # Sort items, besides sorting by location_id, sublocation_id and item_call_number, items in special collections should always be last
+    @items.sort_by! do |item|
+      [
+        item.in_special_collection? ? 1 : 0,
+        item.location_id.to_s,
+        item.sublocation_id.to_s,
+        item.item_call_number.to_s
+      ]
+    end
 
     # Get the library that have the highest number of items and set default queue library .
     location_list =  @items.map{|i|i.location_id}
