@@ -131,7 +131,7 @@ class Item
   end
 
   def masked?
-    ['1', '2', '3'].include?(@withdrawn) || ['1', '5'].include?(@lost)
+    ['1', '2', '3', '5'].include?(@withdrawn) || ['1', '5'].include?(@lost)
   end
 
   def not_in_place?
