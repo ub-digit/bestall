@@ -3,53 +3,63 @@
     {
       "id": "40",
       "name_sv": "Biomedicinska biblioteket",
-      "name_en": "Biomedical Library"
+      "name_en": "Biomedical Library",
+      "monitored_reading_room": true
     },
     {
       "id": "42",
       "name_sv": "Samhällsvetenskapliga biblioteket",
-      "name_en": "Social Sciences Library"
+      "name_en": "Social Sciences Library",
+      "monitored_reading_room": false
     },
     {
       "id": "44",
       "name_sv": "Humanistiska biblioteket",
-      "name_en": "Humanities Library"
+      "name_en": "Humanities Library",
+      "monitored_reading_room": true
     },
     {
       "id": "47",
       "name_sv": "Pedagogiska biblioteket",
-      "name_en": "Education Library"
+      "name_en": "Education Library",
+      "monitored_reading_room": true
     },
     {
       "id": "48",
       "name_sv": "Ekonomiska biblioteket",
-      "name_en": "Economics Library"
+      "name_en": "Economics Library",
+      "monitored_reading_room": false
     },
     {
       "id": "60",
       "force_pickup_location_id": "44",
       "name_sv": "Konstbiblioteket",
-      "name_en": "Art Library"
+      "name_en": "Art Library",
+      "monitored_reading_room": false
     },
     {
       "id": "62",
       "name_sv": "Biblioteket för musik och dramatik",
-      "name_en": "Music and Drama Library"
+      "name_en": "Music and Drama Library",
+      "monitored_reading_room": false
     },
     {
       "id": "66",
       "name_sv": "Hälsovetarbackens bibliotek",
-      "name_en": "Hälsovetarbacken Library"
+      "name_en": "Hälsovetarbacken Library",
+      "monitored_reading_room": false
     },
     {
       "id": "70",
       "name_sv": "Biomedicinska biblioteket, fjärrlån",
-      "name_en": "Biomedical Library, ILL"
+      "name_en": "Biomedical Library, ILL",
+      "monitored_reading_room": false
     },
     {
       "id": "74",
       "name_sv": "Humanistiska biblioteket, fjärrlån",
-      "name_en": "Humanities Library, ILL"
+      "name_en": "Humanities Library, ILL",
+      "monitored_reading_room": false
     }
   ]
 }

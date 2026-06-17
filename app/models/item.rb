@@ -28,7 +28,9 @@ class Item
       can_be_queued: can_be_queued,
       status: status,
       status_limitation: status_limitation,
-      is_availible: is_availible
+      is_availible: is_availible,
+      restricted_from_transport: restricted_from_transport?,
+      restricted_to_monitored_reading_room: restricted_to_monitored_reading_room?
       }).compact
   end
 
@@ -54,7 +56,7 @@ class Item
     return false if checked_out?
     return false if reserved?
     return false if lost?
-    return false if restricted?
+    return false if restricted_from_order?
     return false if during_acquisition?
     return false if not_in_place?
     return false if in_transit?
@@ -68,7 +70,7 @@ class Item
 
   def is_available_for_queue
     return false if item_type_ref?
-    return false if restricted?
+    return false if restricted_from_order?
     return false unless checked_out? || reserved? || during_acquisition? || not_in_place? || in_transit?
     return true
   end
@@ -108,9 +110,16 @@ class Item
     @is_reserved
   end
 
-  def restricted?
-    # ['1', '2', '5', '6'].include?(@restricted)
-    !(@restricted == '0' || @restricted.nil?)
+ def restricted_from_transport?
+    @restricted == '1'
+  end
+
+  def restricted_to_monitored_reading_room?
+    @restricted == '2'
+  end
+
+  def restricted_from_order?
+    ['3', '4', '5', '6', '7', '8'].include?(@restricted)
   end
 
   def item_type_ref?
@@ -139,6 +148,8 @@ class Item
 
   def status_limitation
     return "NOT_FOR_HOME_LOAN" if item_type_ref?
+    return "MONITORED_READING_ROOM_ONLY" if restricted_to_monitored_reading_room?
+    return "OWNING_LIBRARY_ONLY" if restricted_from_transport?
     return "READING_ROOM_ONLY" if @not_for_loan == '-3'
   end
 

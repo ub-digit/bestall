@@ -3,16 +3,16 @@ class Location
   include ActiveModel::Serialization
   include ActiveModel::Validations
 
-  attr_accessor :id, :name_sv, :name_en, :categories, :pickup_location_id, :is_disabled
+  attr_accessor :id, :name_sv, :name_en, :categories, :pickup_location_id, :is_disabled, :monitored_reading_room
 
-  def initialize id:, name_sv:, name_en:, pickup_location_id:, categories:, is_disabled: false
+  def initialize id:, name_sv:, name_en:, pickup_location_id:, categories:, is_disabled: false, monitored_reading_room: false
     @id = id
     @name_sv = name_sv
     @name_en = name_en
     @pickup_location_id = pickup_location_id
     @categories = categories
     @is_disabled = is_disabled
-
+    @monitored_reading_room = monitored_reading_room
   end
 
   def as_json options={}
@@ -41,6 +41,9 @@ class Location
 
   def self.where record_type:, current_user:, current_item:, current_subscription:
 
+    restricted_to_monitored_reading_room = current_item.present? && current_item[:restricted_to_monitored_reading_room]
+    restricted_from_transport = current_item.present? && current_item[:restricted_from_transport]
+
     filtered_locations = self.all.filter_map do |location|
       next unless location.categories.include?("PICKUP")
 
@@ -53,6 +56,23 @@ class Location
         location.name_sv += " (kan ej beställas hit)"
         location.name_en += " (can't be picked up here)"
       end
+
+      # If restricted_to_monitored_reading_room, then only the location with monitored_reading_room true should be available as pickup location
+      if restricted_to_monitored_reading_room && location.is_disabled == false
+        if !location.monitored_reading_room
+          location.is_disabled = true
+          location.name_sv += " (kan ej beställas hit)"
+          location.name_en += " (can't be picked up here)"
+        end
+      # If restricted_from_transport, then only the location id with item location id should be available as pickup location
+      elsif restricted_from_transport && location.is_disabled == false
+        if location.pickup_location_id.to_s != current_item[:location_id].to_s
+          location.is_disabled = true
+          location.name_sv += " (kan ej beställas hit)"
+          location.name_en += " (can't be picked up here)"
+        end
+      end
+
       location
     end
 
@@ -102,14 +122,16 @@ end
         name_sv = location["name_sv"] ? location["name_sv"] : ""
         name_en = location["name_en"] ? location["name_en"] : ""
         pickup_location_id = location["force_pickup_location_id"] ? location["force_pickup_location_id"] : id
+        monitored_reading_room = location["monitored_reading_room"] ? location["monitored_reading_room"] : false
       else # If entry is missing in local configuration, use values from Koha
         name_sv = branch.xpath('branchname').text
         name_en = branch.xpath('branchname').text
         pickup_location_id = id
+        monitored_reading_room = false
       end
       categories = branch.xpath('categories').map(&:text)
 
-      branches << self.new(id: id, name_sv: name_sv, name_en: name_en, pickup_location_id: pickup_location_id, categories: categories)
+      branches << self.new(id: id, name_sv: name_sv, name_en: name_en, pickup_location_id: pickup_location_id, categories: categories, monitored_reading_room: monitored_reading_room)
 
     end
 

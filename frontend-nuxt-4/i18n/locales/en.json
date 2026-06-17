@@ -179,7 +179,9 @@
     "unknown": "Unknown status",
     "statusLimitation": {
       "NOT_FOR_HOME_LOAN": "Not for home loan",
-      "READING_ROOM_ONLY": "Reading room loan, not for home loan"
+      "READING_ROOM_ONLY": "Reading room loan, not for home loan",
+      "OWNING_LIBRARY_ONLY": "Only available to owning library",
+      "MONITORED_READING_ROOM_ONLY": "Only available to special reading room"
     }
   },
   "actions": {

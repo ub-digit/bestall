@@ -179,7 +179,9 @@
     "unknown": "Okänd status",
     "statusLimitation": {
       "NOT_FOR_HOME_LOAN": "Ej hemlån",
-      "READING_ROOM_ONLY": "Läsesalslån, ej hemlån"
+      "READING_ROOM_ONLY": "Läsesalslån, ej hemlån",
+      "OWNING_LIBRARY_ONLY": "Beställs endast till ägande bibliotek",
+      "MONITORED_READING_ROOM_ONLY": "Beställs endast till specialläsesal"
     }
   },
   "actions": {

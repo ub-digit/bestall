@@ -34,7 +34,7 @@ class LoanType
 
       is_disable = lt[:is_disabled]
       if [LOAN_TYPE_HOME_LOAN, LOAN_TYPE_SEND_MATERIAL].include?(lt[:id])
-        if ['8', '17'].include?(item_type) || ['READING_ROOM_ONLY', 'NOT_FOR_HOME_LOAN'].include?(status_limitation)
+        if ['8', '17'].include?(item_type) || ['READING_ROOM_ONLY', 'NOT_FOR_HOME_LOAN', 'OWNING_LIBRARY_ONLY', 'MONITORED_READING_ROOM_ONLY'].include?(status_limitation)
           is_disable = true
         end
       end
