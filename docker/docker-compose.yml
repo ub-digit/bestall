@@ -1,43 +1,5 @@
 version: "3.7"
 services:
-  frontend-nuxt:
-    env_file:
-      - secrets.env
-    environment:
-      - NUXT_PUBLIC_ENABLED_AUTH=${NUXT_ENABLED_AUTH}
-      - NUXT_PUBLIC_HIDE_GU_AUTH_PARAM_NAME=${NUXT_HIDE_GU_AUTH_PARAM_NAME}
-      - NUXT_PUBLIC_HIDE_GU_AUTH_PARAM_VALUE=${NUXT_HIDE_GU_AUTH_PARAM_VALUE}
-      - NUXT_PUBLIC_LOCALE_PARAM_NAME=${NUXT_LOCALE_PARAM_NAME}
-      - NUXT_PUBLIC_MYLOANS_URL=${NUXT_MYLOANS_URL}
-      - NUXT_PUBLIC_DATE_FORMAT=${NUXT_DATE_FORMAT}
-      - NUXT_PUBLIC_DISABLE_LOANTYPE_HOME_AND_PICKUP_FOR_ITEMTYPES=${NUXT_DISABLE_LOANTYPE_HOME_AND_PICKUP_FOR_ITEMTYPES}
-      - NUXT_PUBLIC_DISABLE_LOANTYPE_HOME_AND_PICKUP_FOR_NOTFORLOAN=${NUXT_DISABLE_LOANTYPE_HOME_AND_PICKUP_FOR_NOTFORLOAN}
-      - NUXT_PUBLIC_INCLUDE_LOANTYPE_SD_FOR_USER_CATEGORIES=${NUXT_INCLUDE_LOANTYPE_SD_FOR_USER_CATEGORIES}
-      - NUXT_PUBLIC_APPLICATION_IS_CLOSED=${NUXT_APPLICATION_IS_CLOSED}
-      - NUXT_PUBLIC_DEBUG_INFO=${NUXT_DEBUG_INFO}
-      - NUXT_PUBLIC_RESERVE_NOTE_MAX_LENGTH=${NUXT_RESERVE_NOTE_MAX_LENGTH}
-      - NUXT_PUBLIC_GITHUB_CLIENT_ID=${NUXT_GITHUB_CLIENT_ID}
-      - NUXT_PUBLIC_GU_CLIENT_ID=${NUXT_GU_CLIENT_ID}
-    stdin_open: true
-    tty: true
-    restart: always
-    networks:
-      - backend
-  frontend:
-    env_file:
-      - secrets.env
-    environment:
-      - EMBER_ENVIRONMENT=${ENVIRONMENT}
-      - GUB_OAUTH2_CLIENT_ID=${GUB_OAUTH2_CLIENT_ID}
-      - GUB_OAUTH2_AUTHORIZE_ENDPOINT=${GUB_OAUTH2_AUTHORIZE_ENDPOINT}
-      - PIN_CODE_FORGOT_LINK_SV=${PIN_CODE_FORGOT_LINK_SV}
-      - PIN_CODE_FORGOT_LINK_EN=${PIN_CODE_FORGOT_LINK_EN}
-    # Keep the stdin open, so we can attach to our app container's process
-    # and do things such as debugging, etc
-    stdin_open: true
-    # Enable sending signals (CTRL+C, CTRL+P + CTRL+Q) into the container
-    tty: true
-    restart: always
   backend:
     restart: always
     env_file:
@@ -64,8 +26,6 @@ services:
       - GUB_OAUTH2_TOKEN_ENDPOINT=${GUB_OAUTH2_TOKEN_ENDPOINT}
       - GUB_OAUTH2_USER_ENDPOINT=${GUB_OAUTH2_USER_ENDPOINT}
     command: ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
-    networks:
-      - backend
     ports:
       - ${BACKEND_HOST_PORT}:${RAILS_PORT}
   db:
@@ -78,7 +38,3 @@ services:
     volumes:
       - ./postgres-initdb.d:/docker-entrypoint-initdb.d
       - ./postgres-data:/var/lib/postgresql/data
-    networks:
-      - backend
-networks:
-  backend:

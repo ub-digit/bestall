@@ -206,15 +206,28 @@ class Biblio
     @display_info[0] = authors.join(" ") if authors.any?
 
     # Create a string with place, edition and publication year, save it as orgin and add it to display_info.
-    # First try with 260 field, if not available try with 264 field.
-
-    if bib_xml.search('//record/datafield[@tag="260"]').text.present?
-      field = bib_xml.search('//record/datafield[@tag="260"]').first
-      @origin = create_origin(field)
-    elsif bib_xml.search('//record/datafield[@tag="264" and @ind2="1"]').text.present?
-      field = bib_xml.search('//record/datafield[@tag="264" and @ind2="1"]').first
-      @origin = create_origin(field)
+    # Get the place and edition
+    # First try with the first 264 field, ind1 = 3, ind2 = 1
+    # Then try with the first 264 field, indicators not considered
+    # Then try with the 260 field
+    if bib_xml.search('//record/datafield[@tag="264" and @ind1="3" and @ind2="1"]').text.present?
+      place_edition_field = bib_xml.search('//record/datafield[@tag="264" and @ind1="3" and @ind2="1"]').first
+    elsif bib_xml.search('//record/datafield[@tag="264"]').text.present?
+      place_edition_field = bib_xml.search('//record/datafield[@tag="264"]').first
+    elsif bib_xml.search('//record/datafield[@tag="260"]').text.present?
+      place_edition_field = bib_xml.search('//record/datafield[@tag="260"]').first
     end
+    
+    # Get year
+    # First try with the 264c subdfield, indicators not considered
+    # Then try with the 260c subfield, indicators not considered
+    if bib_xml.search('//record/datafield[@tag="264"]/subfield[@code="c"]').text.present?
+      year_field = bib_xml.search('//record/datafield[@tag="264"]/subfield[@code="c"]').first
+    elsif bib_xml.search('//record/datafield[@tag="260"]/subfield[@code="c"]').text.present?
+      year_field = bib_xml.search('//record/datafield[@tag="260"]/subfield[@code="c"]').first
+    end  
+    @origin = create_origin(place_edition_field, year_field)
+
     @display_info[1] = @origin if @origin.present?
 
     if @record_type.eql?("serial") || @record_type.eql?("collection")
@@ -331,13 +344,13 @@ class Biblio
     return mapping[code] || ''
   end
 
-  def create_origin field
-      a_field = field.search('subfield[@code="a"]').text if field.search('subfield[@code="a"]').text.present?
+  def create_origin place_edition_field, year_field
+      a_field = place_edition_field.search('subfield[@code="a"]').text if place_edition_field.search('subfield[@code="a"]').text.present?
       b_field = []
-      field.search('subfield[@code="b"]').each do |b|
+      place_edition_field.search('subfield[@code="b"]').each do |b|
         b_field << b.text if b.text.present?
       end
-      c_field = field.search('subfield[@code="c"]').text if field.search('subfield[@code="c"]').text.present?
+      c_field = year_field.text if year_field.present?
       # Remove any leading "[" and trailing "]" from c_field entries
       c_field = c_field.gsub(/^\[|\]$/, '') if c_field.present?
       origin_parts = []

@@ -1,30 +1,4 @@
 services:
-  frontend-nuxt:
-    build:
-      context: ..
-      dockerfile: docker/build/frontend-nuxt/Dockerfile.dev
-    volumes:
-      - ../frontend-nuxt:/app
-    environment:
-      - NODE_ENV=development
-      - HOST=0.0.0.0
-      - CHOKIDAR_USEPOLLING=true
-    ports:
-      - 3000:3000
-  frontend:
-    image: docker.ub.gu.se/ember-dev:3.14.0
-    environment:
-      - BACKEND_SERVICE_PORT=${BACKEND_HOST_PORT}
-      - FRONTEND_PORT=${FRONTEND_HOST_PORT}
-    ports:
-      # server
-      - ${FRONTEND_HOST_PORT}:4200
-      # livereload
-      - 7020:7020
-      # Tests in browser
-      - 7357:7357
-    volumes:
-      - ../frontend/:/home/node/app
   backend:
     image: docker.ub.gu.se/rails:ruby-3.2.2
     env_file:
