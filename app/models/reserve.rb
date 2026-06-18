@@ -69,7 +69,7 @@ class Reserve
     }.to_query
 
     url = "#{base_url}/reserves/create?#{params}"
-    response = RestClient.get url
+    response = RestClient.get(url, timeout: 600)
     if response
       if response.code == 201
         obj = Reserve.new
