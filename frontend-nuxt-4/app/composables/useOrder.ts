@@ -42,8 +42,8 @@ export const useOrder = () => {
     } as OrderSuccessResponse);
   };
 
-  const order = useState<Order>("order", () => ({}) as Order);
-  //  Object.assign(order.value, emptyOrder);
+  const order = useState<Order>("order", () => ({ ...emptyOrder }) as Order);
+
   /**
    * Updates the order state with the provided partial data.
    * @param data - Partial order object containing the properties to update
