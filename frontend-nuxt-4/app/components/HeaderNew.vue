@@ -1,0 +1,45 @@
+<script setup lang="ts">
+// No script logic needed for this component
+</script>
+<template>
+  <header>
+    <div class="container">
+      <div class="header-container-grid">
+        <div class="header-logo-wrapper">
+          <div class="header-logo" alt="logotype">
+            <a class="link-reset" :href="$t('header.logo.url')"
+              ><img :src="$t('header.logo.src')" :alt="$t('header.logo.alt')"
+            /></a>
+          </div>
+        </div>
+        <div class="header-site-description">
+          <h1 class="header-title">
+            <a
+              :href="$t('header.mainTitle.url')"
+              :title="$t('header.mainTitle.label')"
+              >{{ $t("header.mainTitle.title") }}</a
+            >
+          </h1>
+          <div class="header-description">
+            {{ $t("header.subTitle") }}
+          </div>
+        </div>
+
+        <div class="header-site-lang">
+          <div class="lang">
+            <LocaleSwitcher />
+          </div>
+        </div>
+        <div class="header-site-auth">
+          <div class="auth-status" v-if="$config.public.showAuthStatus">
+            <AuthStatus />
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+</template>
+
+<style scoped>
+@import url("~/assets/css/header-new.css");
+</style>
