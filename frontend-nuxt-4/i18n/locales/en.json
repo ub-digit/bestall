@@ -64,7 +64,7 @@
   },
 
   "localeSwitcher": {
-    "label": "In {currentLocale}"
+    "label": "{currentLocale}"
   },
 
   "login": {
