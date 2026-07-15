@@ -53,5 +53,10 @@ const handleSignOut = async () => {
   align-items: center;
   flex-direction: row;
   gap: var(--spacer-8);
+  --font-size: 0.785rem;
+  font-size: var(--font-size);
+  .btn-link {
+    font-size: var(--font-size);
+  }
 }
 </style>
