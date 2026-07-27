@@ -5,10 +5,6 @@ services:
       - secrets.env
     volumes:
       - ../:/usr/src/app
-  db:
-    image: postgres:9.4
-    volumes:
-      - ./build/postgres/postgres.conf:/etc/postgresql/postgresql.conf
 # TODO: Requires some refactoring, storing casUrl in frontend config instead
 # of fetching from backend etc
 #  cas:

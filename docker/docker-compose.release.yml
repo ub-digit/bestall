@@ -11,8 +11,6 @@ services:
       - ${FRONTEND_HOST_PORT}:8080
   backend:
     image: docker.ub.gu.se/bestall-backend:${GIT_REVISION}
-  db:
-    image: docker.ub.gu.se/bestall-postgres:${GIT_REVISION}
   apache:
     image: ${BESTALL_APACHE_RUNNING_IMAGE}
     restart: always

@@ -8,10 +8,6 @@ services:
       - RAILS_ENV=${ENVIRONMENT}
       - RAILS_LOG_TO_STDOUT=1
       - RAILS_PORT=${RAILS_PORT}
-      - RAILS_DB=${DB_NAME}
-      - RAILS_DB_HOST=${DB_HOST}
-      - RAILS_DB_USER=${DB_USER}
-      - RAILS_DB_PASSWORD=${DB_PASSWORD}
       - SECRET_KEY_BASE=${SECRET_KEY_BASE}
       - BESTALL_CAS_URL=${CAS_URL}
       - BESTALL_REGISTRATION_URL=${REGISTRATION_URL}
@@ -28,13 +24,3 @@ services:
     command: ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
     ports:
       - ${BACKEND_HOST_PORT}:${RAILS_PORT}
-  db:
-    restart: always
-    environment:
-      - POSTGRES_DB=${DB_NAME}
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-    command: ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"]
-    volumes:
-      - ./postgres-initdb.d:/docker-entrypoint-initdb.d
-      - ./postgres-data:/var/lib/postgresql/data
