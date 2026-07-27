@@ -116,7 +116,7 @@
       "FORBIDDEN": "This material may not be borrowed.",
       "CAN_NOT_BE_BORROWED": "This material cannot be borrowed.",
       "ALREADY_BORROWED": "You have already borrowed this material.",
-      "ALREADY_RESERVED": "You are already ordered or queuing for this material."
+      "ALREADY_RESERVED": "You have already requested this material."
     }
   },
 

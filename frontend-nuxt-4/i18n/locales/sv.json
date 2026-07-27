@@ -116,7 +116,7 @@
       "FORBIDDEN": "Detta material får inte lånas ut.",
       "CAN_NOT_BE_BORROWED": "Detta material kan inte lånas ut.",
       "ALREADY_BORROWED": "Du har redan lånat detta material.",
-      "ALREADY_RESERVED": "Du står redan beställt eller köar på detta materialet."
+      "ALREADY_RESERVED": "Du har redan beställt eller köar på materialet."
     }
   },
 
