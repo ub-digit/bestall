@@ -6,7 +6,7 @@
       </slot>
     </nav>
 
-    <div class="tabbed-content">
+    <div class="tabbed-content" style="overflow-x: scroll">
       <slot name="tabbedContent">
         <p class="muted">No tab content provided</p>
       </slot>
