@@ -29,7 +29,7 @@ const props = defineProps<{
           {{ $t("orderDenied.errors." + item.code) }}
         </li>
       </ul>
-      <div class="order-denied-code">
+      <div class="order-denied-code hidden">
         <p>{{ $t("orderDenied.errorCode", { code: error.statusCode }) }}</p>
 
         <p v-if="useRuntimeConfig().public.debugInfo" class="error-detail">
