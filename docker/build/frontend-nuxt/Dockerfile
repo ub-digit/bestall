@@ -1,5 +1,5 @@
 # build environment
-FROM node:24-bullseye AS build
+FROM node:24-bookworm AS build
 
 ARG GIT_REVISION
 ARG GIT_REPO_URL
