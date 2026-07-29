@@ -84,9 +84,8 @@ class Location
     return filtered_locations if entity[:sublocation_open_pickup_loc]
 
     return filtered_locations if current_user.present? && ["SY", "FY", "FT"].include?(current_user[:categorycode])
-
     filtered_locations.each do |location|
-      if location.id == entity[:pickup_location_id]
+      if location.id == entity[:location_id]
         location.is_disabled = true
         location.name_sv += " (kan ej beställas hit)"
         location.name_en += " (can't be picked up here)"
