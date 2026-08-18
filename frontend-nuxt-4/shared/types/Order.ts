@@ -8,6 +8,7 @@ type OrderSuccessResponse = {
   pickupLocation_en: string | null;
   pickupLocation_sv: string | null;
   pickupLocation?: string | null;
+  item_referenced: boolean;
 };
 
 type Order = {

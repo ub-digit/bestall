@@ -215,7 +215,8 @@
     "messagePickup": "You will receive a message when the material is ready for pickup at <b>{pickupLocation}</b>.",
     "messageNoPickup": "You will receive a message when the material is sent from the library.",
     "pickupInfoCode": "In the message (which will arrive via email and/or SMS) there is a pickup code that you need to find the material on the library's shelf for ordered books.",
-    "myLoansLink": "You can view your loans and orders in <a href='http://www.ub.gu.se/minalan'>My loans</a>."
+    "myLoansLink": "You can view your loans and orders in <a href='http://www.ub.gu.se/minalan'>My loans</a>.",
+    "itemReferencedInfo": "The material you have requested is part of another work. When you collect the material, the title may be different from the one you requested."
   },
 
   "orderDetails": {}

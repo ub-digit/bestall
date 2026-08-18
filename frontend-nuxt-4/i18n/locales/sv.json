@@ -215,7 +215,8 @@
     "messagePickup": "Du får ett meddelande när materialet finns att hämta på <b>{pickupLocation}</b>.",
     "messageNoPickup": "Du får ett meddelande när materialet skickas från biblioteket.",
     "pickupInfoCode": "I meddelandet (som kommer till din e-post och/eller SMS) finns en kod för avhämtning som du behöver för att hitta materialet på bibliotekets hylla för beställda böcker.",
-    "myLoansLink": "Du kan se dina lån och beställningar i <a href='http://www.ub.gu.se/minalan'>Mina lån</a>."
+    "myLoansLink": "Du kan se dina lån och beställningar i <a href='http://www.ub.gu.se/minalan'>Mina lån</a>.",
+    "itemReferencedInfo": "Det material du har beställt ingår i ett annat verk. När du hämtar materialet kan titeln vara en annan än den du beställde."
   },
 
   "orderDetails": {}

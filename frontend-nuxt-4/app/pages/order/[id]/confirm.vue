@@ -5,6 +5,13 @@
       <h1>{{ $t("confirmation.header") }}</h1>
 
       <div
+        v-if="orderSuccessResponse?.item_referenced"
+        class="item-referenced-info"
+      >
+        {{ $t("confirmation.itemReferencedInfo") }}
+      </div>
+
+      <div
         v-if="orderSuccessResponse?.showQueuePosition"
         class="queue-info-wrapper"
         v-html="
