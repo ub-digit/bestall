@@ -58,85 +58,95 @@ const getStatusStr = (item: Item) => {
   </div>
 
   <div class="items-table-container">
-    <table
-      :class="`items-table ${hasSubscriptions ? 'has-subscriptions' : ''} ${hasActions ? 'has-actions' : ''}`"
+    <div
       v-if="items?.length"
+      :class="`items-table ${hasSubscriptions ? 'has-subscriptions' : ''} ${hasActions ? 'has-actions' : ''}`"
     >
-      <thead>
-        <tr>
-          <th v-if="hasSubscriptions">{{ $t("table.header.copy") }}</th>
-          <th>{{ $t("table.header.location") }}</th>
-          <th>{{ $t("table.header.status") }}</th>
-          <th v-if="hasActions">{{ $t("table.header.action") }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in items" :key="item.id">
-          <td v-if="hasSubscriptions">{{ item.copy_number }}</td>
-          <td>
-            <div class="location">
-              <div class="location-name">{{ item.location_name }}</div>
-              <div class="sublocation-name">
-                <span v-if="item.sublocation_name">{{
-                  item.sublocation_name
-                }}</span>
-                <span v-else>{{ $t("message.needsToBeOrdered") }}</span>
-              </div>
+      <div class="items-table-head">
+        <div v-if="hasSubscriptions" class="items-table-cell header-cell">
+          {{ $t("table.header.copy") }}
+        </div>
+        <div class="items-table-cell header-cell">
+          {{ $t("table.header.location") }}
+        </div>
+        <div class="items-table-cell header-cell">
+          {{ $t("table.header.status") }}
+        </div>
+        <div v-if="hasActions" class="items-table-cell header-cell">
+          {{ $t("table.header.action") }}
+        </div>
+      </div>
+
+      <div v-for="item in items" :key="item.id" class="items-table-row">
+        <div
+          v-if="hasSubscriptions"
+          class="items-table-cell"
+          :label="$t('table.header.copy')"
+        >
+          {{ item.copy_number }}
+        </div>
+        <div class="items-table-cell" :label="$t('table.header.location')">
+          <div class="location">
+            <div class="location-name">{{ item.location_name }}</div>
+            <div class="sublocation-name">
+              <span v-if="item.sublocation_name">{{
+                item.sublocation_name
+              }}</span>
+              <span v-else>{{ $t("message.needsToBeOrdered") }}</span>
             </div>
-          </td>
-          <td>
+          </div>
+        </div>
+        <div class="items-table-cell" :label="$t('table.header.status')">
+          <div>
             {{ getStatusStr(item) }}
             <span class="status-limitation" v-if="item.status_limitation">
-              |
-              {{
-                $t(`status.statusLimitation.${item.status_limitation}`)
-              }}</span
-            >
-          </td>
-          <td v-if="hasActions">
-            <div v-if="item.can_be_ordered" class="order-button">
-              <button
-                class="btn-primary"
-                @click="
-                  handleEvent({
-                    biblioId: item.biblio_id,
-                    itemId: item.id,
-                    typeOfEvent: 'order',
-                  })
-                "
-              >
-                {{ $t("actions.order") }}
-              </button>
-            </div>
-            <div v-else-if="item.can_be_queued" class="queue-button">
-              <button
-                class="btn-primary"
-                @click="
-                  handleEvent({
-                    biblioId: item.biblio_id,
-                    itemId: item.id,
-                    typeOfEvent: 'joinQueue',
-                  })
-                "
-              >
-                {{ $t("actions.queue") }}
-              </button>
-            </div>
-            <span v-else-if="item.is_availible" class="collect-button">
-              {{ $t("actions.collect") }}
+              | {{ $t(`status.statusLimitation.${item.status_limitation}`) }}
             </span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          </div>
+        </div>
+        <div
+          v-if="hasActions"
+          class="items-table-cell actions-cell"
+          :label="$t('table.header.action')"
+        >
+          <div v-if="item.can_be_ordered" class="order-button">
+            <button
+              class="btn-primary"
+              @click="
+                handleEvent({
+                  biblioId: item.biblio_id,
+                  itemId: item.id,
+                  typeOfEvent: 'order',
+                })
+              "
+            >
+              {{ $t("actions.order") }}
+            </button>
+          </div>
+          <div v-else-if="item.can_be_queued" class="queue-button">
+            <button
+              class="btn-primary"
+              @click="
+                handleEvent({
+                  biblioId: item.biblio_id,
+                  itemId: item.id,
+                  typeOfEvent: 'joinQueue',
+                })
+              "
+            >
+              {{ $t("actions.queue") }}
+            </button>
+          </div>
+          <span v-else-if="item.is_availible" class="collect-button">
+            {{ $t("actions.collect") }}
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.items-table-header {
-  font-weight: bold;
-  margin-bottom: var(--spacer-16);
-}
 .status-limitation {
   opacity: 0.8;
   color: var(--danger-base);
@@ -146,27 +156,89 @@ const getStatusStr = (item: Item) => {
   font-style: italic;
   opacity: 0.6;
 }
-.items-table {
-  width: 100%;
-  border-collapse: collapse;
 
-  th,
-  td {
-    border: 1px solid var(--light-base);
-    padding: var(--spacer-8);
+.items-table-container {
+  border: 1px solid var(--light-base);
 
-    text-align: left;
+  @media (min-width: 48rem) {
+    .items-table.has-subscriptions {
+      --grid-columns: 3;
+    }
+
+    .items-table.has-actions {
+      --grid-columns: 3;
+    }
+    .items-table.has-subscriptions.has-actions {
+      --grid-columns: 4;
+    }
+    .items-table:not(.has-subscriptions):not(.has-actions) {
+      --grid-columns: 2;
+    }
+  }
+  .items-table {
+    display: grid;
+    padding: var(--spacer-16);
+    gap: var(--spacer-32);
     @media (min-width: 48rem) {
-      border: none;
+      gap: var(--spacer-8);
+    }
+
+    .items-table-head {
+      font-weight: bold;
+      padding-bottom: var(--spacer-16);
       border-bottom: 1px solid var(--light-base);
+      display: none;
+      @media (min-width: 48rem) {
+        display: grid;
+        grid-template-columns: repeat(var(--grid-columns), 1fr);
+      }
+    }
+    .items-table-row {
+      display: grid;
+      border-bottom: 1px solid var(--light-base);
+      padding-bottom: var(--spacer-16);
+      gap: var(--spacer-8);
+      @media (min-width: 48rem) {
+        grid-template-columns: repeat(var(--grid-columns), 1fr);
+      }
+
+      .items-table-cell {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &::before {
+          content: attr(label);
+          font-weight: bold;
+          display: block;
+          @media (min-width: 48rem) {
+            display: none;
+          }
+        }
+        @madia (min-width: 48rem) {
+          padding: var(--spacer-8) var(--spacer-16);
+        }
+        @media (min-width: 48rem) {
+          &.actions-cell {
+            display: flex;
+            justify-content: flex-end;
+          }
+        }
+      }
     }
   }
-  &.has-subscriptions,
-  &.has-actions {
-    th:last-child,
-    td:last-child {
-      text-align: right;
-    }
+}
+
+.location-name,
+.sublocation-name {
+  word-break: break-word;
+}
+
+.actions-cell {
+  display: flex;
+  @media (min-width: 48rem) {
+    justify-content: flex-end;
   }
+  gap: var(--spacer-8);
+  align-items: center;
 }
 </style>

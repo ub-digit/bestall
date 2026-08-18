@@ -27,7 +27,10 @@ defineProps<{
               })
             }}
           </a>
-          <a href="#items-available">
+          <a
+            href="#items-available"
+            :class="!biblio?.items.length ? 'disabled' : ''"
+          >
             {{
               $t("viewType.subscription.copies", {
                 numberOfAvailable: biblio?.items.length,

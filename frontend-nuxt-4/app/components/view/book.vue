@@ -10,7 +10,10 @@
               })
             }}
           </a>
-          <a href="#items-not-available">
+          <a
+            href="#items-not-available"
+            :class="!biblio?.itemsNotAvailable.length ? 'disabled' : ''"
+          >
             {{
               $t("viewType.book.notAvailable", {
                 numberOfNotAvailable: biblio?.itemsNotAvailable.length,
