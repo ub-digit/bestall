@@ -167,4 +167,9 @@ a {
     text-decoration: none; /* removes underline */
     color: var(--link-color);
   }
+  &.disabled {
+    pointer-events: none;
+    color: gray;
+    cursor: default;
+  }
 }

@@ -77,12 +77,4 @@ defineProps<{
 .holdings {
   margin-bottom: 2rem;
 }
-
-.disabled {
-  pointer-events: none;
-
-  color: gray;
-
-  cursor: default;
-}
 </style>
