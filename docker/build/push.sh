@@ -8,5 +8,4 @@ fi
 
 docker push docker.ub.gu.se/bestall-frontend:${GIT_REVISION} && \
 docker push docker.ub.gu.se/bestall-frontend-nuxt:${GIT_REVISION} && \
-docker push docker.ub.gu.se/bestall-backend:${GIT_REVISION} && \
-docker push docker.ub.gu.se/bestall-postgres:${GIT_REVISION}
+docker push docker.ub.gu.se/bestall-backend:${GIT_REVISION}
