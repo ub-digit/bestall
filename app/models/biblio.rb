@@ -293,7 +293,7 @@ class Biblio
         item.in_special_collection? ? 1 : 0,
         item.location_id.to_s,
         item.sublocation_id.to_s,
-        item.item_call_number.to_s
+        natural_sort_key(item.copy_number.to_s)
       ]
     end
 
@@ -301,6 +301,12 @@ class Biblio
     location_list =  @items.map{|i|i.location_id}
     location_max_no_of_items = location_list.max_by{|l| location_list.count(l)}
     @default_queue_location = Location.find_by_id(location_max_no_of_items).pickup_location_id
+  end
+
+  def natural_sort_key(value)
+    value.to_s.split(/(\d+)/).map do |part|
+      part.match?(/\A\d+\z/) ? part.to_i : part.downcase
+    end
   end
 
   def create_author_name author_field
