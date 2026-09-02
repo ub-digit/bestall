@@ -24,6 +24,17 @@ const { data: biblio, error: biblioError } = await useFetch<any>(
   `/api/biblios/${route.params.id}`,
   { query: { locale: locale.value } },
 );
+
+const localePath = useLocalePath();
+
+const redirectToDetailsPage = () => {
+  const path = localePath({
+    path: `/order/${route.params.id}/details`,
+    query: { ...route.query },
+  });
+  router.push(path);
+};
+
 const { order, setOrder, resetOrder } = useOrder();
 const handleEvent = (payload: EventPayload) => {
   resetOrder();
@@ -31,27 +42,21 @@ const handleEvent = (payload: EventPayload) => {
     user: authData?.value?.user?.cardnumber || "unknown", // same for every case
     fullBiblio: biblio.value, // same for every case. Avoids having to fetch from api again during order creation.
   });
+
   switch (payload.typeOfEvent) {
     case "joinQueue":
       setOrder({
         biblio: payload.biblioId,
         item: payload.itemId,
       });
-      router.push({
-        path: `/order/${route.params.id}/details`,
-        query: { ...route.query },
-      });
-
+      redirectToDetailsPage();
       break;
     case "order":
       setOrder({
         biblio: payload.biblioId,
         item: payload.itemId,
       });
-      router.push({
-        path: `/order/${route.params.id}/details`,
-        query: { ...route.query },
-      });
+      redirectToDetailsPage();
       break;
     case "subscriptionOrder":
       setOrder({
@@ -62,10 +67,7 @@ const handleEvent = (payload: EventPayload) => {
         subscriptionSublocation: payload.subscriptionSublocation,
         subscriptionSublocationId: payload.subscriptionSublocationId,
       });
-      router.push({
-        path: `/order/${route.params.id}/details`,
-        query: { ...route.query },
-      });
+      redirectToDetailsPage();
       break;
     default:
       console.warn("Unknown event type:", payload.typeOfEvent);
