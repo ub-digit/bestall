@@ -33,6 +33,7 @@ const handleSignOut = async () => {
     <div
       v-html="$t('authStatus.signedInAs', { name: data?.user?.fullname })"
     ></div>
+    {{ data?.user?.categorycode ? `(${data?.user?.categorycode})` : "" }}
     <button
       v-if="status === 'authenticated'"
       class="btn-link"
