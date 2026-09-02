@@ -1,0 +1,13 @@
+---
+docker_git_revision: ansible-deploy
+git_revision: release-2026.03.004
+omutskrift_git_revision: release-2025.01.001
+cupsd_git_revision: release-2024.04.001
+apache_git_revision: release-2021.10.001
+
+frontend_hostname: bestall-dev.ub.gu.se
+backend_hostname: bestall-server-dev.ub.gu.se
+frontend_host_port: 30260
+backend_host_port: 30261
+apache_host_port: 30265
+omutskrift_host_port: 30390
