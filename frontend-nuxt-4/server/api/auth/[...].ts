@@ -48,13 +48,13 @@ export default NuxtAuthHandler({
     /* on session retrival */
     async session({ session, user, token }) {
       console.log("Session callback called with session:", token);
-      session.user.categorycode = token.userData.user_category;
-      session.user.cardnumber = token.userData.cardnumber;
-      session.user.fullname =
-        token.userData.first_name + " " + token.userData.last_name;
-      session.user.userid = token.userData.id;
-      session.user.warning = token.userData.warning;
-      session.user.pickupCode = token.userData.pickup_code;
+      const userData = (await getUserData(token.account)).user; // Assuming token.account contains the user ID
+      session.user.categorycode = userData.user_category;
+      session.user.cardnumber = userData.cardnumber;
+      session.user.fullname = userData.first_name + " " + userData.last_name;
+      session.user.userid = userData.id;
+      session.user.warning = userData.warning;
+      session.user.pickupCode = userData.pickup_code;
 
       // provider specific session handling can be done here
       switch (token.provider) {
@@ -81,9 +81,8 @@ export default NuxtAuthHandler({
             "Fetching user data from Koha for GitHub user:",
             xaccount,
           );
-          const data = await getUserData(xaccount); // Store the entire borrower object in the token for later use
-          token.userData = data.user;
-          return token;
+          token.account = xaccount;
+          break;
         }
         case "GU":
           token.provider = "GU";
@@ -91,15 +90,12 @@ export default NuxtAuthHandler({
             "Fetching user data from Koha for GU user:",
             profile.account,
           );
-          const data = await getUserData(profile.account); // Store the entire borrower object in the token for later use
-          token.userData = data.user;
-          return token;
+          token.account = profile.account;
           break;
         case "credentials":
           token.provider = "credentials";
           console.log("User ID from credentials provider:", user.id);
-          const data_cred = await getUserData(user.id); // Store the entire borrower object in the token for later use
-          token.userData = data_cred.user;
+          token.account = user.id;
           break;
       }
       return token;
@@ -112,6 +108,7 @@ export default NuxtAuthHandler({
     GithubProvider.default({
       clientId: runtimeConfig.public.githubClientId,
       clientSecret: runtimeConfig.githubClientSecret,
+      issuer: "https://github.com/login/oauth",
       async profile(profile: any) {
         return {
           id: profile.id,
