@@ -48,13 +48,19 @@ export default NuxtAuthHandler({
     /* on session retrival */
     async session({ session, user, token }) {
       console.log("Session callback called with session:", token);
-      const userData = (await getUserData(token.account)).user; // Assuming token.account contains the user ID
-      session.user.categorycode = userData.user_category;
-      session.user.cardnumber = userData.cardnumber;
-      session.user.fullname = userData.first_name + " " + userData.last_name;
-      session.user.userid = userData.id;
-      session.user.warning = userData.warning;
-      session.user.pickupCode = userData.pickup_code;
+
+      try {
+        const userData = (await getUserData(token.account as string)).user; // Assuming token.account contains the user ID
+        session.user.categorycode = userData.user_category;
+        session.user.cardnumber = userData.cardnumber;
+        session.user.fullname = userData.first_name + " " + userData.last_name;
+        session.user.userid = userData.id;
+        session.user.warning = userData.warning;
+        session.user.pickupCode = userData.pickup_code;
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        return null;
+      }
 
       // provider specific session handling can be done here
       switch (token.provider) {
