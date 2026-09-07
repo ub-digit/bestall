@@ -11,6 +11,12 @@
     "skipToMainContent": "Skip to main content",
     "loading": "Loading…"
   },
+  "errorPage": {
+    "title": "An error occurred",
+    "description": "Something went wrong. Please try again later or contact the library.",
+    "backHome": "Back to homepage",
+    "backHomeUrl": "https://www.ub.gu.se/"
+  },
   "header": {
     "logo": {
       "src": "/img/logo/sv/5114_LO_GU_CMYK_flag_sv.png",
