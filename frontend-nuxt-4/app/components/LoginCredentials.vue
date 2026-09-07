@@ -8,18 +8,25 @@ const route = useRoute();
 const callbackUrl = (route.query.redirect as string) || useLocalePath()("/");
 const localePath = useLocalePath();
 
+const loading = useLoginLoading();
+
 const handleSignIn = async () => {
-  const { error, url } = await signIn("credentials", {
-    username: cardnumber.value,
-    password: pin.value,
-    redirect: false,
-  });
-  if (error) {
-    errorLogin.value = t("login.kohaAuth.invalidCredentials");
-  } else {
-    // No error, continue with the sign in, e.g., by following the returned redirect:
-    errorLogin.value = "";
-    return navigateTo(localePath(callbackUrl));
+  loading.value = true;
+  try {
+    const { error, url } = await signIn("credentials", {
+      username: cardnumber.value,
+      password: pin.value,
+      redirect: false,
+    });
+    if (error) {
+      errorLogin.value = t("login.kohaAuth.invalidCredentials");
+    } else {
+      // No error, continue with the sign in, e.g., by following the returned redirect:
+      errorLogin.value = "";
+      return navigateTo(localePath(callbackUrl));
+    }
+  } finally {
+    loading.value = false;
   }
 };
 </script>

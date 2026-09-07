@@ -17,6 +17,7 @@ useHead({
   <NuxtRouteAnnouncer />
   <a href="#content" class="skip-link">{{ $t("app.skipToMainContent") }}</a>
 
+  <LoadingOverlay />
   <HeaderNew />
   <main id="content" class="container fix-viewport-height">
     <NuxtPage />
