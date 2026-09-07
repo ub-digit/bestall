@@ -8,7 +8,8 @@
     }
   },
   "app": {
-    "skipToMainContent": "Hoppa till huvudinnehåll"
+    "skipToMainContent": "Hoppa till huvudinnehåll",
+    "loading": "Laddar…"
   },
   "header": {
     "logo": {

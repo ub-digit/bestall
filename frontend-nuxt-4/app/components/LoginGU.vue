@@ -2,11 +2,18 @@
 const { signIn } = useAuth();
 const route = useRoute();
 const localePath = useLocalePath();
+const loading = useLoginLoading();
+
 const loginWithGU = async () => {
-  const callbackUrl =
-    window.location.origin +
-    localePath((route.query.redirect as string) || localePath("/"));
-  await signIn("GU", { callbackUrl: callbackUrl });
+  loading.value = true;
+  try {
+    const callbackUrl =
+      window.location.origin +
+      localePath((route.query.redirect as string) || localePath("/"));
+    await signIn("GU", { callbackUrl: callbackUrl });
+  } finally {
+    loading.value = false;
+  }
 };
 </script>
 <template>

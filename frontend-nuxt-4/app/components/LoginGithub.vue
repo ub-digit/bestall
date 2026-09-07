@@ -3,11 +3,18 @@ const { signIn, session } = useAuth();
 const route = useRoute();
 const localePath = useLocalePath();
 
+const loading = useLoginLoading();
+
 const loginWithGithub = async () => {
-  const callbackUrl =
-    window.location.origin +
-    localePath((route.query.redirect as string) || localePath("/"));
-  await signIn("github", { callbackUrl: callbackUrl });
+  loading.value = true;
+  try {
+    const callbackUrl =
+      window.location.origin +
+      localePath((route.query.redirect as string) || localePath("/"));
+    await signIn("github", { callbackUrl: callbackUrl });
+  } finally {
+    loading.value = false;
+  }
 };
 </script>
 <template>
