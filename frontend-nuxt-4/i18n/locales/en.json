@@ -14,7 +14,7 @@
   "errorPage": {
     "title": "An error occurred",
     "description": "Something went wrong. Please try again later or contact the library.",
-    "backHome": "Back to homepage",
+    "backHome": "Back to ub.gu.se",
     "backHomeUrl": "https://www.ub.gu.se/"
   },
   "header": {

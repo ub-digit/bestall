@@ -14,7 +14,7 @@
   "errorPage": {
     "title": "Ett fel har inträffat",
     "description": "Något gick fel. Vänligen försök igen senare eller kontakta biblioteket.",
-    "backHome": "Tillbaka till startsidan",
+    "backHome": "Tillbaka till ub.gu.se",
     "backHomeUrl": "https://www.ub.gu.se/"
   },
   "header": {
