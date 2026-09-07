@@ -11,6 +11,12 @@
     "skipToMainContent": "Hoppa till huvudinnehåll",
     "loading": "Laddar…"
   },
+  "errorPage": {
+    "title": "Ett fel har inträffat",
+    "description": "Något gick fel. Vänligen försök igen senare eller kontakta biblioteket.",
+    "backHome": "Tillbaka till startsidan",
+    "backHomeUrl": "https://www.ub.gu.se/"
+  },
   "header": {
     "logo": {
       "src": "/img/logo/sv/5114_LO_GU_CMYK_flag_sv.png",
