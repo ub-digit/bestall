@@ -26,9 +26,16 @@ export default defineEventHandler(async (event) => {
         statusMessage: "Request body is required",
       });
     }
+    const currentItemOnOrder = () => {
+      if (!order || !order.item) return null;
+      return order.fullBiblio?.items?.find(
+        (item: Item) => item.id === order.item,
+      );
+    };
 
     const orderToSubmit: Order = {
       ...order,
+      current_item_extended: currentItemOnOrder(),
     };
 
     /* remove unnecessary data from the order payload to 
@@ -38,6 +45,8 @@ export default defineEventHandler(async (event) => {
       orderToSubmit.fullBiblio.itemsAvailable = []; // remove
       orderToSubmit.fullBiblio.itemsNotAvailable = []; // remove
     }
+
+    console.log("Submitting order:", orderToSubmit);
 
     const data: any = await $fetch(`${useRuntimeConfig().apiBase}/reserves/`, {
       method: "POST",
