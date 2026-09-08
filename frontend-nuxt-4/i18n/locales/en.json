@@ -14,7 +14,6 @@
   "errorPage": {
     "title": "An error occurred",
     "description": "Something went wrong. Please try again later or contact the library.",
-    "backHome": "Back to ub.gu.se",
     "backHomeUrl": "https://www.ub.gu.se/"
   },
   "header": {
@@ -180,7 +179,7 @@
     "reserved": "Reserved",
     "delayed": "Delayed",
     "inTransit": "In transit",
-    "duringAcquisition": "During acquisition",
+    "duringAcquisition": "Ongoing purchase",
     "available": "Available",
     "loanedDateUnknown": "loan date unknown",
     "unknown": "Unknown status",
