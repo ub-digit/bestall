@@ -23,8 +23,16 @@ class Api::ReservesController < ApplicationController
     reservenotes = params[:orderToSubmit][:reserveNotes]
     has_item_level_queue = params[:orderToSubmit][:fullBiblio][:has_item_level_queue] ? params[:orderToSubmit][:fullBiblio][:has_item_level_queue] : false
 
+    # If loan type is 5 (send home) or no branchcode is provided or blank, use the items location_id as the branchcode if exists, otherwise use the default_queue_location
+    if loantype.to_i == 5 || branchcode.blank?
+      if params[:orderToSubmit][:current_item_extended].present? && params[:orderToSubmit][:current_item_extended][:location_id].present?
+        branchcode = params[:orderToSubmit][:current_item_extended][:location_id]
+      else
+        branchcode = default_queue_location
+      end
+    end
+
     error_list = Array.new
-    error_list.push({code: "MISSING_LOCATION", detail: "Required location_id is missing."}) if branchcode.blank?
     error_list.push({code: "MISSING_BIBLIO", detail: "Required biblio_id is missing."}) if biblionumber.blank?
     if loantype.blank?
       error_list.push({code: "MISSING_LOAN_TYPE", detail: "Required loan_type_id is missing."})
