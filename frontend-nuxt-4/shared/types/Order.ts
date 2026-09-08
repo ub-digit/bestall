@@ -17,6 +17,7 @@ type Order = {
   biblio: string;
   fullBiblio: Biblio | null;
   item: string;
+  current_item_extended: any | null;
   reserveNotes: string;
   subscription: string;
   subscriptionNotes: string;
