@@ -1,4 +1,12 @@
 services:
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/build/frontend-nuxt/Dockerfile.dev
+    ports:
+      - ${FRONTEND_HOST_PORT}:3000
+    volumes:
+      - ../frontend-nuxt-4/:/app
   backend:
     image: docker.ub.gu.se/rails:ruby-3.2.2
     env_file:

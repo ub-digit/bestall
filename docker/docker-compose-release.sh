@@ -1,2 +1,2 @@
 #!/bin/bash
-docker-compose -f docker-compose.yml -f docker-compose.release.yml $@
+docker compose -f docker-compose.yml -f docker-compose.release.yml "$@"

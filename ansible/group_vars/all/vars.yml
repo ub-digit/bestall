@@ -1,0 +1,25 @@
+---
+docker_git_repo_url: https://github.com/ub-digit/bestall.git
+docker_directory: './docker'
+apache_htpasswd: "{{ vault_apache_htpasswd }}"
+
+data_dir: /data/bestall
+data_dirs:
+  files:
+    path: "{{ data_dir }}/files"
+    pull: true
+    push: true
+  backend:
+    path: "{{ data_dir }}/data"
+    pull: true
+    push: true
+  db:
+    path: "{{ data_dir }}/database"
+    owner: 999
+    group: 999
+    pull: true
+    push: true
+  apache_sites:
+    path: "{{ data_dir }}/apache-sites"
+    pull: false
+    push: false
