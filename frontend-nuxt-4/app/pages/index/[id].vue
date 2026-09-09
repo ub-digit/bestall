@@ -31,7 +31,7 @@ try {
     `/api/verifyMaterial/${route.params.id}`,
   );
   if (error.value) {
-    errorObj.value = error.value as any;
+    throw error.value;
   } else {
     await handleSignOut();
     await navigateTo(
@@ -44,6 +44,9 @@ try {
       }),
     );
   }
+} catch (err) {
+  errorObj.value = err as any;
+  console.log(errorObj.value);
 } finally {
   // do nothing
 }
@@ -51,7 +54,11 @@ try {
 
 <template>
   <div>
-    <OrderDenied v-if="errorObj" :error="errorObj" />
+    <OrderDenied v-if="errorObj" :error="errorObj">
+      <template #description>
+        <span></span>
+      </template>
+    </OrderDenied>
   </div>
 </template>
 
