@@ -1,20 +1,6 @@
 <script setup lang="ts">
-const { status, data, signOut, signIn } = useAuth();
-
-const handleSignOut = async () => {
-  await signOut({ redirect: false });
-  // After signing out, you might want to redirect the user to a specific page, e.g., home or login
-  const { fullPath, query } = useRoute();
-
-  const hideGUAuthParamName = useRuntimeConfig().public.hideGUAuthParamName;
-
-  navigateTo(
-    useLocalePath()(
-      "/login" +
-        `?redirect=${fullPath}&${hideGUAuthParamName}=${query[hideGUAuthParamName] || ""}`,
-    ), // 👈 redirect to login with original path as query param
-  );
-};
+const { status, data } = useAuth();
+const { handleSignOut } = useAppSignOut();
 </script>
 <template>
   <div v-if="status === 'authenticated'" class="auth-status-container">
@@ -31,13 +17,15 @@ const handleSignOut = async () => {
       />
     </svg>
     <div
-      v-html="$t('authStatus.signedInAs', { name: data?.user?.fullname })"
+      v-html="
+        $t('authStatus.signedInAs', { name: data?.user?.fullname ?? 'unknown' })
+      "
     ></div>
     {{ data?.user?.categorycode ? `(${data?.user?.categorycode})` : "" }}
     <button
       v-if="status === 'authenticated'"
       class="btn-link"
-      @click="handleSignOut()"
+      @click="handleSignOut"
     >
       {{ $t("authStatus.signOut") }}
     </button>
