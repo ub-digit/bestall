@@ -14,7 +14,6 @@
   "errorPage": {
     "title": "An error occurred",
     "description": "Something went wrong. Please try again later or contact the library.",
-    "backHome": "Back to ub.gu.se",
     "backHomeUrl": "https://www.ub.gu.se/"
   },
   "header": {
@@ -118,12 +117,14 @@
     "descriptionWithUserRestrictionsOnCurrentBiblio": "Restrictions on the material for this user",
     "errorCode": "Error code: {code}",
     "errorDetail": "Details: {detail}",
+    "signOut": "Sign out",
     "errors": {
       "ITEM_NOT_FOUND": "Could not find the material you are trying to order.",
       "FORBIDDEN": "This material may not be borrowed.",
       "CAN_NOT_BE_BORROWED": "This material cannot be borrowed.",
       "ALREADY_BORROWED": "You have already borrowed this material.",
-      "ALREADY_RESERVED": "You have already requested this material."
+      "ALREADY_RESERVED": "You have already requested this material.",
+      "RESTRICTION_AV": "You are suspended from using the library's services. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library if you have any questions concerning this.</a>"
     }
   },
 
@@ -180,7 +181,7 @@
     "reserved": "Reserved",
     "delayed": "Delayed",
     "inTransit": "In transit",
-    "duringAcquisition": "During acquisition",
+    "duringAcquisition": "Ongoing purchase",
     "available": "Available",
     "loanedDateUnknown": "loan date unknown",
     "unknown": "Unknown status",
@@ -188,7 +189,7 @@
       "NOT_FOR_HOME_LOAN": "Not for home loan",
       "READING_ROOM_ONLY": "Reading room loan, not for home loan",
       "OWNING_LIBRARY_ONLY": "Only available to owning library",
-      "MONITORED_READING_ROOM_ONLY": "Only available to special reading room"
+      "MONITORED_READING_ROOM_ONLY": "Access in special reading room only"
     }
   },
   "actions": {

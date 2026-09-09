@@ -1,11 +1,12 @@
 <script setup lang="ts">
-const { status, data, signIn } = useAuth();
+const { status, data, signIn, signOut } = useAuth();
 const { t } = useI18n();
 const cardnumber = ref("");
 const pin = ref("");
 const errorLogin = ref("");
 const route = useRoute();
 const callbackUrl = (route.query.redirect as string) || useLocalePath()("/");
+
 const localePath = useLocalePath();
 
 const loading = useLoginLoading();
@@ -23,7 +24,7 @@ const handleSignIn = async () => {
     } else {
       // No error, continue with the sign in, e.g., by following the returned redirect:
       errorLogin.value = "";
-      return navigateTo(localePath(callbackUrl));
+      // return navigateTo(localePath(callbackUrl));
     }
   } finally {
     loading.value = false;

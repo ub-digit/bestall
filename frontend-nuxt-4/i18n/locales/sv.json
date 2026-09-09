@@ -118,12 +118,14 @@
     "descriptionWithUserRestrictionsOnCurrentBiblio": "Restriktioner på materialet för denna användare",
     "errorCode": "Felkod: {code}",
     "errorDetail": "Detaljer: {detail}",
+    "signOut": "Logga ut",
     "errors": {
       "ITEM_NOT_FOUND": "Det gick inte att hitta det material du försöker beställa.",
       "FORBIDDEN": "Detta material får inte lånas ut.",
       "CAN_NOT_BE_BORROWED": "Detta material kan inte lånas ut.",
       "ALREADY_BORROWED": "Du har redan lånat detta material.",
-      "ALREADY_RESERVED": "Du har redan beställt eller köar på materialet."
+      "ALREADY_RESERVED": "Du har redan beställt eller köar på materialet.",
+      "RESTRICTION_AV": "Du är avstängd från bibliotekets tjänster. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> om du har frågor om detta."
     }
   },
 
@@ -180,7 +182,7 @@
     "reserved": "Reserverad",
     "delayed": "Försenad",
     "inTransit": "Under transport",
-    "duringAcquisition": "Under förvärv",
+    "duringAcquisition": "Under inköp",
     "available": "Tillgänglig",
     "loanedDateUnknown": "okänt lånedatum",
     "unknown": "Okänd status",
@@ -188,7 +190,7 @@
       "NOT_FOR_HOME_LOAN": "Ej hemlån",
       "READING_ROOM_ONLY": "Läsesalslån, ej hemlån",
       "OWNING_LIBRARY_ONLY": "Beställs endast till ägande bibliotek",
-      "MONITORED_READING_ROOM_ONLY": "Beställs endast till specialläsesal"
+      "MONITORED_READING_ROOM_ONLY": "Kan endast beställas till specialläsesal"
     }
   },
   "actions": {
