@@ -10,7 +10,9 @@
 const { data, signIn, signOut } = useAuth();
 const userError = {
   data: {
-    data: data.value?.user?.errors.errors ?? [],
+    data: {
+      errors: data.value?.user?.errors.errors ?? [],
+    },
   },
 };
 </script>
