@@ -1,4 +1,7 @@
 <script setup lang="ts">
+const { data, signOut, signIn } = useAuth();
+const { handleSignOut } = useAppSignOut();
+
 const props = defineProps<{
   error: any;
 }>();
@@ -26,9 +29,14 @@ const props = defineProps<{
 
       <ul v-if="error?.data?.data?.length" class="error-list">
         <li v-for="(item, index) in error?.data?.data" :key="index">
-          {{ $t("orderDenied.errors." + item.code) }}
+          <span v-html="$t('orderDenied.errors.' + item.code)"></span>
         </li>
       </ul>
+
+      <button v-if="data?.user" class="btn-primary" @click="handleSignOut()">
+        {{ $t("orderDenied.signOut") }}
+      </button>
+
       <div class="order-denied-code hidden">
         <p>{{ $t("orderDenied.errorCode", { code: error.statusCode }) }}</p>
 
