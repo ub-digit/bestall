@@ -26,9 +26,8 @@ const props = defineProps<{
       <slot name="description">
         <div class="description" v-html="$t('orderDenied.description')"></div>
       </slot>
-
-      <ul v-if="error?.data?.data?.length" class="error-list">
-        <li v-for="(item, index) in error?.data?.data" :key="index">
+      <ul v-if="error?.data?.data?.errors.length" class="error-list">
+        <li v-for="(item, index) in error?.data?.data.errors" :key="index">
           <span v-html="$t('orderDenied.errors.' + item.code)"></span>
         </li>
       </ul>
