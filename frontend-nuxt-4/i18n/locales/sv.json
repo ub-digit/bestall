@@ -122,7 +122,7 @@
     "errors": {
       "ITEM_NOT_FOUND": "Det gick inte att hitta det material du försöker beställa.",
       "FORBIDDEN": "Detta material får inte lånas ut.",
-      "CAN_NOT_BE_BORROWED": "Detta material kan inte lånas ut.",
+      "CAN_NOT_BE_BORROWED": "Du kan inte beställa det här materialet själv. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp.",
       "ALREADY_BORROWED": "Du har redan lånat detta material.",
       "ALREADY_RESERVED": "Du har redan beställt eller köar på materialet.",
       "RESTRICTION_AV": "Du är avstängd från bibliotekets tjänster. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> om du har frågor om detta."

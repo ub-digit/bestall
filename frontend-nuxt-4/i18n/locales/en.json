@@ -121,7 +121,7 @@
     "errors": {
       "ITEM_NOT_FOUND": "Could not find the material you are trying to order.",
       "FORBIDDEN": "This material may not be borrowed.",
-      "CAN_NOT_BE_BORROWED": "This material cannot be borrowed.",
+      "CAN_NOT_BE_BORROWED": "You can't request this material by yourself. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library</a> to get help.",
       "ALREADY_BORROWED": "You have already borrowed this material.",
       "ALREADY_RESERVED": "You have already requested this material.",
       "RESTRICTION_AV": "You are suspended from using the library's services. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library if you have any questions concerning this.</a>"
