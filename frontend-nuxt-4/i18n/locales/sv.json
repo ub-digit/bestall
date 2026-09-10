@@ -164,7 +164,7 @@
     "noAvailableItems": "Det finns inga tillgängliga exemplar just nu.",
     "noNotAvailableItems": "Det finns inga utlånade exemplar just nu.",
     "infoAboutAvailableItems": "Det finns tillgängliga exemplar som du kan <a href='#items-available'>beställa</a>",
-    "hasAvaillableCourseBook": "Det finns tillgängliga exemplar som du kan <a href='#items-available'>hämta själv från hyllan</a>",
+    "hasAvailableCourseBook": "Det finns tillgängliga exemplar som du kan <a href='#items-available'>hämta själv från hyllan</a>",
     "allItemsAreAvailable": "Alla exemplar är tillgängliga",
     "numberOfPeopleInQueueOnNotAvailable": "{numberOfPeople} i kö på utlånade exemplar",
     "unsupportedViewType": "Denna typ av material ({viewType}) har inte stöd för att visa beställningsdetaljer. Kontakta biblioteket.",

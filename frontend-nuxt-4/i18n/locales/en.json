@@ -163,7 +163,7 @@
     "noAvailableItems": "No copies are available right now.",
     "noNotAvailableItems": "No copies are currently on loan.",
     "infoAboutAvailableItems": "There are available copies that you can <a href='#items-available'>order</a>",
-    "hasAvaillableCourseBook": "There are available copies that you can <a href='#items-available'>pick up yourself from the shelf</a>",
+    "hasAvailableCourseBook": "There are available copies that you can <a href='#items-available'>pick up yourself from the shelf</a>",
     "allItemsAreAvailable": "All copies are available",
     "numberOfPeopleInQueueOnNotAvailable": "{numberOfPeople} in queue for borrowed copies",
     "unsupportedViewType": "This type of material ({viewType}) does not support displaying order details. Contact the library.",
