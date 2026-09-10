@@ -32,9 +32,11 @@ const props = defineProps<{
         </li>
       </ul>
 
-      <button v-if="data?.user" class="btn-primary" @click="handleSignOut()">
-        {{ $t("orderDenied.signOut") }}
-      </button>
+      <div v-if="$config.public.showAuthStatus">
+        <button v-if="data?.user" class="btn-primary" @click="handleSignOut()">
+          {{ $t("orderDenied.signOut") }}
+        </button>
+      </div>
 
       <div class="order-denied-code hidden">
         <p>{{ $t("orderDenied.errorCode", { code: error.statusCode }) }}</p>
