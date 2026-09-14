@@ -1,4 +1,7 @@
 <script setup lang="ts">
+const { data, signOut, signIn } = useAuth();
+const { handleSignOut } = useAppSignOut();
+
 const props = defineProps<{
   error: any;
 }>();
@@ -23,12 +26,18 @@ const props = defineProps<{
       <slot name="description">
         <div class="description" v-html="$t('orderDenied.description')"></div>
       </slot>
-
-      <ul v-if="error?.data?.data?.length" class="error-list">
-        <li v-for="(item, index) in error?.data?.data" :key="index">
-          {{ $t("orderDenied.errors." + item.code) }}
+      <ul v-if="error?.data?.data?.errors.length" class="error-list">
+        <li v-for="(item, index) in error?.data?.data.errors" :key="index">
+          <span v-html="$t('orderDenied.errors.' + item.code)"></span>
         </li>
       </ul>
+
+      <div v-if="$config.public.showAuthStatus">
+        <button v-if="data?.user" class="btn-primary" @click="handleSignOut()">
+          {{ $t("orderDenied.signOut") }}
+        </button>
+      </div>
+
       <div class="order-denied-code hidden">
         <p>{{ $t("orderDenied.errorCode", { code: error.statusCode }) }}</p>
 

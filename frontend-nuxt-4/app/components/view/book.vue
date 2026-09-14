@@ -73,7 +73,7 @@
                   ></p>
                   <p
                     v-else-if="biblio?.has_available_kursbok"
-                    v-html="$t('message.hasAvaillableCourseBook')"
+                    v-html="$t('message.hasAvailableCourseBook')"
                   ></p>
                 </div>
               </template>

@@ -12,6 +12,7 @@ const getUserData = async (userid: string) => {
     headers: { "current-username": userid },
   });
   const userdataJson = await data.json();
+  console.log("User data response body:", userdataJson);
   return userdataJson;
 };
 
@@ -50,13 +51,20 @@ export default NuxtAuthHandler({
       console.log("Session callback called with session:", token);
 
       try {
-        const userData = (await getUserData(token.account as string)).user; // Assuming token.account contains the user ID
-        session.user.categorycode = userData.user_category;
-        session.user.cardnumber = userData.cardnumber;
-        session.user.fullname = userData.first_name + " " + userData.last_name;
-        session.user.userid = userData.id;
-        session.user.warning = userData.warning;
-        session.user.pickupCode = userData.pickup_code;
+        const userData = await getUserData(token.account as string); // Assuming token.account contains the user ID
+        console.log("Fetched user data:", userData);
+        if (userData?.errors?.code === "FORBIDDEN") {
+          console.log("User is forbidden");
+          session.user.errors = userData.errors;
+        } else if (userData?.user) {
+          session.user.categorycode = userData.user.user_category;
+          session.user.cardnumber = userData.user.cardnumber;
+          session.user.fullname =
+            userData.user.first_name + " " + userData.user.last_name;
+          session.user.userid = userData.user.id;
+          session.user.warning = userData.user.warning;
+          session.user.pickupCode = userData.user.pickup_code;
+        }
       } catch (error) {
         console.error("Error fetching user data:", error);
         return null;
