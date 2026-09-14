@@ -3,6 +3,20 @@ class Api::ReservesController < ApplicationController
 
   def create
     pp params
+    loantype = params[:orderToSubmit][:loanType]
+    branchcode = params[:orderToSubmit][:location]
+
+    if LoanType.find_by_id(loantype.to_i).send_material?
+      send_home = true
+      pickupLocation_en = nil
+      pickupLocation_sv = nil
+    else
+      send_home = false
+      location = Location.find_by_id(branchcode)
+      pickupLocation_en = location.name_en
+      pickupLocation_sv = location.name_sv
+    end
+
     # Just print order if this is subscription order
     if params[:orderToSubmit][:subscriptionNotes].present?
       username = @current_username || params[:username]
@@ -10,21 +24,23 @@ class Api::ReservesController < ApplicationController
       obj = Print.prepare_subscription_order(params, username)
       pdf = Print.create_pdf(obj)
       Koha.send_subscription_reserve(obj, subscription_id: params[:orderToSubmit][:subscription], filename: pdf, performer_borrowernumber: performer_borrowernumber)
-      @response[:reserve] = {}
+      @response[:reserve] = {
+        showPickupLocation: !send_home,
+        pickupLocation_en: pickupLocation_en,
+        pickupLocation_sv: pickupLocation_sv
+      }
       render_json(201)
       return
     end
 
     #borrowernumber = params[:reserve][:user_id]
-    branchcode = params[:orderToSubmit][:location]
     biblionumber = params[:orderToSubmit][:biblio]
     itemnumber = params[:orderToSubmit][:item]
-    loantype = params[:orderToSubmit][:loanType]
     reservenotes = params[:orderToSubmit][:reserveNotes]
     has_item_level_queue = params[:orderToSubmit][:fullBiblio][:has_item_level_queue] ? params[:orderToSubmit][:fullBiblio][:has_item_level_queue] : false
 
     # If loan type is 5 (send home) or no branchcode is provided or blank, use the items location_id as the branchcode if exists, otherwise use the default_queue_location
-    if loantype.to_i == 5 || branchcode.blank?
+    if send_home || branchcode.blank?
       if params[:orderToSubmit][:current_item_extended].present? && params[:orderToSubmit][:current_item_extended][:location_id].present?
         branchcode = params[:orderToSubmit][:current_item_extended][:location_id]
       else
@@ -69,7 +85,8 @@ class Api::ReservesController < ApplicationController
 
     # If no validation errors were stored in response connect to Koha
     if @response[:errors].nil?
-      result = Reserve.add(cardnumber: @current_username, branchcode: branchcode, biblionumber: biblionumber, itemnumber: itemnumber, reservenotes: reservenotes, loan_type_obj: loan_type_obj, has_item_level_queue:)
+      is_subscription = params[:orderToSubmit][:subscription].present?
+      result = Reserve.add(cardnumber: @current_username, branchcode: branchcode, biblionumber: biblionumber, itemnumber: itemnumber, reservenotes: reservenotes, loan_type_obj: loan_type_obj, has_item_level_queue:, is_subscription:)
       if result.class == Reserve
         # Change back to :reserve ? TBD
         @response[:reserve] = result.as_json
