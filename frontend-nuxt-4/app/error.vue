@@ -35,9 +35,9 @@ const description = computed(
         <h1>{{ error.statusCode }}</h1>
         <p>{{ description }}</p>
 
-        <a class="btn-primary" :href="t('errorPage.backHomeUrl')">
+        <button class="btn-primary" :href="t('errorPage.backHomeUrl')">
           {{ t("errorPage.backHome") }}
-        </a>
+        </button>
       </div>
     </main>
     <Footer />
