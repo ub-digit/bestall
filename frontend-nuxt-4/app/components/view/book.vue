@@ -31,8 +31,8 @@
               @handleEvent="(payload) => handleEvent(payload)"
             >
               <template #info>
-                <div v-if="!biblio?.itemsAvailable.length">
-                  <p class="muted">
+                <div v-if="biblio?.can_be_queued">
+                  <p v-if="!biblio?.itemsAvailable.length" class="muted">
                     {{ $t("message.noAvailableItems") }}
                   </p>
                   <ViewQueuePane
@@ -51,30 +51,17 @@
               :hasSubscriptions="false"
             >
               <template #info>
-                <p
-                  v-if="!biblio?.itemsNotAvailable.length"
-                  v-html="$t('message.allItemsAreAvailable')"
-                ></p>
-
-                <div v-if="biblio.can_be_queued">
-                  <p
-                    v-if="!biblio?.itemsNotAvailable.length"
-                    class="muted"
-                    v-html="$t('message.noNotAvailableItems')"
-                  ></p>
-
-                  <p
-                    v-if="
-                      biblio?.itemsAvailable.filter(
-                        (item) => item.can_be_ordered,
-                      ).length
-                    "
-                    v-html="$t('message.infoAboutAvailableItems')"
-                  ></p>
-                  <p
-                    v-else-if="biblio?.has_available_kursbok"
-                    v-html="$t('message.hasAvailableCourseBook')"
-                  ></p>
+                <div v-if="biblio?.can_be_queued">
+                  <ViewQueuePane
+                    :biblio="biblio"
+                    @handleEvent="(payload) => handleEvent(payload)"
+                  />
+                </div>
+                <div v-else>
+                  <p v-if="biblio?.has_available_kursbok" class="muted">
+                    {{ $t("message.hasAvailableCourseBook") }}
+                  </p>
+                  <p v-else v-html="$t('message.infoAboutAvailableItems')"></p>
                 </div>
               </template>
             </ViewItemsTable>
