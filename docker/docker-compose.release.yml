@@ -1,12 +1,12 @@
 services:
   frontend:
-    image: docker.ub.gu.se/bestall-frontend:${GIT_REVISION_FRONTEND_NUXT}
+    image: docker.ub.gu.se/bestall-frontend:${GIT_REVISION}
     ports:
      - ${FRONTEND_HOST_PORT}:3000
   backend:
+    image: docker.ub.gu.se/bestall-backend:${GIT_REVISION}
     environment:
       - FRONTEND_HOSTNAME=${FRONTEND_HOSTNAME}
-    image: docker.ub.gu.se/bestall-backend:${GIT_REVISION_BACKEND}
     volumes:
       - "${BACKEND_DATA_HOST_DIR}:/usr/src/app/config/data"
       - ${FILES_HOST_DIR}:/opt/bestall-files

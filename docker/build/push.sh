@@ -7,5 +7,4 @@ if [ -n "$1" ]; then
 fi
 
 docker push docker.ub.gu.se/bestall-frontend:${GIT_REVISION} && \
-docker push docker.ub.gu.se/bestall-frontend-nuxt:${GIT_REVISION} && \
 docker push docker.ub.gu.se/bestall-backend:${GIT_REVISION}
