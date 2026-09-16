@@ -46,7 +46,7 @@ class Reserve
       'UNRECOGNIZED_ERROR')
   end
 
-  def self.add(cardnumber:, branchcode:, biblionumber:, itemnumber: nil, reservenotes:, loan_type_obj:, has_item_level_queue: false)
+  def self.add(cardnumber:, branchcode:, biblionumber:, itemnumber: nil, reservenotes:, loan_type_obj:, has_item_level_queue: false, is_subscription: false)
     base_url = APP_CONFIG['koha']['base_url']
     user =  APP_CONFIG['koha']['user']
     password =  APP_CONFIG['koha']['password']
@@ -71,8 +71,8 @@ class Reserve
       reservenotes: reservenotes
     }.to_query
 
-    showQueuePosition = !has_item_level_queue
-    # Check this
+    showQueuePosition = !(has_item_level_queue || is_subscription)
+
     showMyLoansLink = true
 
     url = "#{base_url}/reserves/create?#{params}"

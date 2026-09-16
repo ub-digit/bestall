@@ -83,17 +83,19 @@ class Location
     return filtered_locations if entity.blank?
     return filtered_locations if entity[:sublocation_open_pickup_loc]
 
-    return filtered_locations if current_user.present? && ["SY", "FY", "FT"].include?(current_user[:categorycode])
-    filtered_locations.each do |location|
-      if location.id == entity[:location_id]
-        location.is_disabled = true
-        location.name_sv += " (kan ej beställas hit)"
-        location.name_en += " (can't be picked up here)"
+    if entity[:sublocation_open_loc]
+      return filtered_locations if current_user.present? && ["SY", "FY", "FT"].include?(current_user[:categorycode])
+      filtered_locations.each do |location|
+        if location.id == entity[:location_id] && location.is_disabled == false
+          location.is_disabled = true
+          location.name_sv += " (kan ej beställas hit)4"
+          location.name_en += " (can't be picked up here)"
+        end
       end
     end
 
     return filtered_locations
-end
+  end
 
   def self.apply_additional_filter record_type:, current_item:
     return true if record_type == "monograph" && current_item.present?

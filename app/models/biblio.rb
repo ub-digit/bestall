@@ -26,7 +26,7 @@ class Biblio
     has_items_available_for_queue = false
     has_items_available_for_queue = @items.any? {|item| item.is_available_for_queue }
 
-    return has_items_available_for_queue && !has_item_level_queue
+    return has_items_available_for_queue && !has_item_level_queue && !has_available_kursbok
   end
 
   def has_available_kursbok
