@@ -20,7 +20,11 @@ class Print
     obj[:lastname] = user_obj ? user_obj.last_name : ''
     obj[:cardnumber] = user_obj ? user_obj.cardnumber : ''
     obj[:categorycode] = user_obj ? user_obj.user_category : ''
-    obj[:extra_info] = user_obj ? user_obj.attr_print : ''
+
+    orderpermission_description = user_obj ? LoanType.orderpermission_code_to_description(user_obj.attr_orderpermission) : ''
+    extra_info = user_obj ? user_obj.attr_print : ''
+    # Concat the values of orderpermission_description and extra_info
+    obj[:extra_info] = [orderpermission_description, extra_info].reject(&:blank?).join(' ')
 
     loan_type_obj = LoanType.find_by_id(params[:orderToSubmit][:loanType].to_i)
     obj[:loantype] = loan_type_obj ? loan_type_obj.name_sv : ''

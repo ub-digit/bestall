@@ -64,6 +64,7 @@ export default NuxtAuthHandler({
           session.user.userid = userData.user.id;
           session.user.warning = userData.user.warning;
           session.user.pickupCode = userData.user.pickup_code;
+          session.user.attr_orderpermission = userData.user.attr_orderpermission;
         }
       } catch (error) {
         console.error("Error fetching user data:", error);

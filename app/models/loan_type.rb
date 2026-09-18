@@ -15,8 +15,8 @@ class LoanType
     [
       {id: LOAN_TYPE_HOME_LOAN, position: 2, show_pickup_location: true, name_sv: 'Hämta materialet i biblioteket (hemlån)', name_en: 'Pick up the material at the library (home loan)', is_disabled: false},
       {id: LOAN_TYPE_READING_ROOM_LOAN, position: 3, show_pickup_location: true, name_sv: 'Läs materialet i biblioteket (läsesalslån)', name_en: 'Read the material in the library (reading room loan)', is_disabled: false},
-      {id: LOAN_TYPE_RESEARCHER_LOCKER, position: 4, show_pickup_location: true, name_sv: 'Forskarskåp (tillstånd krävs)', name_en: 'Loan to researcher’s locker (permit required)', is_disabled: false},
-      {id: LOAN_TYPE_DEPARTMENT, position: 5, show_pickup_location: true, name_sv: 'Institutionslån (tillstånd krävs)', name_en: 'Loan to department (permit required)', is_disabled: false},
+      {id: LOAN_TYPE_RESEARCHER_LOCKER, position: 4, show_pickup_location: true, name_sv: 'Forskarskåp', name_en: 'Loan to researcher’s locker', is_disabled: false},
+      {id: LOAN_TYPE_DEPARTMENT, position: 5, show_pickup_location: true, name_sv: 'Institutionslån', name_en: 'Loan to department', is_disabled: false},
       {id: LOAN_TYPE_SEND_MATERIAL, position: 1, show_pickup_location: false, name_sv: 'Skicka materialet till mig', name_en: 'Send the material to me', is_disabled: false}
     ]
 
@@ -28,7 +28,7 @@ class LoanType
     @is_disabled = is_disabled
   end
 
-  def self.where(category_code:, item_type:, status_limitation:)
+  def self.where(category_code:, item_type:, status_limitation:, attr_orderpermission:)
     loan_types = []
     LOAN_TYPES.sort_by {|lt|lt[:position]}.each do |lt|
 
@@ -40,6 +40,13 @@ class LoanType
       end
 
       if lt[:id] == LOAN_TYPE_SEND_MATERIAL && !['SD', 'FT'].include?(category_code)
+        next
+      end
+
+      if lt[:id] == LOAN_TYPE_RESEARCHER_LOCKER && !['FORSKSKAP', 'SPECIALFORSK'].include?(attr_orderpermission)
+        next
+      end
+      if lt[:id] == LOAN_TYPE_DEPARTMENT && !['SPECIAL', 'SPECIALFORSK'].include?(attr_orderpermission)
         next
       end
 
@@ -60,4 +67,22 @@ class LoanType
   def send_material?
     @id == LOAN_TYPE_SEND_MATERIAL
   end
+
+  def self.orderpermission_code_to_description(code)
+    case code
+    when 'FORSKSKAP'
+      'Forskarskåp'
+    when 'PENSION_UB'
+      'Pensionär UB'
+    when 'PERS_UB'
+      'Personal UB'
+    when 'SPECIAL'
+      'Specialtillstånd'
+    when 'SPECIALFORSK'
+      'Specialtillstånd och Forskarskåp'
+    else
+      ''
+    end
+  end
+
 end
