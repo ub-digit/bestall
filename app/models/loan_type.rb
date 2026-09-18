@@ -46,7 +46,7 @@ class LoanType
       if lt[:id] == LOAN_TYPE_RESEARCHER_LOCKER && !['FORSKSKAP', 'SPECIALFORSK'].include?(attr_orderpermission)
         next
       end
-      if lt[:id] == LOAN_TYPE_DEPARTMENT && !['SPECIAL', 'SPECIALFORSK'].include?(attr_orderpermission)
+      if lt[:id] == LOAN_TYPE_DEPARTMENT && !['SPECIAL', 'SPECIALFORSK', 'PERS_UB', 'PENSION_UB'].include?(attr_orderpermission)
         next
       end
 
