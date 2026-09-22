@@ -5,14 +5,14 @@ import CredentialsProvider from "next-auth/providers/credentials";
 const runtimeConfig = useRuntimeConfig();
 
 const getUserData = async (userid: string) => {
-  console.log("Fetching user data for user ID:", userid);
+  //console.log("Fetching user data for user ID:", userid);
   // users/current
   const data = await fetch(runtimeConfig.apiBase + `/users/current`, {
     method: "GET",
     headers: { "current-username": userid },
   });
   const userdataJson = await data.json();
-  console.log("User data response body:", userdataJson);
+  //console.log("User data response body:", userdataJson);
   return userdataJson;
 };
 
@@ -34,27 +34,25 @@ export default NuxtAuthHandler({
   callbacks: {
     /* on before signin */
     async signIn({ user, account, profile, email, credentials }) {
-      console.log("SignIn callback called with user:", user);
-      console.log("SignIn callback called with account:", account);
-      console.log("SignIn callback called with profile:", profile);
-      console.log("SignIn callback called with email:", email);
-      console.log("SignIn callback called with credentials:", credentials);
+      //console.log("SignIn callback called with user:", user);
+      //console.log("SignIn callback called with account:", account);
+      //console.log("SignIn callback called with profile:", profile);
+      //console.log("SignIn callback called with email:", email);
+      //console.log("SignIn callback called with credentials:", credentials);
       return true;
     },
     /* on redirect to another url */
     async redirect({ url, baseUrl }) {
-      console.log("Redirect to:", url);
+      //console.log("Redirect to:", url);
       return url.startsWith(baseUrl) ? url : baseUrl;
     },
     /* on session retrival */
     async session({ session, user, token }) {
-      console.log("Session callback called with session:", token);
-
       try {
         const userData = await getUserData(token.account as string); // Assuming token.account contains the user ID
         console.log("Fetched user data:", userData);
         if (userData?.errors?.code === "FORBIDDEN") {
-          console.log("User is forbidden");
+          console.log(userData?.errors?.code);
           session.user.errors = userData.errors;
         } else if (userData?.user) {
           session.user.categorycode = userData.user.user_category;
@@ -64,7 +62,8 @@ export default NuxtAuthHandler({
           session.user.userid = userData.user.id;
           session.user.warning = userData.user.warning;
           session.user.pickupCode = userData.user.pickup_code;
-          session.user.attr_orderpermission = userData.user.attr_orderpermission;
+          session.user.attr_orderpermission =
+            userData.user.attr_orderpermission;
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -84,10 +83,10 @@ export default NuxtAuthHandler({
     },
     /* on JWT token creation or mutation */
     async jwt({ token, user, account, profile, isNewUser }) {
-      console.log("JWT callback called with token:", token);
+      /*       console.log("JWT callback called with token:", token);
       console.log("JWT callback called with user:", user);
       console.log("JWT callback called with account:", account);
-      console.log("JWT callback called with profile:", profile);
+      console.log("JWT callback called with profile:", profile); */
       switch (account?.provider) {
         case "github": {
           const xaccount = runtimeConfig.xaccountMapToGithub;
@@ -159,9 +158,7 @@ export default NuxtAuthHandler({
         const res = await fetch(url, {
           method: "GET",
         });
-        console.log("Koha authentication response status:", res);
         const data = await res.json();
-        console.log("Koha authentication response data:", data);
         if (data.authenticated) {
           return { id: credentials.username, name: credentials.username }; // ends up as user in the session callback, and as user in the jwt callback, where you can fetch additional user data from Koha and add it to the token for use in the session callback later on.
         }
