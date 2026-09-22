@@ -1,5 +1,5 @@
 class User
-  attr_accessor :id, :username, :cardnumber, :first_name, :last_name, :denied, :warning, :fines_amount, :reserves, :loans, :attr_print
+  attr_accessor :id, :username, :cardnumber, :first_name, :last_name, :denied, :warning, :fines_amount, :reserves, :loans, :attr_print, :attr_orderpermission
   attr_reader :restriction_fines, :restriction_av, :restriction_overdue, :user_category
 
   include ActiveModel::Model
@@ -153,6 +153,27 @@ class User
 
     if xml.search('//response/attributes[code="PRINT"]/attribute').text.present?
       @attr_print = xml.search('//response/attributes[code="PRINT"]/attribute').text
+    end
+
+    if xml.search('//response/attributes[code="PRINTTILLST"]/attribute').text.present?
+      @attr_orderpermission = xml.search('//response/attributes[code="PRINTTILLST"]/attribute').text
+    end
+  end
+
+  def code_to_description(code)
+    case code
+    when 'FORSKSKAP'
+      'Forskarskåp'
+    when 'PENSION_UB'
+      'Pensionär UB'
+    when 'PERS_UB'
+      'Personal UB'
+    when 'SPECIAL'
+      'Specialtillstånd'
+    when 'SPECIALFORSK'
+      'Specialtillstånd och Forskarskåp'
+    else
+      ''
     end
   end
 
