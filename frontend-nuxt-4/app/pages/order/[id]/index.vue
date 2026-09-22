@@ -11,19 +11,23 @@ import type { LoanType } from "~/types/LoanType";
 import type { Order } from "~/types/Order";
 import type { EventPayload } from "~/types/EventPayload";
 
-const userError = ref(null);
-
 const { data, error } = await useFetch<any>(
   `/api/currentuser/?biblio=${route.params.id}&current_username=${authData?.value?.user?.cardnumber}`,
 );
 if (error.value) {
-  userError.value = error.value;
+  showError({
+    statusCode: error?.value?.statusCode || "unknown code",
+    statusMessage: error.value?.statusMessage || "Unknown message",
+    data: {
+      data: { errors: { errors: error.value.data?.data || [] } },
+    },
+  });
 } else {
+  const { data: biblio, error: biblioError } = await useFetch<any>(
+    `/api/biblios/${route.params.id}`,
+    { query: { locale: locale.value } },
+  );
 }
-const { data: biblio, error: biblioError } = await useFetch<any>(
-  `/api/biblios/${route.params.id}`,
-  { query: { locale: locale.value } },
-);
 
 const localePath = useLocalePath();
 
@@ -76,43 +80,28 @@ const handleEvent = (payload: EventPayload) => {
 </script>
 <template>
   <div>
-    <!-- this info is same for all view types, should look similar to Primo -->
-    <div v-if="userError">
-      <OrderDenied v-if="userError" :error="userError">
-        <template #description>
-          <span class="bib-title" v-if="biblio">{{ biblio.title }}</span>
-          <p
-            v-html="
-              $t('orderDenied.descriptionWithUserRestrictionsOnCurrentBiblio')
-            "
-          ></p>
-        </template>
-      </OrderDenied>
-    </div>
-    <div v-else>
-      <BiblioInfo v-if="biblio" :biblio="biblio" />
+    <BiblioInfo v-if="biblio" :biblio="biblio" />
 
-      <UserWarning />
-      <!-- the actual view type component, which is different based on the biblio.viewType -->
-      <ViewBook
-        v-if="biblio?.viewType === 'book'"
-        :biblio="biblio"
-        @handleEvent="(payload) => handleEvent(payload)"
-      />
-      <ViewSubscription
-        v-else-if="biblio?.viewType === 'subscription'"
-        :biblio="biblio"
-        @handleEvent="(payload) => handleEvent(payload)"
-      />
-      <ViewCollection
-        v-else-if="biblio?.viewType === 'collection'"
-        :biblio="biblio"
-        @handleEvent="(payload) => handleEvent(payload)"
-      >
-      </ViewCollection>
-      <div v-else>
-        {{ $t("message.unsupportedViewType", { viewType: biblio?.viewType }) }}
-      </div>
+    <UserWarning />
+    <!-- the actual view type component, which is different based on the biblio.viewType -->
+    <ViewBook
+      v-if="biblio?.viewType === 'book'"
+      :biblio="biblio"
+      @handleEvent="(payload) => handleEvent(payload)"
+    />
+    <ViewSubscription
+      v-else-if="biblio?.viewType === 'subscription'"
+      :biblio="biblio"
+      @handleEvent="(payload) => handleEvent(payload)"
+    />
+    <ViewCollection
+      v-else-if="biblio?.viewType === 'collection'"
+      :biblio="biblio"
+      @handleEvent="(payload) => handleEvent(payload)"
+    >
+    </ViewCollection>
+    <div v-else>
+      {{ $t("message.unsupportedViewType", { viewType: biblio?.viewType }) }}
     </div>
   </div>
 </template>
