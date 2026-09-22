@@ -1,101 +1,28 @@
 import type { VerifyError } from "#shared/types/verifyError";
 import { FetchError } from "ofetch";
-import { useErrorCodes } from "~/composables/useErrorCodes";
 
 export default defineEventHandler(async (event) => {
-  const runtimeConfig = useRuntimeConfig();
   const { id } = event.context.params as { id: string };
-  const errorCodes = useErrorCodes();
   try {
     const response = await $fetch(
-      `${runtimeConfig.apiBase}/biblios/${id}?items_on_subscriptions=false`,
+      `${useRuntimeConfig().apiBase}/biblios/${id}?items_on_subscriptions=false`,
     );
     if (response) {
+      console.log("Response received:", response);
       return "success";
     }
   } catch (error: FetchError | any) {
-    let customError: VerifyError | null = null;
-    switch (error.response.status) {
-      case 404:
-        customError = {
-          code: "NOT_FOUND",
-          detail: `Item not found: ${id}`,
-          data: null,
-          errors: [
-            {
-              code: "ITEM_NOT_FOUND",
-              detail: "The requested biblio record could not be found.",
-            },
-          ],
-        };
-        break;
-      case 403:
-        customError = {
-          code: "FORBIDDEN",
-          detail: `Item not allowed for loan: ${id}`,
-          data: null,
-          errors: [
-            {
-              code: "CAN_NOT_BE_BORROWED",
-              detail: "This item is not allowed for loan.",
-            },
-          ],
-        };
-        break;
-      case 401:
-        customError = {
-          code: "UNAUTHORIZED",
-          detail: "Unauthorized access",
-          data: null,
-          errors: [
-            {
-              code: "UNAUTHORIZED",
-              detail: "You are not authorized to access this resource.",
-            },
-          ],
-        };
-        break;
-      case 400:
-        customError = {
-          code: "INVALID_DATA",
-          detail: "Invalid request data",
-          data: null,
-          errors: [
-            {
-              code: "INVALID_ID",
-              detail: `The provided ID is invalid: ${id}`,
-            },
-          ],
-        };
-        break;
-      case 500:
-        customError = {
-          code: "SERVER_ERROR",
-          detail: "Internal server error",
-          data: null,
-          errors: [
-            {
-              code: "INTERNAL_SERVER_ERROR",
-              detail: "An internal server error occurred.",
-            },
-          ],
-        };
-        break;
-      default:
-        customError = {
-          code: "SERVER_ERROR",
-          detail: "An unexpected error occurred",
-          data: null,
-          errors: [{ code: "UNKNOWN_ERROR", detail: error.value.message }],
-        };
-    }
-    if (customError) {
-      throw createError({
-        statusCode:
-          errorCodes.find((e) => e.code === customError?.code)?.httpcode || 500,
-        statusMessage: customError.detail,
-        data: customError,
-      });
-    }
+    // Source - https://stackoverflow.com/a/71299614
+    // Posted by trincot, modified by community. See post 'Timeline' for change history
+    // Retrieved 2026-09-15, License - CC BY-SA 4.0
+
+    console.log(Object.getOwnPropertyNames(error));
+
+    throw createError({
+      statusCode: error?.statusCode || 500,
+      status: error?.status || "Unknown status",
+      data: error.data,
+      statusMessage: error?.statusMessage || "Unknown statusMessage",
+    });
   }
 });
