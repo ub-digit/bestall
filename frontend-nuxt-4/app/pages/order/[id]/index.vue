@@ -11,6 +11,19 @@ import type { LoanType } from "~/types/LoanType";
 import type { Order } from "~/types/Order";
 import type { EventPayload } from "~/types/EventPayload";
 
+const localePath = useLocalePath();
+
+if (authData?.value.user?.errors?.code === "FORBIDDEN") {
+  showError({
+    statusCode: 403,
+    statusMessage: "Forbidden",
+    data: {
+      data: { errors: authData?.value?.user?.errors || [] },
+    },
+  });
+  // show error here
+}
+
 const { data, error } = await useFetch<any>(
   `/api/currentuser/?biblio=${route.params.id}&current_username=${authData?.value?.user?.cardnumber}`,
 );
@@ -22,14 +35,13 @@ if (error.value) {
       data: { errors: { errors: error.value.data?.data || [] } },
     },
   });
-} else {
-  const { data: biblio, error: biblioError } = await useFetch<any>(
-    `/api/biblios/${route.params.id}`,
-    { query: { locale: locale.value } },
-  );
 }
 
-const localePath = useLocalePath();
+const { data: biblio, error: biblioError } = await useFetch<any>(
+  `/api/biblios/${route.params.id}`,
+  { query: { locale: locale.value } },
+);
+console.log("Fetched biblio:", biblio.value);
 
 const redirectToDetailsPage = () => {
   const path = localePath({
