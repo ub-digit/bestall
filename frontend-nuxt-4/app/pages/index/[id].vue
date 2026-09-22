@@ -1,9 +1,7 @@
 <script setup lang="ts">
-// contact backend to check if order is valid, if not show error message, otherwise redirect to orderform
 definePageMeta({});
+const { handleSignOut } = useAppSignOut();
 const route = useRoute();
-
-const errorObj = ref(null);
 const localePath = useLocalePath();
 
 const { setLocale } = useI18n();
@@ -19,47 +17,40 @@ if (route.query?.[localeParamName] === "swe") {
 const hideGUAuthParamName = useRuntimeConfig().public.hideGUAuthParamName;
 const hideGUAuthParamValue = useRuntimeConfig().public.hideGUAuthParamValue;
 
-const handleSignOut = async () => {
-  const { signOut } = useAuth();
+const handleSignOutIfNeeded = async () => {
   if (route.query?.[hideGUAuthParamName] === hideGUAuthParamValue) {
-    await signOut({ redirect: false });
+    await handleSignOut({ redirect: false });
   }
 };
 
-try {
-  const { data, error } = await useFetch(
-    `/api/verifyMaterial/${route.params.id}`,
+const { status, signOut } = useAuth();
+const callbackUrl = (route.query.redirect as string) || useLocalePath()("/");
+
+const { data, error } = await useFetch(
+  `/api/verifyMaterial/${route.params.id}`,
+);
+if (error.value) {
+  showError({
+    statusCode: error?.value?.statusCode || "unknown code",
+    statusMessage: error.value?.statusMessage || "Unknown message",
+    data: error.value?.data || null,
+  });
+} else {
+  await handleSignOutIfNeeded();
+  await navigateTo(
+    localePath({
+      path: "/order/" + route.params.id,
+      query: {
+        [hideGUAuthParamName]: route.query[hideGUAuthParamName] || null,
+      }, // pass the hideGUAuth param if it exists in the original route
+      replace: true,
+    }),
   );
-  if (error.value) {
-    throw error.value;
-  } else {
-    await handleSignOut();
-    await navigateTo(
-      localePath({
-        path: "/order/" + route.params.id,
-        query: {
-          [hideGUAuthParamName]: route.query[hideGUAuthParamName] || null,
-        }, // pass the hideGUAuth param if it exists in the original route
-        replace: true,
-      }),
-    );
-  }
-} catch (err) {
-  errorObj.value = err as any;
-  console.log(errorObj.value);
-} finally {
-  // do nothing
 }
 </script>
 
 <template>
-  <div>
-    <OrderDenied v-if="errorObj" :error="errorObj">
-      <template #description>
-        <span></span>
-      </template>
-    </OrderDenied>
-  </div>
+  <div></div>
 </template>
 
 <style scoped></style>

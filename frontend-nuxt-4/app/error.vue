@@ -33,11 +33,24 @@ const description = computed(
           />
         </svg>
         <h1>{{ error.statusCode }}</h1>
-        <p>{{ description }}</p>
+        <p class="hidden">{{ description }}</p>
+        <ul v-if="error?.data?.data?.errors.errors?.length" class="error-list">
+          <li
+            v-for="(item, index) in error?.data?.data.errors.errors"
+            :key="index"
+          >
+            <span v-html="$t('orderDenied.errors.' + item.code)"></span>
+          </li>
+        </ul>
+        <div class="error-actions">
+          <a class="btn-link" :href="t('errorPage.backHomeUrl')">
+            {{ t("errorPage.backHome") }}
+          </a>
+        </div>
 
-        <a class="btn-primary" :href="t('errorPage.backHomeUrl')">
-          {{ t("errorPage.backHome") }}
-        </a>
+        <div v-if="$config.public.debugInfo" class="debug">
+          <pre>{{ error }}</pre>
+        </div>
       </div>
     </main>
     <Footer />
@@ -60,6 +73,13 @@ const description = computed(
   gap: var(--spacer-16);
   text-align: center;
 
+  .error-list {
+    font-size: 0.8rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
   svg {
     color: var(--danger-dark);
     width: 3rem;
@@ -73,6 +93,13 @@ const description = computed(
 
   p {
     margin: 0;
+  }
+
+  .error-actions {
+    margin-top: var(--spacer-16);
+  }
+
+  .debug {
   }
 }
 </style>

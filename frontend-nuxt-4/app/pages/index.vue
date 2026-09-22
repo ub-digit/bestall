@@ -9,22 +9,27 @@ if (runtimeConfig.public.applicationIsClosed) {
 }
 
 if (!route?.params?.id) {
-  errorObj.value = {
+  showError({
     statusCode: 400,
     statusMessage: "Bad request, missing id parameter",
-  };
-} else {
+    data: {
+      data: {
+        errors: {
+          errors: [
+            {
+              code: "MISSING_ID",
+              message: "The id parameter is missing",
+            },
+          ],
+        },
+      },
+    },
+  });
 }
 </script>
 
 <template>
   <div>
-    <!-- handle case where id parameter is missing and /id/ will not be rendered -->
-    <OrderDenied v-if="errorObj" :error="errorObj">
-      <template #description>
-        <p v-html="$t('orderDenied.descriptionWithMissingId')"></p>
-      </template>
-    </OrderDenied>
     <NuxtPage />
   </div>
 </template>

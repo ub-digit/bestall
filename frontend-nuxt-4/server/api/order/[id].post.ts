@@ -1,7 +1,7 @@
 import { Order, OrderSuccessResponse } from "#shared/types/Order";
 import { Location } from "#shared/types/Location";
 import { LoanType } from "#shared/types/LoanType";
-import { Biblio, Item } from "~~/shared/types/Biblio";
+import { Biblio, Item } from "#shared/types/Biblio";
 import { getServerSession } from "#auth";
 
 export default defineEventHandler(async (event) => {
