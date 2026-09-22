@@ -14,23 +14,6 @@ const enableGUAuth =
 const isAuthServiceEnabled = (service: string) => {
   return runtimeConfig.public.enabledAuth.includes(service);
 };
-
-const callbackUrl = (route.query.redirect as string) || useLocalePath()("/");
-const callbackUrlForbidden = useLocalePath()("/forbidden");
-const localePath = useLocalePath();
-
-watch(
-  data,
-  (session) => {
-    console.log("New session data:", session);
-    if (session.user.errors?.code === "FORBIDDEN") {
-      navigateTo(localePath(callbackUrlForbidden));
-    } else {
-      navigateTo(localePath(callbackUrl));
-    }
-  },
-  { deep: true },
-);
 </script>
 <template>
   <div class="login-wrapper">
