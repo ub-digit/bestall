@@ -24,7 +24,6 @@ const handleSignOutIfNeeded = async () => {
 };
 
 const { status, signOut } = useAuth();
-const { fetchUserData, userData } = useCurrentUserData();
 const callbackUrl = (route.query.redirect as string) || useLocalePath()("/");
 
 const { data, error } = await useFetch(
