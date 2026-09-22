@@ -12,6 +12,8 @@ const loginWithGithub = async () => {
       window.location.origin +
       localePath((route.query.redirect as string) || localePath("/"));
     await signIn("github", { callbackUrl: callbackUrl });
+  } catch (error) {
+    console.error("Error during GitHub login:", error);
   } finally {
     loading.value = false;
   }
