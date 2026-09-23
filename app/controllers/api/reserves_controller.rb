@@ -6,7 +6,7 @@ class Api::ReservesController < ApplicationController
     loantype = params[:orderToSubmit][:loanType]
     branchcode = params[:orderToSubmit][:location]
 
-    if LoanType.find_by_id(loantype.to_i).send_material?
+    if loantype.present? && LoanType.find_by_id(loantype.to_i).send_material?
       send_home = true
       pickupLocation_en = nil
       pickupLocation_sv = nil
