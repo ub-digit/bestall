@@ -22,11 +22,12 @@ class Biblio
     return false
   end
 
-  def can_be_queued
+def can_be_queued (options = {})
     has_items_available_for_queue = false
     has_items_available_for_queue = @items.any? {|item| item.is_available_for_queue }
+    has_items_available_for_order = @items.any? {|item| item.can_be_ordered(options) }
 
-    return has_items_available_for_queue && !has_item_level_queue && !has_available_kursbok
+    return has_items_available_for_queue && !has_item_level_queue && !has_available_kursbok && !has_items_available_for_order
   end
 
   def has_available_kursbok
@@ -65,7 +66,7 @@ class Biblio
 
   def as_json options = {}
     bib_json = {
-      can_be_queued: can_be_queued,
+      can_be_queued: can_be_queued(options),
       has_item_level_queue: has_item_level_queue,
       has_available_kursbok: has_available_kursbok,
       default_queue_location: default_queue_location,
