@@ -71,7 +71,7 @@ class Reserve
       reservenotes: reservenotes
     }.to_query
 
-    showQueuePosition = !(has_item_level_queue || is_subscription)
+    showQueuePosition =  !(has_item_level_queue || is_subscription) && @positionInQueue && @positionInQueue > 0
 
     showMyLoansLink = true
 
