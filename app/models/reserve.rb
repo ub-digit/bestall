@@ -143,7 +143,7 @@ class Reserve
       @reservenotes = xml.search('//response/reserve/reservenotes').text
     end
     if xml.search('//response/queue_position').text.present?
-      @positionInQueue = xml.search('//response/queue_position').text
+      @positionInQueue = xml.search('//response/queue_position').text.to_i
     else
       @positionInQueue = nil
     end
