@@ -10,6 +10,7 @@ export const useOrder = () => {
     subscription: "",
     reserveNotes: "",
     subscriptionNotes: "",
+    current_item_extended: null,
   };
 
   const orderSuccessResponse = useState<OrderSuccessResponse>(
@@ -40,6 +41,7 @@ export const useOrder = () => {
       pickupLocation_sv: null,
       showRequiredPickupCode: false,
       showMyLoansLink: false,
+      item_referenced: false,
     } as OrderSuccessResponse);
   };
 
