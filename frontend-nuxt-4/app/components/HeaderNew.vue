@@ -1,12 +1,20 @@
 <script setup lang="ts">
 // No script logic needed for this component
+const showHeaderLogoOnSmallDevices =
+  useRuntimeConfig().public.showHeaderLogoOnSmallDevices;
 </script>
 <template>
   <header>
     <div class="container">
       <div class="header-container-grid">
         <div class="header-logo-wrapper">
-          <div class="header-logo" alt="logotype">
+          <div
+            class="header-logo"
+            :class="{
+              'header-logo--hidden-small': !showHeaderLogoOnSmallDevices,
+            }"
+            alt="logotype"
+          >
             <a class="link-reset" :href="$t('header.logo.url')"
               ><img :src="$t('header.logo.src')" :alt="$t('header.logo.alt')"
             /></a>

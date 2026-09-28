@@ -24,6 +24,7 @@ export default defineNuxtConfig({
       dateFormat: "sv-SE",
       githubClientId: "",
       guClientId: "",
+      showHeaderLogoOnSmallDevices: true,
     },
   },
   app: {

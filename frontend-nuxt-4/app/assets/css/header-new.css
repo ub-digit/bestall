@@ -36,6 +36,12 @@ header {
         border-bottom-right-radius: 0.5rem;
         height: 150px;
 
+        &.header-logo--hidden-small {
+          @media (max-width: 47.999rem) {
+            display: none;
+          }
+        }
+
         @media (min-width: 48rem) {
           height: 6.875rem;
         }
