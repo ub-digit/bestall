@@ -15,7 +15,22 @@
     "title": "An error occurred",
     "description": "Something went wrong. Please try again later or contact the library.",
     "backHome": "Back to ub.gu.se",
-    "backHomeUrl": "https://www.ub.gu.se/"
+    "backHomeUrl": "https://www.ub.gu.se/",
+    "contactForm": {
+      "title": "Contact the library",
+      "success": "Your request has been received.",
+      "error": "We could not submit your request. Please try again.",
+      "label": {
+        "subject": "Book title",
+        "bibid": "Bibliographic record ID",
+        "firstName": "First name",
+        "lastName": "Last name",
+        "email": "Email",
+        "message": "Message",
+        "submit": "Submit",
+        "cancel": "Cancel"
+      }
+    }
   },
   "header": {
     "logo": {

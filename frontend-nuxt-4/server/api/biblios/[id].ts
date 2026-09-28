@@ -10,18 +10,21 @@ import { FetchError } from "ofetch";
 
 export default defineEventHandler(async (event) => {
   const session = await getServerSession(event);
-  if (!session) {
+  /*   if (!session) {
     throw createError({ statusCode: 401, statusMessage: "Unauthorized" });
-  }
+  } */
   const runtimeConfig = useRuntimeConfig();
   const { id } = event.context.params as { id: string };
   let { locale } = getQuery(event) as { locale?: string };
+
+  let { force } = getQuery(event) as { force?: boolean };
+  force = force ?? false; // set default value for force if not provided
 
   if (!locale) {
     locale = "sv"; // if missing add default locale
   }
 
-  const userParsed = session.user;
+  const userParsed = session?.user;
   console.log(
     `Fetching biblio with ID: ${id} for locale: ${locale} by user: ${userParsed?.cardnumber || "unknown"}`,
   );
@@ -111,7 +114,7 @@ export default defineEventHandler(async (event) => {
   try {
     if (id) {
       const data: any = await $fetch(
-        `${runtimeConfig.apiBase}/biblios/${id}?items_on_subscriptions=true`,
+        `${runtimeConfig.apiBase}/biblios/${id}?items_on_subscriptions=true&force=${force}`,
         // Note: make to post and send biblio_id and user data
         {
           method: "GET",
