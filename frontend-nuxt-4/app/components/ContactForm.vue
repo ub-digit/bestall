@@ -129,7 +129,7 @@ const emit = defineEmits<{
     max-width: var(--reading-width);
     border: 1px solid var(--dark-light);
     padding: var(--spacer-16);
-    border-radius: var(--spacer-8);
+    border-radius: var(--border-radius);
 
     > label {
       margin-top: var(--spacer-16);
