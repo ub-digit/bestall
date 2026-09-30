@@ -15,7 +15,24 @@
     "title": "Ett fel har inträffat",
     "description": "Något gick fel. Vänligen försök igen senare eller kontakta biblioteket.",
     "backHome": "Tillbaka till ub.gu.se",
-    "backHomeUrl": "https://www.ub.gu.se/"
+    "backHomeUrl": "https://www.ub.gu.se/",
+    "success": "Din förfrågan har tagits emot.",
+    "error": "Det gick inte att skicka din förfrågan. Försök igen.",
+    "contactForm": {
+      "title": "Kontakta biblioteket",
+      "success": "Din förfrågan har tagits emot.",
+      "error": "Det gick inte att skicka din förfrågan. Försök igen.",
+      "label": {
+        "subject": "Boktitel",
+        "bibid": "Bibliografiskpost-ID",
+        "firstName": "Förnamn",
+        "lastName": "Efternamn",
+        "email": "E-post",
+        "message": "Meddelande",
+        "submit": "Skicka",
+        "cancel": "Avbryt"
+      }
+    }
   },
   "header": {
     "logo": {
