@@ -1,5 +1,9 @@
+form {
+}
+
 label {
-  font-weight: bold;
+  font-weight: normal;
+  text-transform: uppercase;
 }
 input[type="text"],
 input[type="email"],
@@ -10,9 +14,12 @@ textarea {
   margin-top: var(--spacer-8);
   width: 100%;
   padding: 0.8rem;
-  border: 1px solid var(--dark-dark);
+  border: 1px solid var(--dark-light);
   border-radius: 4px;
   resize: vertical;
+  &:hover {
+    border-color: var(--dark-dark);
+  }
 }
 input[type="text"]:focus,
 input[type="email"]:focus,
