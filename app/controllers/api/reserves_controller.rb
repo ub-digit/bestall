@@ -19,6 +19,19 @@ class Api::ReservesController < ApplicationController
 
     # Just print order if this is subscription order
     if params[:orderToSubmit][:subscriptionNotes].present?
+      if params[:orderToSubmit][:biblio_id].present?
+        # When fullBiblio is not present, i.e. the order is sent from Koha subscription order
+        biblio_obj = Biblio.find_by_id(params[:orderToSubmit][:biblio_id])
+        if biblio_obj
+          # Create a full Biblio object for the order
+          params[:orderToSubmit] ||= {}
+          params[:orderToSubmit][:fullBiblio] ||= {}
+          params[:orderToSubmit][:fullBiblio][:biblionumber] = params[:orderToSubmit][:biblio_id]
+          params[:orderToSubmit][:fullBiblio][:title] = biblio_obj.title.squish if biblio_obj.title.present?
+          params[:orderToSubmit][:fullBiblio][:origin] = biblio_obj.origin if biblio_obj.origin.present?
+          params[:orderToSubmit][:fullBiblio][:edition] = biblio_obj.edition if biblio_obj.edition.present?
+        end
+      end
       username = @current_username || params[:username]
       performer_borrowernumber = params[:performer]
       obj = Print.prepare_subscription_order(params, username)
