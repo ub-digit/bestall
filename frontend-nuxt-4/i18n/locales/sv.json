@@ -142,7 +142,7 @@
       "CAN_NOT_BE_BORROWED": "Du kan inte beställa det här materialet själv. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp.",
       "ALREADY_BORROWED": "Du har redan lånat detta material.",
       "ALREADY_RESERVED": "Du har redan beställt eller köar på materialet.",
-      "RESTRICTION_AV": "Du är avstängd från bibliotekets tjänster. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> om du har frågor om detta.",
+      "RESTRICTION_AV": "Du är avstängd från bibliotekets   . <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> om du har frågor om detta.",
       "MISSING_ID": "Id-parametern saknas"
     }
   },
@@ -181,8 +181,8 @@
     "needsToBeOrdered": "Behöver beställas",
     "noAvailableItems": "Det finns inga tillgängliga exemplar just nu.",
     "noNotAvailableItems": "Det finns inga utlånade exemplar just nu.",
-    "infoAboutAvailableItems": "Det finns tillgängliga exemplar som du kan <a href='#items-available'>beställa</a>",
-    "hasAvailableCourseBook": "Det finns tillgängliga exemplar som du kan <a href='#items-available'>hämta själv från hyllan</a>",
+    "infoAboutAvailableItems": "Det finns tillgängliga exemplar som du kan beställa.",
+    "hasAvailableCourseBook": "Det finns tillgängliga exemplar som du kan hämta själv från hyllan.",
     "allItemsAreAvailable": "Alla exemplar är tillgängliga",
     "numberOfPeopleInQueueOnNotAvailable": "{numberOfPeople} i kö på utlånade exemplar",
     "unsupportedViewType": "Denna typ av material ({viewType}) har inte stöd för att visa beställningsdetaljer. Kontakta biblioteket.",
