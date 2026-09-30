@@ -8,13 +8,6 @@ services:
         - GIT_REPO_URL=${GIT_REPO_URL}
         - GIT_REVISION=${GIT_REVISION}
     platform: linux/amd64
-  frontend:
-    image: docker.ub.gu.se/bestall-frontend:${GIT_REVISION}
-    build:
-      context: ./frontend
-      args:
-        - GIT_REPO_URL=${GIT_REPO_URL}
-        - GIT_REVISION=${GIT_REVISION}
   backend:
     image: docker.ub.gu.se/bestall-backend:${GIT_REVISION}
     build:
@@ -22,3 +15,4 @@ services:
       args:
         - GIT_REPO_URL=${GIT_REPO_URL}
         - GIT_REVISION=${GIT_REVISION}
+    platform: linux/amd64
