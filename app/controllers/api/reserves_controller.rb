@@ -36,7 +36,7 @@ class Api::ReservesController < ApplicationController
       performer_borrowernumber = params[:performer]
       obj = Print.prepare_subscription_order(params, username)
       pdf = Print.create_pdf(obj)
-      Koha.send_subscription_reserve(obj, subscription_id: params[:orderToSubmit][:subscription], filename: pdf, performer_borrowernumber: performer_borrowernumber)
+      Koha.send_subscription_reserve(obj, subscription_id: params[:orderToSubmit][:subscriptionId], filename: pdf, performer_borrowernumber: performer_borrowernumber)
       @response[:reserve] = {
         showPickupLocation: !send_home,
         pickupLocation_en: pickupLocation_en,
