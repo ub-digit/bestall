@@ -11,6 +11,9 @@
     "skipToMainContent": "Skip to main content",
     "loading": "Loading…"
   },
+  "modal": {
+    "close": "Close dialog"
+  },
   "errorPage": {
     "title": "An error occurred",
     "description": "Something went wrong. Please try again later or contact the library.",
@@ -18,6 +21,7 @@
     "backHomeUrl": "https://www.ub.gu.se/",
     "contactForm": {
       "title": "Contact the library",
+      "open": "Contact the library",
       "success": "Your request has been received.",
       "error": "We could not submit your request. Please try again.",
       "label": {

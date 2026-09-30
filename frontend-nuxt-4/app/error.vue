@@ -25,6 +25,7 @@ const description = computed(
 );
 const contactSubmitted = ref(false);
 const contactError = ref("");
+const contactModalOpen = ref(false);
 
 const submitContactForm = async () => {
   try {
@@ -126,18 +127,32 @@ if (showForm.value) {
           <a class="btn-link" :href="$t('errorPage.backHomeUrl')">
             {{ $t("errorPage.backHome") }}
           </a>
+          <button
+            v-if="showForm"
+            class="btn-primary"
+            type="button"
+            @click="contactModalOpen = true"
+          >
+            {{ $t("errorPage.contactForm.open") }}
+          </button>
         </div>
       </div>
 
-      <ContactForm
+      <BaseModal
         v-if="showForm"
-        :contact-request="contactRequest"
-        :loading="loading"
-        :submitted="contactSubmitted"
-        :error="contactError"
-        @submit="submitContactForm"
-        @cancel="cancelContactForm"
-      />
+        v-model="contactModalOpen"
+        :title="$t('errorPage.contactForm.title')"
+        :close-label="$t('modal.close')"
+      >
+        <ContactForm
+          :contact-request="contactRequest"
+          :loading="loading"
+          :submitted="contactSubmitted"
+          :error="contactError"
+          @submit="submitContactForm"
+          @cancel="cancelContactForm"
+        />
+      </BaseModal>
     </main>
     <Footer />
   </div>
@@ -180,6 +195,14 @@ if (showForm.value) {
     }
 
     .debug {
+    }
+
+    .error-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacer-32);
     }
   }
 }

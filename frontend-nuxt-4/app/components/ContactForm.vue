@@ -20,7 +20,6 @@ const emit = defineEmits<{
       {{ $t("errorPage.contactForm.success") }}
     </p>
     <form v-else class="form" @submit.prevent="emit('submit')">
-      <h2>{{ $t("errorPage.contactForm.title") }}</h2>
       <p v-if="error" role="alert" aria-live="assertive">
         {{ error }}
       </p>

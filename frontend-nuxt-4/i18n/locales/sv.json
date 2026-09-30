@@ -11,6 +11,9 @@
     "skipToMainContent": "Hoppa till huvudinnehåll",
     "loading": "Laddar…"
   },
+  "modal": {
+    "close": "Stäng dialogrutan"
+  },
   "errorPage": {
     "title": "Ett fel har inträffat",
     "description": "Något gick fel. Vänligen försök igen senare eller kontakta biblioteket.",
@@ -20,6 +23,7 @@
     "error": "Det gick inte att skicka din förfrågan. Försök igen.",
     "contactForm": {
       "title": "Kontakta biblioteket",
+      "open": "Kontakta biblioteket",
       "success": "Din förfrågan har tagits emot.",
       "error": "Det gick inte att skicka din förfrågan. Försök igen.",
       "label": {
