@@ -3,15 +3,15 @@ import type { NuxtError } from "#app";
 import type { ContactRequest } from "~/shared/types/ContactRequest";
 const loading = useLoginLoading();
 const route = useRoute();
-const { order, setOrder } = useOrder();
 
 const contactRequest = ref<ContactRequest>({
   firstName: "",
   lastName: "",
+  display_info: [],
   email: "",
   title: "",
-  message: "",
   bibid: "",
+  message: "",
 });
 
 const props = defineProps<{
@@ -49,6 +49,7 @@ const cancelContactForm = () => {
   contactRequest.value = {
     firstName: "",
     lastName: "",
+    display_info: [],
     email: "",
     title: "",
     message: "",
@@ -61,11 +62,11 @@ const firstErrorCode = computed(
   () => props.error?.data?.data?.errors.errors?.[0]?.code,
 );
 
-const fetchOrderDetails = async () => {
+const fetchBiblioDetails = async () => {
   if (bibId.value) {
     try {
       const data = await $fetch(`/api/biblios/${bibId.value}?force=true`);
-      setOrder(data);
+      biblio.value = data;
     } catch (error) {
       console.error("Failed to fetch order details:", error);
     }
@@ -73,6 +74,7 @@ const fetchOrderDetails = async () => {
 };
 
 const bibId = computed(() => route?.params?.id);
+const biblio = ref(null);
 
 const showForm = computed(
   () =>
@@ -84,8 +86,9 @@ if (showForm.value) {
   //fetch order details based on bibId
   try {
     loading.value = true;
-    await fetchOrderDetails();
-    contactRequest.value.title = order.value?.title || "";
+    await fetchBiblioDetails();
+    contactRequest.value.title = biblio.value?.title || "";
+    contactRequest.value.display_info = biblio.value?.display_info || [];
     contactRequest.value.bibid = bibId.value || "";
   } catch (error) {
     console.error("Failed to fetch order details:", error);

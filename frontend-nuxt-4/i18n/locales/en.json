@@ -24,8 +24,11 @@
       "open": "Contact the library",
       "success": "Your request has been received.",
       "error": "We could not submit your request. Please try again.",
+      "privacy_info": "Gothenburg University is a public authority. Messages you send here may become public records that can be requested.",
+      "gdpr_link": "<a href='https://www.gu.se/en/about-the-website/processing-personal-data'>About how we handle personal data on gu.se</a>",
       "label": {
-        "subject": "Book title",
+        "title": "Book title",
+        "display_info": "Display information",
         "bibid": "Bibliographic record ID",
         "firstName": "First name",
         "lastName": "Last name",

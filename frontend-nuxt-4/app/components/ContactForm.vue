@@ -23,17 +23,29 @@ const emit = defineEmits<{
       <p v-if="error" role="alert" aria-live="assertive">
         {{ error }}
       </p>
-      <label for="title">{{ $t("errorPage.contactForm.label.subject") }}</label>
+      <div class="display-info-section">
+        <ul class="list-unstyled">
+          <li v-for="(info, index) in contactRequest.display_info" :key="index">
+            <h4 v-if="index === 0">{{ info }}</h4>
+            <p v-else>{{ info }}</p>
+          </li>
+        </ul>
+      </div>
+
+      <label for="title">{{ $t("errorPage.contactForm.label.title") }}</label>
       <input
         id="title"
         v-model="contactRequest.title"
         type="text"
         name="title"
         required
-        :placeholder="$t('errorPage.contactForm.label.subject')"
+        :placeholder="$t('errorPage.contactForm.label.title')"
       />
-      <label for="bibid">{{ $t("errorPage.contactForm.label.bibid") }}</label>
+      <label class="hidden" for="bibid">{{
+        $t("errorPage.contactForm.label.bibid")
+      }}</label>
       <input
+        class="hidden"
         id="bibid"
         v-model="contactRequest.bibid"
         type="text"
@@ -89,6 +101,12 @@ const emit = defineEmits<{
         required
         :placeholder="$t('errorPage.contactForm.label.message')"
       ></textarea>
+
+      <p
+        class="privacy-info"
+        v-html="$t('errorPage.contactForm.privacy_info')"
+      ></p>
+      <p class="gdpr-link" v-html="$t('errorPage.contactForm.gdpr_link')"></p>
       <div class="form-actions">
         <button
           class="btn-primary"
@@ -104,9 +122,6 @@ const emit = defineEmits<{
           "
         >
           {{ $t("errorPage.contactForm.label.submit") }}
-        </button>
-        <button class="btn-secondary" type="button" @click="emit('cancel')">
-          {{ $t("errorPage.contactForm.label.cancel") }}
         </button>
       </div>
     </form>
@@ -145,7 +160,7 @@ const emit = defineEmits<{
 
     .form-actions {
       display: flex;
-      justify-content: flex-end;
+      justify-content: flex-start;
       gap: var(--spacer-16);
       margin-top: var(--spacer-16);
 

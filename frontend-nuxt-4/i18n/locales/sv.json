@@ -26,8 +26,10 @@
       "open": "Kontakta biblioteket",
       "success": "Din förfrågan har tagits emot.",
       "error": "Det gick inte att skicka din förfrågan. Försök igen.",
+      "privacy_info": "Göteborgs universitet är en myndighet. Meddelanden du skickar här kan bli en allmän handling som kan begäras ut.",
+      "gdpr_link": "<a href='https://www.gu.se/om-webbplatsen/behandling-av-personuppgifter'>Om hur vi hanterar personuppgifter på gu.se</a>",
       "label": {
-        "subject": "Boktitel",
+        "title": "Boktitel",
         "bibid": "Bibliografiskpost-ID",
         "firstName": "Förnamn",
         "lastName": "Efternamn",
