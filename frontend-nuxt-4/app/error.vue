@@ -18,6 +18,8 @@ const props = defineProps<{
   error: NuxtError;
 }>();
 
+const config = useRuntimeConfig();
+
 useHead({ title: $t("errorPage.title") });
 
 const description = computed(
@@ -131,7 +133,7 @@ if (showForm.value) {
             {{ $t("errorPage.backHome") }}
           </a>
           <button
-            v-if="showForm"
+            v-if="showForm && config.public.showErrorContactForm"
             class="btn-primary"
             type="button"
             @click="contactModalOpen = true"
@@ -142,7 +144,7 @@ if (showForm.value) {
       </div>
 
       <BaseModal
-        v-if="showForm"
+        v-if="showForm && config.public.showErrorContactForm"
         v-model="contactModalOpen"
         :title="$t('errorPage.contactForm.title')"
         :close-label="$t('modal.close')"

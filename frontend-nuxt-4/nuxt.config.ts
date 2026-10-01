@@ -21,6 +21,7 @@ export default defineNuxtConfig({
       localeParamName: "",
       myLoansUrl: "",
       applicationIsClosed: false /* default to false if not set, since it's a new feature and we don't want to accidentally break things for users who haven't set it up yet. */,
+      showErrorContactForm: false,
       dateFormat: "sv-SE",
       githubClientId: "",
       guClientId: "",
