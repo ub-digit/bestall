@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
       locale = "sv"; // if missing add default locale
     }
 
-    const user = session.user;
+    const user = session.user as typeof session.user & { cardnumber?: string };
 
     if (!order) {
       throw createError({
@@ -48,15 +48,19 @@ export default defineEventHandler(async (event) => {
 
     console.log("Submitting order:", orderToSubmit);
 
-    const data: any = await $fetch(`${useRuntimeConfig().apiBase}/reserves/`, {
-      method: "POST",
-      body: {
-        orderToSubmit,
+    const data = await $fetch<{ reserve: OrderSuccessResponse }>(
+      `${useRuntimeConfig().apiBase}/reserves/`,
+      {
+        method: "POST",
+        body: {
+          orderToSubmit,
+        },
+        headers: {
+          "current-username": user.cardnumber || "",
+        },
       },
-      headers: {
-        "current-username": user?.cardnumber || "",
-      },
-    });
+    );
+
     const extendedResponse = {
       ...data.reserve,
       pickupLocation:
@@ -71,10 +75,43 @@ export default defineEventHandler(async (event) => {
       message: "Order created successfully",
     };
   } catch (error) {
-    console.error("Order API error:", error);
+    const fetchError = error as {
+      statusCode?: number;
+      status?: number;
+      statusMessage?: string;
+      statusText?: string;
+      data?: unknown;
+      response?: {
+        status?: number;
+        statusText?: string;
+        _data?: unknown;
+      };
+    };
+    const responseData = fetchError.data ?? fetchError.response?._data;
+    const responseMessage =
+      typeof responseData === "object" &&
+      responseData !== null &&
+      "message" in responseData &&
+      typeof responseData.message === "string"
+        ? responseData.message
+        : undefined;
+    const statusCode =
+      fetchError.statusCode ??
+      fetchError.status ??
+      fetchError.response?.status ??
+      500;
+    const statusMessage =
+      fetchError.statusMessage ??
+      responseMessage ??
+      fetchError.statusText ??
+      fetchError.response?.statusText ??
+      "Internal server error";
+
+    console.error("Order API error:", { statusCode, statusMessage });
     throw createError({
-      statusCode: 500,
-      statusMessage: "Internal server error",
+      statusCode,
+      statusMessage,
+      data: responseData,
     });
   }
 });

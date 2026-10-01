@@ -118,8 +118,9 @@ if (showForm.value) {
             d="M8 13h8q.425 0 .713-.288T17 12t-.288-.712T16 11H8q-.425 0-.712.288T7 12t.288.713T8 13m4 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"
           />
         </svg>
-        <h1 class="hidden">{{ error.statusCode }}</h1>
-        <p class="hidden">{{ description }}</p>
+
+        <h1 v-if="$config.public.debugInfo">{{ error.statusCode }}</h1>
+        <p v-if="$config.public.debugInfo">{{ description }}</p>
         <ul v-if="error?.data?.data?.errors.errors?.length" class="error-list">
           <li
             v-for="(item, index) in error?.data?.data.errors.errors"

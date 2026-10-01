@@ -206,9 +206,9 @@ const submitOrder = async () => {
       }),
     );
   } catch (error) {
-    console.error("Error submitting order:", error);
+    console.log("Error submitting order:", error);
+    showError(error);
     // Handle error case, e.g. show an error message or redirect to an error page
-    return;
   }
 };
 

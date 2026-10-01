@@ -148,6 +148,7 @@
       "ALREADY_BORROWED": "You have already borrowed this material.",
       "ALREADY_RESERVED": "You have already requested this material.",
       "RESTRICTION_AV": "You are suspended from using the library's services. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library if you have any questions concerning this.</a>",
+      "UNRECOGNIZED_ERROR": "An unknown error occurred.",
       "MISSING_ID": "The id parameter is missing"
     }
   },
