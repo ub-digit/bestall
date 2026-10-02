@@ -19,7 +19,7 @@ useHead({
 
   <LoadingOverlay />
   <HeaderNew />
-  <main id="content" class="container fix-viewport-height">
+  <main id="content" class="container">
     <OrderSteps />
     <NuxtPage />
   </main>
@@ -28,6 +28,8 @@ useHead({
 
 <style scoped>
 #content {
+  flex: 1 0 auto;
+  width: 100%; /* auto side margins would otherwise shrink a flex child */
   max-width: var(--max-content-width);
   padding-top: var(--spacer-32);
   padding-bottom: var(--spacer-64);

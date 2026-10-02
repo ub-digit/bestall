@@ -101,7 +101,7 @@ if (showForm.value) {
 </script>
 
 <template>
-  <div>
+  <div class="error-layout">
     <LoadingOverlay />
     <HeaderNew />
     <main id="content" class="container error-page">
@@ -165,7 +165,15 @@ if (showForm.value) {
 </template>
 
 <style scoped>
+.error-layout {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .error-page {
+  flex: 1 0 auto;
+  width: 100%;
   max-width: var(--max-content-width);
   padding-top: var(--spacer-32);
   padding-bottom: var(--spacer-32);
