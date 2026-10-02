@@ -158,7 +158,7 @@ const getStatusStr = (item: Item) => {
 }
 
 .items-table-container {
-  border: 1px solid var(--light-base);
+  /* border: 1px solid var(--light-base); */
 
   @media (min-width: 48rem) {
     .items-table.has-subscriptions {
