@@ -20,6 +20,7 @@ useHead({
   <LoadingOverlay />
   <HeaderNew />
   <main id="content" class="container fix-viewport-height">
+    <OrderSteps />
     <NuxtPage />
   </main>
   <Footer />

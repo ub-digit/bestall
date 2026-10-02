@@ -14,6 +14,12 @@
   "modal": {
     "close": "Close dialog"
   },
+  "orderSteps": {
+    "label": "Order progress",
+    "select": "Select",
+    "details": "Details",
+    "confirm": "Confirmation"
+  },
   "errorPage": {
     "title": "An error occurred",
     "description": "Something went wrong. Please try again later or contact the library.",
