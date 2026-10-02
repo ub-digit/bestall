@@ -14,6 +14,12 @@
   "modal": {
     "close": "Stäng dialogrutan"
   },
+  "orderSteps": {
+    "label": "Beställningens steg",
+    "select": "Välj",
+    "details": "Uppgifter",
+    "confirm": "Bekräftelse"
+  },
   "errorPage": {
     "title": "Ett fel har inträffat",
     "description": "Något gick fel. Vänligen försök igen senare eller kontakta biblioteket.",

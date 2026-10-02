@@ -26,6 +26,7 @@ export default defineNuxtConfig({
       githubClientId: "",
       guClientId: "",
       showHeaderLogoOnSmallDevices: true,
+      showOrderSteps: true,
     },
   },
   app: {
