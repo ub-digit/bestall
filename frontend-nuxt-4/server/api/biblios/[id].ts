@@ -75,6 +75,7 @@ export default defineEventHandler(async (event) => {
     ) {
       const extendedBiblio = {
         ...biblio,
+        items: allExtendedItems,
         subscriptiongroups: biblio.subscriptiongroups.map(
           (group: SubscriptionGroup) => ({
             ...group,
