@@ -71,19 +71,15 @@ class Reserve
       reservenotes: reservenotes
     }.to_query
 
-    showQueuePosition =  !(has_item_level_queue || is_subscription) && @positionInQueue && @positionInQueue > 0
-
-    showMyLoansLink = true
-
     url = "#{base_url}/reserves/create?#{params}"
     response = RestClient.get url
     if response
       if response.code == 201
         obj = Reserve.new
         obj.parse_xml(response.body)
-        obj.showQueuePosition = showQueuePosition
+        obj.showQueuePosition = !(has_item_level_queue || is_subscription) && obj.positionInQueue && obj.positionInQueue > 0
         obj.showPickupLocation = showPickupLocation
-        obj.showMyLoansLink = showMyLoansLink
+        obj.showMyLoansLink = true
         pp obj
         return obj
       else
