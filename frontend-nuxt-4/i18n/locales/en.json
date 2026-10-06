@@ -129,11 +129,11 @@
       "links": {
         "forgotPin": {
           "label": "Forgot PIN code?",
-          "url": "https://www.ub.gu.se/"
+          "url": "https://minalan.ub.gu.se/login?lang=en"
         },
         "register": {
           "label": "Get a library account",
-          "url": "https://www.gu.se/"
+          "url": "https://bibliotekskort.ub.gu.se/?lang=en"
         }
       }
     }

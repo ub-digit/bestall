@@ -131,11 +131,11 @@
       "links": {
         "forgotPin": {
           "label": "Glömt pin-kod?",
-          "url": "https://www.ub.gu.se/"
+          "url": "https://minalan.ub.gu.se/login?lang=sv"
         },
         "register": {
           "label": "Skaffa bibliotekskonto",
-          "url": "https://www.gu.se/"
+          "url": "https://bibliotekskort.ub.gu.se/?lang=sv"
         }
       }
     }
