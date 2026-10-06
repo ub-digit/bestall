@@ -3,9 +3,9 @@
   <div>
     <div class="hero">
       <header>
-        <div class="hero-header h1">This is the hero component</div>
+        <h2 class="hero-header h1">This is the hero component</h2>
       </header>
-      <main class="content">
+      <section class="content">
         <p>
           This is the hero main content area. It can contain text, images,
           videos or other types of content. The hero component is used to
@@ -16,7 +16,7 @@
           section that captures the attention of users and encourages them to
           explore further.
         </p>
-      </main>
+      </section>
       <aside class="hero-sidebar">
         <div class="hero-sidebar-heading">Directly to</div>
         <ul>

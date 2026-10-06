@@ -5,7 +5,7 @@ definePageMeta({
 </script>
 <template>
   <div class="docs">
-    <h2 class="h1">Docs</h2>
+    <h1 class="h1">Docs</h1>
     <DocsNav id="nav" />
     <DocsHero id="hero" />
     <DocsSearch id="search" />
