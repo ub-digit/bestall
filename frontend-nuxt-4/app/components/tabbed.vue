@@ -73,7 +73,7 @@ const handleNavClick = (event: Event) => {
   flex-direction: column;
   .tabbed-nav {
     display: flex;
-
+    font-weight: bold;
     border-bottom: 1px solid var(--border-color-default);
     a {
       background-color: var(--light-light);
@@ -88,7 +88,7 @@ const handleNavClick = (event: Event) => {
         border-left: 0;
       }
       &.active {
-        background-color: var(--dark-base);
+        background-color: var(--dark-dark);
         color: white;
       }
     }
