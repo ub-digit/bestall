@@ -57,7 +57,7 @@ class Api::ReservesController < ApplicationController
       if params[:orderToSubmit][:current_item_extended].present? && params[:orderToSubmit][:current_item_extended][:location_id].present?
         branchcode = params[:orderToSubmit][:current_item_extended][:location_id]
       else
-        branchcode = default_queue_location
+        branchcode = params[:orderToSubmit][:fullBiblio][:default_queue_location]
       end
     end
 
