@@ -101,8 +101,8 @@
   "localeSwitcher": {
     "label": "{currentLocale}"
   },
-
   "login": {
+    "pageTitle": "Sign in",
     "or": "or",
     "guAuth": {
       "logo": {

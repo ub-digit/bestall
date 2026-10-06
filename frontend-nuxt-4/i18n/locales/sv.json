@@ -104,6 +104,7 @@
   },
 
   "login": {
+    "pageTitle": "Logga in",
     "or": "eller",
     "guAuth": {
       "logo": {
