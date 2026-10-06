@@ -111,6 +111,7 @@ if (showForm.value) {
           width="32"
           height="32"
           viewBox="0 0 24 24"
+          aria-hidden="true"
         >
           <!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE -->
           <path
@@ -119,8 +120,10 @@ if (showForm.value) {
           />
         </svg>
 
-        <h1 v-if="$config.public.debugInfo">{{ error.statusCode }}</h1>
+        <h1>{{ $t("errorPage.title") }}</h1>
+        <p v-if="$config.public.debugInfo">{{ error.statusCode }}</p>
         <p v-if="$config.public.debugInfo">{{ description }}</p>
+        <pre v-if="$config.public.debugInfo">{{ error }}</pre>
         <ul v-if="error?.data?.data?.errors.errors?.length" class="error-list">
           <li
             v-for="(item, index) in error?.data?.data.errors.errors"
