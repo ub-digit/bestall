@@ -69,26 +69,24 @@
     },
     "contact": {
       "header": "Kontakt",
-      "address": "Göteborgs universitetsbibliotek <br/> Box 100 <br/> 405 30 Göteborg",
-      "visitingAddress": "Västra Hamngatan 16, Göteborg",
-      "phone": "031-786 00 00",
-      "email": "{'info@ub.gu.se'}",
-      "orgNr": "Org.nr: 202100-3073"
+      "address": "Göteborgs universitetsbibliotek <br/> Box 607 <br/> SE 405 30 Göteborg",
+      "phone": "Växel: 031-786 00 00",
+      "orgNr": "Organisationsnummer: 202100-3153"
     },
     "links": {
-      "header": "Länkar",
+      "header": "Genvägar",
       "items": [
         {
-          "label": "Hemsida",
+          "label": "Bibliotekets hemsida",
           "url": "https://www.ub.gu.se/"
         },
         {
           "label": "Kontakta oss",
-          "url": "https://www.ub.gu.se/kontakt"
+          "url": "https://www.ub.gu.se/om-oss/kontakt/kontakta-oss"
         },
         {
-          "label": "Tillgänglighet",
-          "url": "https://www.ub.gu.se/tillganglighet"
+          "label": "Tillgänglighetsredogörelse",
+          "url": "https://www.ub.gu.se/om-webbplatsen/tillganglighetsredogorelse"
         }
       ]
     }

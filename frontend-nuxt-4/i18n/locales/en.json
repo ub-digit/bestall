@@ -68,26 +68,24 @@
     },
     "contact": {
       "header": "Contact",
-      "address": "Gothenburg University Library <br/> Box 100 <br/> 405 30 Gothenburg",
-      "visitingAddress": "Västra Hamngatan 16, Gothenburg",
-      "phone": "031-786 00 00",
-      "email": "{'info@ub.gu.se'}",
-      "orgNr": "Org.nr: 202100-3073"
+      "address": "Gothenburg University Library <br/> Box 607 <br/> SE 405 30 Gothenburg",
+      "phone": "Switchboard: 031-786 00 00",
+      "orgNr": "Organization number: 202100-3153"
     },
     "links": {
-      "header": "Links",
+      "header": "Shortcuts",
       "items": [
         {
-          "label": "Website",
-          "url": "https://www.ub.gu.se/"
+          "label": "Library website",
+          "url": "https://www.ub.gu.se/en"
         },
         {
           "label": "Contact us",
-          "url": "https://www.ub.gu.se/kontakt"
+          "url": "https://www.ub.gu.se/en/about-us/contact/contact-us"
         },
         {
           "label": "Accessibility",
-          "url": "https://www.ub.gu.se/tillganglighet"
+          "url": "https://www.ub.gu.se/en/about-the-website/accessibility-report"
         }
       ]
     }
