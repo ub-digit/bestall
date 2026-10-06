@@ -51,7 +51,7 @@ const getStatusStr = (item: Item) => {
 </script>
 
 <template>
-  <h5 class="items-table-header h3">{{ header }}</h5>
+  <h3 class="items-table-header">{{ header }}</h3>
 
   <div class="items-table-info">
     <slot name="info"></slot>
