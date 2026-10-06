@@ -33,10 +33,12 @@ const handleSignIn = async () => {
 </script>
 <template>
   <div class="login-credentials">
-    <header>{{ $t("login.kohaAuth.title") }}</header>
+    <h2>{{ $t("login.kohaAuth.title") }}</h2>
     <p class="description">{{ $t("login.kohaAuth.description") }}</p>
     <form @submit.prevent="handleSignIn()">
-      <div v-if="errorLogin" class="danger-base-text">{{ errorLogin }}</div>
+      <div v-if="errorLogin" class="danger-base-text" role="alert">
+        {{ errorLogin }}
+      </div>
       <div>
         <label for="cardnumber">{{
           $t("login.kohaAuth.labelCardnumber")
@@ -85,7 +87,8 @@ const handleSignIn = async () => {
 
 <style scoped>
 .login-credentials {
-  > header {
+  > h2 {
+    margin: 0;
     font-size: 1.5rem;
     font-weight: 700;
   }
