@@ -23,11 +23,6 @@ const footerLinks = $tm("footer.links.items") as Array<{
           <div>
             {{ $t("footer.contact.phone") }}
           </div>
-          <div>
-            <a :href="`mailto:${$t('footer.contact.email')}`">{{
-              $t("footer.contact.email")
-            }}</a>
-          </div>
           <div>{{ $t("footer.contact.orgNr") }}</div>
         </section>
         <section class="footer-links">

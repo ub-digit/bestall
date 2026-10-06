@@ -17,6 +17,7 @@ const isAuthServiceEnabled = (service: string) => {
 </script>
 <template>
   <div class="login-wrapper">
+    <h1>{{ $t("login.pageTitle") }}</h1>
     <div class="login">
       <div class="gu-auth" v-if="isAuthServiceEnabled('GU') && enableGUAuth">
         <LoginGU />

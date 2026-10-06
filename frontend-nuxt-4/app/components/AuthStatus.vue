@@ -9,6 +9,7 @@ const { handleSignOut } = useAppSignOut();
       width="32"
       height="32"
       viewBox="0 0 24 24"
+      aria-hidden="true"
     >
       <!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE -->
       <path

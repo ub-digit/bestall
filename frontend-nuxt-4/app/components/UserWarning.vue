@@ -25,10 +25,6 @@ const view = useRoute().query.view;
   .action a {
     color: var(--info-dark);
     text-decoration: underline;
-    background-color: red;
-    &:visited {
-      color: red !important;
-    }
   }
   p {
     margin: 0;

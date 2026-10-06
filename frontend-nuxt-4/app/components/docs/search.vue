@@ -22,6 +22,7 @@
           width="32"
           height="32"
           viewBox="0 0 16 16"
+          aria-hidden="true"
         >
           <!-- Icon from OpenSearch UI by OpenSearch Contributors - https://github.com/opensearch-project/oui/blob/main/LICENSE.txt -->
           <path

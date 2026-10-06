@@ -8,7 +8,11 @@ const availibleLocales = computed(() => {
 
 <template>
   <div>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 100 100"
+      aria-hidden="true"
+    >
       <!-- Icon from Font-GIS by Jean-Marc Viglino - https://github.com/Viglino/font-gis/blob/main/LICENSE-CC-BY.md -->
       <path
         fill="currentColor"

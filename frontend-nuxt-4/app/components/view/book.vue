@@ -43,7 +43,7 @@
               </template>
             </ViewItemsTable>
           </div>
-          <div class="items-not-available">
+          <div id="items-not-available" class="items-not-available">
             <ViewItemsTable
               v-if="biblio?.itemsNotAvailable"
               :items="biblio.itemsNotAvailable"

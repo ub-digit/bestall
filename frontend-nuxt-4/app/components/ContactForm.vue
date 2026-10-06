@@ -26,7 +26,7 @@ const emit = defineEmits<{
       <div class="display-info-section">
         <ul class="list-unstyled">
           <li v-for="(info, index) in contactRequest.display_info" :key="index">
-            <h4 v-if="index === 0">{{ info }}</h4>
+            <h3 v-if="index === 0">{{ info }}</h3>
             <p v-else>{{ info }}</p>
           </li>
         </ul>

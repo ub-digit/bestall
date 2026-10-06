@@ -3,7 +3,7 @@
     <h2>{{ $t("biblio.title") }}</h2>
     <div class="biblio-card" :data-id="biblio?.id">
       <div class="biblio-card-common">
-        <h4>{{ biblio?.title }}</h4>
+        <h3>{{ biblio?.title }}</h3>
         <ul
           class="display-info list-unstyled"
           v-if="biblio?.display_info && biblio.display_info.length"
@@ -26,7 +26,7 @@ const props = defineProps<{
 .biblio-card {
   max-width: calc(var(--reading-width) * 1.5);
   .biblio-card-common {
-    h4 {
+    h3 {
       max-width: var(--reading-width);
       margin-bottom: var(--spacer-16);
     }
