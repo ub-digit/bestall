@@ -22,7 +22,7 @@ const loginWithGU = async () => {
       :src="$t('login.guAuth.logo.src')"
       :alt="$t('login.guAuth.logo.alt')"
     />
-    <header>{{ $t("login.guAuth.title") }}</header>
+    <h2>{{ $t("login.guAuth.title") }}</h2>
     <p class="description">{{ $t("login.guAuth.description") }}</p>
     <button class="btn-primary" @click="loginWithGU()">
       {{ $t("login.guAuth.button") }}
@@ -36,7 +36,8 @@ const loginWithGU = async () => {
     width: 100%;
     margin-bottom: var(--spacer-16);
   }
-  > header {
+  > h2 {
+    margin: 0;
     font-size: 1.5rem;
     font-weight: 700;
   }
