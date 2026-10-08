@@ -9,19 +9,55 @@ const timeoutDurationMs =
     ? configuredTimeoutDurationMs
     : 4000;
 const progressKey = ref(0);
+const countdownStopped = ref(false);
+let remainingDurationMs = timeoutDurationMs;
+let countdownStartedAt = 0;
+let mousePaused = false;
 let timeout: ReturnType<typeof setTimeout> | undefined;
 
 function show(text: string) {
   message.value = text;
   progressKey.value += 1;
+  countdownStopped.value = false;
+  mousePaused = false;
+  remainingDurationMs = timeoutDurationMs;
 
   if (timeout) {
     clearTimeout(timeout);
   }
+  startCountdown();
+}
+
+function startCountdown() {
+  countdownStartedAt = performance.now();
   timeout = setTimeout(() => {
     message.value = "";
     timeout = undefined;
-  }, timeoutDurationMs);
+  }, remainingDurationMs);
+}
+
+function pauseCountdown() {
+  if (!timeout) return;
+  clearTimeout(timeout);
+  timeout = undefined;
+  remainingDurationMs = Math.max(
+    0,
+    remainingDurationMs - (performance.now() - countdownStartedAt),
+  );
+  countdownStopped.value = true;
+}
+
+function pauseForMouse() {
+  if (!timeout) return;
+  mousePaused = true;
+  pauseCountdown();
+}
+
+function resumeAfterMouse() {
+  if (!mousePaused || !message.value) return;
+  mousePaused = false;
+  countdownStopped.value = false;
+  startCountdown();
 }
 
 function close() {
@@ -42,7 +78,14 @@ defineExpose({ show });
 </script>
 
 <template>
-  <div v-if="message" class="toast" role="status" aria-live="polite">
+  <div
+    v-if="message"
+    class="toast"
+    role="status"
+    aria-live="polite"
+    @mousedown="pauseForMouse"
+    @mouseup.window="resumeAfterMouse"
+  >
     <span>{{ message }}</span>
     <button
       class="toast-close"
@@ -55,6 +98,7 @@ defineExpose({ show });
     <div class="toast-progress" aria-hidden="true">
       <span
         :key="progressKey"
+        :class="{ 'is-paused': countdownStopped }"
         :style="{ animationDuration: `${timeoutDurationMs}ms` }"
       ></span>
     </div>
@@ -74,6 +118,7 @@ defineExpose({ show });
   padding: var(--spacer-16);
   color: var(--light-light);
   background: var(--dark-dark);
+  border: 1px solid var(--dark-light);
   border-radius: var(--border-radius);
   box-shadow: 0 2px 12px rgb(0 0 0 / 20%);
   overflow: hidden;
@@ -112,6 +157,10 @@ defineExpose({ show });
   background: var(--info-base);
   transform-origin: left;
   animation: toast-timeout linear forwards;
+}
+
+.toast-progress span.is-paused {
+  animation-play-state: paused;
 }
 
 @keyframes toast-timeout {
