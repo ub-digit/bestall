@@ -28,6 +28,7 @@ export default defineNuxtConfig({
       showHeaderLogoOnSmallDevices: true,
       showOrderSteps: true,
       toastDurationMs: 4000,
+      showStatusLimitationToast: false,
     },
   },
   app: {

@@ -18,6 +18,10 @@ const emit = defineEmits<{
   (e: "handleEvent", payload: EventPayload): void;
 }>();
 
+const isStatusLimitationToastEnabled = [true, "true"].includes(
+  useRuntimeConfig().public.showStatusLimitationToast as boolean | string,
+);
+
 function handleEvent(payload: EventPayload) {
   emit("handleEvent", payload);
 }
@@ -27,6 +31,8 @@ const statusLimitationToast = ref<{ show: (message: string) => void } | null>(
 );
 
 function showStatusLimitationToast(item: Item) {
+  if (!isStatusLimitationToastEnabled) return;
+
   const limitation = $t(
     `status.statusLimitation.${item.status_limitation + "_DESCRIPTION"}`,
   );
@@ -115,8 +121,11 @@ const getStatusStr = (item: Item) => {
             <div
               v-if="item.status_limitation"
               class="status-limitation"
-              role="button"
-              tabindex="0"
+              :class="{
+                'status-limitation-actionable': isStatusLimitationToastEnabled,
+              }"
+              :role="isStatusLimitationToastEnabled ? 'button' : undefined"
+              :tabindex="isStatusLimitationToastEnabled ? 0 : undefined"
               @click="showStatusLimitationToast(item)"
               @keydown.enter="showStatusLimitationToast(item)"
               @keydown.space.prevent="showStatusLimitationToast(item)"
@@ -187,7 +196,7 @@ const getStatusStr = (item: Item) => {
       </div>
     </div>
   </div>
-  <Toast ref="statusLimitationToast" />
+  <Toast v-if="isStatusLimitationToastEnabled" ref="statusLimitationToast" />
 </template>
 
 <style scoped>
@@ -208,11 +217,13 @@ const getStatusStr = (item: Item) => {
     border-radius: var(--border-radius);
     font-size: 0.875em;
     font-family: inherit;
-    cursor: pointer;
+    &.status-limitation-actionable {
+      cursor: pointer;
 
-    &:focus-visible {
-      outline: 2px solid currentColor;
-      outline-offset: 2px;
+      &:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 2px;
+      }
     }
   }
 
