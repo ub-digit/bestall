@@ -27,6 +27,7 @@ export default defineNuxtConfig({
       guClientId: "",
       showHeaderLogoOnSmallDevices: true,
       showOrderSteps: true,
+      toastDurationMs: 4000,
     },
   },
   app: {
