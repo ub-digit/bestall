@@ -18,8 +18,27 @@ const emit = defineEmits<{
   (e: "handleEvent", payload: EventPayload): void;
 }>();
 
+const isStatusLimitationToastEnabled = [true, "true"].includes(
+  useRuntimeConfig().public.showStatusLimitationToast as boolean | string,
+);
+
 function handleEvent(payload: EventPayload) {
   emit("handleEvent", payload);
+}
+
+const statusLimitationToast = ref<{ show: (message: string) => void } | null>(
+  null,
+);
+
+function showStatusLimitationToast(item: Item) {
+  if (!isStatusLimitationToastEnabled) return;
+
+  const limitation = $t(
+    `status.statusLimitation.${item.status_limitation + "_DESCRIPTION"}`,
+  );
+  statusLimitationToast.value?.show(
+    $t("item.status-limitation", { limitation }),
+  );
 }
 
 const getStatusStr = (item: Item) => {
@@ -97,11 +116,44 @@ const getStatusStr = (item: Item) => {
           </div>
         </div>
         <div class="items-table-cell" :label="$t('table.header.status')">
-          <div>
-            {{ getStatusStr(item) }}
-            <span class="status-limitation" v-if="item.status_limitation">
-              | {{ $t(`status.statusLimitation.${item.status_limitation}`) }}
-            </span>
+          <div class="status">
+            <div class="status-text">{{ getStatusStr(item) }}</div>
+            <div
+              v-if="item.status_limitation"
+              class="status-limitation"
+              :class="{
+                'status-limitation-actionable': isStatusLimitationToastEnabled,
+              }"
+              :role="isStatusLimitationToastEnabled ? 'button' : undefined"
+              :tabindex="isStatusLimitationToastEnabled ? 0 : undefined"
+              @click="showStatusLimitationToast(item)"
+              @keydown.enter="showStatusLimitationToast(item)"
+              @keydown.space.prevent="showStatusLimitationToast(item)"
+            >
+              <svg
+                class="status-limitation-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="9"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                />
+                <path
+                  d="M12 10.5v5"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                />
+                <circle cx="12" cy="7.2" r="1.2" fill="currentColor" />
+              </svg>
+              {{ $t(`status.statusLimitation.${item.status_limitation}`) }}
+            </div>
           </div>
         </div>
         <div
@@ -144,14 +196,44 @@ const getStatusStr = (item: Item) => {
       </div>
     </div>
   </div>
+  <Toast v-if="isStatusLimitationToastEnabled" ref="statusLimitationToast" />
 </template>
 
 <style scoped>
-.status-limitation {
-  opacity: 0.8;
-  color: var(--danger-base);
-  font-size: 0.875em;
+.status {
+  text-align: right;
+  @media (min-width: 48rem) {
+    text-align: left;
+  }
+  .status-limitation {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacer-4);
+    color: var(--info-base);
+    background: transparent;
+    border: 1px solid;
+    padding: var(--spacer-4);
+    border-radius: var(--border-radius);
+    font-size: 0.875em;
+    font-family: inherit;
+    &.status-limitation-actionable {
+      cursor: pointer;
+
+      &:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  .status-limitation-icon {
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+  }
 }
+
 .collect-button {
   font-style: italic;
   opacity: 0.6;
@@ -197,15 +279,16 @@ const getStatusStr = (item: Item) => {
       display: grid;
       border-bottom: 1px solid var(--light-base);
       padding-bottom: var(--spacer-16);
-      gap: var(--spacer-8);
+      gap: var(--spacer-16);
       @media (min-width: 48rem) {
         grid-template-columns: repeat(var(--grid-columns), 1fr);
       }
 
       .items-table-cell {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: space-between;
+
         &::before {
           content: attr(label);
           font-weight: bold;
@@ -214,8 +297,8 @@ const getStatusStr = (item: Item) => {
             display: none;
           }
         }
-        @madia (min-width: 48rem) {
-          padding: var(--spacer-8) var(--spacer-16);
+        @media (min-width: 48rem) {
+          padding: var(--spacer-8) 0;
         }
         @media (min-width: 48rem) {
           &.actions-cell {
@@ -228,9 +311,23 @@ const getStatusStr = (item: Item) => {
   }
 }
 
-.location-name,
-.sublocation-name {
-  word-break: break-word;
+.location {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacer-4);
+  text-align: right;
+  @media (min-width: 48rem) {
+    text-align: left;
+  }
+  .location-name,
+  .sublocation-name {
+    word-break: break-word;
+  }
+}
+.status {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacer-4);
 }
 
 .actions-cell {

@@ -9,7 +9,8 @@
   },
   "app": {
     "skipToMainContent": "Hoppa till huvudinnehåll",
-    "loading": "Laddar…"
+    "loading": "Laddar…",
+    "closeNotification": "Stäng meddelandet"
   },
   "modal": {
     "close": "Stäng dialogrutan"
@@ -218,10 +219,17 @@
     "unknown": "Okänd status",
     "statusLimitation": {
       "NOT_FOR_HOME_LOAN": "Ej hemlån",
+      "NOT_FOR_HOME_LOAN_DESCRIPTION": "Ej hemlån",
       "READING_ROOM_ONLY": "Läsesalslån, ej hemlån",
+      "READING_ROOM_ONLY_DESCRIPTION": "Universitetsbibliotekets läromedel är så kallad referenslitteratur som inte får lånas hem. Du är istället välkommen att läsa läroböckerna på Pedagogiska biblioteket eller beställa fram dem för läsning i läsesalarna i våra andra bibliotek.",
       "OWNING_LIBRARY_ONLY": "Beställs endast till ägande bibliotek",
-      "MONITORED_READING_ROOM_ONLY": "Kan endast beställas till specialläsesal"
+      "OWNING_LIBRARY_ONLY_DESCRIPTION": "Beställs endast till ägande bibliotek",
+      "MONITORED_READING_ROOM_ONLY": "Kan endast beställas till specialläsesal",
+      "MONITORED_READING_ROOM_ONLY_DESCRIPTION": "Kan endast beställas till specialläsesal"
     }
+  },
+  "item": {
+    "status-limitation": "{limitation}"
   },
   "actions": {
     "queue": "Köa",

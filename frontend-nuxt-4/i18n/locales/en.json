@@ -9,7 +9,8 @@
   },
   "app": {
     "skipToMainContent": "Skip to main content",
-    "loading": "Loading…"
+    "loading": "Loading…",
+    "closeNotification": "Close notification"
   },
   "modal": {
     "close": "Close dialog"
@@ -216,10 +217,17 @@
     "unknown": "Unknown status",
     "statusLimitation": {
       "NOT_FOR_HOME_LOAN": "Not for home loan",
+      "NOT_FOR_HOME_LOAN_DESCRIPTION": "Not for home loan",
       "READING_ROOM_ONLY": "Reading room loan, not for home loan",
+      "READING_ROOM_ONLY_DESCRIPTION": "School textbooks are reference literature, i.e. they cannot be taken home. Instead, you can read the material at the Education Library or in the reading room at the Humanities Library.",
       "OWNING_LIBRARY_ONLY": "Only available to owning library",
-      "MONITORED_READING_ROOM_ONLY": "Access in special reading room only"
+      "OWNING_LIBRARY_ONLY_DESCRIPTION": "Only available to owning library",
+      "MONITORED_READING_ROOM_ONLY": "Access in special reading room only",
+      "MONITORED_READING_ROOM_ONLY_DESCRIPTION": "Access in special reading room only"
     }
+  },
+  "item": {
+    "status-limitation": "{limitation}"
   },
   "actions": {
     "queue": "Queue",
