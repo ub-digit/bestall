@@ -41,8 +41,11 @@
     ProxyPass        /print_bestall/images http://localhost:{{ omutskrift_host_port }}/images
     ProxyPassReverse /print_bestall/images http://localhost:{{ omutskrift_host_port }}/images
 
-    ProxyPass        /api http://localhost:{{ backend_host_port }}/api
-    ProxyPassReverse /api http://localhost:{{ backend_host_port }}/api
+    # Used from KOHA
+    ProxyPass        /api/print http://localhost:{{ backend_host_port }}/api/print
+    ProxyPassReverse /api/print http://localhost:{{ backend_host_port }}/api/print
+    ProxyPass        /api/reserve http://localhost:{{ backend_host_port }}/api/reserve
+    ProxyPassReverse /api/reserve http://localhost:{{ backend_host_port }}/api/reserve
 
     ProxyPass        / http://localhost:{{ frontend_host_port }}/
     ProxyPassReverse / http://localhost:{{ frontend_host_port }}/
