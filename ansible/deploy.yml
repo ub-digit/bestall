@@ -1,0 +1,23 @@
+---
+- name: Deploy
+  hosts: all
+  tasks:
+  - name: Deploy app
+    include_role:
+      name: ub-ansible-deploy
+
+  - name: Ensure bestall apache configuration
+    become: true
+    ansible.builtin.template:
+      src: 'bestall-apache.conf.j2'
+      dest: "{{ [data_dirs['apache_sites'].path, 'default.conf'] | path_join }}"
+
+  - name: Ensure backend data directory locations.json
+    ansible.builtin.copy:
+      src: ../config/data/locations.json
+      dest: "{{ data_dirs['backend'].path }}"
+
+  - name: Ensure print bestall .htpasswd
+    ansible.builtin.copy:
+      content: "{{ apache_htpasswd }}"
+      dest: "{{ [data_dir, '.htpasswd'] | path_join }}"

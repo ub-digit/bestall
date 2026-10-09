@@ -1,0 +1,9 @@
+---
+- name: Export database
+  hosts: all
+  roles:
+  - role: ub-ansible-export-db
+    vars:
+      db_service: db
+      database_variant: postgres
+      db_dump_filename: database.sql

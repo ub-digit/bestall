@@ -1,0 +1,12 @@
+<VirtualHost *:80>
+
+    Alias /files /var/www/bestall/files
+    <Directory /var/www/bestall/files>
+        Require all granted
+        AllowOverride all
+        Options -MultiViews +Indexes
+    </Directory>
+
+</VirtualHost>
+
+
