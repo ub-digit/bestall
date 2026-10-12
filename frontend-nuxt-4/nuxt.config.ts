@@ -19,7 +19,30 @@ export default defineNuxtConfig({
       hideGUAuthParamName: "",
       hideGUAuthParamValue: "",
       localeParamName: "",
-      myLoansUrl: "",
+      myLoansUrlSv: "https://minalan.ub.gu.se",
+      myLoansUrlEn: "https://minalan.ub.gu.se",
+      libraryCardUrlSv: "https://bibliotekskort.ub.gu.se/",
+      libraryCardUrlEn: "https://bibliotekskort.ub.gu.se/",
+      guHomeUrlSv: "https://www.gu.se/",
+      guHomeUrlEn: "https://www.gu.se/en",
+      ubHomeUrlSv: "https://www.ub.gu.se/",
+      ubHomeUrlEn: "https://www.ub.gu.se/en",
+      ubContactUrlSv:
+        "https://www.ub.gu.se/om-oss/kontakt/kontakta-oss/kontakta-universitetsbiblioteket",
+      ubContactUrlEn:
+        "https://www.ub.gu.se/en/about-us/contact/contact-us/contact-the-university-library",
+      guPrivacyUrlSv:
+        "https://www.gu.se/om-webbplatsen/behandling-av-personuppgifter",
+      guPrivacyUrlEn:
+        "https://www.gu.se/en/about-the-website/processing-personal-data",
+      footerLibraryUrlSv: "https://www.ub.gu.se/",
+      footerLibraryUrlEn: "https://www.ub.gu.se/en",
+      footerContactUrlSv: "https://www.ub.gu.se/om-oss/kontakt/kontakta-oss",
+      footerContactUrlEn: "https://www.ub.gu.se/en/about-us/contact/contact-us",
+      footerAccessibilityUrlSv:
+        "https://www.ub.gu.se/om-webbplatsen/tillganglighetsredogorelse",
+      footerAccessibilityUrlEn:
+        "https://www.ub.gu.se/en/about-the-website/accessibility-report",
       applicationIsClosed: false /* default to false if not set, since it's a new feature and we don't want to accidentally break things for users who haven't set it up yet. */,
       showErrorContactForm: false,
       dateFormat: "sv-SE",

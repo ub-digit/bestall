@@ -1,7 +1,19 @@
 <script setup lang="ts">
 // No script logic needed for this component
+const runtimeConfig = useRuntimeConfig();
+const { locale } = useI18n();
+const guHomeUrl = computed(() =>
+  locale.value === "en"
+    ? runtimeConfig.public.guHomeUrlEn
+    : runtimeConfig.public.guHomeUrlSv,
+);
+const ubHomeUrl = computed(() =>
+  locale.value === "en"
+    ? runtimeConfig.public.ubHomeUrlEn
+    : runtimeConfig.public.ubHomeUrlSv,
+);
 const showHeaderLogoOnSmallDevices =
-  useRuntimeConfig().public.showHeaderLogoOnSmallDevices;
+  runtimeConfig.public.showHeaderLogoOnSmallDevices;
 </script>
 <template>
   <header>
@@ -15,18 +27,16 @@ const showHeaderLogoOnSmallDevices =
             }"
             alt="logotype"
           >
-            <a class="link-reset" :href="$t('header.logo.url')"
+            <a class="link-reset" :href="guHomeUrl"
               ><img :src="$t('header.logo.src')" :alt="$t('header.logo.alt')"
             /></a>
           </div>
         </div>
         <div class="header-site-description">
           <h1 class="header-title">
-            <a
-              :href="$t('header.mainTitle.url')"
-              :title="$t('header.mainTitle.label')"
-              >{{ $t("header.mainTitle.title") }}</a
-            >
+            <a :href="ubHomeUrl" :title="$t('header.mainTitle.label')">{{
+              $t("header.mainTitle.title")
+            }}</a>
           </h1>
           <div class="header-description">
             {{ $t("header.subTitle") }}

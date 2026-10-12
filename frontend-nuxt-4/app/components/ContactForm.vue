@@ -12,6 +12,13 @@ const emit = defineEmits<{
   submit: [];
   cancel: [];
 }>();
+const runtimeConfig = useRuntimeConfig();
+const { locale } = useI18n();
+const gdprUrl = computed(() =>
+  locale.value === "en"
+    ? runtimeConfig.public.guPrivacyUrlEn
+    : runtimeConfig.public.guPrivacyUrlSv,
+);
 </script>
 
 <template>
@@ -106,7 +113,11 @@ const emit = defineEmits<{
         class="privacy-info"
         v-html="$t('errorPage.contactForm.privacy_info')"
       ></p>
-      <p class="gdpr-link" v-html="$t('errorPage.contactForm.gdpr_link')"></p>
+      <p class="gdpr-link">
+        <a :href="gdprUrl" target="_blank" rel="noopener noreferrer">
+          {{ $t("errorPage.contactForm.gdpr_link") }}
+        </a>
+      </p>
       <div class="form-actions">
         <button
           class="btn-primary"

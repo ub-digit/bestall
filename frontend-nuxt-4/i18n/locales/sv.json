@@ -4,7 +4,8 @@
     "description": "Beställ och köa på material från Göteborgs universitetsbibliotek.",
     "closed": {
       "title": "Beställningstjänsten är tillfälligt stängd",
-      "description": "Vi beklagar besväret, men vår beställningstjänst är för närvarande otillgänglig. Vi arbetar på att lösa problemet så snabbt som möjligt. Vänligen försök igen senare eller <a href='https://www.ub.gu.se/kontakt'>Kontakta biblioteket</a> för att få hjälp."
+      "description": "Vi beklagar besväret, men vår beställningstjänst är för närvarande otillgänglig. Vi arbetar på att lösa problemet så snabbt som möjligt. Vänligen försök igen senare eller {contactLink} för att få hjälp.",
+      "contactLink": "Kontakta biblioteket"
     }
   },
   "app": {
@@ -22,10 +23,9 @@
     "confirm": "Bekräftelse"
   },
   "errorPage": {
-    "title": "Ett fel har inträffat",
+    "title": "Det går inte att beställa",
     "description": "Något gick fel. Vänligen försök igen senare eller kontakta biblioteket.",
     "backHome": "Tillbaka till ub.gu.se",
-    "backHomeUrl": "https://www.ub.gu.se/",
     "success": "Din förfrågan har tagits emot.",
     "error": "Det gick inte att skicka din förfrågan. Försök igen.",
     "contactForm": {
@@ -34,7 +34,7 @@
       "success": "Din förfrågan har tagits emot.",
       "error": "Det gick inte att skicka din förfrågan. Försök igen.",
       "privacy_info": "Göteborgs universitet är en myndighet. Meddelanden du skickar här kan bli en allmän handling som kan begäras ut.",
-      "gdpr_link": "<a target='_blank' href='https://www.gu.se/om-webbplatsen/behandling-av-personuppgifter'>Om hur vi hanterar personuppgifter på gu.se</a>",
+      "gdpr_link": "Om hur vi hanterar personuppgifter på gu.se",
       "label": {
         "title": "Boktitel",
         "bibid": "Bibliografiskpost-ID",
@@ -50,14 +50,12 @@
   "header": {
     "logo": {
       "src": "/img/logo/sv/5114_LO_GU_CMYK_flag_sv.png",
-      "alt": "Göteborgs universitets logotyp",
-      "url": "https://www.gu.se/"
+      "alt": "Göteborgs universitets logotyp"
     },
 
     "mainTitle": {
       "title": "Göteborgs universitetsbibliotek",
-      "label": "Universitetsbiblioteket vid Göteborgs universitet",
-      "url": "https://www.ub.gu.se/"
+      "label": "Universitetsbiblioteket vid Göteborgs universitet"
     },
     "subTitle": "Beställ och köa på material"
   },
@@ -65,8 +63,7 @@
   "footer": {
     "logo": {
       "src": "/img/logo/en/5068_LO_GU_cen2rNEG.png",
-      "alt": "Göteborgs universitets logotyp",
-      "url": "https://www.gu.se/"
+      "alt": "Göteborgs universitets logotyp"
     },
     "contact": {
       "header": "Kontakt",
@@ -78,16 +75,13 @@
       "header": "Genvägar",
       "items": [
         {
-          "label": "Bibliotekets hemsida",
-          "url": "https://www.ub.gu.se/"
+          "label": "Bibliotekets hemsida"
         },
         {
-          "label": "Kontakta oss",
-          "url": "https://www.ub.gu.se/om-oss/kontakt/kontakta-oss"
+          "label": "Kontakta oss"
         },
         {
-          "label": "Tillgänglighetsredogörelse",
-          "url": "https://www.ub.gu.se/om-webbplatsen/tillganglighetsredogorelse"
+          "label": "Tillgänglighetsredogörelse"
         }
       ]
     }
@@ -129,12 +123,10 @@
 
       "links": {
         "forgotPin": {
-          "label": "Glömt pin-kod?",
-          "url": "https://minalan.ub.gu.se/login?lang=sv"
+          "label": "Glömt pin-kod?"
         },
         "register": {
-          "label": "Skaffa bibliotekskonto",
-          "url": "https://bibliotekskort.ub.gu.se/?lang=sv"
+          "label": "Skaffa bibliotekskonto"
         }
       }
     }
@@ -142,8 +134,10 @@
 
   "orderDenied": {
     "title": "Det går inte att beställa",
-    "description": "Något gick fel. <a href='https://www.ub.gu.se/kontakt'>Kontakta biblioteket</a> för att få hjälp.",
-    "descriptionWithMissingId": "Sök efter något att beställa på <a href='https://www.ub.gu.se/'>bibliotekets webbplats</a>.",
+    "description": "Något gick fel. {contactLink} för att få hjälp.",
+    "descriptionWithMissingId": "Sök efter något att beställa på {libraryWebsiteLink}.",
+    "contactLink": "Kontakta biblioteket",
+    "libraryWebsiteLink": "bibliotekets webbplats",
     "descriptionWithUserRestrictionsOnCurrentBiblio": "Restriktioner på materialet för denna användare",
     "errorCode": "Felkod: {code}",
     "errorDetail": "Detaljer: {detail}",
@@ -151,10 +145,10 @@
     "errors": {
       "ITEM_NOT_FOUND": "Det gick inte att hitta det material du försöker beställa.",
       "FORBIDDEN": "Detta material får inte lånas ut.",
-      "CAN_NOT_BE_BORROWED": "Du kan inte beställa det här materialet själv. <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> för att få hjälp.",
+      "CAN_NOT_BE_BORROWED": "Du kan inte beställa det här materialet själv. {contactLink} för att få hjälp.",
       "ALREADY_BORROWED": "Du har redan lånat detta material.",
       "ALREADY_RESERVED": "Du har redan beställt eller köar på materialet.",
-      "RESTRICTION_AV": "Du är avstängd från bibliotekets   . <a href=\"http://www.ub.gu.se/kontakta/\">Kontakta biblioteket</a> om du har frågor om detta.",
+      "RESTRICTION_AV": "Du är avstängd från bibliotekets   . {contactLink} om du har frågor om detta.",
       "UNRECOGNIZED_ERROR": "Ett okänt fel inträffade.",
       "MISSING_ID": "Id-parametern saknas"
     }
@@ -185,7 +179,8 @@
       "subscriptionNotes": "Ange volym, år, nummer eller sidnummer för det exemplar du vill beställa."
     },
     "messages": {
-      "privacyWarning": "Informationen i detta fält skrivs ut. Skriv inte personuppgifter här. <a href='https://www.ub.gu.se/sv/kontakta-oss'>Kontakta biblioteket</a> om du har frågor som rör din beställning."
+      "privacyWarning": "Informationen i detta fält skrivs ut. Skriv inte personuppgifter här. {contactLink} om du har frågor som rör din beställning.",
+      "contactLink": "Kontakta biblioteket"
     }
   },
 
@@ -204,7 +199,8 @@
     "cannotTemporaryPickUpHere": "kan ej beställas hit",
     "userWarning": {
       "message": "Du kan beställa det här materialet, men kommer inte kunna låna det, eftersom du har förseningsavgifter eller försenade lån.",
-      "action": "Logga in i <a href='https://minalan.ub.gu.se/'>Mina lån</a> för att se vad du behöver göra."
+      "action": "Logga in i {myLoansLink} för att se vad du behöver göra.",
+      "myLoansLink": "Mina lån"
     }
   },
   "status": {
@@ -262,7 +258,8 @@
     "messagePickup": "Du får ett meddelande när materialet finns att hämta på <b>{pickupLocation}</b>.",
     "messageNoPickup": "Du får ett meddelande när materialet skickas från biblioteket.",
     "pickupInfoCode": "I meddelandet (som kommer till din e-post och/eller SMS) finns en kod för avhämtning som du behöver för att hitta materialet på bibliotekets hylla för beställda böcker.",
-    "myLoansLink": "Du kan se dina lån och beställningar i <a href='https://minalan.ub.gu.se/login?lang=sv'>Mina lån</a>.",
+    "myLoansLink": "Du kan se dina lån och beställningar i {myLoansLink}.",
+    "myLoansLinkLabel": "Mina lån",
     "itemReferencedInfo": "Det material du har beställt ingår i ett annat verk. När du hämtar materialet kan titeln vara en annan än den du beställde."
   },
 
