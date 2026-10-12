@@ -22,7 +22,7 @@
     "confirm": "Confirmation"
   },
   "errorPage": {
-    "title": "An error occurred",
+    "title": "Cannot place order",
     "description": "Something went wrong. Please try again later or contact the library.",
     "backHome": "Back to ub.gu.se",
     "backHomeUrl": "https://www.ub.gu.se/",

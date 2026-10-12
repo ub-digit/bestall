@@ -22,7 +22,7 @@
     "confirm": "Bekräftelse"
   },
   "errorPage": {
-    "title": "Ett fel har inträffat",
+    "title": "Det går inte att beställa",
     "description": "Något gick fel. Vänligen försök igen senare eller kontakta biblioteket.",
     "backHome": "Tillbaka till ub.gu.se",
     "backHomeUrl": "https://www.ub.gu.se/",
