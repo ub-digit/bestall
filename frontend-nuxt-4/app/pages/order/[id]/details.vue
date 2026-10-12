@@ -75,7 +75,13 @@
           :placeholder="$t('orderForm.placeholders.reserveNotes')"
         />
         <p>
-          <small v-html="$t('orderForm.messages.privacyWarning')"></small>
+          <i18n-t keypath="orderForm.messages.privacyWarning" tag="small">
+            <template #contactLink>
+              <a :href="ubContactUrl">
+                {{ $t("orderForm.messages.contactLink") }}
+              </a>
+            </template>
+          </i18n-t>
         </p>
       </div>
       <div class="actions-area">
@@ -110,6 +116,13 @@ import type { Order, OrderSuccessResponse } from "~/types/Order";
 
 const maxReserveNotesLength =
   useRuntimeConfig().public.reserveNoteMaxLength || 140;
+const runtimeConfig = useRuntimeConfig();
+const { locale } = useI18n();
+const ubContactUrl = computed(() =>
+  locale.value === "en"
+    ? runtimeConfig.public.ubContactUrlEn
+    : runtimeConfig.public.ubContactUrlSv,
+);
 const currentReserveNotesLength = ref(0);
 const { status, data: authData } = useAuth();
 const route = useRoute();
@@ -136,8 +149,6 @@ watch(
     currentReserveNotesLength.value = newVal ? newVal.length : 0;
   },
 );
-
-const { locale } = useI18n();
 
 const currentSubscriptionOnOrder = computed(() => {
   if (!order.value || !order.value.subscription) return null;

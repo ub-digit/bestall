@@ -41,11 +41,18 @@
         {{ $t("confirmation.messageNoPickup") }}
       </div>
 
-      <div
+      <i18n-t
         v-if="orderSuccessResponse?.showMyLoansLink && isEnabledMyLoansLink"
+        keypath="confirmation.myLoansLink"
+        tag="div"
         class="my-loans-link"
-        v-html="$t('confirmation.myLoansLink')"
-      ></div>
+      >
+        <template #myLoansLink>
+          <a :href="myLoansUrl">
+            {{ $t("confirmation.myLoansLinkLabel") }}
+          </a>
+        </template>
+      </i18n-t>
     </div>
   </div>
 </template>
@@ -66,7 +73,16 @@ const {
 } = useOrder();
 
 const runtimeConfig = useRuntimeConfig();
+const { locale } = useI18n();
 const hideGUAuthParamValue = runtimeConfig.public.hideGUAuthParamValue;
+const myLoansBaseUrl = computed(() =>
+  locale.value === "en"
+    ? runtimeConfig.public.myLoansUrlEn
+    : runtimeConfig.public.myLoansUrlSv,
+);
+const myLoansUrl = computed(
+  () => `${myLoansBaseUrl.value.replace(/\/$/, "")}/login?lang=${locale.value}`,
+);
 
 const isEnabledMyLoansLink = computed(() => {
   const currentHideGUAuthParamValue =

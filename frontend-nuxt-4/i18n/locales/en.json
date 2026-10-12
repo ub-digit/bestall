@@ -4,7 +4,8 @@
     "description": "Order and queue materials from Gothenburg University Library.",
     "closed": {
       "title": "The ordering service is temporarily closed",
-      "description": "We apologize for the inconvenience, but our ordering service is currently unavailable. We are working to resolve the issue as quickly as possible. Please try again later or <a href='https://www.ub.gu.se/kontakt'>Contact the library</a> for assistance."
+      "description": "We apologize for the inconvenience, but our ordering service is currently unavailable. We are working to resolve the issue as quickly as possible. Please try again later or {contactLink} for assistance.",
+      "contactLink": "Contact the library"
     }
   },
   "app": {
@@ -25,14 +26,13 @@
     "title": "Cannot place order",
     "description": "Something went wrong. Please try again later or contact the library.",
     "backHome": "Back to ub.gu.se",
-    "backHomeUrl": "https://www.ub.gu.se/",
     "contactForm": {
       "title": "Contact the library",
       "open": "Contact the library",
       "success": "Your request has been received.",
       "error": "We could not submit your request. Please try again.",
       "privacy_info": "Gothenburg University is a public authority. Messages you send here may become public records that can be requested.",
-      "gdpr_link": "<a target='_blank' href='https://www.gu.se/en/about-the-website/processing-personal-data'>About how we handle personal data on gu.se</a>",
+      "gdpr_link": "About how we handle personal data on gu.se",
       "label": {
         "title": "Book title",
         "display_info": "Display information",
@@ -49,14 +49,12 @@
   "header": {
     "logo": {
       "src": "/img/logo/sv/5114_LO_GU_CMYK_flag_sv.png",
-      "alt": "Gothenburg University logo",
-      "url": "https://www.gu.se/"
+      "alt": "Gothenburg University logo"
     },
 
     "mainTitle": {
       "title": "Gothenburg University Library",
-      "label": "University Library at Gothenburg University",
-      "url": "https://www.ub.gu.se/"
+      "label": "University Library at Gothenburg University"
     },
     "subTitle": "Order and queue materials"
   },
@@ -64,8 +62,7 @@
   "footer": {
     "logo": {
       "src": "/img/logo/en/5068_LO_GU_cen2rNEG.png",
-      "alt": "Gothenburg University logo",
-      "url": "https://www.gu.se/"
+      "alt": "Gothenburg University logo"
     },
     "contact": {
       "header": "Contact",
@@ -77,16 +74,13 @@
       "header": "Shortcuts",
       "items": [
         {
-          "label": "Library website",
-          "url": "https://www.ub.gu.se/en"
+          "label": "Library website"
         },
         {
-          "label": "Contact us",
-          "url": "https://www.ub.gu.se/en/about-us/contact/contact-us"
+          "label": "Contact us"
         },
         {
-          "label": "Accessibility",
-          "url": "https://www.ub.gu.se/en/about-the-website/accessibility-report"
+          "label": "Accessibility"
         }
       ]
     }
@@ -127,12 +121,10 @@
 
       "links": {
         "forgotPin": {
-          "label": "Forgot PIN code?",
-          "url": "https://minalan.ub.gu.se/login?lang=en"
+          "label": "Forgot PIN code?"
         },
         "register": {
-          "label": "Get a library account",
-          "url": "https://bibliotekskort.ub.gu.se/?lang=en"
+          "label": "Get a library account"
         }
       }
     }
@@ -140,8 +132,10 @@
 
   "orderDenied": {
     "title": "Cannot place order",
-    "description": "Something went wrong. <a href='https://www.ub.gu.se/kontakt'>Contact the library</a> for assistance.",
-    "descriptionWithMissingId": "Search for something to order on <a href='https://www.ub.gu.se/'>the library's website</a>.",
+    "description": "Something went wrong. {contactLink} for assistance.",
+    "descriptionWithMissingId": "Search for something to order on {libraryWebsiteLink}.",
+    "contactLink": "Contact the library",
+    "libraryWebsiteLink": "the library's website",
     "descriptionWithUserRestrictionsOnCurrentBiblio": "Restrictions on the material for this user",
     "errorCode": "Error code: {code}",
     "errorDetail": "Details: {detail}",
@@ -149,10 +143,10 @@
     "errors": {
       "ITEM_NOT_FOUND": "Could not find the material you are trying to order.",
       "FORBIDDEN": "This material may not be borrowed.",
-      "CAN_NOT_BE_BORROWED": "You can't request this material by yourself. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library</a> to get help.",
+      "CAN_NOT_BE_BORROWED": "You can't request this material by yourself. Please {contactLink} to get help.",
       "ALREADY_BORROWED": "You have already borrowed this material.",
       "ALREADY_RESERVED": "You have already requested this material.",
-      "RESTRICTION_AV": "You are suspended from using the library's services. Please <a href=\"http://www.ub.gu.se/kontakta/\">contact the library if you have any questions concerning this.</a>",
+      "RESTRICTION_AV": "You are suspended from using the library's services. Please {contactLink} if you have any questions concerning this.",
       "UNRECOGNIZED_ERROR": "An unknown error occurred.",
       "MISSING_ID": "The id parameter is missing"
     }
@@ -183,7 +177,8 @@
       "subscriptionNotes": "Enter volume, year, issue or page number for the copy you want to order."
     },
     "messages": {
-      "privacyWarning": "The information in this field will be printed. Do not write personal information here. <a href='https://www.ub.gu.se/sv/kontakta-oss'>Contact the library</a> if you have questions about your order."
+      "privacyWarning": "The information in this field will be printed. Do not write personal information here. {contactLink} if you have questions about your order.",
+      "contactLink": "Contact the library"
     }
   },
 
@@ -202,7 +197,8 @@
     "cannotTemporaryPickUpHere": "cannot be ordered here",
     "userWarning": {
       "message": "You can order this material, but you will not be able to borrow it because you have overdue fees or overdue loans.",
-      "action": "Sign in to <a href='https://minalan.ub.gu.se/'>My loans</a> to see what you need to do."
+      "action": "Sign in to {myLoansLink} to see what you need to do.",
+      "myLoansLink": "My loans"
     }
   },
   "status": {
@@ -260,7 +256,8 @@
     "messagePickup": "You will receive a message when the material is ready for pickup at <b>{pickupLocation}</b>.",
     "messageNoPickup": "You will receive a message when the material is sent from the library.",
     "pickupInfoCode": "In the message (which will arrive via email and/or SMS) there is a pickup code that you need to find the material on the library's shelf for ordered books.",
-    "myLoansLink": "You can view your loans and orders in <a href='https://minalan.ub.gu.se/login?lang=en'>My loans</a>.",
+    "myLoansLink": "You can view your loans and orders in {myLoansLink}.",
+    "myLoansLinkLabel": "My loans",
     "itemReferencedInfo": "The material you have requested is part of another work. When you collect the material, the title may be different from the one you requested."
   },
 
