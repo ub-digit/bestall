@@ -1,6 +1,6 @@
 services:
   frontend:
-    image: docker.ub.gu.se/bestall-frontend:${GIT_REVISION}
+    image: docker.ub.gu.se/bestall-frontend-nuxt:${GIT_REVISION}
     ports:
      - ${FRONTEND_HOST_PORT}:3000
   backend:
