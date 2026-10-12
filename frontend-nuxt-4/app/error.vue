@@ -20,11 +20,15 @@ const props = defineProps<{
 
 const config = useRuntimeConfig();
 
-useHead({ title: $t("errorPage.title") });
-
+const pageTitle = computed(() => $t("errorPage.title"));
 const description = computed(
   () => props.error.statusMessage || $t("errorPage.description"),
 );
+
+useHead({
+  title: pageTitle,
+  meta: [{ name: "description", content: description }],
+});
 const contactSubmitted = ref(false);
 const contactError = ref("");
 const contactModalOpen = ref(false);
