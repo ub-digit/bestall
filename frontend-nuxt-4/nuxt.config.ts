@@ -11,9 +11,6 @@ export default defineNuxtConfig({
     public: {
       debugInfo: false,
       reserveNoteMaxLength: "",
-      disableLoantypeHomeAndPickupForItemtypes: "",
-      disableLoantypeHomeAndPickupForNotforloan: "",
-      includeLoantypeSDForUserCategories: "",
       enabledAuth: "",
       showAuthStatus: false,
       hideGUAuthParamName: "",
