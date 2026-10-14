@@ -1,0 +1,13 @@
+---
+docker_git_revision: prepare-for-release
+git_revision: release-2026.10.102
+omutskrift_git_revision: release-2025.01.001
+cupsd_git_revision: release-2024.04.001
+apache_git_revision: release-2021.10.001
+
+frontend_hostname: bestall-staging.ub.gu.se
+backend_hostname: bestall-server-staging.ub.gu.se
+frontend_host_port: 20260
+backend_host_port: 20261
+apache_host_port: 20265
+omutskrift_host_port: 20390
