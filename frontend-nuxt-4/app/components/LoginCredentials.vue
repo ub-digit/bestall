@@ -13,8 +13,7 @@ const libraryCardBaseUrl = computed(() =>
     : runtimeConfig.public.libraryCardUrlSv,
 );
 const myLoansUrl = computed(
-  () =>
-    `${myLoansBaseUrl.value.replace(/\/$/, "")}/login?lang=${locale.value}`,
+  () => `${myLoansBaseUrl.value.replace(/\/$/, "")}/login?lang=${locale.value}`,
 );
 const libraryCardUrl = computed(
   () => `${libraryCardBaseUrl.value}?lang=${locale.value}`,
@@ -42,7 +41,7 @@ const handleSignIn = async () => {
     } else {
       // No error, continue with the sign in, e.g., by following the returned redirect:
       errorLogin.value = "";
-      // return navigateTo(localePath(callbackUrl));
+      navigateTo(localePath(callbackUrl));
     }
   } finally {
     loading.value = false;
