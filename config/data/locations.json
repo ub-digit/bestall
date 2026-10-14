@@ -4,7 +4,7 @@
       "id": "40",
       "name_sv": "Biomedicinska biblioteket",
       "name_en": "Biomedical Library",
-      "monitored_reading_room": true
+      "monitored_reading_room": false
     },
     {
       "id": "42",
@@ -22,7 +22,7 @@
       "id": "47",
       "name_sv": "Pedagogiska biblioteket",
       "name_en": "Education Library",
-      "monitored_reading_room": true
+      "monitored_reading_room": false
     },
     {
       "id": "48",
