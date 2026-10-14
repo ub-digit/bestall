@@ -23,5 +23,6 @@ APACHE_SITES_HOST_DIR: "{{ data_dirs.apache_sites.path }}"
 FILES_HOST_DIR: "{{ data_dirs.files.path }}"
 
 KOHA_USER: bestalluser
+NUXT_ENABLED_AUTH: "GU,credentials"
 
 NUXT_PUBLIC_GU_CLIENT_ID: "{{ nuxt_public_gu_client_id }}"
