@@ -18,7 +18,6 @@ OMUTSKRIFT_PRINT_DIR: /data/files/
 OMUTSKRIFT_PRINTED_DIR: /data/files/done/
 
 BACKEND_DATA_HOST_DIR: "{{ data_dirs.backend.path }}"
-DB_HOST_DIR: "{{ data_dirs.db.path }}"
 APACHE_SITES_HOST_DIR: "{{ data_dirs.apache_sites.path }}"
 FILES_HOST_DIR: "{{ data_dirs.files.path }}"
 

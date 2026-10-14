@@ -13,12 +13,6 @@ data_dirs:
     path: "{{ data_dir }}/data"
     pull: true
     push: true
-  db:
-    path: "{{ data_dir }}/database"
-    owner: 999
-    group: 999
-    pull: true
-    push: true
   apache_sites:
     path: "{{ data_dir }}/apache-sites"
     pull: false
