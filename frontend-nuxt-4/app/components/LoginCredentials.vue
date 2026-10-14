@@ -1,6 +1,24 @@
 <script setup lang="ts">
 const { status, data, signIn, signOut } = useAuth();
-const { t } = useI18n();
+const { t, locale } = useI18n();
+const runtimeConfig = useRuntimeConfig();
+const myLoansBaseUrl = computed(() =>
+  locale.value === "en"
+    ? runtimeConfig.public.myLoansUrlEn
+    : runtimeConfig.public.myLoansUrlSv,
+);
+const libraryCardBaseUrl = computed(() =>
+  locale.value === "en"
+    ? runtimeConfig.public.libraryCardUrlEn
+    : runtimeConfig.public.libraryCardUrlSv,
+);
+const myLoansUrl = computed(
+  () =>
+    `${myLoansBaseUrl.value.replace(/\/$/, "")}/login?lang=${locale.value}`,
+);
+const libraryCardUrl = computed(
+  () => `${libraryCardBaseUrl.value}?lang=${locale.value}`,
+);
 const cardnumber = ref("");
 const pin = ref("");
 const errorLogin = ref("");
@@ -75,10 +93,10 @@ const handleSignIn = async () => {
     </form>
 
     <div class="links">
-      <NuxtLink external :to="t('login.kohaAuth.links.forgotPin.url')">
+      <NuxtLink external :to="myLoansUrl">
         {{ $t("login.kohaAuth.links.forgotPin.label") }}
       </NuxtLink>
-      <NuxtLink external :to="t('login.kohaAuth.links.register.url')">
+      <NuxtLink external :to="libraryCardUrl">
         {{ $t("login.kohaAuth.links.register.label") }}
       </NuxtLink>
     </div>

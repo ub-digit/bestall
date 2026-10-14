@@ -5,11 +5,18 @@
       <p class="info">
         {{ $t(`message.userWarning.message`) }}
       </p>
-      <div
+      <i18n-t
         v-if="view !== '46GUB_KOHA'"
+        keypath="message.userWarning.action"
+        tag="div"
         class="action"
-        v-html="$t('message.userWarning.action')"
-      ></div>
+      >
+        <template #myLoansLink>
+          <a :href="myLoansUrl">
+            {{ $t("message.userWarning.myLoansLink") }}
+          </a>
+        </template>
+      </i18n-t>
     </div>
   </div>
 </template>
@@ -18,6 +25,13 @@
 const { data: authData } = useAuth();
 const user = computed(() => authData.value?.user);
 const view = useRoute().query.view;
+const runtimeConfig = useRuntimeConfig();
+const { locale } = useI18n();
+const myLoansUrl = computed(() =>
+  locale.value === "en"
+    ? runtimeConfig.public.myLoansUrlEn
+    : runtimeConfig.public.myLoansUrlSv,
+);
 </script>
 
 <style scoped>

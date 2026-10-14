@@ -19,12 +19,25 @@ const props = defineProps<{
 }>();
 
 const config = useRuntimeConfig();
+const { locale } = useI18n();
+const contactUrl = computed(() =>
+  locale.value === "en"
+    ? config.public.ubContactUrlEn
+    : config.public.ubContactUrlSv,
+);
+const ubHomeUrl = computed(() =>
+  locale.value === "en" ? config.public.ubHomeUrlEn : config.public.ubHomeUrlSv,
+);
 
-useHead({ title: $t("errorPage.title") });
-
+const pageTitle = computed(() => $t("errorPage.title"));
 const description = computed(
   () => props.error.statusMessage || $t("errorPage.description"),
 );
+
+useHead({
+  title: pageTitle,
+  meta: [{ name: "description", content: description }],
+});
 const contactSubmitted = ref(false);
 const contactError = ref("");
 const contactModalOpen = ref(false);
@@ -57,7 +70,7 @@ const cancelContactForm = () => {
     message: "",
     bibid: "",
   };
-  window.location.href = $t("errorPage.backHomeUrl");
+  window.location.href = ubHomeUrl.value;
 };
 
 const firstErrorCode = computed(
@@ -129,11 +142,17 @@ if (showForm.value) {
             v-for="(item, index) in error?.data?.data.errors.errors"
             :key="index"
           >
-            <span v-html="$t('orderDenied.errors.' + item.code)"></span>
+            <i18n-t :keypath="'orderDenied.errors.' + item.code" tag="span">
+              <template #contactLink>
+                <a :href="contactUrl">
+                  {{ $t("orderDenied.contactLink") }}
+                </a>
+              </template>
+            </i18n-t>
           </li>
         </ul>
         <div class="error-actions">
-          <a class="btn-link" :href="$t('errorPage.backHomeUrl')">
+          <a class="btn-link" :href="ubHomeUrl">
             {{ $t("errorPage.backHome") }}
           </a>
           <button

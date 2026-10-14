@@ -1,7 +1,18 @@
 <script setup lang="ts">
 const { data, signOut, signIn } = useAuth();
 const { handleSignOut } = useAppSignOut();
-
+const runtimeConfig = useRuntimeConfig();
+const { locale } = useI18n();
+const ubHomeUrl = computed(() =>
+  locale.value === "en"
+    ? runtimeConfig.public.ubHomeUrlEn
+    : runtimeConfig.public.ubHomeUrlSv,
+);
+const contactUrl = computed(() =>
+  locale.value === "en"
+    ? runtimeConfig.public.ubContactUrlEn
+    : runtimeConfig.public.ubContactUrlSv,
+);
 const props = defineProps<{
   error: any;
 }>();
@@ -25,11 +36,28 @@ const props = defineProps<{
       <h2>{{ $t("orderDenied.title") }}</h2>
 
       <slot name="description">
-        <div class="description" v-html="$t('orderDenied.description')"></div>
+        <i18n-t keypath="orderDenied.description" tag="div" class="description">
+          <template #contactLink>
+            <a :href="contactUrl">
+              {{ $t("orderDenied.contactLink") }}
+            </a>
+          </template>
+          <template #libraryWebsiteLink>
+            <a :href="ubHomeUrl">
+              {{ $t("orderDenied.libraryWebsiteLink") }}
+            </a>
+          </template>
+        </i18n-t>
       </slot>
       <ul v-if="error?.data?.data?.errors.length" class="error-list">
         <li v-for="(item, index) in error?.data?.data.errors" :key="index">
-          <span v-html="$t('orderDenied.errors.' + item.code)"></span>
+          <i18n-t :keypath="'orderDenied.errors.' + item.code" tag="span">
+            <template #contactLink>
+              <a :href="contactUrl">
+                {{ $t("orderDenied.contactLink") }}
+              </a>
+            </template>
+          </i18n-t>
         </li>
       </ul>
 
