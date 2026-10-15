@@ -89,7 +89,9 @@ export default NuxtAuthHandler({
       console.log("JWT callback called with profile:", profile); */
       switch (account?.provider) {
         case "github": {
-          const xaccount = runtimeConfig.xaccountMapToGithub;
+          const xaccount = runtimeConfig.xaccountMapToGithub
+            ? runtimeConfig.xaccountMapToGithub
+            : profile.account;
           token.provider = "github";
           console.log(
             "Fetching user data from Koha for GitHub user:",
