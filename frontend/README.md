@@ -1,53 +1,43 @@
-# Frontend
+# Nuxt Minimal Starter
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-## Prerequisites
+## Setup
 
-You will need the following things properly installed on your computer.
+Make sure to install dependencies:
 
-* [Git](http://git-scm.com/)
-* [Node.js](http://nodejs.org/) (with NPM)
-* [Bower](http://bower.io/)
-* [Ember CLI](http://ember-cli.com/)
-* [PhantomJS](http://phantomjs.org/)
+```bash
+# npm
+npm install
 
-## Installation
+```
 
-* `git clone <repository-url>` this repository
-* `cd frontend`
-* `npm install`
-* `bower install`
+## Development Server
 
-## Running / Development
+Start the development server on `http://localhost:3000`:
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+```bash
+# npm
+npm run dev
 
-### Code Generators
+```
 
-Make use of the many generators for code, try `ember help generate` for more details
+## Production
 
-### Running Tests
+Build the application for production:
 
-* `ember test`
-* `ember test --server`
+````bash
+# npm
+npm run build
 
-### Building
 
-* `ember build` (development)
-* `ember build --environment production` (production)
 
-### Deploying
+Locally preview production build:
 
-Specify what it takes to deploy your app.
+```bash
+# npm
+npm run preview
 
-## Further Reading / Useful Links
 
-* [ember.js](http://emberjs.com/)
-* [ember-cli](http://ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
-
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+````
