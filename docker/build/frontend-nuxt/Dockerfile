@@ -9,7 +9,7 @@ WORKDIR /app
 RUN set -ex \
   && git clone $GIT_REPO_URL release -b $GIT_REVISION --depth 1
 
-WORKDIR /app/release/frontend-nuxt-4
+WORKDIR /app/release/frontend
 
 RUN set -ex \
  && npm install && npm run build
@@ -18,7 +18,7 @@ RUN set -ex \
 FROM node:22-bullseye
 ENV TZ=Europe/Stockholm
 WORKDIR /app
-COPY --from=build /app/release/frontend-nuxt-4/.output ./.output
+COPY --from=build /app/release/frontend/.output ./.output
 ENV NUXT_HOST=0.0.0.0
 # set app port
 ENV NUXT_PORT=5000

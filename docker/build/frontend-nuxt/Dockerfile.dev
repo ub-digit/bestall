@@ -2,7 +2,7 @@ FROM node:24
 WORKDIR /app
 
 # Copy dependency files first (better caching)
-COPY frontend-nuxt-4/package.json  ./
+COPY frontend/package.json  ./
 
 # Install dependencies
 RUN npm install

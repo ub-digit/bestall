@@ -2,20 +2,13 @@ services:
   frontend:
     build:
       context: ..
-      dockerfile: docker/build/frontend-nuxt/Dockerfile.dev
+      dockerfile: docker/build/frontend/Dockerfile.dev
     ports:
       - ${FRONTEND_HOST_PORT}:3000
     volumes:
-      - ../frontend-nuxt-4/:/app
+      - ../frontend/:/app
   backend:
     image: docker.ub.gu.se/rails:ruby-3.2.2
     volumes:
       - ../:/usr/src/app
-# TODO: Requires some refactoring, storing casUrl in frontend config instead
-# of fetching from backend etc
-#  cas:
-#    image: soulwing/cas-mock-server
-#    ports:
-#      - 8383:8080
-#    networks:
-#      - backend
+

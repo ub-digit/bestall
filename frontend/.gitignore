@@ -1,20 +1,27 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
 
-# compiled output
-/dist
-/tmp
+# Node dependencies
+node_modules
 
-# dependencies
-/node_modules
-/bower_components
+# Logs
+logs
+*.log
 
-# misc
-/.sass-cache
-/connect.lock
-/coverage/*
-/libpeerconnection.log
-npm-debug.log
-testem.log
+# Misc
+.DS_Store
+.fleet
+.idea
 
-jsconfig.json
-/typings/
+# Local env files
+.env
+.env.*
+!.env.example
+
+
+ .DS_Store
