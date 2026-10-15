@@ -26,24 +26,9 @@
     "title": "Cannot place order",
     "description": "Something went wrong. Please try again later or contact the library.",
     "backHome": "Back to ub.gu.se",
-    "contactForm": {
-      "title": "Contact the library",
-      "open": "Contact the library",
-      "success": "Your request has been received.",
-      "error": "We could not submit your request. Please try again.",
-      "privacy_info": "Gothenburg University is a public authority. Messages you send here may become public records that can be requested.",
-      "gdpr_link": "About how we handle personal data on gu.se",
-      "label": {
-        "title": "Book title",
-        "display_info": "Display information",
-        "bibid": "Bibliographic record ID",
-        "firstName": "First name",
-        "lastName": "Last name",
-        "email": "Email",
-        "message": "Message",
-        "submit": "Submit",
-        "cancel": "Cancel"
-      }
+    "contactLink": {
+      "subject": "Order request",
+      "open": "Contact the library"
     }
   },
   "header": {
@@ -143,10 +128,10 @@
     "errors": {
       "ITEM_NOT_FOUND": "Could not find the material you are trying to order.",
       "FORBIDDEN": "This material may not be borrowed.",
-      "CAN_NOT_BE_BORROWED": "You can't request this material by yourself. Please {contactLink} to get help.",
+      "CAN_NOT_BE_BORROWED": "You can't request this material by yourself. Please contact the library to get help.",
       "ALREADY_BORROWED": "You have already borrowed this material.",
       "ALREADY_RESERVED": "You have already requested this material.",
-      "RESTRICTION_AV": "You are suspended from using the library's services. Please {contactLink} if you have any questions concerning this.",
+      "RESTRICTION_AV": "You are suspended from using the library's services. Please contact the library if you have any questions concerning this.",
       "UNRECOGNIZED_ERROR": "An unknown error occurred.",
       "MISSING_ID": "The id parameter is missing"
     }

@@ -4,14 +4,19 @@ import type { ContactRequest } from "~/shared/types/ContactRequest";
 const loading = useLoginLoading();
 const route = useRoute();
 
+/* | subject   | Jag önskar beställa/låna/köa på        | visible   | yes   |
+| title     | Foo bar bar foo foo                    | visible   | yes   |
+| message   | Hej, jag vill beställa detta material. | visible   | yes   |
+| name      | Förnamn Efternamn                      | visible   | yes   |
+| e-mail    | foo@bar.com                            | visible   | yes   |
+| authors   | foo bar, bar foo                       | hidden    | yes   |
+| isbn_issn | 232345                                 | hidden    | yes   |
+| bibid     | 345453                                 | hidden    | yes   | */
+
 const contactRequest = ref<ContactRequest>({
-  firstName: "",
-  lastName: "",
-  display_info: [],
-  email: "",
+  subject: "",
   title: "",
   bibid: "",
-  message: "",
 });
 
 const props = defineProps<{
@@ -38,40 +43,6 @@ useHead({
   title: pageTitle,
   meta: [{ name: "description", content: description }],
 });
-const contactSubmitted = ref(false);
-const contactError = ref("");
-const contactModalOpen = ref(false);
-
-const submitContactForm = async () => {
-  try {
-    loading.value = true;
-    contactError.value = "";
-    const result = await $fetch("/api/contact", {
-      method: "POST",
-      body: contactRequest.value,
-    });
-    console.log("Contact API result:", result);
-    contactSubmitted.value = true;
-  } catch (error) {
-    console.error("Failed to submit contact form:", error);
-    contactError.value = $t("errorPage.contactForm.error");
-  } finally {
-    loading.value = false;
-  }
-};
-
-const cancelContactForm = () => {
-  contactRequest.value = {
-    firstName: "",
-    lastName: "",
-    display_info: [],
-    email: "",
-    title: "",
-    message: "",
-    bibid: "",
-  };
-  window.location.href = ubHomeUrl.value;
-};
 
 const firstErrorCode = computed(
   () => props.error?.data?.data?.errors.errors?.[0]?.code,
@@ -97,13 +68,24 @@ const showForm = computed(
     firstErrorCode.value === "RESTRICTION_AV",
 );
 
+const openContactLink = () => {
+  window.location.href = contactLink.value;
+};
+
+const contactLink = computed(() => {
+  const params = new URLSearchParams();
+  Object.entries(contactRequest.value).forEach(([key, value]) => {
+    if (value) params.append(key, String(value));
+  });
+  return contactUrl.value + `?${params.toString()}`;
+});
 if (showForm.value) {
   //fetch order details based on bibId
   try {
     loading.value = true;
     await fetchBiblioDetails();
+    contactRequest.value.subject = $t("errorPage.contactLink.subject");
     contactRequest.value.title = biblio.value?.title || "";
-    contactRequest.value.display_info = biblio.value?.display_info || [];
     contactRequest.value.bibid = bibId.value || "";
   } catch (error) {
     console.error("Failed to fetch order details:", error);
@@ -120,6 +102,7 @@ if (showForm.value) {
     <main id="content" class="container error-page">
       <div class="error-content">
         <svg
+          class="error-icon"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -143,11 +126,6 @@ if (showForm.value) {
             :key="index"
           >
             <i18n-t :keypath="'orderDenied.errors.' + item.code" tag="span">
-              <template #contactLink>
-                <a :href="contactUrl">
-                  {{ $t("orderDenied.contactLink") }}
-                </a>
-              </template>
             </i18n-t>
           </li>
         </ul>
@@ -159,28 +137,24 @@ if (showForm.value) {
             v-if="showForm && config.public.showErrorContactForm"
             class="btn-primary"
             type="button"
-            @click="contactModalOpen = true"
+            @click="openContactLink()"
           >
-            {{ $t("errorPage.contactForm.open") }}
+            {{ $t("errorPage.contactLink.open") }}
+            <svg
+              class="external-link-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                fill="currentColor"
+                d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z"
+              />
+            </svg>
           </button>
         </div>
       </div>
-
-      <BaseModal
-        v-if="showForm && config.public.showErrorContactForm"
-        v-model="contactModalOpen"
-        :title="$t('errorPage.contactForm.title')"
-        :close-label="$t('modal.close')"
-      >
-        <ContactForm
-          :contact-request="contactRequest"
-          :loading="loading"
-          :submitted="contactSubmitted"
-          :error="contactError"
-          @submit="submitContactForm"
-          @cancel="cancelContactForm"
-        />
-      </BaseModal>
     </main>
     <Footer />
   </div>
@@ -215,10 +189,17 @@ if (showForm.value) {
       list-style: none;
     }
 
-    svg {
+    .error-icon {
       color: var(--danger-dark);
       width: 3rem;
       height: 3rem;
+    }
+
+    .external-link-icon {
+      width: 0.7rem;
+      height: 0.7rem;
+      margin-inline-start: 0.25em;
+      vertical-align: baseline;
     }
 
     h1 {
