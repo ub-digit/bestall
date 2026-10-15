@@ -4,15 +4,6 @@ import type { ContactRequest } from "~/shared/types/ContactRequest";
 const loading = useLoginLoading();
 const route = useRoute();
 
-/* | subject   | Jag önskar beställa/låna/köa på        | visible   | yes   |
-| title     | Foo bar bar foo foo                    | visible   | yes   |
-| message   | Hej, jag vill beställa detta material. | visible   | yes   |
-| name      | Förnamn Efternamn                      | visible   | yes   |
-| e-mail    | foo@bar.com                            | visible   | yes   |
-| authors   | foo bar, bar foo                       | hidden    | yes   |
-| isbn_issn | 232345                                 | hidden    | yes   |
-| bibid     | 345453                                 | hidden    | yes   | */
-
 const contactRequest = ref<ContactRequest>({
   subject: "",
   title: "",
@@ -79,19 +70,20 @@ const contactLink = computed(() => {
   });
   return contactUrl.value + `?${params.toString()}`;
 });
-if (showForm.value) {
-  //fetch order details based on bibId
-  try {
-    loading.value = true;
-    await fetchBiblioDetails();
-    contactRequest.value.subject = $t("errorPage.contactLink.subject");
-    contactRequest.value.title = biblio.value?.title || "";
-    contactRequest.value.bibid = bibId.value || "";
-  } catch (error) {
-    console.error("Failed to fetch order details:", error);
-  } finally {
-    loading.value = false;
+
+try {
+  loading.value = true;
+  await fetchBiblioDetails();
+  if (biblio.value?.redirect_url) {
+    window.location.href = biblio.value.redirect_url;
   }
+  contactRequest.value.subject = $t("errorPage.contactLink.subject");
+  contactRequest.value.title = biblio.value?.title || "";
+  contactRequest.value.bibid = bibId.value || "";
+} catch (error) {
+  console.error("Failed to fetch order details:", error);
+} finally {
+  loading.value = false;
 }
 </script>
 
