@@ -30,6 +30,7 @@ export interface Item {
   is_availible: boolean;
   location_name?: string;
   sublocation_name?: string;
+  redirect_url?: string;
 }
 
 export interface SubscriptionGroup {
