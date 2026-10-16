@@ -85,7 +85,7 @@ header {
           text-decoration: none;
         }
         a:hover {
-          color: var(--dark-base) !important;
+          color: var(--brand-action) !important;
           text-decoration: underline;
         }
         @media (min-width: 48rem) {
