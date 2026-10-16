@@ -26,6 +26,8 @@
     --brand-dark: oklch(from var(--brand-base) 25% c h);
     --brand-light: oklch(from var(--brand-base) 85% c h);
 
+    --brand-action: oklch(58.5% 0.234 8.7);
+
     --hue-success: 139.37;
     --chroma-success: 0.19;
     --success-base: oklch(60% var(--chroma-success) var(--hue-success));

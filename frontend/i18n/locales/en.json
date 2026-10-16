@@ -217,7 +217,7 @@
     "order": "Order",
     "collect": "Pick up from shelf",
     "joinQueue": "Join the queue",
-    "submit": "Next →",
+    "submit": "Submit order →",
     "back": "← Back"
   },
 

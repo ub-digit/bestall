@@ -2,7 +2,8 @@
 
 :root {
   --link-color: var(--brand-base);
-  --link-hover: var(--brand-light);
+  --active-link-color: var(--brand-action);
+  --link-hover: color-mix(in srgb, var(--active-link-color), #fefefe 5%);
   --link-outline: var(--dark-base);
   --base-font-family: "open sans", Arial, sans-serif;
 }
@@ -153,7 +154,7 @@ a {
     color: var(--link-color);
   }
   &:hover {
-    text-decoration: underline;
+    text-decoration: underline !important;
     color: var(--link-hover) !important;
   }
   &:focus-visible {

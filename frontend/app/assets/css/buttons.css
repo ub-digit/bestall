@@ -20,7 +20,7 @@
   --btn-light-border: var(--dark-light);
 
   --btn-link-color: var(--brand-base);
-  --btn-link-hover-color: var(--brand-light);
+  --btn-link-hover-color: var(--brand-action);
 }
 
 [class|="btn"] {
@@ -75,7 +75,6 @@
   background: none;
   border: none;
   color: var(--btn-link-color);
-  text-decoration: underline;
   cursor: pointer;
   padding: 0;
   &:hover {
