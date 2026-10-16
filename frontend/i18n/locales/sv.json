@@ -26,8 +26,8 @@
     "title": "Det går inte att beställa",
     "description": "Något gick fel. Vänligen försök igen senare eller kontakta biblioteket.",
     "backHome": "Tillbaka till ub.gu.se",
-    "success": "Din förfrågan har tagits emot.",
-    "error": "Det gick inte att skicka din förfrågan. Försök igen.",
+    "redirecting": "Du omdirigeras...",
+    "redirectLink": "Klicka här om du inte omdirigeras automatiskt.",
     "contactLink": {
       "subject": "Beställningsförfrågan",
       "open": "Kontakta biblioteket"

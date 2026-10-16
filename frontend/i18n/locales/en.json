@@ -26,6 +26,8 @@
     "title": "Cannot place order",
     "description": "Something went wrong. Please try again later or contact the library.",
     "backHome": "Back to ub.gu.se",
+    "redirecting": "You are being redirected...",
+    "redirectLink": "Click here if you are not redirected automatically.",
     "contactLink": {
       "subject": "Order request",
       "open": "Contact the library"
