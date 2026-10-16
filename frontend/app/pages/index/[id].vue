@@ -35,6 +35,12 @@ if (error.value) {
     statusMessage: error.value?.statusMessage || "Unknown message",
     data: error.value?.data || null,
   });
+} else if (data.value?.redirect_url) {
+  showError({
+    statusCode: "redirect",
+    statusMessage: "Redirect",
+    data: null,
+  });
 } else {
   await handleSignOutIfNeeded();
   await navigateTo(

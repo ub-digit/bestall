@@ -4,6 +4,8 @@ import type { ContactRequest } from "~/shared/types/ContactRequest";
 const loading = useLoginLoading();
 const route = useRoute();
 
+const showRedirectMessage = computed(() => biblio.value?.redirect_url);
+
 const contactRequest = ref<ContactRequest>({
   subject: "",
   title: "",
@@ -112,6 +114,15 @@ try {
         <p v-if="$config.public.debugInfo">{{ error.statusCode }}</p>
         <p v-if="$config.public.debugInfo">{{ description }}</p>
         <pre v-if="$config.public.debugInfo">{{ error }}</pre>
+        <p v-if="showRedirectMessage">
+          {{ $t("errorPage.redirecting") }} <br />
+          <br />
+          {{ $t("errorPage.redirectLink") }}
+          <a :href="biblio.value?.redirect_url">{{
+            $t("errorPage.redirectLink")
+          }}</a>
+        </p>
+
         <ul v-if="error?.data?.data?.errors.errors?.length" class="error-list">
           <li
             v-for="(item, index) in error?.data?.data.errors.errors"
