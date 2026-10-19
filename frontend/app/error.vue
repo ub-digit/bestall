@@ -95,67 +95,74 @@ try {
     <HeaderNew />
     <main id="content" class="container error-page">
       <div class="error-content">
-        <svg
-          class="error-icon"
-          xmlns="http://www.w3.org/2000/svg"
-          width="32"
-          height="32"
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-        >
-          <!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE -->
-          <path
-            fill="currentColor"
-            d="M8 13h8q.425 0 .713-.288T17 12t-.288-.712T16 11H8q-.425 0-.712.288T7 12t.288.713T8 13m4 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"
-          />
-        </svg>
+        <div v-if="showRedirectMessage" class="error-redirect-container">
+          <p>
+            {{ $t("errorPage.redirecting") }} <br />
+            <br />
+            <a :href="biblio.value?.redirect_url">{{
+              $t("errorPage.redirectLink")
+            }}</a>
+          </p>
+        </div>
 
-        <h1>{{ $t("errorPage.title") }}</h1>
-        <p v-if="$config.public.debugInfo">{{ error.statusCode }}</p>
-        <p v-if="$config.public.debugInfo">{{ description }}</p>
-        <pre v-if="$config.public.debugInfo">{{ error }}</pre>
-        <p v-if="showRedirectMessage">
-          {{ $t("errorPage.redirecting") }} <br />
-          <br />
-          {{ $t("errorPage.redirectLink") }}
-          <a :href="biblio.value?.redirect_url">{{
-            $t("errorPage.redirectLink")
-          }}</a>
-        </p>
+        <div v-else class="error-container">
+          <svg
+            class="error-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE -->
+            <path
+              fill="currentColor"
+              d="M8 13h8q.425 0 .713-.288T17 12t-.288-.712T16 11H8q-.425 0-.712.288T7 12t.288.713T8 13m4 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"
+            />
+          </svg>
 
-        <ul v-if="error?.data?.data?.errors.errors?.length" class="error-list">
-          <li
-            v-for="(item, index) in error?.data?.data.errors.errors"
-            :key="index"
+          <h1>{{ $t("errorPage.title") }}</h1>
+          <p v-if="$config.public.debugInfo">{{ error.statusCode }}</p>
+          <p v-if="$config.public.debugInfo">{{ description }}</p>
+          <pre v-if="$config.public.debugInfo">{{ error }}</pre>
+
+          <ul
+            v-if="error?.data?.data?.errors.errors?.length"
+            class="error-list"
           >
-            <i18n-t :keypath="'orderDenied.errors.' + item.code" tag="span">
-            </i18n-t>
-          </li>
-        </ul>
-        <div class="error-actions">
-          <a class="btn-link" :href="ubHomeUrl">
-            {{ $t("errorPage.backHome") }}
-          </a>
-          <button
-            v-if="showForm && config.public.showErrorContactForm"
-            class="btn-primary"
-            type="button"
-            @click="openContactLink()"
-          >
-            {{ $t("errorPage.contactLink.open") }}
-            <svg
-              class="external-link-icon"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              focusable="false"
+            <li
+              v-for="(item, index) in error?.data?.data.errors.errors"
+              :key="index"
             >
-              <path
-                fill="currentColor"
-                d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z"
-              />
-            </svg>
-          </button>
+              <i18n-t :keypath="'orderDenied.errors.' + item.code" tag="span">
+              </i18n-t>
+            </li>
+          </ul>
+          <div class="error-actions">
+            <a class="btn-link" :href="ubHomeUrl">
+              {{ $t("errorPage.backHome") }}
+            </a>
+            <button
+              v-if="showForm && config.public.showErrorContactForm"
+              class="btn-primary"
+              type="button"
+              @click="openContactLink()"
+            >
+              {{ $t("errorPage.contactLink.open") }}
+              <svg
+                class="external-link-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path
+                  fill="currentColor"
+                  d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     </main>
