@@ -183,7 +183,8 @@ try {
   max-width: var(--max-content-width);
   padding-top: var(--spacer-32);
   padding-bottom: var(--spacer-32);
-  .error-content {
+  .error-content .error-container,
+  .error-redirect-container {
     min-height: 30vh;
     display: flex;
     flex-direction: column;
