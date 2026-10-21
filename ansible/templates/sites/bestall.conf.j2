@@ -41,6 +41,9 @@
     ProxyPass        /print_bestall/images http://localhost:{{ omutskrift_host_port }}/images
     ProxyPassReverse /print_bestall/images http://localhost:{{ omutskrift_host_port }}/images
 
+    ProxyPass        /api/cache/clear http://localhost:{{ backend_host_port }}/api/cache/clear
+    ProxyPassReverse /api/cache/clear http://localhost:{{ backend_host_port }}/api/cache/clear
+
     # Used from KOHA
     ProxyPass        /api/print http://localhost:{{ backend_host_port }}/api/print
     ProxyPassReverse /api/print http://localhost:{{ backend_host_port }}/api/print
