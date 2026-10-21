@@ -26,7 +26,7 @@ export interface Item {
   can_be_ordered: boolean;
   can_be_queued: boolean;
   status: string;
-  status_limitation?: string;
+  status_limitation?: string[] | null;
   is_availible: boolean;
   location_name?: string;
   sublocation_name?: string;
