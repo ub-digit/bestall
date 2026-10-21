@@ -147,10 +147,12 @@ class Item
   end
 
   def status_limitation
-    return "NOT_FOR_HOME_LOAN" if item_type_ref?
-    return "MONITORED_READING_ROOM_ONLY" if restricted_to_monitored_reading_room?
-    return "OWNING_LIBRARY_ONLY" if restricted_from_transport?
-    return "READING_ROOM_ONLY" if @not_for_loan == '-3'
+    result = []
+    result << "NOT_FOR_HOME_LOAN" if item_type_ref?
+    result << "MONITORED_READING_ROOM_ONLY" if restricted_to_monitored_reading_room?
+    result << "OWNING_LIBRARY_ONLY" if restricted_from_transport?
+    result << "READING_ROOM_ONLY" if @not_for_loan == '-3'
+    result
   end
 
   def status
