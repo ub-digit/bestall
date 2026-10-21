@@ -94,6 +94,11 @@
       "description": "För studenter och anställda vid GU med ett gus-konto eller x-konto.",
       "button": "Logga in med GU-konto"
     },
+    "localAuth": {
+      "title": "Lokal testinloggning",
+      "description": "För lokal utveckling med den simulerade OAuth-servern.",
+      "button": "Logga in med lokalt testkonto"
+    },
     "githubAuth": {
       "title": "Logga in med GitHub",
       "description": "För att beställa material behöver du logga in med ditt GitHub-konto.",

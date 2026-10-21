@@ -19,8 +19,17 @@ Start the development server on `http://localhost:3000`:
 ```bash
 # npm
 npm run dev
-
 ```
+
+## Local OAuth sign-in
+
+The Docker Compose development override starts a mock OpenID Connect server
+at `http://localhost:8090` and enables the **Local mock sign-in** button. The
+mock server's interactive login lets you choose a test identity; the identity
+is used as the account name when loading user data. The browser uses `localhost`
+for authorization, while the frontend container uses `host.docker.internal`
+for token and key requests. The mock server is only included in the local
+development override, not in the base or release Compose configurations.
 
 ## Production
 

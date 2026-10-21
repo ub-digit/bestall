@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     githubClientSecret: "",
     guClientSecret: "",
     apiBase: "",
+    localOAuthIssuer: "",
 
     public: {
       debugInfo: false,

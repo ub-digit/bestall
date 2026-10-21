@@ -7,8 +7,18 @@ services:
       - ${FRONTEND_HOST_PORT}:3000
     volumes:
       - ../frontend/:/app
+    environment:
+      NUXT_LOCAL_O_AUTH_ISSUER: http://host.docker.internal:8090/default
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   backend:
     image: docker.ub.gu.se/rails:ruby-3.2.2
     volumes:
       - ../:/usr/src/app
-
+  mock-oauth:
+    image: ghcr.io/navikt/mock-oauth2-server:6.1.1
+    hostname: host.docker.internal
+    environment:
+      JSON_CONFIG: '{"interactiveLogin":true}'
+    ports:
+      - "8090:8080"
