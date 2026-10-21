@@ -291,7 +291,7 @@ def can_be_queued (options = {})
     # Sort items, besides sorting by location_id, sublocation_id and item_call_number, items in special collections should always be last
     @items.sort_by! do |item|
       [
-        item.in_special_collection? ? 1 : 0,
+        item.always_sort_down? ? 1 : 0,
         item.location_id.to_s,
         item.sublocation_id.to_s,
         natural_sort_key(item.copy_number.to_s)

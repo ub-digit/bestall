@@ -4,7 +4,7 @@ class Item
 
   attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number, :ccode,
                 :copy_number, :public_notes, :due_date, :lost, :restricted, :not_for_loan, :is_reserved,
-                :withdrawn, :in_transit, :location_id, :location_name_sv,:sublocation_open_loc
+                :withdrawn, :in_transit, :location_id, :stack, :location_name_sv,:sublocation_open_loc
 
   attr_writer :found
 
@@ -81,8 +81,8 @@ class Item
     return false
   end
 
-  def in_special_collection?
-    return true if ccode.present? && !ccode.eql?("MoD")
+  def always_sort_down?
+    return true if @stack.present? && @stack == '1'
     return false
   end
 
@@ -179,6 +179,7 @@ class Item
     rawdata["datedue"].present? ? @due_date = rawdata["datedue"] : @due_date = nil
     rawdata["in_transit"].present? ? @in_transit = rawdata["in_transit"] : @in_transit = nil
     rawdata["holdingbranch"].present? ? @currentlocation_id = rawdata["holdingbranch"] : @currentlocation_id = nil
+    rawdata["stack"].present? ? @stack = rawdata["stack"].to_s : @stack = nil
   end
 end
 
