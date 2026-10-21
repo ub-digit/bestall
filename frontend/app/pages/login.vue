@@ -23,6 +23,10 @@ const isAuthServiceEnabled = (service: string) => {
         <LoginGU />
       </div>
 
+      <div class="local-auth" v-if="isAuthServiceEnabled('local')">
+        <LoginLocal />
+      </div>
+
       <div class="divider" v-if="isAuthServiceEnabled('GU') && enableGUAuth">
         <hr />
         <span>{{ $t("login.or") }}</span>

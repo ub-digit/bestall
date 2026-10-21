@@ -4,6 +4,43 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 const runtimeConfig = useRuntimeConfig();
 
+const localOAuthProvider = (() => {
+  if (!runtimeConfig.localOAuthIssuer) {
+    return [];
+  }
+
+  const localIssuer = runtimeConfig.localOAuthIssuer;
+  const browserAuthorizationUrl = new URL(`${localIssuer}/authorize`);
+  browserAuthorizationUrl.hostname = "localhost";
+
+  return [
+    {
+      id: "local",
+      name: "Local",
+      type: "oauth" as const,
+      issuer: localIssuer,
+      authorization: {
+        url: browserAuthorizationUrl.toString(),
+        params: { scope: "openid email profile" },
+      },
+      token: { url: `${localIssuer}/token` },
+      jwks_endpoint: `${localIssuer}/jwks`,
+      clientId: "bestall-local",
+      clientSecret: "bestall-local-secret",
+      idToken: true,
+      async profile(profile: any) {
+        console.log("Local OAuth profile received:", profile);
+        return {
+          id: profile.sub,
+          name: profile.preferred_username || profile.sub,
+          email: profile.email,
+          account: profile.preferred_username || profile.sub,
+        };
+      },
+    },
+  ];
+})();
+
 const getUserData = async (userid: string) => {
   //console.log("Fetching user data for user ID:", userid);
   // users/current
@@ -78,6 +115,8 @@ export default NuxtAuthHandler({
           break;
         case "credentials":
           break;
+        case "local":
+          break;
       }
       return session;
     },
@@ -112,6 +151,10 @@ export default NuxtAuthHandler({
           token.provider = "credentials";
           console.log("User ID from credentials provider:", user.id);
           token.account = user.id;
+          break;
+        case "local":
+          token.provider = "local";
+          token.account = user.name || user.id;
           break;
       }
       return token;
@@ -152,6 +195,7 @@ export default NuxtAuthHandler({
         };
       },
     },
+    ...localOAuthProvider,
     CredentialsProvider.default({
       // The name to display on the sign in form (e.g. 'Sign in with...')
       name: "Credentials",

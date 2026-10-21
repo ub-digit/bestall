@@ -93,6 +93,11 @@
       "description": "For students and employees at GU with a gus account or x account.",
       "button": "Sign in with GU account"
     },
+    "localAuth": {
+      "title": "Local mock sign-in",
+      "description": "For local development with the mock OAuth server.",
+      "button": "Sign in with local test account"
+    },
     "githubAuth": {
       "title": "Sign in with GitHub",
       "description": "To order materials you need to sign in with your GitHub account.",
