@@ -82,6 +82,7 @@ class Location
     entity = current_subscription if current_subscription.present?
     return filtered_locations if entity.blank?
     return filtered_locations if entity[:sublocation_open_pickup_loc]
+    return filtered_locations if restricted_to_monitored_reading_room || restricted_from_transport
 
     if entity[:sublocation_open_loc]
       return filtered_locations if current_user.present? && ["SY", "FY", "FT"].include?(current_user[:categorycode])
