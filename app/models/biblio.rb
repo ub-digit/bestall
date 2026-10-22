@@ -38,11 +38,12 @@ def can_be_queued (options = {})
   def has_item_level_queue
     # Biblios wrongly cataloged as monographs should be considered as serials if subscriptions exist
     return true if !@subscriptiongroups.empty?
+    return true if @multi_volume
     Biblio.queue_level(@record_type) == 'item'
   end
 
   def has_biblio_level_queue
-    Biblio.queue_level(@record_type) == 'bib'
+    !has_item_level_queue
   end
 
   def self.queue_level record_type
@@ -251,6 +252,8 @@ def can_be_queued (options = {})
     if link_urls.any? {|url| url.include?("urn:nbn:se:gu:ub:kat57-") }
       @redirect_url = link_urls.find {|url| url.include?("urn:nbn:se:gu:ub:kat57-") }
     end
+
+    @multi_volume = bib_xml.search('//record/datafield[@tag="951"]/subfield[@code="b"]').text.present?
 
     @items = []
     @no_in_queue = 0
