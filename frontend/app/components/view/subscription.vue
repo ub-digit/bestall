@@ -20,7 +20,10 @@ defineProps<{
     <div class="holdings">
       <tabbed>
         <template #tabbedNav>
-          <a href="#holdings-available">
+          <a
+            href="#holdings-available"
+            v-if="biblio?.subscriptiongroups.length"
+          >
             {{
               $t("viewType.subscription.holdings", {
                 numberOfAvailable: biblio?.subscriptiongroups.length,
@@ -39,7 +42,11 @@ defineProps<{
           </a>
         </template>
         <template #tabbedContent>
-          <div id="holdings-available" class="holdings">
+          <div
+            id="holdings-available"
+            class="holdings"
+            v-if="biblio?.subscriptiongroups.length"
+          >
             <ViewHoldings
               v-if="biblio?.subscriptiongroups.length"
               :subscriptionGroups="biblio.subscriptiongroups"
