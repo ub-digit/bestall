@@ -227,9 +227,13 @@ const goBack = () => {
   router.back();
 };
 
+const availableLocations =
+  locations.value?.filter((loc) => !loc.is_disabled) ?? [];
+
 setOrder({
   loanType: loanTypes.value?.filter((lt) => !lt.is_disabled)?.[0]?.id,
-  location: "",
+  location:
+    availableLocations.length === 1 ? availableLocations[0].id : undefined,
 });
 </script>
 
