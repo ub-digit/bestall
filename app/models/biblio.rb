@@ -236,6 +236,18 @@ def can_be_queued (options = {})
 
     @edition = bib_xml.search('//record/datafield[@tag="250"]/subfield[@code="a"]').text if bib_xml.search('//record/datafield[@tag="250"]/subfield[@code="a"]').text.present?
 
+    # Look in the 852h subfields and try to match case insensitively the text "kursbok"
+    show_course_book_text = false
+    bib_xml.search('//record/datafield[@tag="852"]/subfield[@code="h"]').each do |subfield|
+      show_course_book_text = true if subfield.text.present? && subfield.text.downcase.include?("kursbok")
+      # break the loop if we found "kursbok"
+      break if show_course_book_text
+    end
+
+    year = create_year(year_field)
+    @origin = create_origin(place_publisher)
+    @display_info[1] = create_bibliographic_info(@origin, @edition, year, show_course_book_text)
+
     link_urls = bib_xml.search('//record/datafield[@tag="856"]/subfield[@code="u"]').map(&:text)
     if link_urls.any? {|url| url.include?("urn:nbn:se:gu:ub:kat57-") }
       @redirect_url = link_urls.find {|url| url.include?("urn:nbn:se:gu:ub:kat57-") }
@@ -246,7 +258,6 @@ def can_be_queued (options = {})
     @items = []
     @no_in_queue = 0
     borrowers = [];
-    show_course_book_text = false
     reserves = JSON.parse(reserves_data)["reserves"]
     item_list = JSON.parse(items_data)["items"]
     @complete_item_count = item_list.length
@@ -255,7 +266,6 @@ def can_be_queued (options = {})
       next if item.item_type.blank?
       next if item.sublocation_id.blank?
       next if item.masked?
-      show_course_book_text = true if !show_course_book_text && item.item_call_number.present? && item.item_call_number.downcase.include?("kursbok")
       item.is_reserved = false
       reserves.each do |reserve|
         if reserve["itemnumber"].present?
@@ -279,12 +289,6 @@ def can_be_queued (options = {})
         @has_enum = true
       end
     end
-
-
-    year = create_year(year_field)
-    @origin = create_origin(place_publisher)
-    pp @origin
-    @display_info[1] = create_bibliographic_info(@origin, @edition, year, show_course_book_text)
 
     # Sort items, besides sorting by location_id, sublocation_id and item_call_number, items in special collections should always be last
     @items.sort_by! do |item|
