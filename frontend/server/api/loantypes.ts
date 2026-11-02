@@ -60,27 +60,6 @@ export default defineEventHandler(async (event) => {
     name: locale === "sv" ? loanType.name_sv : loanType.name_en,
   }));
 
-  // filter ExtendedLoanTypes based on user_category if loanType.id is 5. Only show SD loan type for user categories SD and FT.
-  const filteredExtendedLoanTypes = extendedLoanTypes.filter(
-    (loanType: LoanType) => {
-      if (loanType.id === 5 && userParsed?.categorycode) {
-        console.log(
-          `Filtering loan type ${loanType.name} for user category ${userParsed.categorycode}`,
-        );
-        const includeLoantypeSDForUserCategories = runtimeConfig.public
-          .includeLoantypeSDForUserCategories
-          ? runtimeConfig.public.includeLoantypeSDForUserCategories
-              .split(",")
-              .map((code: string) => code.trim())
-          : [];
-        return includeLoantypeSDForUserCategories.includes(
-          userParsed.categorycode,
-        );
-      }
-      return true;
-    },
-  );
-
   try {
     return extendedLoanTypes;
   } catch (error) {
