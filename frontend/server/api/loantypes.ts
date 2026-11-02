@@ -30,30 +30,6 @@ export default defineEventHandler(async (event) => {
     },
   });
 
-  const isLoantypeDisabled = (loanType: LoanType) => {
-    // construct array with codes to check
-    const disableLoantypeHomeAndPickupForNotForLoan = runtimeConfig.public
-      .disableLoantypeHomeAndPickupForNotForLoan
-      ? runtimeConfig.public.disableLoantypeHomeAndPickupForNotForLoan
-          .split(",")
-          .map((code: string) => code.trim())
-      : [];
-    const disableLoantypeHomeAndPickupForItemTypes = runtimeConfig.public
-      .disableLoantypeHomeAndPickupForItemTypes
-      ? runtimeConfig.public.disableLoantypeHomeAndPickupForItemTypes
-          .split(",")
-          .map((code: string) => code.trim())
-      : [];
-    if (loanType.id === 1) {
-      if (
-        disableLoantypeHomeAndPickupForNotForLoan.includes(not_for_loan) ||
-        disableLoantypeHomeAndPickupForItemTypes.includes(item_type)
-      ) {
-        return true; // Other loan types are not disabled
-      }
-    }
-    return false;
-  };
   // Extend original loan types with a localized name property
   const extendedLoanTypes = data.loan_types.map((loanType: LoanType) => ({
     ...loanType,
