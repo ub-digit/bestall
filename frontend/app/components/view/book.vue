@@ -73,9 +73,9 @@
 </template>
 
 <script setup lang="ts">
-import type { Biblio } from "~/types/Biblio";
-import type { Item } from "~/types/Biblio";
-import type { EventPayload } from "~/types/EventPayload";
+import type { Biblio } from "#shared/types/Biblio";
+import type { Item } from "#shared/types/Biblio";
+import type { EventPayload } from "#shared/types/EventPayload";
 
 const emit = defineEmits<{
   (e: "handleEvent", payload: EventPayload): void;

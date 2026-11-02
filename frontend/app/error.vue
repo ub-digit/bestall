@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { NuxtError } from "#app";
-import type { ContactRequest } from "~/shared/types/ContactRequest";
+import type { ContactRequest } from "#shared/types/ContactRequest";
 const loading = useLoginLoading();
 const route = useRoute();
 
