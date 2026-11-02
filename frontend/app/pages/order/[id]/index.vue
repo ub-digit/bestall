@@ -14,7 +14,7 @@ import type { EventPayload } from "~/types/EventPayload";
 const localePath = useLocalePath();
 
 if (authData?.value.user?.errors?.code === "FORBIDDEN") {
-  showError({
+  return showError({
     statusCode: 403,
     statusMessage: "Forbidden",
     data: {
@@ -28,7 +28,7 @@ const { data, error } = await useFetch<any>(
   `/api/currentuser/?biblio=${route.params.id}&current_username=${authData?.value?.user?.cardnumber}`,
 );
 if (error.value) {
-  showError({
+  return showError({
     statusCode: error?.value?.statusCode || "unknown code",
     statusMessage: error.value?.statusMessage || "Unknown message",
     data: {
