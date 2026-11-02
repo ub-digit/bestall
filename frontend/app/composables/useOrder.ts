@@ -39,7 +39,6 @@ export const useOrder = () => {
       showPickupLocation: false,
       pickupLocation_en: null,
       pickupLocation_sv: null,
-      showRequiredPickupCode: false,
       showMyLoansLink: false,
       item_referenced: false,
     } as OrderSuccessResponse);
