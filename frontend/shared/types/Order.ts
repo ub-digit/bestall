@@ -16,6 +16,7 @@ type Order = {
   loanType: string | null;
   biblio: string;
   fullBiblio: Biblio | null;
+  user: string;
   item: string;
   current_item_extended: any | null;
   reserveNotes: string;
