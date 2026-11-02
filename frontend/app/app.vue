@@ -1,7 +1,12 @@
 <script setup lang="ts">
+const { locale } = useI18n();
+
 useHead({
   title: $t("site.title"),
   meta: [{ name: "description", content: $t("site.description") }],
+  htmlAttrs: {
+    lang: locale,
+  },
   bodyAttrs: {
     id: "top",
   },
