@@ -41,9 +41,15 @@ export default defineEventHandler(async (event) => {
     /* remove unnecessary data from the order payload to 
     make it smaller, since the API only needs the biblio id, item id, location id and loan type id to be able to create the order. The full biblio data is not needed for the order and can be fetched separately if needed based on the biblio id. */
     if (orderToSubmit.fullBiblio) {
-      orderToSubmit.fullBiblio.items = []; // remove items from full biblio to make the order payload smaller, since the items are not needed for the order and can be fetched separately if needed based on the biblio id.
-      orderToSubmit.fullBiblio.itemsAvailable = []; // remove
-      orderToSubmit.fullBiblio.itemsNotAvailable = []; // remove
+      if (orderToSubmit.fullBiblio.items) {
+        orderToSubmit.fullBiblio.items = []; // remove items from full biblio to make the order payload smaller, since the items are not needed for the order and can be fetched separately if needed based on the biblio id.
+      }
+      if (orderToSubmit.fullBiblio.itemsAvailable) {
+        orderToSubmit.fullBiblio.itemsAvailable = []; // remove
+      }
+      if (orderToSubmit.fullBiblio.itemsNotAvailable) {
+        orderToSubmit.fullBiblio.itemsNotAvailable = []; // remove
+      }
     }
 
     console.log("Submitting order:", orderToSubmit);
