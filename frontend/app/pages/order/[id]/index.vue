@@ -14,22 +14,21 @@ import type { EventPayload } from "~/types/EventPayload";
 const localePath = useLocalePath();
 
 if (authData?.value.user?.errors?.code === "FORBIDDEN") {
-  return showError({
+  throw createError({
     statusCode: 403,
     statusMessage: "Forbidden",
     data: {
       data: { errors: authData?.value?.user?.errors || [] },
     },
   });
-  // show error here
 }
 
 const { data, error } = await useFetch<any>(
   `/api/currentuser/?biblio=${route.params.id}&current_username=${authData?.value?.user?.cardnumber}`,
 );
 if (error.value) {
-  return showError({
-    statusCode: error?.value?.statusCode || "unknown code",
+  throw createError({
+    statusCode: error.value.statusCode || 500,
     statusMessage: error.value?.statusMessage || "Unknown message",
     data: {
       data: { errors: { errors: error.value.data?.data || [] } },
