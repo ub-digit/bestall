@@ -78,7 +78,7 @@ export interface Biblio {
   can_be_queued: boolean;
   has_item_level_queue: boolean;
   has_available_kursbok: boolean;
-  viewType: string;
+  viewType: "book" | "subscription";
   itemsAvailable: Item[];
   itemsNotAvailable: Item[];
 }

@@ -106,12 +106,6 @@ const handleEvent = (payload: EventPayload) => {
       :biblio="biblio"
       @handleEvent="(payload) => handleEvent(payload)"
     />
-    <ViewCollection
-      v-else-if="biblio?.viewType === 'collection'"
-      :biblio="biblio"
-      @handleEvent="(payload) => handleEvent(payload)"
-    >
-    </ViewCollection>
     <div v-else>
       {{ $t("message.unsupportedViewType", { viewType: biblio?.viewType }) }}
     </div>

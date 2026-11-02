@@ -101,14 +101,6 @@ export default defineEventHandler(async (event) => {
         ...extendedBiblio,
         viewType: "subscription",
       };
-    } else if (
-      !biblio.subscriptiongroups?.length &&
-      biblio.has_item_level_queue
-    ) {
-      return {
-        ...biblio,
-        viewType: "collection",
-      };
     }
   };
 
