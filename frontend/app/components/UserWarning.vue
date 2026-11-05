@@ -47,8 +47,8 @@ const myLoansUrl = computed(() =>
   border-radius: var(--border-radius);
   padding: var(--spacer-16);
   margin-bottom: var(--spacer-32);
-  border: 1px solid var(--info-dark);
-  background-color: var(--info-light);
+  border: 1px solid var(--warning-dark);
+  background-color: var(--warning-light);
   /* Styles here */
 }
 </style>
