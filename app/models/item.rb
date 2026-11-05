@@ -123,7 +123,7 @@ class Item
   end
 
   def item_type_ref?
-    @item_type == '7'
+    @item_type == '7' || @not_for_loan == '-2'
   end
 
   def item_type_kursbok?
