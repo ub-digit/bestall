@@ -87,9 +87,15 @@ const handleNavClick = (event: Event) => {
       &:nth-child(even) {
         border-left: 0;
       }
+      &:hover {
+        color: inherit !important;
+      }
       &.active {
         background-color: var(--dark-dark);
         color: white;
+        &:hover {
+          color: white !important;
+        }
       }
     }
   }
