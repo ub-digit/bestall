@@ -34,11 +34,10 @@
     --success-dark: oklch(from var(--success-base) 40% c h);
     --success-light: oklch(from var(--success-base) 80% c h);
 
-    --hue-warning: 99.5;
-    --chroma-warning: 0.16;
-    --warning-base: oklch(90% var(--chroma-warning) var(--hue-warning));
+    --warning-base: var(--bs-warning-bg-subtle);
+    --bs-warning-bg-subtle: light-dark(#fff3cd, #332701);
     --warning-dark: oklch(from var(--warning-base) 80% c h);
-    --warning-light: oklch(from var(--warning-base) 99% c h);
+    --warning-light: color-mix(in oklch, var(--warning-base), white 50%);
 
     --hue-danger: 27.22;
     --chroma-danger: 0.23;
