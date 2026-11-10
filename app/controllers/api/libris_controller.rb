@@ -41,8 +41,8 @@ class Api::LibrisController < ApplicationController
     xml << "<Item>"
     xml << "<Item_No>#{index + 1}</Item_No>"
     xml << "<UniqueItem_ID>#{item.id}</UniqueItem_ID>"
-    xml << "<Location>#{fix_diacritics item.location_name_sv}</Location>"
-    xml << "<Call_No>#{fix_diacritics item.item_call_number}</Call_No>"
+    xml << "<Location>#{encode_characters item.location_name_sv}</Location>"
+    xml << "<Call_No>#{encode_characters item.item_call_number}</Call_No>"
     xml << "<Status>#{get_status item.status}</Status>"
     xml << "<Loan_Policy>#{get_loan_policy item.item_type}</Loan_Policy>"
     if item.status == "LOANED" && item.due_date
@@ -63,13 +63,13 @@ class Api::LibrisController < ApplicationController
     case item_type.to_i
     when 1, 3
       return "Heml&#229;n"
-    when 8
+    when 8, 9
       return "Ej heml&#229;n"
     when 2, 18, 19, 21
       return "Ej fj&#228;rrl&#229;n"
-    when 4, 5, 6, 9, 10, 11, 20, 22, 23
+    when 4
       return "Tidskrift"
-    when 7, 12, 13, 14, 15, 16
+    when 7, 12, 13, 14, 16
       return "Utl&#229;nas ej"
     when 17
       return "Mikrofilm"
@@ -103,7 +103,12 @@ class Api::LibrisController < ApplicationController
     nil
   end
 
-  def fix_diacritics str
+  def encode_characters str
+    str = str.gsub('&', '&amp;')
+    str = str.gsub('<', '&lt;')
+    str = str.gsub('>', '&gt;')
+    str = str.gsub('"', '&quot;')
+    str = str.gsub("'", '&apos;')
     str = str.gsub('Å', '&#197;')
     str = str.gsub('å', '&#229;')
     str = str.gsub('Ä', '&#196;')
