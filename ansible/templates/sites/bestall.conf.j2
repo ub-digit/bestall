@@ -44,6 +44,10 @@
     ProxyPass        /api/cache/clear http://localhost:{{ backend_host_port }}/api/cache/clear
     ProxyPassReverse /api/cache/clear http://localhost:{{ backend_host_port }}/api/cache/clear
 
+    # Used from Libris
+    ProxyPass        /api/libris http://localhost:{{ backend_host_port }}/api/libris
+    ProxyPassReverse /api/libris http://localhost:{{ backend_host_port }}/api/libris
+
     # Used from KOHA
     ProxyPass        /api/print http://localhost:{{ backend_host_port }}/api/print
     ProxyPassReverse /api/print http://localhost:{{ backend_host_port }}/api/print
