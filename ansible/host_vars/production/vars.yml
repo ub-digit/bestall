@@ -1,0 +1,13 @@
+---
+docker_git_revision: prepare-for-release
+git_revision: translations-black-toast-desc-001
+omutskrift_git_revision: release-2025.01.001
+cupsd_git_revision: release-2024.04.001
+apache_git_revision: release-2021.10.001
+
+frontend_hostname: bestall.ub.gu.se
+backend_hostname: bestall-server.ub.gu.se
+frontend_host_port: 10260
+backend_host_port: 10261
+apache_host_port: 10265
+omutskrift_host_port: 10390
