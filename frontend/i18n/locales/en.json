@@ -205,13 +205,13 @@
     "unknown": "Unknown status",
     "statusLimitation": {
       "NOT_FOR_HOME_LOAN": "Not for home loan",
-      "NOT_FOR_HOME_LOAN_DESCRIPTION": "Not available for loan. For use in the library only.",
+      "NOT_FOR_HOME_LOAN_DESCRIPTION": "You cannot borrow this item to take home, but you can read it in the library.",
       "READING_ROOM_ONLY": "Reading room loan, not for home loan",
-      "READING_ROOM_ONLY_DESCRIPTION": "Available for use in the library only. Please see the opening hours of the Reading Room Desk at ub.gu.se.",
+      "READING_ROOM_ONLY_DESCRIPTION": "You cannot borrow this item to take home, but you can read it in the library.",
       "OWNING_LIBRARY_ONLY": "Only available to owning library",
-      "OWNING_LIBRARY_ONLY_DESCRIPTION": "The owning library is the only available pickup location.",
+      "OWNING_LIBRARY_ONLY_DESCRIPTION": "You can only collect the item from the library that holds it in its collections.",
       "MONITORED_READING_ROOM_ONLY": "Access in special reading room only.",
-      "MONITORED_READING_ROOM_ONLY_DESCRIPTION": "Please see the opening hours of the Reading Room Service Desk at ub.gu.se."
+      "MONITORED_READING_ROOM_ONLY_DESCRIPTION": "This copy can be read in the library’s special reading room when the reading room desk is staffed."
     }
   },
   "item": {

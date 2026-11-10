@@ -206,13 +206,13 @@
     "unknown": "Okänd status",
     "statusLimitation": {
       "NOT_FOR_HOME_LOAN": "Ej hemlån",
-      "NOT_FOR_HOME_LOAN_DESCRIPTION": "Kan ej lånas, läses på plats på biblioteket.",
+      "NOT_FOR_HOME_LOAN_DESCRIPTION": "Exemplaret kan inte lånas hem, men du kan läsa det på plats i biblioteket.",
       "READING_ROOM_ONLY": "Läsesalslån, ej hemlån",
-      "READING_ROOM_ONLY_DESCRIPTION": "Lånas för läsning på plats på biblioteket. Se öppettider för Läsesalsexpeditionen på ub.gu.se.",
+      "READING_ROOM_ONLY_DESCRIPTION": "Exemplaret kan inte lånas hem, men du kan läsa det på plats i biblioteket.",
       "OWNING_LIBRARY_ONLY": "Beställs endast till ägande bibliotek",
-      "OWNING_LIBRARY_ONLY_DESCRIPTION": "Valbart avhämtningsbibliotek är endast det ägande biblioteket.",
+      "OWNING_LIBRARY_ONLY_DESCRIPTION": "Du kan bara hämta exemplaret på det bibliotek som har det i sina samlingar.",
       "MONITORED_READING_ROOM_ONLY": "Kan endast beställas till specialläsesal",
-      "MONITORED_READING_ROOM_ONLY_DESCRIPTION": "Se öppettider för Läsesalsexpeditionen på ub.gu.se."
+      "MONITORED_READING_ROOM_ONLY_DESCRIPTION": "Exemplaret kan läsas i bibliotekets specialläsesal när läsesalsexpeditionen är bemannad."
     }
   },
   "item": {
