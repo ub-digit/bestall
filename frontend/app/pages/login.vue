@@ -19,19 +19,23 @@ const isAuthServiceEnabled = (service: string) => {
   <div class="login-wrapper">
     <h1>{{ $t("login.pageTitle") }}</h1>
     <div class="login">
-      <div class="gu-auth" v-if="isAuthServiceEnabled('GU') && enableGUAuth">
-        <LoginGU />
-      </div>
+      <ClientOnly>
+        <div class="gu-auth" v-if="isAuthServiceEnabled('GU') && enableGUAuth">
+          <LoginGU />
+        </div>
+      </ClientOnly>
 
       <div class="local-auth" v-if="isAuthServiceEnabled('local')">
         <LoginLocal />
       </div>
 
-      <div class="divider" v-if="isAuthServiceEnabled('GU') && enableGUAuth">
-        <hr />
-        <span>{{ $t("login.or") }}</span>
-        <hr />
-      </div>
+      <ClientOnly>
+        <div class="divider" v-if="isAuthServiceEnabled('GU') && enableGUAuth">
+          <hr />
+          <span>{{ $t("login.or") }}</span>
+          <hr />
+        </div>
+      </ClientOnly>
 
       <div class="koha-auth" v-if="isAuthServiceEnabled('credentials')">
         <LoginCredentials />
