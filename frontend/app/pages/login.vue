@@ -9,7 +9,8 @@ const hideGUAuthParamName = runtimeConfig.public.hideGUAuthParamName;
 const hideGUAuthParamValue = runtimeConfig.public.hideGUAuthParamValue;
 
 const enableGUAuth =
-  route.query[hideGUAuthParamName] !== hideGUAuthParamValue ? true : false;
+  import.meta.client &&
+  route.query[hideGUAuthParamName] !== hideGUAuthParamValue;
 
 const isAuthServiceEnabled = (service: string) => {
   return runtimeConfig.public.enabledAuth.includes(service);
