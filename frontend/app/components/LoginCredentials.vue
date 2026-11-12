@@ -22,7 +22,6 @@ const cardnumber = ref("");
 const pin = ref("");
 const errorLogin = ref("");
 const route = useRoute();
-const callbackUrl = (route.query.redirect as string) || useLocalePath()("/");
 
 const localePath = useLocalePath();
 
@@ -41,6 +40,8 @@ const handleSignIn = async () => {
     } else {
       // No error, continue with the sign in, e.g., by following the returned redirect:
       errorLogin.value = "";
+      const callbackUrl =
+        (route.query.redirect as string) || useLocalePath()("/");
       navigateTo(localePath(callbackUrl));
     }
   } finally {
