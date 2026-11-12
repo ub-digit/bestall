@@ -55,7 +55,9 @@ const handleSignIn = async () => {
 <template>
   <div class="login-credentials">
     <h2>{{ $t("login.kohaAuth.title") }}</h2>
-    <p class="description">{{ $t("login.kohaAuth.description") }}</p>
+    <p v-if="!props.kohaView" class="description">
+      {{ $t("login.kohaAuth.description") }}
+    </p>
     <form @submit.prevent="handleSignIn()">
       <div v-if="errorLogin" class="danger-base-text" role="alert">
         {{ errorLogin }}
