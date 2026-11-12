@@ -106,7 +106,10 @@
     "kohaAuth": {
       "title": "Sign in with library account",
       "description": "For users who do not have a GU account.",
-      "labelCardnumber": "Library card number",
+      "labelCardnumber": "Personal identity number or library card number",
+      "labelCardnumber_description": "YYYYMMDDXXXX or ten digits on your library card",
+      "labelKohaCardnumber": "YYYYMMDDXXXX or ten digits on your GU-card or library card",
+      "labelKohaCardnumber_description": "Personal identity number or number on your GU-card or library card",
       "labelPin": "PIN code (4 digits)",
       "button": "Sign in with library account",
       "invalidCredentials": "Invalid login credentials. Please try again.",
@@ -118,6 +121,11 @@
         "register": {
           "label": "Get a library account"
         }
+      },
+      "info": {
+        "header": "Forgot your PIN code?",
+        "body_first": "If you are student or staff at University of Gothenburg, your PIN code is changed in the GU card portal:<br/>gukort.it.gu.se",
+        "body_second": "Change your PIN code in My Loans if you don't have an affiliation with the University of Gothenburg:<br/>minalan.ub.gu.se"
       }
     }
   },

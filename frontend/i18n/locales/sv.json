@@ -107,18 +107,26 @@
     "kohaAuth": {
       "title": "Logga in med bibliotekskonto",
       "description": "För användare som inte har något GU-konto.",
-      "labelCardnumber": "Bibliotekskortnummer",
+      "labelCardnumber": "Personnummer eller nummer på bibliotekskort",
+      "labelCardnumber_description": "ÅÅÅÅMMDDXXXX eller tio siffror på bibliotekskort",
+      "labelKohaCardnumber": "Personnummer eller nummer på GU-kort eller bibliotekskort",
+      "labelKohaCardnumber_description": "ÅÅÅÅÅMMDDXXXX eller tio siffror på GU-kort eller bibliotekskort",
       "labelPin": "Pin-kod (4 siffror)",
       "button": "Logga in med bibliotekskonto",
       "invalidCredentials": "Ogiltiga inloggningsuppgifter. Försök igen.",
 
       "links": {
         "forgotPin": {
-          "label": "Glömt pin-kod?"
+          "label": "Glömt din PIN-kod?"
         },
         "register": {
           "label": "Skaffa bibliotekskonto"
         }
+      },
+      "info": {
+        "header": "Har du glömt din PIN-kod?",
+        "body_first": "Om du har glömt din PIN-kod kan du återställa den via bibliotekets webbplats.",
+        "body_second": "Byt din PIN-kod i Mina lån om du inte är student eller medarbetare vid Göteborgs universitet:<br/>minalan.ub.gu.se"
       }
     }
   },

@@ -1,6 +1,9 @@
 <script setup lang="ts">
 const { status, data, signIn, signOut } = useAuth();
 const { t, locale } = useI18n();
+const props = defineProps<{
+  kohaView: boolean;
+}>();
 const runtimeConfig = useRuntimeConfig();
 const myLoansBaseUrl = computed(() =>
   locale.value === "en"
@@ -57,10 +60,21 @@ const handleSignIn = async () => {
       <div v-if="errorLogin" class="danger-base-text" role="alert">
         {{ errorLogin }}
       </div>
-      <div>
-        <label for="cardnumber">{{
-          $t("login.kohaAuth.labelCardnumber")
-        }}</label>
+      <div class="input-group">
+        <label for="cardnumber">
+          {{
+            props.kohaView
+              ? $t("login.kohaAuth.labelKohaCardnumber")
+              : $t("login.kohaAuth.labelCardnumber")
+          }}</label
+        >
+        <div class="extra-info">
+          {{
+            props.kohaView
+              ? $t("login.kohaAuth.labelKohaCardnumber_description")
+              : $t("login.kohaAuth.labelCardnumber_description")
+          }}
+        </div>
         <input
           v-model="cardnumber"
           type="text"
@@ -68,11 +82,15 @@ const handleSignIn = async () => {
           pattern="[0-9]+"
           name="cardnumber"
           id="cardnumber"
-          :placeholder="t('login.kohaAuth.labelCardnumber')"
+          :placeholder="
+            props.kohaView
+              ? t('login.kohaAuth.labelKohaCardnumber')
+              : t('login.kohaAuth.labelCardnumber')
+          "
           required
         />
       </div>
-      <div>
+      <div class="input-group">
         <label for="pin">{{ $t("login.kohaAuth.labelPin") }}</label>
         <input
           v-model="pin"
@@ -91,14 +109,26 @@ const handleSignIn = async () => {
         {{ $t("login.kohaAuth.button") }}
       </button>
     </form>
-
-    <div class="links">
-      <NuxtLink external :to="myLoansUrl">
-        {{ $t("login.kohaAuth.links.forgotPin.label") }}
-      </NuxtLink>
-      <NuxtLink external :to="libraryCardUrl">
-        {{ $t("login.kohaAuth.links.register.label") }}
-      </NuxtLink>
+    <div class="info-links-container">
+      <div class="info" v-if="props.kohaView">
+        <p class="description" v-html="$t('login.kohaAuth.info.header')"></p>
+        <p
+          class="description"
+          v-html="$t('login.kohaAuth.info.body_first')"
+        ></p>
+        <p
+          class="description"
+          v-html="$t('login.kohaAuth.info.body_second')"
+        ></p>
+      </div>
+      <div v-else class="links">
+        <NuxtLink external :to="myLoansUrl">
+          {{ $t("login.kohaAuth.links.forgotPin.label") }}
+        </NuxtLink>
+        <NuxtLink external :to="libraryCardUrl">
+          {{ $t("login.kohaAuth.links.register.label") }}
+        </NuxtLink>
+      </div>
     </div>
   </div>
 </template>
@@ -110,16 +140,32 @@ const handleSignIn = async () => {
     font-size: 1.5rem;
     font-weight: 700;
   }
-
-  .links {
-    margin-top: var(--spacer-16);
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacer-16);
+  .info-links-container {
+    color: var(--dark-dark);
+    opacity: 0.8;
+    .links {
+      margin-top: var(--spacer-16);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacer-16);
+    }
   }
   form {
     display: flex;
     flex-direction: column;
+    text-align: left;
+    .input-group {
+      label {
+        display: flex;
+        justify-content: flex-start;
+      }
+
+      .extra-info {
+        font-size: 0.875rem;
+        color: var(--light-dark);
+        margin-top: var(--spacer-8);
+      }
+    }
     gap: var(--spacer-16);
     padding: 1rem;
 

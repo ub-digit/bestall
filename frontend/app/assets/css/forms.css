@@ -11,7 +11,7 @@ input[type="password"],
 input[type="number"],
 select,
 textarea {
-  margin-top: var(--spacer-8);
+  margin-top: var(--spacer-4);
   width: 100%;
   padding: 0.8rem;
   border: 1px solid var(--dark-light);

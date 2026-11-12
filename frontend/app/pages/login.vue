@@ -39,7 +39,7 @@ const isAuthServiceEnabled = (service: string) => {
       </ClientOnly>
 
       <div class="koha-auth" v-if="isAuthServiceEnabled('credentials')">
-        <LoginCredentials />
+        <LoginCredentials :koha-view="!enableGUAuth" />
       </div>
 
       <div class="github-auth" v-if="isAuthServiceEnabled('github')">
