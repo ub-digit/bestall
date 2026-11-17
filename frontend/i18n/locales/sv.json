@@ -147,6 +147,7 @@
       "CAN_NOT_BE_BORROWED": "Du kan inte beställa det här materialet själv. Kontakta biblioteket för att få hjälp.",
       "ALREADY_BORROWED": "Du har redan lånat detta material.",
       "ALREADY_RESERVED": "Du har redan beställt eller köar på materialet.",
+      "ORDER_ALREADY_SUBMITTED": "Den här beställningen har redan skickats.",
       "RESTRICTION_AV": "Du är avstängd från bibliotekets. Kontakta biblioteket om du har frågor om detta.",
       "UNRECOGNIZED_ERROR": "Ett okänt fel inträffade.",
       "MISSING_ID": "Id-parametern saknas"

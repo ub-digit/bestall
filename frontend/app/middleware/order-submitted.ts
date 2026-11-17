@@ -5,7 +5,13 @@ export default defineNuxtRouteMiddleware(() => {
 
   throw createError({
     statusCode: 409,
-    statusMessage: "Order already submitted",
     fatal: true,
+    data: {
+      data: {
+        errors: {
+          errors: [{ code: "ORDER_ALREADY_SUBMITTED" }],
+        },
+      },
+    },
   });
 });
