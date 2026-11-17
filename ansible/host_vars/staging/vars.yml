@@ -1,6 +1,6 @@
 ---
 docker_git_revision: prepare-for-release
-git_revision: prepare-for-release-019
+git_revision: guard-back-behaviour-002
 omutskrift_git_revision: release-2025.01.001
 cupsd_git_revision: release-2024.04.001
 apache_git_revision: release-2021.10.001
