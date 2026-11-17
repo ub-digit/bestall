@@ -45,6 +45,7 @@ export const useOrder = () => {
   };
 
   const order = useState<Order>("order", () => ({ ...emptyOrder }) as Order);
+  const orderSubmitted = useState<boolean>("order-submitted", () => false);
 
   /**
    * Updates the order state with the provided partial data.
@@ -56,12 +57,19 @@ export const useOrder = () => {
 
   const resetOrder = () => {
     Object.assign(order.value, emptyOrder);
+    orderSubmitted.value = false;
+  };
+
+  const markOrderSubmitted = () => {
+    orderSubmitted.value = true;
   };
 
   return {
     order,
+    orderSubmitted,
     setOrder,
     resetOrder,
+    markOrderSubmitted,
     orderSuccessResponse,
     setOrderSuccessResponse,
     resetOrderSuccessResponse,
