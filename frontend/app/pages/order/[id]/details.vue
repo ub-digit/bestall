@@ -125,6 +125,7 @@ const ubContactUrl = computed(() =>
 );
 const currentReserveNotesLength = ref(0);
 const { status, data: authData } = useAuth();
+const loading = useLoginLoading();
 const route = useRoute();
 const router = useRouter();
 const {
@@ -199,6 +200,7 @@ resetLocations(); // Clear locations before setting new ones to avoid showing st
 setLocations(locationsPayload.value || []);
 
 const submitOrder = async () => {
+  loading.value = true;
   try {
     const data: OrderSuccessResponse = await $fetch(
       "/api/order/" + route.params.id,
@@ -220,6 +222,8 @@ const submitOrder = async () => {
     console.log("Error submitting order:", error);
     showError(error);
     // Handle error case, e.g. show an error message or redirect to an error page
+  } finally {
+    loading.value = false;
   }
 };
 
