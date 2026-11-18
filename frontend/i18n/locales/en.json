@@ -146,6 +146,7 @@
       "CAN_NOT_BE_BORROWED": "You can't request this material by yourself. Please contact the library to get help.",
       "ALREADY_BORROWED": "You have already borrowed this material.",
       "ALREADY_RESERVED": "You have already requested this material.",
+      "ORDER_ALREADY_SUBMITTED": "This order has already been submitted.",
       "RESTRICTION_AV": "You are suspended from using the library's services. Please contact the library if you have any questions concerning this.",
       "UNRECOGNIZED_ERROR": "An unknown error occurred.",
       "MISSING_ID": "The id parameter is missing"

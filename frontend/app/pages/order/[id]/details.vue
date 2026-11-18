@@ -107,7 +107,7 @@
 
 <script setup lang="ts">
 definePageMeta({
-  middleware: ["auth"],
+  middleware: ["auth", "order-submitted"],
 });
 import type { Location } from "~/types/Location";
 import type { LoanType } from "~/types/LoanType";
@@ -135,6 +135,7 @@ const {
   orderSuccessResponse,
   setOrderSuccessResponse,
   resetOrderSuccessResponse,
+  markOrderSubmitted,
 } = useOrder();
 
 if (!order.value?.biblio) {
@@ -212,6 +213,7 @@ const submitOrder = async () => {
     setOrderSuccessResponse({
       ...data.data,
     });
+    markOrderSubmitted();
     navigateTo(
       useLocalePath()({
         path: `/order/${route.params.id}/confirm`,
