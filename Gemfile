@@ -9,13 +9,13 @@ end
 gem 'rails', '7.2.1'
 
 # Use Puma as the app server
-gem 'puma', '~> 3.0'
+gem 'puma'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'jquery-rails'
-gem "rest-client", '~> 2.0.1'
+gem "rest-client", '~> 2.1'
 # Specify latest known working version for prawn because there was an issue with showing diacritic characters in Roboto Bold font in version 2.5.0 
 gem 'prawn', '~> 1.3.0'
 gem 'barby'
@@ -25,11 +25,11 @@ gem 'jwt'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
-  gem 'listen', '~> 3.0.5'
+  gem 'listen', '~> 3.10'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   #gem 'spring'
   #gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'rspec-rails', '~> 3.5'
+  gem 'rspec-rails', '~> 6.0'
   gem 'factory_bot_rails'
   gem 'database_cleaner'
 end
