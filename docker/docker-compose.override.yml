@@ -12,7 +12,7 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
   backend:
-    image: docker.ub.gu.se/rails:ruby-3.2.2
+    image: docker.ub.gu.se/rails:ruby-3.3.14
     volumes:
       - ../:/usr/src/app
   mock-oauth:
