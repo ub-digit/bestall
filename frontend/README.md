@@ -1,53 +1,52 @@
-# Frontend
+# Nuxt Minimal Starter
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-## Prerequisites
+## Setup
 
-You will need the following things properly installed on your computer.
+Make sure to install dependencies:
 
-* [Git](http://git-scm.com/)
-* [Node.js](http://nodejs.org/) (with NPM)
-* [Bower](http://bower.io/)
-* [Ember CLI](http://ember-cli.com/)
-* [PhantomJS](http://phantomjs.org/)
+```bash
+# npm
+npm install
 
-## Installation
+```
 
-* `git clone <repository-url>` this repository
-* `cd frontend`
-* `npm install`
-* `bower install`
+## Development Server
 
-## Running / Development
+Start the development server on `http://localhost:3000`:
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+```bash
+# npm
+npm run dev
+```
 
-### Code Generators
+## Local OAuth sign-in
 
-Make use of the many generators for code, try `ember help generate` for more details
+The Docker Compose development override starts a mock OpenID Connect server
+at `http://localhost:8090` and enables the **Local mock sign-in** button. The
+mock server's interactive login lets you choose a test identity; the identity
+is used as the account name when loading user data. The browser uses `localhost`
+for authorization, while the frontend container uses `host.docker.internal`
+for token and key requests. The mock server is only included in the local
+development override, not in the base or release Compose configurations.
 
-### Running Tests
+## Production
 
-* `ember test`
-* `ember test --server`
+Build the application for production:
 
-### Building
+````bash
+# npm
+npm run build
 
-* `ember build` (development)
-* `ember build --environment production` (production)
 
-### Deploying
 
-Specify what it takes to deploy your app.
+Locally preview production build:
 
-## Further Reading / Useful Links
+```bash
+# npm
+npm run preview
 
-* [ember.js](http://emberjs.com/)
-* [ember-cli](http://ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
 
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+````

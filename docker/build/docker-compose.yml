@@ -1,4 +1,3 @@
-version: '3.7'
 services:
   frontend:
     image: docker.ub.gu.se/bestall-frontend:${GIT_REVISION}
@@ -7,6 +6,7 @@ services:
       args:
         - GIT_REPO_URL=${GIT_REPO_URL}
         - GIT_REVISION=${GIT_REVISION}
+    platform: linux/amd64
   backend:
     image: docker.ub.gu.se/bestall-backend:${GIT_REVISION}
     build:
@@ -14,10 +14,4 @@ services:
       args:
         - GIT_REPO_URL=${GIT_REPO_URL}
         - GIT_REVISION=${GIT_REVISION}
-  postgres:
-    image: docker.ub.gu.se/bestall-postgres:${GIT_REVISION}
-    build:
-      context: ./postgres
-      args:
-        - GIT_REPO_URL=${GIT_REPO_URL}
-        - GIT_REVISION=${GIT_REVISION}
+    platform: linux/amd64

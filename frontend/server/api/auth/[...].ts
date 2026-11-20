@@ -1,0 +1,215 @@
+import { NuxtAuthHandler } from "#auth";
+import GithubProvider from "next-auth/providers/github";
+import CredentialsProvider from "next-auth/providers/credentials";
+
+const runtimeConfig = useRuntimeConfig();
+
+const localOAuthProvider = (() => {
+  if (!runtimeConfig.localOAuthIssuer) {
+    return [];
+  }
+
+  const localIssuer = runtimeConfig.localOAuthIssuer;
+  const browserAuthorizationUrl = new URL(`${localIssuer}/authorize`);
+  browserAuthorizationUrl.hostname = "localhost";
+
+  return [
+    {
+      id: "local",
+      name: "Local",
+      type: "oauth" as const,
+      issuer: localIssuer,
+      authorization: {
+        url: browserAuthorizationUrl.toString(),
+        params: { scope: "openid email profile" },
+      },
+      token: { url: `${localIssuer}/token` },
+      jwks_endpoint: `${localIssuer}/jwks`,
+      clientId: "bestall-local",
+      clientSecret: "bestall-local-secret",
+      idToken: true,
+      async profile(profile: any) {
+        console.log("Local OAuth profile received:", profile);
+        return {
+          id: profile.sub,
+          name: profile.preferred_username || profile.sub,
+          email: profile.email,
+          account: profile.preferred_username || profile.sub,
+        };
+      },
+    },
+  ];
+})();
+
+const getUserData = async (userid: string) => {
+  //console.log("Fetching user data for user ID:", userid);
+  // users/current
+  const data = await fetch(runtimeConfig.apiBase + `/users/current`, {
+    method: "GET",
+    headers: { "current-username": userid },
+  });
+  const userdataJson = await data.json();
+  //console.log("User data response body:", userdataJson);
+  return userdataJson;
+};
+
+export default NuxtAuthHandler({
+  pages: {
+    // Change the default behavior to use `/login` as the path for the sign-in page
+    signIn: "/login",
+  },
+  events: {
+    async signIn(message) {
+      /* on successful sign in */
+      // console.log("singed In", message);
+    },
+    async signOut(message) {
+      //console.log("signed out:", message);
+    },
+  },
+
+  callbacks: {
+    /* on before signin */
+    async signIn({ user, account, profile, email, credentials }) {
+      //console.log("SignIn callback called with user:", user);
+      //console.log("SignIn callback called with account:", account);
+      //console.log("SignIn callback called with profile:", profile);
+      //console.log("SignIn callback called with email:", email);
+      //console.log("SignIn callback called with credentials:", credentials);
+      return true;
+    },
+    /* on redirect to another url */
+    async redirect({ url, baseUrl }) {
+      //console.log("Redirect to:", url);
+      return url.startsWith(baseUrl) ? url : baseUrl;
+    },
+    /* on session retrival */
+    async session({ session, user, token }) {
+      try {
+        const userData = await getUserData(token.account as string); // Assuming token.account contains the user ID
+        console.log("Fetched user data:", userData);
+        if (userData?.errors?.code === "FORBIDDEN") {
+          console.log(userData?.errors?.code);
+          session.user.errors = userData.errors;
+        } else if (userData?.user) {
+          session.user.categorycode = userData.user.user_category;
+          session.user.cardnumber = userData.user.cardnumber;
+          session.user.fullname =
+            userData.user.first_name + " " + userData.user.last_name;
+          session.user.userid = userData.user.id;
+          session.user.warning = userData.user.warning;
+          session.user.pickupCode = userData.user.pickup_code;
+          session.user.attr_orderpermission =
+            userData.user.attr_orderpermission;
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        return null;
+      }
+
+      // provider specific session handling can be done here
+      switch (token.provider) {
+        case "github":
+          break;
+        case "GU":
+          break;
+        case "credentials":
+          break;
+        case "local":
+          break;
+      }
+      return session;
+    },
+    /* on JWT token creation or mutation */
+    async jwt({ token, user, account, profile, isNewUser }) {
+      /*       console.log("JWT callback called with token:", token);
+      console.log("JWT callback called with user:", user);
+      console.log("JWT callback called with account:", account);
+      console.log("JWT callback called with profile:", profile); */
+      switch (account?.provider) {
+        case "github": {
+          const xaccount = runtimeConfig.xaccountMapToGithub
+            ? runtimeConfig.xaccountMapToGithub
+            : profile.account;
+          token.provider = "github";
+          console.log(
+            "Fetching user data from Koha for GitHub user:",
+            xaccount,
+          );
+          token.account = xaccount;
+          break;
+        }
+        case "GU":
+          token.provider = "GU";
+          console.log(
+            "Fetching user data from Koha for GU user:",
+            profile.account,
+          );
+          token.account = profile.account;
+          break;
+        case "credentials":
+          token.provider = "credentials";
+          console.log("User ID from credentials provider:", user.id);
+          token.account = user.id;
+          break;
+        case "local":
+          token.provider = "local";
+          token.account = user.name || user.id;
+          break;
+      }
+      return token;
+    },
+  },
+  // A secret string you define, to ensure correct encryption
+  secret: runtimeConfig.apiSecret,
+  providers: [
+    // @ts-expect-error Use .default here for it to work during SSR.
+    GithubProvider.default({
+      clientId: runtimeConfig.public.githubClientId,
+      clientSecret: runtimeConfig.githubClientSecret,
+      issuer: "https://github.com/login/oauth",
+      async profile(profile: any) {
+        return {
+          id: profile.id,
+          name: profile.name || profile.login,
+          email: profile.email,
+          xaccount: profile.login,
+        };
+      },
+    }),
+    {
+      id: "GU",
+      name: "GU",
+      type: "oauth",
+      wellKnown: "https://idp.auth.gu.se/adfs/.well-known/openid-configuration",
+      authorization: { params: { scope: "openid email profile" } },
+      idToken: true,
+      clientId: runtimeConfig.public.guClientId,
+      clientSecret: runtimeConfig.guClientSecret,
+      async profile(profile) {
+        return {
+          id: profile.sub,
+          name: profile.account,
+          email: profile.email,
+          account: profile.account,
+        };
+      },
+    },
+    ...localOAuthProvider,
+    CredentialsProvider.default({
+      // The name to display on the sign in form (e.g. 'Sign in with...')
+      name: "Credentials",
+      async authorize(credentials: any) {
+        const url = `${runtimeConfig.apiBase}/users/authenticate?username=${credentials.username}&password=${credentials.password}`;
+        const res = await fetch(url, {
+          method: "GET",
+        });
+        const data = await res.json();
+        if (data.authenticated) {
+          return { id: credentials.username, name: credentials.username }; // ends up as user in the session callback, and as user in the jwt callback, where you can fetch additional user data from Koha and add it to the token for use in the session callback later on.
+        }
+        return false; // or null
+      },
+    }),
+  ],
+});

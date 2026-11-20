@@ -2,9 +2,9 @@ class Item
   include ActiveModel::Serialization
   include ActiveModel::Validations
 
-  attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number,
+  attr_accessor :id, :biblio_id, :sublocation_id, :item_type, :barcode, :item_call_number, :ccode,
                 :copy_number, :public_notes, :due_date, :lost, :restricted, :not_for_loan, :is_reserved,
-                :withdrawn, :in_transit, :location_id, :location_name_sv,:sublocation_open_loc
+                :withdrawn, :in_transit, :location_id, :stack, :location_name_sv,:sublocation_open_loc
 
   attr_writer :found
 
@@ -28,7 +28,9 @@ class Item
       can_be_queued: can_be_queued,
       status: status,
       status_limitation: status_limitation,
-      is_availible: is_availible
+      is_availible: is_availible,
+      restricted_from_transport: restricted_from_transport?,
+      restricted_to_monitored_reading_room: restricted_to_monitored_reading_room?
       }).compact
   end
 
@@ -54,7 +56,7 @@ class Item
     return false if checked_out?
     return false if reserved?
     return false if lost?
-    return false if restricted?
+    return false if restricted_from_order?
     return false if during_acquisition?
     return false if not_in_place?
     return false if in_transit?
@@ -68,7 +70,7 @@ class Item
 
   def is_available_for_queue
     return false if item_type_ref?
-    return false if restricted?
+    return false if restricted_from_order?
     return false unless checked_out? || reserved? || during_acquisition? || not_in_place? || in_transit?
     return true
   end
@@ -79,6 +81,10 @@ class Item
     return false
   end
 
+  def always_sort_down?
+    return true if @stack.present? && @stack == '1'
+    return false
+  end
 
   def sublocation_paging_loc?
     Sublocation.find_by_id(@sublocation_id).is_paging_loc == '1'
@@ -104,13 +110,20 @@ class Item
     @is_reserved
   end
 
-  def restricted?
-    # ['1', '2', '5', '6'].include?(@restricted)
-    !(@restricted == '0' || @restricted.nil?)
+ def restricted_from_transport?
+    @restricted == '1'
+  end
+
+  def restricted_to_monitored_reading_room?
+    @restricted == '2'
+  end
+
+  def restricted_from_order?
+    ['3', '4', '5', '6', '7', '8'].include?(@restricted)
   end
 
   def item_type_ref?
-    @item_type == '7'
+    @item_type == '7' || @not_for_loan == '-2'
   end
 
   def item_type_kursbok?
@@ -118,7 +131,7 @@ class Item
   end
 
   def masked?
-    ['1', '2', '3'].include?(@withdrawn) || ['1', '5'].include?(@lost)
+    ['1', '2', '3', '5'].include?(@withdrawn) || ['1', '5'].include?(@lost)
   end
 
   def not_in_place?
@@ -134,8 +147,12 @@ class Item
   end
 
   def status_limitation
-    return "NOT_FOR_HOME_LOAN" if item_type_ref?
-    return "READING_ROOM_ONLY" if @not_for_loan == '-3'
+    result = []
+    result << "NOT_FOR_HOME_LOAN" if item_type_ref?
+    result << "MONITORED_READING_ROOM_ONLY" if restricted_to_monitored_reading_room?
+    result << "OWNING_LIBRARY_ONLY" if restricted_from_transport?
+    result << "READING_ROOM_ONLY" if @not_for_loan == '-3'
+    result
   end
 
   def status
@@ -154,6 +171,7 @@ class Item
     rawdata["itype"].present? ? @item_type = rawdata["itype"].to_s : @item_type = nil
     rawdata["barcode"].present? ? @barcode = rawdata["barcode"] : @barcode = nil
     rawdata["itemcallnumber"].present? ? @item_call_number = rawdata["itemcallnumber"] : @item_call_number = nil
+    rawdata["ccode"].present? ? @ccode = rawdata["ccode"] : @ccode = nil
     rawdata["enumchron"].present? ? @copy_number = rawdata["enumchron"] : @copy_number = nil
     rawdata["itemnotes"].present? ? @public_notes = rawdata["itemnotes"] : @public_notes = nil
     rawdata["itemlost"].present? ? @lost = rawdata["itemlost"].to_s : @lost = nil
@@ -163,6 +181,7 @@ class Item
     rawdata["datedue"].present? ? @due_date = rawdata["datedue"] : @due_date = nil
     rawdata["in_transit"].present? ? @in_transit = rawdata["in_transit"] : @in_transit = nil
     rawdata["holdingbranch"].present? ? @currentlocation_id = rawdata["holdingbranch"] : @currentlocation_id = nil
+    rawdata["stack"].present? ? @stack = rawdata["stack"].to_s : @stack = nil
   end
 end
 

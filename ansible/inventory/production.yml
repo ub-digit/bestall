@@ -1,0 +1,6 @@
+---
+all:
+  hosts:
+    production:
+      ansible_host: bestall.ub.gu.se
+      ansible_user: apps

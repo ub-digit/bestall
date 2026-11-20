@@ -1,0 +1,266 @@
+{
+  "site": {
+    "title": "Order - Gothenburg University Library",
+    "description": "Order and queue materials from Gothenburg University Library.",
+    "closed": {
+      "title": "The ordering service is temporarily closed",
+      "description": "We apologize for the inconvenience, but our ordering service is currently unavailable. We are working to resolve the issue as quickly as possible. Please try again later or {contactLink} for assistance.",
+      "contactLink": "Contact the library"
+    }
+  },
+  "app": {
+    "skipToMainContent": "Skip to main content",
+    "loading": "Loading…",
+    "closeNotification": "Close notification"
+  },
+  "modal": {
+    "close": "Close dialog"
+  },
+  "orderSteps": {
+    "label": "Order progress",
+    "select": "Select",
+    "details": "Details",
+    "confirm": "Confirmation"
+  },
+  "errorPage": {
+    "title": "Cannot place order",
+    "description": "Something went wrong. Please try again later or contact the library.",
+    "backHome": "Back to ub.gu.se",
+    "redirecting": "You are being redirected...",
+    "redirectLink": "Click here if you are not redirected automatically.",
+    "contactLink": {
+      "subject": "Order request",
+      "open": "Contact the library"
+    }
+  },
+  "header": {
+    "logo": {
+      "src": "/img/logo/sv/5114_LO_GU_CMYK_flag_sv.png",
+      "alt": "Gothenburg University logo"
+    },
+
+    "mainTitle": {
+      "title": "Gothenburg University Library",
+      "label": "University Library at Gothenburg University"
+    },
+    "subTitle": "Order and queue materials"
+  },
+
+  "footer": {
+    "logo": {
+      "src": "/img/logo/en/5068_LO_GU_cen2rNEG.png",
+      "alt": "Gothenburg University logo"
+    },
+    "contact": {
+      "header": "Contact",
+      "address": "Gothenburg University Library <br/> Box 607 <br/> SE 405 30 Gothenburg",
+      "phone": "Switchboard: 031-786 00 00",
+      "orgNr": "Organization number: 202100-3153"
+    },
+    "links": {
+      "header": "Shortcuts",
+      "items": [
+        {
+          "label": "Library website"
+        },
+        {
+          "label": "Contact us"
+        },
+        {
+          "label": "Accessibility"
+        }
+      ]
+    }
+  },
+
+  "authStatus": {
+    "signedInAs": "{name}",
+    "signOut": "Sign out"
+  },
+
+  "localeSwitcher": {
+    "label": "{currentLocale}"
+  },
+  "login": {
+    "pageTitle": "Sign in",
+    "or": "or",
+    "guAuth": {
+      "logo": {
+        "src": "/img/logo/sv/5065_GU_logo_on_left_text_right_eng_RGB.png",
+        "alt": "Gothenburg University logo"
+      },
+      "title": "Sign in with your GU account",
+      "description": "For students and employees at GU with a gus account or x account.",
+      "button": "Sign in with GU account"
+    },
+    "localAuth": {
+      "title": "Local mock sign-in",
+      "description": "For local development with the mock OAuth server.",
+      "button": "Sign in with local test account"
+    },
+    "githubAuth": {
+      "title": "Sign in with GitHub",
+      "description": "To order materials you need to sign in with your GitHub account.",
+      "button": "Sign in with GitHub"
+    },
+    "kohaAuth": {
+      "title": "Sign in with library account",
+      "description": "For users who do not have a GU account.",
+      "labelCardnumber": "Personal identity number or library card number",
+      "labelCardnumber_description": "YYYYMMDDXXXX or ten digits on your library card",
+      "labelKohaCardnumber": "YYYYMMDDXXXX or ten digits on your GU-card or library card",
+      "labelKohaCardnumber_description": "Personal identity number or number on your GU-card or library card",
+      "labelPin": "PIN code (4 digits)",
+      "button": "Sign in with library account",
+      "invalidCredentials": "Invalid login credentials. Please try again.",
+
+      "links": {
+        "forgotPin": {
+          "label": "Forgot PIN code?"
+        },
+        "register": {
+          "label": "Get a library account"
+        }
+      },
+      "info": {
+        "header": "Forgot your PIN code?",
+        "body_first": "If you are student or staff at University of Gothenburg, your PIN code is changed in the GU card portal:<br/>gukort.it.gu.se",
+        "body_second": "Change your PIN code in My Loans if you don't have an affiliation with the University of Gothenburg:<br/>minalan.ub.gu.se"
+      }
+    }
+  },
+
+  "orderDenied": {
+    "title": "Cannot place order",
+    "description": "Something went wrong. {contactLink} for assistance.",
+    "descriptionWithMissingId": "Search for something to order on {libraryWebsiteLink}.",
+    "contactLink": "Contact the library",
+    "libraryWebsiteLink": "the library's website",
+    "descriptionWithUserRestrictionsOnCurrentBiblio": "Restrictions on the material for this user",
+    "errorCode": "Error code: {code}",
+    "errorDetail": "Details: {detail}",
+    "signOut": "Sign out",
+    "errors": {
+      "ITEM_NOT_FOUND": "Could not find the material you are trying to order.",
+      "FORBIDDEN": "This material may not be borrowed.",
+      "CAN_NOT_BE_BORROWED": "You can't request this material by yourself. Please contact the library to get help.",
+      "ALREADY_BORROWED": "You have already borrowed this material.",
+      "ALREADY_RESERVED": "You have already requested this material.",
+      "ORDER_ALREADY_SUBMITTED": "This order has already been submitted.",
+      "RESTRICTION_AV": "You are suspended from using the library's services. Please contact the library if you have any questions concerning this.",
+      "UNRECOGNIZED_ERROR": "An unknown error occurred.",
+      "MISSING_ID": "The id parameter is missing"
+    }
+  },
+
+  "table": {
+    "header": {
+      "copy": "Copy",
+      "location": "Location",
+      "status": "Status",
+      "action": "",
+      "holdings": "Holdings"
+    }
+  },
+
+  "orderForm": {
+    "labels": {
+      "location": "Where do you want to pick up?",
+      "loanType": "How do you want to borrow?",
+      "reserveNotes": "Any other information about the order",
+      "subscriptionNotes": "Order details (required)",
+      "publicNote": "You can order copies from the following holdings:"
+    },
+    "placeholders": {
+      "selectLocation": "Select a location",
+      "selectLoanType": "Select a loan type",
+      "reserveNotes": "For example: volume, issue, year of publication",
+      "subscriptionNotes": "Enter volume, year, issue or page number for the copy you want to order."
+    },
+    "messages": {
+      "privacyWarning": "The information in this field will be printed. Do not write personal information here. {contactLink} if you have questions about your order.",
+      "contactLink": "Contact the library"
+    }
+  },
+
+  "message": {
+    "errorLoadingData": "Could not load all necessary data to display order details. Please try again later or contact the library.",
+    "needsToBeOrdered": "Needs to be ordered",
+    "noAvailableItems": "No copies are available right now.",
+    "noNotAvailableItems": "No copies are currently on loan.",
+    "infoAboutAvailableItems": "There are available copies that you can order",
+    "hasAvailableCourseBook": "There are available copies that you can pick up yourself from the shelf.",
+    "allItemsAreAvailable": "All copies are available",
+    "numberOfPeopleInQueueOnNotAvailable": "{numberOfPeople} in queue for borrowed copies",
+    "unsupportedViewType": "This type of material ({viewType}) does not support displaying order details. Contact the library.",
+    "cannotPickUpHere": "cannot be ordered here",
+    "libraryClosed": "closed",
+    "cannotTemporaryPickUpHere": "cannot be ordered here",
+    "userWarning": {
+      "message": "You can order this material, but you will not be able to borrow it because you have overdue fees or overdue loans.",
+      "action": "Sign in to {myLoansLink} to see what you need to do.",
+      "myLoansLink": "My loans"
+    }
+  },
+  "status": {
+    "loaned": "Loaned to {loanedTo}",
+    "notInPlace": "Not in place",
+    "reserved": "Reserved",
+    "delayed": "Delayed",
+    "inTransit": "In transit",
+    "duringAcquisition": "Ongoing purchase",
+    "available": "Available",
+    "loanedDateUnknown": "loan date unknown",
+    "unknown": "Unknown status",
+    "statusLimitation": {
+      "NOT_FOR_HOME_LOAN": "Not for home loan",
+      "NOT_FOR_HOME_LOAN_DESCRIPTION": "You cannot borrow this item to take home, but you can read it in the library.",
+      "READING_ROOM_ONLY": "Reading room loan, not for home loan",
+      "READING_ROOM_ONLY_DESCRIPTION": "You cannot borrow this item to take home, but you can read it in the library.",
+      "OWNING_LIBRARY_ONLY": "Only available to owning library",
+      "OWNING_LIBRARY_ONLY_DESCRIPTION": "You can only collect the item from the library that holds it in its collections.",
+      "MONITORED_READING_ROOM_ONLY": "Access in special reading room only.",
+      "MONITORED_READING_ROOM_ONLY_DESCRIPTION": "This copy can be read in the library’s special reading room when the reading room desk is staffed."
+    }
+  },
+  "item": {
+    "status-limitation": "{limitation}"
+  },
+  "actions": {
+    "queue": "Queue",
+    "order": "Order",
+    "collect": "Pick up from shelf",
+    "joinQueue": "Join the queue",
+    "submit": "Submit order →",
+    "back": "← Back"
+  },
+
+  "biblio": {
+    "title": "Your order",
+    "errorLoadingData": "Could not load all necessary data to display order details. Please try again later or contact the library."
+  },
+
+  "viewType": {
+    "book": {
+      "available": "Available ({numberOfAvailable})",
+      "notAvailable": "Loaned ({numberOfNotAvailable})"
+    },
+    "subscription": {
+      "holdings": "Holdings ({numberOfAvailable})",
+      "copies": "Copies ({numberOfAvailable})"
+    }
+  },
+
+  "confirmation": {
+    "header": "Thank you for your order!",
+    "youHavePlaceInQueue": "You have position <b>{positionInQueue}</b> in the queue for this material.",
+    "messagePickup": "You will receive a message when the material is ready for pickup at <b>{pickupLocation}</b>.",
+    "messageNoPickup": "You will receive a message when the material is sent from the library.",
+    "pickupInfoCode": "In the message (which will arrive via email and/or SMS) there is a pickup code that you need to find the material on the library's shelf for ordered books.",
+    "myLoansLink": "You can view your loans and orders in {myLoansLink}.",
+    "myLoansLinkLabel": "My loans",
+    "itemReferencedInfo": "The material you have requested is part of another work. When you collect the material, the title may be different from the one you requested."
+  },
+
+  "orderDetails": {}
+}

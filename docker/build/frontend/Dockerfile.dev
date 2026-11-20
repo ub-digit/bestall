@@ -1,0 +1,15 @@
+FROM node:24
+WORKDIR /app
+
+# Copy dependency files first (better caching)
+COPY frontend/package.json  ./
+
+# Install dependencies
+RUN npm install
+
+
+# Expose Nuxt dev server port
+EXPOSE 3000
+
+# Start development server
+CMD ["sh", "-c", "npm install && npm run dev"]

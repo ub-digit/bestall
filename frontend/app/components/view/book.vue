@@ -1,0 +1,126 @@
+<template>
+  <div>
+    <div class="view-type-book">
+      <tabbed>
+        <template #tabbedNav>
+          <a href="#items-available">
+            {{
+              $t("viewType.book.available", {
+                numberOfAvailable: biblio?.itemsAvailable.length,
+              })
+            }}
+          </a>
+          <a
+            href="#items-not-available"
+            :class="!biblio?.itemsNotAvailable.length ? 'disabled' : ''"
+          >
+            {{
+              $t("viewType.book.notAvailable", {
+                numberOfNotAvailable: biblio?.itemsNotAvailable.length,
+              })
+            }}
+          </a>
+        </template>
+        <template #tabbedContent>
+          <div id="items-available" class="items-available">
+            <ViewItemsTable
+              v-if="biblio?.itemsAvailable"
+              :items="biblio.itemsAvailable"
+              :hasActions="true"
+              :hasSubscriptions="false"
+              @handleEvent="(payload) => handleEvent(payload)"
+            >
+              <template #info>
+                <div v-if="biblio?.can_be_queued">
+                  <p v-if="!biblio?.itemsAvailable.length" class="muted">
+                    {{ $t("message.noAvailableItems") }}
+                  </p>
+                  <ViewQueuePane
+                    :biblio="biblio"
+                    @handleEvent="(payload) => handleEvent(payload)"
+                  />
+                </div>
+              </template>
+            </ViewItemsTable>
+          </div>
+          <div id="items-not-available" class="items-not-available">
+            <ViewItemsTable
+              v-if="biblio?.itemsNotAvailable"
+              :items="biblio.itemsNotAvailable"
+              :hasActions="false"
+              :hasSubscriptions="false"
+            >
+              <template #info>
+                <div v-if="biblio?.can_be_queued">
+                  <ViewQueuePane
+                    :biblio="biblio"
+                    @handleEvent="(payload) => handleEvent(payload)"
+                  />
+                </div>
+                <div v-else>
+                  <p v-if="biblio?.has_available_kursbok" class="muted">
+                    {{ $t("message.hasAvailableCourseBook") }}
+                  </p>
+                  <p v-else v-html="$t('message.infoAboutAvailableItems')"></p>
+                </div>
+              </template>
+            </ViewItemsTable>
+          </div>
+        </template>
+      </tabbed>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import type { Biblio } from "#shared/types/Biblio";
+import type { Item } from "#shared/types/Biblio";
+import type { EventPayload } from "#shared/types/EventPayload";
+
+const emit = defineEmits<{
+  (e: "handleEvent", payload: EventPayload): void;
+}>();
+
+function handleEvent(payload: EventPayload) {
+  emit("handleEvent", payload);
+}
+
+function handleJoinQueue(biblioId: string) {
+  emit("handleEvent", {
+    biblioId: biblioId,
+    typeOfEvent: "joinQueue",
+  });
+}
+
+defineProps<{
+  biblio: Biblio;
+}>();
+</script>
+
+<style scoped>
+.info-available-items {
+  display: flex;
+  align-items: center;
+  gap: var(--spacer-8);
+}
+
+.view-type-book {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacer-16);
+  .no-available-items {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem;
+  }
+
+  .info-area {
+    display: flex;
+    align-items: center;
+    .info-item {
+      margin: var(--spacer-16) 0;
+    }
+  }
+}
+</style>

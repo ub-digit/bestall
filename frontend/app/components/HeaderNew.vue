@@ -1,0 +1,63 @@
+<script setup lang="ts">
+// No script logic needed for this component
+const runtimeConfig = useRuntimeConfig();
+const { locale } = useI18n();
+const guHomeUrl = computed(() =>
+  locale.value === "en"
+    ? runtimeConfig.public.guHomeUrlEn
+    : runtimeConfig.public.guHomeUrlSv,
+);
+const ubHomeUrl = computed(() =>
+  locale.value === "en"
+    ? runtimeConfig.public.ubHomeUrlEn
+    : runtimeConfig.public.ubHomeUrlSv,
+);
+const showHeaderLogoOnSmallDevices =
+  runtimeConfig.public.showHeaderLogoOnSmallDevices;
+</script>
+<template>
+  <header>
+    <div class="container">
+      <div class="header-container-grid">
+        <div class="header-logo-wrapper">
+          <div
+            class="header-logo"
+            :class="{
+              'header-logo--hidden-small': !showHeaderLogoOnSmallDevices,
+            }"
+            alt="logotype"
+          >
+            <a class="link-reset" :href="guHomeUrl"
+              ><img :src="$t('header.logo.src')" :alt="$t('header.logo.alt')"
+            /></a>
+          </div>
+        </div>
+        <div class="header-site-description">
+          <h1 class="header-title">
+            <a :href="ubHomeUrl" :title="$t('header.mainTitle.label')">{{
+              $t("header.mainTitle.title")
+            }}</a>
+          </h1>
+          <div class="header-description">
+            {{ $t("header.subTitle") }}
+          </div>
+        </div>
+
+        <div class="header-site-lang">
+          <div class="lang">
+            <LocaleSwitcher />
+          </div>
+        </div>
+        <div class="header-site-auth">
+          <div class="auth-status" v-if="$config.public.showAuthStatus">
+            <AuthStatus />
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+</template>
+
+<style scoped>
+@import url("~/assets/css/header-new.css");
+</style>

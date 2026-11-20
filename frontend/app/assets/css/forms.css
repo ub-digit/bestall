@@ -1,0 +1,33 @@
+form {
+}
+
+label {
+  font-weight: normal;
+  text-transform: uppercase;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+select,
+textarea {
+  margin-top: var(--spacer-4);
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--dark-light);
+  border-radius: 4px;
+  resize: vertical;
+  &:hover {
+    border-color: var(--dark-dark);
+  }
+}
+input[type="text"]:focus-visible,
+input[type="email"]:focus-visible,
+input[type="password"]:focus-visible,
+input[type="number"]:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  border-color: var(--dark-dark);
+  outline: 2px solid var(--dark-dark);
+  outline-offset: 2px;
+}

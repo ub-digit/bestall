@@ -1,0 +1,267 @@
+{
+  "site": {
+    "title": "Beställ - Göteborgs universitetsbibliotek",
+    "description": "Beställ och köa på material från Göteborgs universitetsbibliotek.",
+    "closed": {
+      "title": "Beställningstjänsten är tillfälligt stängd",
+      "description": "Vi beklagar besväret, men vår beställningstjänst är för närvarande otillgänglig. Vi arbetar på att lösa problemet så snabbt som möjligt. Vänligen försök igen senare eller {contactLink} för att få hjälp.",
+      "contactLink": "Kontakta biblioteket"
+    }
+  },
+  "app": {
+    "skipToMainContent": "Hoppa till huvudinnehåll",
+    "loading": "Laddar…",
+    "closeNotification": "Stäng meddelandet"
+  },
+  "modal": {
+    "close": "Stäng dialogrutan"
+  },
+  "orderSteps": {
+    "label": "Beställningens steg",
+    "select": "Välj",
+    "details": "Uppgifter",
+    "confirm": "Bekräftelse"
+  },
+  "errorPage": {
+    "title": "Det går inte att beställa",
+    "description": "Något gick fel. Vänligen försök igen senare eller kontakta biblioteket.",
+    "backHome": "Tillbaka till ub.gu.se",
+    "redirecting": "Du omdirigeras...",
+    "redirectLink": "Klicka här om du inte omdirigeras automatiskt.",
+    "contactLink": {
+      "subject": "Beställningsförfrågan",
+      "open": "Kontakta biblioteket"
+    }
+  },
+  "header": {
+    "logo": {
+      "src": "/img/logo/sv/5114_LO_GU_CMYK_flag_sv.png",
+      "alt": "Göteborgs universitets logotyp"
+    },
+
+    "mainTitle": {
+      "title": "Göteborgs universitetsbibliotek",
+      "label": "Universitetsbiblioteket vid Göteborgs universitet"
+    },
+    "subTitle": "Beställ och köa på material"
+  },
+
+  "footer": {
+    "logo": {
+      "src": "/img/logo/en/5068_LO_GU_cen2rNEG.png",
+      "alt": "Göteborgs universitets logotyp"
+    },
+    "contact": {
+      "header": "Kontakt",
+      "address": "Göteborgs universitetsbibliotek <br/> Box 607 <br/> SE 405 30 Göteborg",
+      "phone": "Växel: 031-786 00 00",
+      "orgNr": "Organisationsnummer: 202100-3153"
+    },
+    "links": {
+      "header": "Genvägar",
+      "items": [
+        {
+          "label": "Bibliotekets hemsida"
+        },
+        {
+          "label": "Kontakta oss"
+        },
+        {
+          "label": "Tillgänglighetsredogörelse"
+        }
+      ]
+    }
+  },
+
+  "authStatus": {
+    "signedInAs": "{name}",
+    "signOut": "Logga ut"
+  },
+
+  "localeSwitcher": {
+    "label": "{currentLocale}"
+  },
+
+  "login": {
+    "pageTitle": "Logga in",
+    "or": "eller",
+    "guAuth": {
+      "logo": {
+        "src": "/img/logo/sv/5065_GU_logo_on_left_text_right_eng_RGB.png",
+        "alt": "Göteborgs universitets logotyp"
+      },
+      "title": "Logga in med ditt GU-konto",
+      "description": "För studenter och anställda vid GU med ett gus-konto eller x-konto.",
+      "button": "Logga in med GU-konto"
+    },
+    "localAuth": {
+      "title": "Lokal testinloggning",
+      "description": "För lokal utveckling med den simulerade OAuth-servern.",
+      "button": "Logga in med lokalt testkonto"
+    },
+    "githubAuth": {
+      "title": "Logga in med GitHub",
+      "description": "För att beställa material behöver du logga in med ditt GitHub-konto.",
+      "button": "Logga in med GitHub"
+    },
+    "kohaAuth": {
+      "title": "Logga in med bibliotekskonto",
+      "description": "För användare som inte har något GU-konto.",
+      "labelCardnumber": "Personnummer eller nummer på bibliotekskort",
+      "labelCardnumber_description": "ÅÅÅÅMMDDXXXX eller tio siffror på bibliotekskort",
+      "labelKohaCardnumber": "Personnummer eller nummer på GU-kort eller bibliotekskort",
+      "labelKohaCardnumber_description": "ÅÅÅÅÅMMDDXXXX eller tio siffror på GU-kort eller bibliotekskort",
+      "labelPin": "Pin-kod (4 siffror)",
+      "button": "Logga in med bibliotekskonto",
+      "invalidCredentials": "Ogiltiga inloggningsuppgifter. Försök igen.",
+
+      "links": {
+        "forgotPin": {
+          "label": "Glömt din PIN-kod?"
+        },
+        "register": {
+          "label": "Skaffa bibliotekskonto"
+        }
+      },
+      "info": {
+        "header": "Har du glömt din PIN-kod?",
+        "body_first": "Om du har glömt din PIN-kod kan du återställa den via bibliotekets webbplats.",
+        "body_second": "Byt din PIN-kod i Mina lån om du inte är student eller medarbetare vid Göteborgs universitet:<br/>minalan.ub.gu.se"
+      }
+    }
+  },
+
+  "orderDenied": {
+    "title": "Det går inte att beställa",
+    "description": "Något gick fel. {contactLink} för att få hjälp.",
+    "descriptionWithMissingId": "Sök efter något att beställa på {libraryWebsiteLink}.",
+    "contactLink": "Kontakta biblioteket",
+    "libraryWebsiteLink": "bibliotekets webbplats",
+    "descriptionWithUserRestrictionsOnCurrentBiblio": "Restriktioner på materialet för denna användare",
+    "errorCode": "Felkod: {code}",
+    "errorDetail": "Detaljer: {detail}",
+    "signOut": "Logga ut",
+    "errors": {
+      "ITEM_NOT_FOUND": "Det gick inte att hitta det material du försöker beställa.",
+      "FORBIDDEN": "Detta material får inte lånas ut.",
+      "CAN_NOT_BE_BORROWED": "Du kan inte beställa det här materialet själv. Kontakta biblioteket för att få hjälp.",
+      "ALREADY_BORROWED": "Du har redan lånat detta material.",
+      "ALREADY_RESERVED": "Du har redan beställt eller köar på materialet.",
+      "ORDER_ALREADY_SUBMITTED": "Den här beställningen har redan skickats.",
+      "RESTRICTION_AV": "Du är avstängd från bibliotekets. Kontakta biblioteket om du har frågor om detta.",
+      "UNRECOGNIZED_ERROR": "Ett okänt fel inträffade.",
+      "MISSING_ID": "Id-parametern saknas"
+    }
+  },
+
+  "table": {
+    "header": {
+      "copy": "Exemplar",
+      "location": "Placering",
+      "status": "Status",
+      "action": "",
+      "holdings": "Bestånd"
+    }
+  },
+
+  "orderForm": {
+    "labels": {
+      "location": "Var vill du hämta?",
+      "loanType": "Hur vill du låna?",
+      "reserveNotes": "Eventuell övrig information om beställningen",
+      "subscriptionNotes": "Detaljer om beställningen (obligatoriskt)",
+      "publicNote": "Du kan beställa exemplar ur följande bestånd:"
+    },
+    "placeholders": {
+      "selectLocation": "Välj en plats",
+      "selectLoanType": "Välj en lånetyp",
+      "reserveNotes": "Till exempel: volym, nummer, tryckår",
+      "subscriptionNotes": "Ange volym, år, nummer eller sidnummer för det exemplar du vill beställa."
+    },
+    "messages": {
+      "privacyWarning": "Informationen i detta fält skrivs ut. Skriv inte personuppgifter här. {contactLink} om du har frågor som rör din beställning.",
+      "contactLink": "Kontakta biblioteket"
+    }
+  },
+
+  "message": {
+    "errorLoadingData": "Det gick inte att ladda all nödvändig data för att visa beställningsdetaljerna. Försök igen senare eller kontakta biblioteket.",
+    "needsToBeOrdered": "Behöver beställas",
+    "noAvailableItems": "Det finns inga tillgängliga exemplar just nu.",
+    "noNotAvailableItems": "Det finns inga utlånade exemplar just nu.",
+    "infoAboutAvailableItems": "Det finns tillgängliga exemplar som du kan beställa.",
+    "hasAvailableCourseBook": "Det finns tillgängliga exemplar som du kan hämta själv från hyllan.",
+    "allItemsAreAvailable": "Alla exemplar är tillgängliga",
+    "numberOfPeopleInQueueOnNotAvailable": "{numberOfPeople} i kö på utlånade exemplar",
+    "unsupportedViewType": "Denna typ av material ({viewType}) har inte stöd för att visa beställningsdetaljer. Kontakta biblioteket.",
+    "cannotPickUpHere": "kan ej beställas hit",
+    "libraryClosed": "stängt",
+    "cannotTemporaryPickUpHere": "kan ej beställas hit",
+    "userWarning": {
+      "message": "Du kan beställa det här materialet, men kommer inte kunna låna det, eftersom du har förseningsavgifter eller försenade lån.",
+      "action": "Logga in i {myLoansLink} för att se vad du behöver göra.",
+      "myLoansLink": "Mina lån"
+    }
+  },
+  "status": {
+    "loaned": "Utlånad till {loanedTo}",
+    "notInPlace": "Ej på plats",
+    "reserved": "Reserverad",
+    "delayed": "Försenad",
+    "inTransit": "Under transport",
+    "duringAcquisition": "Under inköp",
+    "available": "Tillgänglig",
+    "loanedDateUnknown": "okänt lånedatum",
+    "unknown": "Okänd status",
+    "statusLimitation": {
+      "NOT_FOR_HOME_LOAN": "Ej hemlån",
+      "NOT_FOR_HOME_LOAN_DESCRIPTION": "Exemplaret kan inte lånas hem, men du kan läsa det på plats i biblioteket.",
+      "READING_ROOM_ONLY": "Läsesalslån, ej hemlån",
+      "READING_ROOM_ONLY_DESCRIPTION": "Exemplaret kan inte lånas hem, men du kan läsa det på plats i biblioteket.",
+      "OWNING_LIBRARY_ONLY": "Beställs endast till ägande bibliotek",
+      "OWNING_LIBRARY_ONLY_DESCRIPTION": "Du kan bara hämta exemplaret på det bibliotek som har det i sina samlingar.",
+      "MONITORED_READING_ROOM_ONLY": "Kan endast beställas till specialläsesal",
+      "MONITORED_READING_ROOM_ONLY_DESCRIPTION": "Exemplaret kan läsas i bibliotekets specialläsesal när läsesalsexpeditionen är bemannad."
+    }
+  },
+  "item": {
+    "status-limitation": "{limitation}"
+  },
+  "actions": {
+    "queue": "Köa",
+    "order": "Beställ",
+    "collect": "Hämta själv från hyllan",
+    "joinQueue": "Ställ dig i kö",
+    "submit": "Skicka beställning →",
+    "back": "← Tillbaka"
+  },
+
+  "biblio": {
+    "title": "Din beställning",
+    "errorLoadingData": "Det gick inte att ladda all nödvändig data för att visa beställningsdetaljerna. Försök igen senare eller kontakta biblioteket."
+  },
+
+  "viewType": {
+    "book": {
+      "available": "Tillgängliga ({numberOfAvailable})",
+      "notAvailable": "Utlånade ({numberOfNotAvailable})"
+    },
+    "subscription": {
+      "holdings": "Bestånd ({numberOfAvailable})",
+      "copies": "Exemplar ({numberOfAvailable})"
+    }
+  },
+
+  "confirmation": {
+    "header": "Tack för din beställning!",
+    "youHavePlaceInQueue": "Du har plats <b>{positionInQueue}</b> i kön på detta material.",
+    "messagePickup": "Du får ett meddelande när materialet finns att hämta på <b>{pickupLocation}</b>.",
+    "messageNoPickup": "Du får ett meddelande när materialet skickas från biblioteket.",
+    "pickupInfoCode": "I meddelandet (som kommer till din e-post och/eller SMS) finns en kod för avhämtning som du behöver för att hitta materialet på bibliotekets hylla för beställda böcker.",
+    "myLoansLink": "Du kan se dina lån och beställningar i {myLoansLink}.",
+    "myLoansLinkLabel": "Mina lån",
+    "itemReferencedInfo": "Det material du har beställt ingår i ett annat verk. När du hämtar materialet kan titeln vara en annan än den du beställde."
+  },
+
+  "orderDetails": {}
+}

@@ -1,0 +1,22 @@
+---
+roles:
+  - src: https://github.com/ub-digit/ub-ansible-deploy-facts.git
+    version: master
+  - src: https://github.com/ub-digit/ub-ansible-deploy.git
+    version: master
+  - src: https://github.com/ub-digit/ub-ansible-deploy-export-db.git
+    version: master
+  - src: https://github.com/ub-digit/ub-ansible-deploy-import-db.git
+    version: master
+  - src: https://github.com/ub-digit/ub-ansible-import-db.git
+    version: master
+  - src: https://github.com/ub-digit/ub-ansible-pull-data.git
+    version: master
+  - src: https://github.com/ub-digit/ub-ansible-push-data.git
+    version: master
+  - src: https://github.com/ub-digit/ub-ansible-decrypt-local-docker-secrets.git
+    version: master
+  - src: https://github.com/ub-digit/ub-ansible-sync-local-docker-data-dirs.git
+    version: master
+collections:
+  - ansible.posix

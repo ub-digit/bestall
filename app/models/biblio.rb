@@ -1,5 +1,5 @@
 class Biblio
-  attr_accessor :id, :title, :origin, :isbn, :edition, :items, :record_type, :no_in_queue, :subscriptiongroups, :biblio_call_number, :default_queue_location
+  attr_accessor :id, :title, :origin, :edition, :items, :display_info, :record_type, :no_in_queue, :subscriptiongroups, :biblio_call_number, :default_queue_location
 
   include ActiveModel::Serialization
   include ActiveModel::Validations
@@ -22,11 +22,12 @@ class Biblio
     return false
   end
 
-  def can_be_queued
+def can_be_queued (options = {})
     has_items_available_for_queue = false
     has_items_available_for_queue = @items.any? {|item| item.is_available_for_queue }
+    has_items_available_for_order = @items.any? {|item| item.can_be_ordered(options) }
 
-    return has_items_available_for_queue && !has_item_level_queue
+    return has_items_available_for_queue && !has_item_level_queue && !has_available_kursbok && !has_items_available_for_order
   end
 
   def has_available_kursbok
@@ -37,11 +38,12 @@ class Biblio
   def has_item_level_queue
     # Biblios wrongly cataloged as monographs should be considered as serials if subscriptions exist
     return true if !@subscriptiongroups.empty?
+    return true if @multi_volume
     Biblio.queue_level(@record_type) == 'item'
   end
 
   def has_biblio_level_queue
-    Biblio.queue_level(@record_type) == 'bib'
+    !has_item_level_queue
   end
 
   def self.queue_level record_type
@@ -65,7 +67,7 @@ class Biblio
 
   def as_json options = {}
     bib_json = {
-      can_be_queued: can_be_queued,
+      can_be_queued: can_be_queued(options),
       has_item_level_queue: has_item_level_queue,
       has_available_kursbok: has_available_kursbok,
       default_queue_location: default_queue_location,
@@ -188,7 +190,7 @@ class Biblio
 
     @title = nil
     @origin = nil
-    @isbn =  nil
+    @display_info = []
     @edition = nil
     @has_enum = nil
     @biblio_call_number = nil
@@ -197,47 +199,65 @@ class Biblio
       @biblio_call_number = bib_xml.search('//record/datafield[@tag="095"]/subfield[@code="a"]').text
     end
 
-    if bib_xml.search('//record/datafield[@tag="260"]').text.present?
-      tmp_arr = []
-      data = bib_xml.search('//record/datafield[@tag="260"]').first
-      tmp_arr = tmp_arr + [data.search('subfield[@code="a"]').text, data.search('subfield[@code="b"]').text, data.search('subfield[@code="c"]').text]
-
-      @origin = tmp_arr.join(" ").strip
-    elsif bib_xml.search('//record/datafield[@tag="264" and @ind="1"]').text.present?
-      tmp_arr = []
-      bib_xml.search('//record/datafield[@tag="264" and @ind="1"]').each do |data|
-        tmp_arr = tmp_arr + [data.search('subfield[@code="a"]').text, data.search('subfield[@code="b"]').text, data.search('subfield[@code="c"]').text]
-      end
-      @origin = tmp_arr.join(" ").strip
+    # Create an author string, based on 100 and 700 fields and add it to display_info
+    authors = []
+    bib_xml.search('//record/datafield[@tag="100" or @tag="700"]').each do |author_field|
+      author_name = create_author_name(author_field)
+      authors << author_name if author_name.present?
     end
+    @display_info[0] = authors.join(" ") if authors.any? && !(["serial", "collection"].include?(@record_type))
 
-    if @record_type.eql?("serial") || @record_type.eql?("collection")
-      if bib_xml.search('//record/datafield[@tag="222"]').text.present?
-        @title = bib_xml.search('//record/datafield[@tag="222"]').text
-      else
-        @title = [bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="a"]').text,
-                  bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="b"]').text].join(" ").strip
-      end
-    else # monograph
-      @title = [bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="a"]').text,
-                bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="b"]').text,
-                bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="n"]').text,
-                bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="p"]').text,
-                bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="c"]').text].join(" ").strip
-
-      @edition = bib_xml.search('//record/datafield[@tag="250"]/subfield[@code="a"]').text if bib_xml.search('//record/datafield[@tag="250"]/subfield[@code="a"]').text.present?
-      @isbn = bib_xml.search('//record/datafield[@tag="020"]/subfield[@code="a"]').map(&:text).join("; ") if bib_xml.search('//record/datafield[@tag="020"]/subfield[@code="a"]').text.present?
+    # Create a string with place, edition and publication year, save it as orgin and add it to display_info.
+    # Get the place and edition
+    # First try with the first 264 field, ind1 = 3, ind2 = 1
+    # Then try with the first 264 field, indicators not considered
+    # Then try with the 260 field
+    if bib_xml.search('//record/datafield[@tag="264" and @ind1="3" and @ind2="1"]').text.present?
+      place_publisher = bib_xml.search('//record/datafield[@tag="264" and @ind1="3" and @ind2="1"]').first
+    elsif bib_xml.search('//record/datafield[@tag="264"]').text.present?
+      place_publisher = bib_xml.search('//record/datafield[@tag="264"]').first
+    elsif bib_xml.search('//record/datafield[@tag="260"]').text.present?
+      place_publisher = bib_xml.search('//record/datafield[@tag="260"]').first
     end
     
+    # Get year
+    # First try with the 264c subdfield, indicators not considered
+    # Then try with the 260c subfield, indicators not considered
+    if bib_xml.search('//record/datafield[@tag="264"]/subfield[@code="c"]').text.present?
+      year_field = bib_xml.search('//record/datafield[@tag="264"]/subfield[@code="c"]').first
+    elsif bib_xml.search('//record/datafield[@tag="260"]/subfield[@code="c"]').text.present?
+      year_field = bib_xml.search('//record/datafield[@tag="260"]/subfield[@code="c"]').first
+    end  
+
+    @title = [bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="a"]').text,
+              bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="b"]').text,
+              bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="n"]').text,
+              bib_xml.search('//record/datafield[@tag="245"]/subfield[@code="p"]').text].join(" ").sub(%r{[/\:;=\s]+\z}, "")
+
+    @edition = bib_xml.search('//record/datafield[@tag="250"]/subfield[@code="a"]').text if bib_xml.search('//record/datafield[@tag="250"]/subfield[@code="a"]').text.present?
+
+    # Look in the 852h subfields and try to match case insensitively the text "kursbok"
+    show_course_book_text = false
+    bib_xml.search('//record/datafield[@tag="852"]/subfield[@code="h"]').each do |subfield|
+      show_course_book_text = true if subfield.text.present? && subfield.text.downcase.include?("kursbok")
+      # break the loop if we found "kursbok"
+      break if show_course_book_text
+    end
+
+    year = create_year(year_field)
+    @origin = create_origin(place_publisher)
+    @display_info[1] = create_bibliographic_info(@origin, @edition, year, show_course_book_text)
+
     link_urls = bib_xml.search('//record/datafield[@tag="856"]/subfield[@code="u"]').map(&:text)
     if link_urls.any? {|url| url.include?("urn:nbn:se:gu:ub:kat57-") }
       @redirect_url = link_urls.find {|url| url.include?("urn:nbn:se:gu:ub:kat57-") }
     end
 
+    @multi_volume = bib_xml.search('//record/datafield[@tag="951"]/subfield[@code="b"]').text.present?
+
     @items = []
     @no_in_queue = 0
     borrowers = [];
-
     reserves = JSON.parse(reserves_data)["reserves"]
     item_list = JSON.parse(items_data)["items"]
     @complete_item_count = item_list.length
@@ -269,14 +289,99 @@ class Biblio
         @has_enum = true
       end
     end
-    # Sort items
-    @items = @items.sort_by { |a| [ a.location_id || "", a.sublocation_id || "", a.item_call_number || "" ] }
+
+    # Sort items, besides sorting by location_id, sublocation_id and item_call_number, items in special collections should always be last
+    @items.sort_by! do |item|
+      [
+        item.always_sort_down? ? 1 : 0,
+        item.location_id.to_s,
+        item.sublocation_id.to_s,
+        natural_sort_key(item.copy_number.to_s)
+      ]
+    end
 
     # Get the library that have the highest number of items and set default queue library .
     location_list =  @items.map{|i|i.location_id}
     location_max_no_of_items = location_list.max_by{|l| location_list.count(l)}
     @default_queue_location = Location.find_by_id(location_max_no_of_items).pickup_location_id
   end
+
+  def natural_sort_key(value)
+    value.to_s.split(/(\d+)/).map do |part|
+      part.match?(/\A\d+\z/) ? part.to_i : part.downcase
+    end
+  end
+
+  def create_author_name author_field
+  # Exclude the entries with ind2 eq to 2
+    return nil if author_field['ind2'] == '2'
+    name_parts = []
+    name = author_field.search('subfield[@code="a"]').text if author_field.search('subfield[@code="a"]').text.present?
+    # The name is in the form "Lastname, Firstname," split and rearrange to "Firstname Lastname"
+    if name && name.include?(",")
+      name_split = name.split(",").map(&:strip)
+      name = "#{name_split[1]} #{name_split[0]}"
+    end
+    year = author_field.search('subfield[@code="d"]').text if author_field.search('subfield[@code="d"]').text.present?
+    role_code = author_field.search('subfield[@code="4"]').text if author_field.search('subfield[@code="4"]').text.present?
+    # Get role from marc relator code mapping
+    role = Biblio.marc_relator_mapping(role_code) if role_code.present?
+    name_parts << name if name.present?
+    name_parts << year if year.present?
+    name_parts << role if role.present?
+    return name_parts.join(" ")
+  end
+
+  def self.marc_relator_mapping code
+    mapping = {
+      'ill' => '(illustratör)',
+      'pbl' => '(utgivare)',
+      'arr' => '(arrangör)',
+      'lyr' => '(sångtextförfattare)',
+      'cmp' => '(kompositör)',
+      'ctb' => '(bidragsgivare)',
+      'aui' => '(förordsförfattare)',
+      'art' => '(konstnär)',
+      'pht' => '(fotograf)',
+      'aut' => '(författare)',
+      'trl' => '(översättare)',
+      'edt' => '(redaktör)',
+      'hnr' => '(festskriftsföremål)',
+      'cov' => '(omslagsformgivare)'
+    }
+    # If no mapping found, return empty string
+    return mapping[code] || ''
+  end
+
+  def create_origin place_publisher
+      a_field = place_publisher.search('subfield[@code="a"]').text if place_publisher.search('subfield[@code="a"]').text.present?
+      b_field = []
+      place_publisher.search('subfield[@code="b"]').each do |b|
+        b_field << b.text if b.text.present?
+      end
+      origin_parts = []
+      origin_parts << a_field if a_field.present?
+      origin_parts << b_field.join(" ") if b_field.any?
+      # Remove any traing commas or white sspace
+      origin_parts.join(" ").sub(%r{[,\s]+\z}, "")
+  end
+
+  def create_year(year_field)
+    year = year_field.text if year_field.present?
+    year = year.gsub(/^\[|\]$/, '') if year.present?
+    year
+  end
+
+  def create_bibliographic_info(origin, edition, year, show_course_book_text)
+    bibliographic_info_parts = []
+    bibliographic_info_parts << origin if origin.present?
+    bibliographic_info_parts << edition if edition.present?
+    bibliographic_info_parts << year if year.present?
+    bibliographic_info_parts << "KURSBOK" if show_course_book_text
+    bibliographic_info_parts.join(" ; ").strip
+
+  end
+
 
   def self.parse_record_type leader
     code = leader[7]

@@ -1,34 +1,24 @@
-version: '3.7'
 services:
   frontend:
-    image: docker.ub.gu.se/ember-dev:3.14.0
-    environment:
-      - BACKEND_SERVICE_PORT=${BACKEND_HOST_PORT}
-      - FRONTEND_PORT=${FRONTEND_HOST_PORT}
+    build:
+      context: ..
+      dockerfile: docker/build/frontend/Dockerfile.dev
     ports:
-      # server
-      - ${FRONTEND_HOST_PORT}:4200
-      # livereload
-      - 7020:7020
-      # Tests in browser
-      - 7357:7357
+      - ${FRONTEND_HOST_PORT}:3000
     volumes:
-      - ../frontend/:/home/node/app
+      - ../frontend/:/app
+    environment:
+      NUXT_LOCAL_O_AUTH_ISSUER: http://host.docker.internal:8090/default
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   backend:
     image: docker.ub.gu.se/rails:ruby-3.2.2
-    env_file:
-      - secrets.env
     volumes:
       - ../:/usr/src/app
-  db:
-    image: postgres:9.4
-    volumes:
-      - ./build/postgres/postgres.conf:/etc/postgresql/postgresql.conf
-# TODO: Requires some refactoring, storing casUrl in frontend config instead
-# of fetching from backend etc
-#  cas:
-#    image: soulwing/cas-mock-server
-#    ports:
-#      - 8383:8080
-#    networks:
-#      - backend
+  mock-oauth:
+    image: ghcr.io/navikt/mock-oauth2-server:6.1.1
+    hostname: host.docker.internal
+    environment:
+      JSON_CONFIG: '{"interactiveLogin":true}'
+    ports:
+      - "8090:8080"

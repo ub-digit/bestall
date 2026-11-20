@@ -1,6 +1,6 @@
 class User
-  attr_accessor :id, :username, :cardnumber, :first_name, :last_name, :denied, :warning, :fines_amount, :reserves, :loans, :attr_print
-  attr_reader :restriction_fines, :restriction_av, :restriction_or, :restriction_ori, :restriction_overdue, :user_category
+  attr_accessor :id, :username, :cardnumber, :first_name, :last_name, :denied, :warning, :fines_amount, :reserves, :loans, :attr_print, :attr_orderpermission
+  attr_reader :restriction_fines, :restriction_av, :restriction_overdue, :user_category
 
   include ActiveModel::Model
   include ActiveModel::Serialization
@@ -8,21 +8,7 @@ class User
 
   def as_json options = {}
     result = super(except: ['xml'])
-    if @denied
-      result[:denied_reasons] = {restriction_av: @restriction_av, restriction_ori: @restriction_ori}
-    else
-      result[:denied_reasons] = nil
-    end
-    if @warning
-      result[:warning_reasons] = {restriction_fines: @restriction_fines, restriction_or: @restriction_or, restriction_overdue: @restriction_overdue}
-    else
-      result[:warning_reasons] = nil
-    end
-    if APP_CONFIG['show_pickup_code']
-      result[:pickup_code] = User.create_pickup_code({lastname: @last_name, firstname: first_name, cardnumber: cardnumber, categorycode: user_category})
-    else
-      result[:pickup_code] = nil
-    end
+    result[:pickup_code] = User.create_pickup_code({lastname: @last_name, firstname: first_name, cardnumber: cardnumber, categorycode: user_category})
     return result
   end
 
@@ -52,13 +38,13 @@ class User
     return nil
   end
 
-  def self.authenticate cardnumber, personalnumber
+  def self.authenticate cardnumber, pin
     base_url = APP_CONFIG['koha']['base_url']
     auth_url = APP_CONFIG['koha']['auth_url']
     user =  APP_CONFIG['koha']['user']
     password =  APP_CONFIG['koha']['password']
 
-    url = "#{auth_url}?cardnumber=#{cardnumber}&personalnumber=#{personalnumber}&login_userid=#{user}&login_password=#{password}"
+    url = "#{auth_url}?cardnumber=#{cardnumber}&pin=#{pin}&login_userid=#{user}&login_password=#{password}"
     response = RestClient.get url
     xml = Nokogiri::XML(response.body).remove_namespaces!
     if xml.search('//response/match').text.present?
@@ -121,11 +107,8 @@ class User
     @fines_amount = nil # bötesbelopp
     @restriction_fines = false # böter mer än 69 kr
     @restriction_av = false # avstängd
-    @restriction_or = false # obetald räkning
-    @restriction_ori = false # obetald räkning inkasso
     @restriction_overdue = false # 2a krav
 
-    # TBD remove this, when AV is moved from patron category
     if xml.search('//response/borrower/categorycode').text.present? && xml.search('//response/borrower/categorycode').text == 'AV'
       @restriction_av = true
       @denied = true
@@ -134,14 +117,6 @@ class User
     xml.xpath('//response/debarments').each do |debarment|
       if debarment.xpath('comment').text.starts_with?('AV, ')
         @restriction_av = true
-        @denied = true
-      end
-      if debarment.xpath('comment').text.starts_with?('OR, ')
-        @restriction_or = true
-        @warning = true
-      end
-      if debarment.xpath('comment').text.starts_with?('ORI, ')
-        @restriction_ori = true
         @denied = true
       end
       if debarment.xpath('comment').text.starts_with?('OVERDUES_PROCESS ')
@@ -178,6 +153,27 @@ class User
 
     if xml.search('//response/attributes[code="PRINT"]/attribute').text.present?
       @attr_print = xml.search('//response/attributes[code="PRINT"]/attribute').text
+    end
+
+    if xml.search('//response/attributes[code="PRINTTILLST"]/attribute').text.present?
+      @attr_orderpermission = xml.search('//response/attributes[code="PRINTTILLST"]/attribute').text
+    end
+  end
+
+  def code_to_description(code)
+    case code
+    when 'FORSKSKAP'
+      'Forskarskåp'
+    when 'PENSION_UB'
+      'Pensionär UB'
+    when 'PERS_UB'
+      'Personal UB'
+    when 'SPECIAL'
+      'Specialtillstånd'
+    when 'SPECIALFORSK'
+      'Specialtillstånd och Forskarskåp'
+    else
+      ''
     end
   end
 

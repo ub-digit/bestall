@@ -56,15 +56,10 @@ private
   # Validates token and sets user if token if valid
   def validate_token
     return true if @current_username
-    token = get_token
-    token.force_encoding('utf-8') if token
-    token_object = AccessToken.find_by_token(token)
-    if token_object && token_object.validated?
-      @current_username = token_object.username
-      return true
-    else
-      return false
-    end
+    current_user_from_header = request.headers['current-username']    # current_user_from_header can be userid, cardnumber or personalnumber, we need to always set current_username to username (cadnumber)
+    @current_username = User.find_by_username(current_user_from_header).try(:username)
+    return true if @current_username
+    return false
   end
 
   # Returns mtoken from request headers or params[:token] if set
