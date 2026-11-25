@@ -56,7 +56,6 @@ class Item
     return false if checked_out?
     return false if reserved?
     return false if lost?
-    return false if restricted_from_order?
     return false if during_acquisition?
     return false if not_in_place?
     return false if in_transit?
@@ -70,7 +69,6 @@ class Item
 
   def is_available_for_queue
     return false if item_type_ref?
-    return false if restricted_from_order?
     return false unless checked_out? || reserved? || during_acquisition? || not_in_place? || in_transit?
     return true
   end
@@ -111,7 +109,7 @@ class Item
   end
 
  def restricted_from_transport?
-    @restricted == '1'
+   ['1', '3', '4', '5', '6', '7', '8'].include?(@restricted)
   end
 
   def restricted_to_monitored_reading_room?
@@ -119,7 +117,7 @@ class Item
   end
 
   def restricted_from_order?
-    ['3', '4', '5', '6', '7', '8'].include?(@restricted)
+    false
   end
 
   def item_type_ref?
@@ -150,7 +148,8 @@ class Item
     result = []
     result << "NOT_FOR_HOME_LOAN" if item_type_ref?
     result << "MONITORED_READING_ROOM_ONLY" if restricted_to_monitored_reading_room?
-    result << "OWNING_LIBRARY_ONLY" if restricted_from_transport?
+    # Only show OWNING_LIBRARY_ONLY if the item cannot be transported to another library, AND it is not on an open shelf, AND it is possible to order the item.
+    result << "OWNING_LIBRARY_ONLY" if restricted_from_transport? && !sublocation_open_loc? && can_be_ordered
     result << "READING_ROOM_ONLY" if @not_for_loan == '-3'
     result
   end
@@ -184,4 +183,3 @@ class Item
     rawdata["stack"].present? ? @stack = rawdata["stack"].to_s : @stack = nil
   end
 end
-
